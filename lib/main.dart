@@ -48,7 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () {
-                  ThemeService.switchTheme();
+                  print(Get.isDarkMode);
+                  Get.changeThemeMode(
+                      Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                  print('change');
                 },
                 child: Text('change theme')),
             Text(

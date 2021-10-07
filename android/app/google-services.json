@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1070696277455",
+    "project_id": "keepital",
+    "storage_bucket": "keepital.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070696277455:android:2813bde25cbe9d84eadeba",
+        "android_client_info": {
+          "package_name": "com.glacial.keepital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070696277455-g4nf151qkudld8qdca36v1mv4en9nnh7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glacial.keepital",
+            "certificate_hash": "c804d02a70569e8eb3734d57e0cd51638beaf452"
+          }
+        },
+        {
+          "client_id": "1070696277455-ae06d38veri4vb9ve3r9sdcepbft4d2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFgl3GdKv9-GiXtH5TzwN9cUmLyCjPD7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070696277455-ae06d38veri4vb9ve3r9sdcepbft4d2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
