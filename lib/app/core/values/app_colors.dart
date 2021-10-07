@@ -1,19 +1,29 @@
 import 'package:flutter/cupertino.dart';
 
 class AppColors {
+  AppColors._();
+
   ///
   /// Primary Color
   ///
-  static late Color primaryColor;
+  static const Color primaryColor = Color(0xFF38305f);
+  static const Color secondaryColor = Color(0xFF827717);
 
   ///
-  /// Background Color
+  /// Common Theme
   ///
-  static late Color backgroundColor;
+  static const Color commonPrimaryColor = Color(0xFF38305f);
+  static const Color commonSecondaryColor = Color(0xFF827717);
 
   ///
-  /// Text Color
+  /// Light Theme
   ///
-  static late Color textPrimaryColor;
-  static late Color textDisableColor;
+  static const Color lightBgColor = Color(0xFFFFFFFF);
+  static const Color lightTextColor = Color(0xFF000000);
+
+  ///
+  /// Dark Theme
+  ///
+  static const Color darkBgColor = Color(0xFF121212);
+  static const Color darkTextColor = Color(0xFFFFFFFF);
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/theme/theme_data.dart';
+import 'package:keepital/app/data/services/theme_service.dart';
+
+import 'app/core/values/app_colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,11 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Keepital',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeService.theme,
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -28,9 +33,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    ThemeService.switchTheme();
   }
 
   @override
@@ -43,6 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  ThemeService.switchTheme();
+                },
+                child: Text('change theme')),
             Text(
               'You have pushed the button this many times:',
             ),
