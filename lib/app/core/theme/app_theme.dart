@@ -3,139 +3,159 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 
 class AppTheme {
+  static final ElevatedButtonThemeData _elevatedButtonThemeData =
+      ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: AppColors.primaryColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
+    ),
+  );
+  static TextTheme _textTheme(Color textColor) => TextTheme(
+        headline1: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        headline2: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        headline3: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        headline4: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        headline5: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        headline6: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        subtitle1: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        subtitle2: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        bodyText1: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        bodyText2: GoogleFonts.montserrat(
+          color: textColor,
+          fontWeight: FontWeight.bold,
+        ),
+        button: GoogleFonts.montserrat(
+          color: textColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          wordSpacing: 1.5,
+        ),
+        caption: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+        overline: GoogleFonts.montserrat(
+          color: textColor,
+        ),
+      );
   static final ThemeData lightTheme = ThemeData.light().copyWith(
+    appBarTheme: AppBarTheme(
+      color: AppColors.lightBackgroundColor,
+      titleTextStyle: GoogleFonts.montserrat(
+        color: AppColors.lightTextColor,
+      ),
+      elevation: 1,
+    ),
+    elevatedButtonTheme: _elevatedButtonThemeData,
     primaryColor: AppColors.primaryColor,
     primaryColorDark: AppColors.primaryColor,
     primaryColorLight: AppColors.primaryColor,
-    backgroundColor: AppColors.lightBgColor,
+    backgroundColor: AppColors.lightBackgroundColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.lightBgColor,
+      backgroundColor: AppColors.lightBackgroundColor,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       selectedItemColor: AppColors.lightTextColor,
       unselectedItemColor:
           AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
-      selectedIconTheme: IconThemeData(color: AppColors.lightTextColor),
+      selectedIconTheme:
+          IconThemeData(color: AppColors.lightTextColor, opacity: 1),
       unselectedIconTheme: IconThemeData(
           color: AppColors.lightTextColor,
           opacity: AppColors.disabledIconOpacity),
+      selectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ),
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryColor,
-      foregroundColor: AppColors.primaryColor,
+      foregroundColor: Colors.white,
     ),
-    textTheme: TextTheme(
-      headline1: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      headline2: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      headline3: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      headline4: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      headline5: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-        fontWeight: FontWeight.bold,
-      ),
-      headline6: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      subtitle1: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      subtitle2: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      bodyText1: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      bodyText2: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-        fontWeight: FontWeight.bold,
-      ),
-      button: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      caption: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
-      ),
-      overline: GoogleFonts.montserrat(
-        color: AppColors.lightTextColor,
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.lightTextColor,
+      unselectedLabelColor:
+          AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
+      labelPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 12.0),
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(width: 2.0, color: AppColors.lightTextColor),
       ),
     ),
+    textTheme: _textTheme(AppColors.lightTextColor),
     iconTheme: IconThemeData(color: AppColors.secondaryColor),
-    appBarTheme: AppBarTheme(color: AppColors.primaryColor),
+    scaffoldBackgroundColor: AppColors.lightDeepBackgroundColor,
   );
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
+    appBarTheme: AppBarTheme(
+      color: AppColors.darkBackgroundColor,
+      titleTextStyle: GoogleFonts.montserrat(
+        color: AppColors.darkTextColor,
+      ),
+      elevation: 1,
+    ),
+    elevatedButtonTheme: _elevatedButtonThemeData,
     primaryColor: AppColors.primaryColor,
     primaryColorDark: AppColors.primaryColor,
     primaryColorLight: AppColors.primaryColor,
-    backgroundColor: AppColors.darkBgColor,
+    backgroundColor: AppColors.darkBackgroundColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.darkBgColor,
+      backgroundColor: AppColors.darkBackgroundColor,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       selectedItemColor: AppColors.darkTextColor,
       unselectedItemColor:
           AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
-      selectedIconTheme: IconThemeData(color: AppColors.darkTextColor),
+      selectedIconTheme:
+          IconThemeData(color: AppColors.darkTextColor, opacity: 1),
       unselectedIconTheme: IconThemeData(
           color: AppColors.darkTextColor,
           opacity: AppColors.disabledIconOpacity),
+      selectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ),
+      unselectedLabelStyle: GoogleFonts.montserrat(
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryColor,
-      foregroundColor: AppColors.primaryColor,
+      foregroundColor: Colors.white,
     ),
-    textTheme: TextTheme(
-      headline1: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      headline2: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      headline3: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      headline4: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      headline5: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-        fontWeight: FontWeight.bold,
-      ),
-      headline6: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      subtitle1: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      subtitle2: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      bodyText1: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      bodyText2: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-        fontWeight: FontWeight.bold,
-      ),
-      button: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      caption: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
-      ),
-      overline: GoogleFonts.montserrat(
-        color: AppColors.darkTextColor,
+    tabBarTheme: TabBarTheme(
+      labelColor: AppColors.darkTextColor,
+      unselectedLabelColor:
+          AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
+      labelPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 12.0),
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(width: 2.0, color: AppColors.darkTextColor),
       ),
     ),
+    textTheme: _textTheme(AppColors.darkTextColor),
     iconTheme: IconThemeData(color: AppColors.secondaryColor),
-    appBarTheme: AppBarTheme(color: AppColors.darkBgColor),
+    scaffoldBackgroundColor: AppColors.darkDeepBackgroundColor,
   );
 }

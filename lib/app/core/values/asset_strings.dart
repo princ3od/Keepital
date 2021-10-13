@@ -16,3 +16,8 @@ class AssetStringsSvg {
   static const String gooogleLogo = '$_baseImageFolder\\google_logo.png';
   static const String facebookLogo = '$_baseImageFolder\\facebook_logo.png';
 }
+
+class AssetStringGif {
+  static const String _baseImageFolder = 'assets\\images';
+  static const String coinLoading = '$_baseImageFolder\\coin_loading.gif';
+}
