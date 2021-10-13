@@ -1,5 +1,6 @@
 part of './pages.dart';
 
 abstract class Routes {
-  static const AUTH = '/auth';
+  static const Home = '/home';
+  static const Auth = '/auth';
 }
