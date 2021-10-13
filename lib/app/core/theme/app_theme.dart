@@ -8,6 +8,22 @@ class AppTheme {
     primaryColorDark: AppColors.primaryColor,
     primaryColorLight: AppColors.primaryColor,
     backgroundColor: AppColors.lightBgColor,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.lightBgColor,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      selectedItemColor: AppColors.lightTextColor,
+      unselectedItemColor:
+          AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
+      selectedIconTheme: IconThemeData(color: AppColors.lightTextColor),
+      unselectedIconTheme: IconThemeData(
+          color: AppColors.lightTextColor,
+          opacity: AppColors.disabledIconOpacity),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primaryColor,
+      foregroundColor: AppColors.primaryColor,
+    ),
     textTheme: TextTheme(
       headline1: GoogleFonts.montserrat(
         color: AppColors.lightTextColor,
@@ -53,7 +69,6 @@ class AppTheme {
     ),
     iconTheme: IconThemeData(color: AppColors.secondaryColor),
     appBarTheme: AppBarTheme(color: AppColors.primaryColor),
-    buttonColor: AppColors.primaryColor,
   );
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
@@ -61,6 +76,22 @@ class AppTheme {
     primaryColorDark: AppColors.primaryColor,
     primaryColorLight: AppColors.primaryColor,
     backgroundColor: AppColors.darkBgColor,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.darkBgColor,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      selectedItemColor: AppColors.darkTextColor,
+      unselectedItemColor:
+          AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
+      selectedIconTheme: IconThemeData(color: AppColors.darkTextColor),
+      unselectedIconTheme: IconThemeData(
+          color: AppColors.darkTextColor,
+          opacity: AppColors.disabledIconOpacity),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primaryColor,
+      foregroundColor: AppColors.primaryColor,
+    ),
     textTheme: TextTheme(
       headline1: GoogleFonts.montserrat(
         color: AppColors.darkTextColor,
@@ -106,6 +137,5 @@ class AppTheme {
     ),
     iconTheme: IconThemeData(color: AppColors.secondaryColor),
     appBarTheme: AppBarTheme(color: AppColors.darkBgColor),
-    buttonColor: AppColors.primaryColor,
   );
 }

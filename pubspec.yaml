@@ -29,6 +29,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_facebook_auth: ^3.5.2
+  font_awesome_flutter: ^9.1.0
   get: ^4.3.8
   get_storage: ^2.0.3
   google_fonts: ^2.1.0

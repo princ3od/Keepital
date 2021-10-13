@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/theme/theme_data.dart';
+import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/data/services/theme_service.dart';
-
-import 'app/core/values/app_colors.dart';
 
 void main() {
   runApp(MyApp());
