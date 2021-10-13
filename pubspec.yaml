@@ -84,4 +84,5 @@ flutter_icons:
   image_path: "assets/images/app_logo.png"
 flutter_native_splash:
   color: "#ffffff"
-  image: "assets/images/app_logo.png"
+  color_dark: "#242526"
+  image: "assets/images/keepital_logo.png"
