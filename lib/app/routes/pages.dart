@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/modules/home/home_binding.dart';
 import 'package:keepital/app/modules/home/screens/home_screen.dart';
 
 part './routes.dart';
@@ -8,6 +9,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.Home,
       page: () => HomeScreen(),
+      binding: HomeBinding(),
     ),
   ];
 }
