@@ -6,4 +6,8 @@ const Map<String, String> enLanguagePackage = {
   'Report': 'Report',
   'Planning': 'Planning',
   'Profile': 'Profile',
+  'login_google':'Continue with Gooogle',
+  'inspirational':'Start achieving your financial goals today!',
+  'login_facebook':'Continue with Facebook',
+
 };

@@ -6,4 +6,8 @@ const Map<String, String> viLanguagePackage = {
   'Report': 'Báo cáo',
   'Planning': 'Lập kế hoạch',
   'Profile': 'Hồ sơ',
+  'login_google':'Tiếp tụ với oolge',
+  'inspirational':'Hãy đạt đến mục tiêu tài chính của bạn ngay hôm nay',
+  'login_facebook':'Tiếp tục với Facebook',
+
 };
