@@ -24,12 +24,13 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(65, 102, 66, 69),
-          width: double.infinity,
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Spacer(
+                flex: 2,
+              ),
               Text(
                 "Create your first wallet".tr,
                 style: GoogleFonts.montserrat(
@@ -37,7 +38,6 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Spacer(),
               Text(
                 "Each wallet represents a source of your money".tr,
                 style: GoogleFonts.montserrat(
@@ -53,7 +53,6 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                   onPressed: () {
                     print("Pressed");
                   }),
-              Spacer(),
               Text(
                 "CHANGE ICON".tr,
                 style: GoogleFonts.montserrat(
@@ -62,23 +61,34 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                 ),
               ),
               Spacer(),
-              TextFormField(
-                decoration: InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: "Wallet name".tr),
+              SizedBox(
+                width: 250,
+                height: 50,
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: "Wallet name".tr),
+                ),
               ),
-              Spacer(),
-              TextField(
-                onTap: () =>
-                    {_controller.showCurrencyPickerOfWalletScreen(context)},
-                textAlign: TextAlign.center,
-                controller: currencyTextEditingController,
-                enabled: true,
-                showCursor: false,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: 'Currency'.tr,
-                  suffixIcon: Icon(Icons.arrow_drop_down),
+              SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                width: 250,
+                height: 50,
+                child: TextField(
+                  onTap: () =>
+                      {_controller.showCurrencyPickerOfWalletScreen(context)},
+                  textAlign: TextAlign.center,
+                  controller: currencyTextEditingController,
+                  enabled: true,
+                  showCursor: false,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    labelText: 'Currency'.tr,
+                    suffixIcon: Icon(Icons.arrow_drop_down),
+                  ),
                 ),
               ),
               Spacer(),
@@ -89,7 +99,6 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              Spacer(),
               Text(
                 "Make a budget!".tr,
                 style: GoogleFonts.montserrat(
@@ -97,7 +106,9 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Spacer(),
+              Spacer(
+                flex: 2,
+              ),
               Container(
                 width: 250,
                 height: 32,
@@ -126,6 +137,7 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                   ),
                 ),
               ),
+              Spacer(),
             ],
           ),
         ),
