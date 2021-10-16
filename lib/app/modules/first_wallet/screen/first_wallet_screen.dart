@@ -84,27 +84,31 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                 ),
               ),
               Spacer(),
-              TextButton(
-                onPressed: () => {},
-                child: Text(
-                  "CONTINUE".tr,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF38305F),
-                  ),
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(
-                        color: Colors.transparent,
-                      ),
+              Container(
+                width: 250,
+                height: 32,
+                child: TextButton(
+                  onPressed: () => {},
+                  child: Text(
+                    "CONTINUE".tr,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF38305F),
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.all(
-                    Color(0xFF38305F).withOpacity(0.2),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: BorderSide(
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      Color(0xFF38305F).withOpacity(0.2),
+                    ),
                   ),
                 ),
               ),
