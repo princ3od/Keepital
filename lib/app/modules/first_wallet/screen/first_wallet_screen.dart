@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
+import 'package:currency_picker/currency_picker.dart';
 
 class FirstWalletScreen extends StatefulWidget {
   const FirstWalletScreen({Key? key}) : super(key: key);
@@ -15,9 +16,13 @@ class FirstWalletScreen extends StatefulWidget {
 class _FirstWalletScreenState extends State<FirstWalletScreen> {
   final FirstWalletScreenController _controller =
       Get.find<FirstWalletScreenController>();
+
+  final walletNameTextEditingController = TextEditingController();
+  final currencyTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.fromLTRB(65, 102, 66, 69),
@@ -63,9 +68,18 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                     labelText: "Wallet name".tr),
               ),
               Spacer(),
-              TextFormField(
+              TextField(
+                onTap: () =>
+                    {_controller.showCurrencyPickerOfWalletScreen(context)},
+                textAlign: TextAlign.center,
+                controller: currencyTextEditingController,
+                enabled: true,
+                showCursor: false,
+                readOnly: true,
                 decoration: InputDecoration(
-                    border: UnderlineInputBorder(), labelText: "Currency".tr),
+                  labelText: 'Currency'.tr,
+                  suffixIcon: Icon(Icons.arrow_drop_down),
+                ),
               ),
               Spacer(),
               Text(
