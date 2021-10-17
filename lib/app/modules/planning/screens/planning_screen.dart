@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/modules/planning/screens/component/planning_tile.dart';
-
-import 'component/planning_panel.dart';
+import 'package:keepital/app/modules/planning/widgets/planning_panel.dart';
+import 'package:keepital/app/modules/planning/widgets/planning_tile.dart';
 
 class PlanningScreen extends StatelessWidget {
   const PlanningScreen({Key? key}) : super(key: key);

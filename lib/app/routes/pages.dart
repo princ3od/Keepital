@@ -11,20 +11,20 @@ part './routes.dart';
 abstract class AppPages {
   static final List<GetPage> pages = [
     GetPage(
-      name: Routes.Home,
+      name: Routes.home,
       page: () => HomeScreen(),
       binding: HomeBinding(),
     ),
     GetPage(
-      name: Routes.Splash,
+      name: Routes.splash,
       page: () => SplashScreen(),
     ),
     GetPage(
-      name: Routes.Auth,
+      name: Routes.auth,
       page: () => AuthenticationScreen(),
     ),
     GetPage(
-      name: Routes.First_Wallet,
+      name: Routes.firstWallet,
       page: () => FirstWalletScreen(),
       binding: FirstWalletScreenBinding(),
     ),

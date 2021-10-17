@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:keepital/app/data/models/Transaction.dart';
 import 'package:keepital/app/modules/transactions/widgets/trans_overview.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_container.dart';

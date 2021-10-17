@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 
-
 class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,0,0,300),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 300),
               child: Container(
                 child: Image.asset(AssetStringsPng.logo),
                 width: 100,
@@ -33,7 +32,7 @@ class SplashScreen extends StatelessWidget {
             ),
             Text(
               "Keepital is fetching your data...".tr,
-              style: GoogleFonts.montserrat(fontWeight: FontWeight.normal),
+              style: Theme.of(context).textTheme.headline6,
             )
           ],
         ),

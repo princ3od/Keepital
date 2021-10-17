@@ -1,8 +1,8 @@
 part of './pages.dart';
 
 abstract class Routes {
-  static const Home = '/home';
-  static const Auth = '/auth';
-  static const Splash = '/splash';
-  static const First_Wallet = '/first_wallet';
+  static const home = '/home';
+  static const auth = '/auth';
+  static const splash = '/splash';
+  static const firstWallet = '/first_wallet';
 }

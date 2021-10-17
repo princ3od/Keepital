@@ -57,7 +57,9 @@ class TransactionContainer extends StatelessWidget {
               child: ListView.builder(
                   itemCount: _transaction.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return TransactionItem(transaction: _transaction[index],);
+                    return TransactionItem(
+                      transaction: _transaction[index],
+                    );
                   }),
             )
           ],

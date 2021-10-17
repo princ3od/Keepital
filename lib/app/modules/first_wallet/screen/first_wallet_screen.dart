@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
 import 'package:currency_picker/currency_picker.dart';
@@ -63,7 +64,6 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
               Spacer(),
               SizedBox(
                 width: 250,
-                height: 50,
                 child: TextFormField(
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
@@ -71,15 +71,15 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                       labelText: "Wallet name".tr),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               SizedBox(
                 width: 250,
-                height: 50,
                 child: TextField(
-                  onTap: () =>
-                      {_controller.showCurrencyPickerOfWalletScreen(context)},
+                  onTap: () {
+                    _controller.showCurrencyPickerOfWalletScreen(context);
+                  },
                   textAlign: TextAlign.center,
                   controller: currencyTextEditingController,
                   enabled: true,
@@ -111,7 +111,6 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
               ),
               Container(
                 width: 250,
-                height: 32,
                 child: TextButton(
                   onPressed: () => {},
                   child: Text(
@@ -119,7 +118,7 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                     style: GoogleFonts.montserrat(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFF38305F),
+                      color: AppColors.primaryColor,
                     ),
                   ),
                   style: ButtonStyle(
@@ -132,7 +131,7 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                       ),
                     ),
                     backgroundColor: MaterialStateProperty.all(
-                      Color(0xFF38305F).withOpacity(0.2),
+                      AppColors.primaryColor.withOpacity(0.2),
                     ),
                   ),
                 ),

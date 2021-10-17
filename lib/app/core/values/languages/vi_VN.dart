@@ -14,10 +14,10 @@ const Map<String, String> viLanguagePackage = {
   'View by category': 'Xem theo danh mục',
   'Adjust Balance': 'Thay đổi số dư',
   'Search for transaction': 'Tìm giao dịch',
-  'Select wallet': 'Chọn ví'
-  'login_google':'Tiếp tụ với oolge',
-  'inspirational':'Hãy đạt đến mục tiêu tài chính của bạn ngay hôm nay',
-  'login_facebook':'Tiếp tục với Facebook',
+  'Select wallet': 'Chọn ví',
+  'login_google': 'Tiếp tụ với oolge',
+  'inspirational': 'Hãy đạt đến mục tiêu tài chính của bạn ngay hôm nay',
+  'login_facebook': 'Tiếp tục với Facebook',
   'Create your first wallet': 'Tạo chiếc ví đầu tiên của bạn',
   'Each wallet represents a source of your money':
       'Mỗi chiếc ví sẽ quản lý ngân quỹ của bạn',
