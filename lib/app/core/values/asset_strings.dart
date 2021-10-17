@@ -1,4 +1,4 @@
-class AssetStringsPng {
+class AssetStringsSvg {
   static const String _baseImageFolder = 'assets/images';
   static const String _baseIconFolder = 'assets/icons';
 
@@ -7,7 +7,7 @@ class AssetStringsPng {
   static const String financialGoal = '$_baseImageFolder/financial_goal.svg';
 }
 
-class AssetStringsSvg {
+class AssetStringsPng {
   static const String _baseImageFolder = 'assets/images';
   static const String _baseIconFolder = 'assets/icons';
 

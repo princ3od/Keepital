@@ -39,9 +39,11 @@ class HomeController extends GetxController {
   }
 
   void _moveToPage(int _pageIndex) {
-    pageController.animateToPage(_pageIndex,
-        duration: Duration(milliseconds: 600),
-        curve: Curves.fastLinearToSlowEaseIn);
+    pageController.animateToPage(
+      _pageIndex,
+      duration: Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+    );
   }
 
   bool needShowAppBar() {
