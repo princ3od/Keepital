@@ -1,12 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:keepital/app/modules/planning/screens/component/planning_tile.dart';
+
+import 'component/planning_panel.dart';
 
 class PlanningScreen extends StatelessWidget {
   const PlanningScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('Planning tab')),
+    return SafeArea(
+      child: Container(
+        child: Center(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              PlanningPanel(
+                  txtTitle: "Planning".tr,
+                  action: () => {},
+                  icon: Icon(Icons.arrow_drop_down)),
+              PlanningTile(
+                iconData: Icons.work,
+                title: "Budgets".tr,
+                subtitle:
+                    "A financial plan to balance your income and expense".tr,
+                action: () => {},
+              ),
+              Spacer(),
+              PlanningTile(
+                iconData: Icons.event,
+                title: "Events".tr,
+                subtitle: "Tracking on your spending during an actual event".tr,
+                action: () => {},
+              ),
+              Spacer(),
+              PlanningTile(
+                iconData: Icons.autorenew,
+                title: "Recurring Transactions".tr,
+                subtitle:
+                    "Transactions that are automatically added in future".tr,
+                action: () => {},
+              ),
+              Spacer(),
+              PlanningTile(
+                iconData: Icons.receipt,
+                title: "Recurring Payments".tr,
+                subtitle: "Monitoring your repetitive bills".tr,
+                action: () => {},
+              ),
+              Spacer(flex: 10),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

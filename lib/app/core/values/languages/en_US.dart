@@ -15,6 +15,17 @@ const Map<String, String> enLanguagePackage = {
   'Wallet name': 'Wallet name',
   'Currency': 'Currency',
   'Money tip:': 'Money tip',
-  'Make a budget!': 'Make a budget!'
+  'Make a budget!': 'Make a budget!',
   //end_first_wallet.
+
+    //planning_screen(home)
+  'Budgets':'Budgets',
+  'A financial plan to balance your income and expense':'A financial plan to balance your income and expense', 
+  'Events':'Events',
+  'Tracking on your spending during an actual event':'Tracking on your spending during an actual event',
+  'Recurring Transactions':'Transactions that are automatically added in future',
+  'Recurring Payments':'Recurring Payments',
+  'Monitoring your repetitive bills':'Monitoring your repetitive bills',
+
+  //end planning_screen(home)
 };
