@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:keepital/app/core/values/app_strings.dart';
-import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   TopBar(
@@ -23,12 +23,53 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Row(
         children: [
-          GestureDetector(
-            onTap: () async {},
+          InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () async {
+              showMaterialModalBottomSheet(
+                context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40)),
+                ),
+                builder: (context) => Container(
+                  height: 350,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Select wallet'.tr,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        WalletItem(),
+                        Divider(
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                        Container(
+                          height: 230,
+                          child: ListView.builder(
+                              itemCount: 10,
+                              itemBuilder: (BuildContext context, int index) {
+                                return WalletItem();
+                              }),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
             child: Row(
               children: [
-                SvgPicture.asset(AssetStringsPng.walletList, height: 30, width: 30,),
-                Icon(Icons.arrow_drop_down)
+                Container(
+                    child: Image(
+                  image: AssetImage('assets/images/wallet_list_icon.png'),
+                  height: 30,
+                )),
+                Icon(Icons.arrow_drop_down,
+                    color: Theme.of(context).iconTheme.color)
               ],
             ),
           ),
@@ -39,9 +80,9 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Text(
                   'Wallet name',
-                  style: TextStyle(fontSize: 11),
+                  style: Theme.of(context).textTheme.caption,
                 ),
-                Text('15.000.000')
+                Text('15.000.000', style: Theme.of(context).textTheme.bodyText1)
               ],
             ),
           )
@@ -54,7 +95,9 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           controller: _tabController),
       actions: [
         PopupMenuButton(
-            icon: Icon(Icons.more_vert_rounded),
+          color: Theme.of(context).dialogBackgroundColor,
+            icon: Icon(Icons.more_vert_rounded,
+                color: Theme.of(context).iconTheme.color),
             padding: EdgeInsets.all(10.0),
             offset: Offset.fromDirection(40, 40),
             shape: RoundedRectangleBorder(
@@ -69,8 +112,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               if (value == 'Search for transaction') {
               } else if (value == 'change display') {
               } else if (value == 'Adjust Balance') {
-              } else if (value == 'Select time range') {
-              }
+              } else if (value == 'Select time range') {}
             },
             itemBuilder: (context) {
               return [
@@ -80,60 +122,44 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         Icon(
                           Icons.calendar_today,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         SizedBox(width: 10.0),
-                        Text(
-                          'Select time range',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text('Select time range'.tr,
+                            style: Theme.of(context).textTheme.bodyText1)
                       ],
                     )),
                 PopupMenuItem(
                     value: 'change display',
                     child: Row(
                       children: [
-                        Icon(Icons.remove_red_eye),
+                        Icon(Icons.remove_red_eye,
+                            color: Theme.of(context).iconTheme.color),
                         SizedBox(width: 10.0),
-                        Text(
-                          true ? 'View by date' : 'View by category',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text(true ? 'View by date'.tr : 'View by category'.tr,
+                            style: Theme.of(context).textTheme.bodyText1)
                       ],
                     )),
                 PopupMenuItem(
                     value: 'Adjust Balance',
                     child: Row(
                       children: [
-                        Icon(Icons.account_balance_wallet),
+                        Icon(Icons.account_balance_wallet,
+                            color: Theme.of(context).iconTheme.color),
                         SizedBox(width: 10.0),
-                        Text(
-                          'Adjust Balance',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text('Adjust Balance'.tr,
+                            style: Theme.of(context).textTheme.bodyText1)
                       ],
                     )),
                 PopupMenuItem(
                     value: 'Search for transaction',
                     child: Row(
                       children: [
-                        Icon(Icons.search),
+                        Icon(Icons.search,
+                            color: Theme.of(context).iconTheme.color),
                         SizedBox(width: 10.0),
-                        Text(
-                          'Search for transaction',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Text('Search for transaction'.tr,
+                            style: Theme.of(context).textTheme.bodyText1)
                       ],
                     )),
               ];

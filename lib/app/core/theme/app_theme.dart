@@ -10,6 +10,14 @@ class AppTheme {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
     ),
   );
+
+  static final TextButtonThemeData _secondaryButtonThemeData =
+      TextButtonThemeData(
+          style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18))));
+
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
@@ -64,6 +72,7 @@ class AppTheme {
       elevation: 1,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
+    textButtonTheme: _secondaryButtonThemeData,
     primaryColor: AppColors.primaryColor,
     primaryColorDark: AppColors.primaryColor,
     primaryColorLight: AppColors.primaryColor,
@@ -103,7 +112,7 @@ class AppTheme {
       ),
     ),
     textTheme: _textTheme(AppColors.lightTextColor),
-    iconTheme: IconThemeData(color: AppColors.secondaryColor),
+    iconTheme: IconThemeData(color: AppColors.lightTextColor),
     scaffoldBackgroundColor: AppColors.lightDeepBackgroundColor,
   );
 
@@ -116,6 +125,7 @@ class AppTheme {
       elevation: 1,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
+    textButtonTheme: _secondaryButtonThemeData,
     primaryColor: AppColors.primaryColor,
     primaryColorDark: AppColors.primaryColor,
     primaryColorLight: AppColors.primaryColor,
@@ -155,7 +165,7 @@ class AppTheme {
       ),
     ),
     textTheme: _textTheme(AppColors.darkTextColor),
-    iconTheme: IconThemeData(color: AppColors.secondaryColor),
+    iconTheme: IconThemeData(color: AppColors.darkTextColor),
     scaffoldBackgroundColor: AppColors.darkDeepBackgroundColor,
   );
 }

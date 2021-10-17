@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/top_bar.dart';
 import 'package:keepital/app/modules/planning/screens/planning_screen.dart';

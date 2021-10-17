@@ -28,9 +28,11 @@ class AppColors {
   static const Color darkDeepBackgroundColor = Color(0xFF18191A);
   static const Color darkTextColor = Color(0xFFFFFFFF);
 
-  static const Color inflowTextColor = Color(0xFFFFFFFF);
-  static const Color outflowTextColor = Color(0xFFFFFFFF);
+  static const Color inflowTextColor = Color(0x1E88E5FF);
+  static const Color outflowTextColor = Color(0xE53935FF);
 
   static const double disabledTextOpacity = 0.35;
   static const double disabledIconOpacity = 0.25;
+
+  static const Color secondaryButtonBGColor = Color(0x0B0A13FF);
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
-import 'package:keepital/app/core/values/app_colors.dart';
 
 class TransactionsOverview extends StatelessWidget {
-  const TransactionsOverview({ Key? key }) : super(key: key);
+  const TransactionsOverview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +16,44 @@ class TransactionsOverview extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Inflow', style: Theme.of(context).textTheme.bodyText1),
-              Text('1.200.000', style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, color: Colors.blue)),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Outflow', style: Theme.of(context).textTheme.bodyText1),
-              Text('1.200.000', style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, color: Colors.red),),
-            ],
-          ),
-          Divider(height: 0, color: Theme.of(context).secondaryHeaderColor,),
-          Container(child: Text('1.200.000', style: Theme.of(context).textTheme.bodyText1), alignment: Alignment.centerRight,),
-          TextButton(onPressed: () {}, child: Text('View report for this period'),)
-        ],),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Inflow'.tr, style: Theme.of(context).textTheme.bodyText1),
+                Text('1.200.000',
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w400, color: Colors.blue)),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Outflow'.tr,
+                    style: Theme.of(context).textTheme.bodyText1),
+                Text(
+                  '1.200.000',
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w400, color: Colors.red),
+                ),
+              ],
+            ),
+            Divider(
+              color: Theme.of(context).secondaryHeaderColor,
+            ),
+            Container(
+              child: Text('1.200.000',
+                  style: Theme.of(context).textTheme.bodyText1),
+              alignment: Alignment.centerRight,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: TextButton(
+                  onPressed: () {},
+                  child: Text('View report for this period'.tr),
+                  style: Theme.of(context).textButtonTheme.style),
+            )
+          ],
+        ),
       ),
     );
   }

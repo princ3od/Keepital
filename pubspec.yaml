@@ -36,6 +36,7 @@ dependencies:
   google_sign_in: ^5.1.1
   intl: ^0.17.0
   flutter_svg: ^0.23.0+1
+  modal_bottom_sheet: ^2.0.0
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

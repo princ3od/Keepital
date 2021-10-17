@@ -6,4 +6,13 @@ const Map<String, String> viLanguagePackage = {
   'Report': 'Báo cáo',
   'Planning': 'Lập kế hoạch',
   'Profile': 'Hồ sơ',
+  'Inflow': 'Dòng tiền vào',
+  'Outflow': 'Dòng tiền ra',
+  'View report for this period': 'Xem báo cáo cho thời gian này',
+  'Select time range': 'Chọn kiểu thời gian',
+  'View by date': 'Xem theo ngày',
+  'View by category': 'Xem theo danh mục',
+  'Adjust Balance': 'Thay đổi số dư',
+  'Search for transaction': 'Tìm giao dịch',
+  'Select wallet': 'Chọn ví'
 };
