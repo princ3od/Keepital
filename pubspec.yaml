@@ -36,6 +36,8 @@ dependencies:
   get_storage: ^2.0.3
   google_fonts: ^2.1.0
   google_sign_in: ^5.1.1
+  intl: ^0.17.0
+  modal_bottom_sheet: ^2.0.0
   currency_picker: ^2.0.3
 
 dev_dependencies:

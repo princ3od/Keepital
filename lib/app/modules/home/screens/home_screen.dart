@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
+import 'package:keepital/app/modules/home/widgets/top_bar.dart';
 import 'package:keepital/app/modules/planning/screens/planning_screen.dart';
 import 'package:keepital/app/modules/profile/screens/profile_screen.dart';
 import 'package:keepital/app/modules/report/screens/report_screen.dart';
@@ -18,27 +18,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final HomeController _controller = Get.find<HomeController>();
 
+  late TabController _tabController;
+  late List<Text> _tabs;
+
   @override
   Widget build(BuildContext context) {
-    var _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 20, vsync: this, initialIndex: 18);
+    _tabs = _controller.initTabBar(3);
 
     return Scaffold(
       appBar: (_controller.needShowAppBar())
-          ? AppBar(
-              title: Text(AppStrings.appName),
-              bottom: TabBar(
-                tabs: [
-                  Text('Dec 2021'),
-                  Text('Dec 2021'),
-                  Text('Dec 2021'),
-                  Text('Dec 2021'),
-                  Text('Dec 2021'),
-                ],
-                isScrollable: true,
-                physics: const BouncingScrollPhysics(),
-                controller: _tabController,
-              ),
-            )
+          ? TopBar(tabController: _tabController, tabs: _tabs)
           : null,
       body: PageView(
         controller: _controller.pageController,

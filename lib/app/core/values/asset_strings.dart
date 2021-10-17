@@ -13,8 +13,9 @@ class AssetStringsPng {
 
   static const String logoWithBg = '$_baseImageFolder/app_logo.png';
   static const String logo = '$_baseImageFolder/keepital_logo.png';
-  static const String googleLogo = '$_baseImageFolder/google_logo.png';
+  static const String gooogleLogo = '$_baseImageFolder/google_logo.png';
   static const String facebookLogo = '$_baseImageFolder/facebook_logo.png';
+  static const String walletList = '$_baseImageFolder/wallet_list_icon.png';
 }
 
 class AssetStringGif {
