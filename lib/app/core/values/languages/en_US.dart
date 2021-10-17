@@ -6,8 +6,9 @@ const Map<String, String> enLanguagePackage = {
   'Report': 'Report',
   'Planning': 'Planning',
   'Profile': 'Profile',
-
-  //first_wallet_name:
+  'login_google':'Continue with Gooogle',
+  'inspirational':'Start achieving your financial goals today!',
+  'login_facebook':'Continue with Facebook',
   'Create your first wallet': 'Create your first wallet',
   'Each wallet represents a source of your money':
       'Each wallet represents a source of your money',
@@ -16,9 +17,6 @@ const Map<String, String> enLanguagePackage = {
   'Currency': 'Currency',
   'Money tip:': 'Money tip',
   'Make a budget!': 'Make a budget!',
-  //end_first_wallet.
-
-    //planning_screen(home)
   'Budgets':'Budgets',
   'A financial plan to balance your income and expense':'A financial plan to balance your income and expense', 
   'Events':'Events',
@@ -26,6 +24,4 @@ const Map<String, String> enLanguagePackage = {
   'Recurring Transactions':'Transactions that are automatically added in future',
   'Recurring Payments':'Recurring Payments',
   'Monitoring your repetitive bills':'Monitoring your repetitive bills',
-
-  //end planning_screen(home)
 };

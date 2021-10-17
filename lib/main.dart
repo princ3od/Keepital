@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeService.theme,
       initialRoute: Routes.Home,
-      //initialRoute: Routes.First_Wallet,
       locale: LocalizationService.locale,
       fallbackLocale: LocalizationService.fallbackLocale,
       translations: LocalizationService(),
