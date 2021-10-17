@@ -9,5 +9,23 @@ const Map<String, String> viLanguagePackage = {
   'login_google':'Tiếp tụ với oolge',
   'inspirational':'Hãy đạt đến mục tiêu tài chính của bạn ngay hôm nay',
   'login_facebook':'Tiếp tục với Facebook',
-
+  'Create your first wallet': 'Tạo chiếc ví đầu tiên của bạn',
+  'Each wallet represents a source of your money':
+      'Mỗi chiếc ví sẽ quản lý ngân quỹ của bạn',
+  'CHANGE ICON': 'ĐỔI ICON',
+  'Wallet name': 'Tên của ví',
+  'Currency': 'Đơn vị tiền tệ',
+  'Money tip:': 'Mẹo quản lý tiền hiệu quả',
+  'Make a budget!': 'Hãy tạo một ngân quỹ',
+  'Budgets': 'Ngân sách',
+  'A financial plan to balance your income and expense':
+      'Tạo một kế hoạch tài chính để cân đối thu chi của bạn',
+  'Events': 'Sự kiện',
+  'Tracking on your spending during an actual event':
+      'Theo dõi các khoản chi của bạn trong một sự kiện cụ thể',
+  'Recurring Transactions': 'Giao dịch định kì',
+  'Transactions that are automatically added in future':
+      'Các giao dịch sẽ được thêm vào trong tương lai',
+  'Recurring Payments': 'Các khoản chi lặp lại',
+  'Monitoring your repetitive bills': 'Theo dõi các hóa đơn lặp lại',
 };
