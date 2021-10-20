@@ -16,7 +16,6 @@ class TransactionContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(2),
       color: Theme.of(context).backgroundColor,
-      height: 55.0 * _transaction.length + 67,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
@@ -53,15 +52,18 @@ class TransactionContainer extends StatelessWidget {
               color: Theme.of(context).secondaryHeaderColor,
             ),
             Container(
-              height: 55.0 * _transaction.length,
               child: ListView.builder(
+                shrinkWrap: true,
+                itemExtent: 55,
+                physics: NeverScrollableScrollPhysics(),
                   itemCount: _transaction.length,
                   itemBuilder: (BuildContext context, int index) {
                     return TransactionItem(
                       transaction: _transaction[index],
                     );
                   }),
-            )
+            ),
+            SizedBox(height: 10,)
           ],
         ),
       ),

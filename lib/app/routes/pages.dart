@@ -5,6 +5,8 @@ import 'package:keepital/app/modules/first_wallet/screen/first_wallet_screen.dar
 import 'package:keepital/app/modules/home/home_binding.dart';
 import 'package:keepital/app/modules/home/screens/home_screen.dart';
 import 'package:keepital/app/modules/splash/screens/splash_screen.dart';
+import 'package:keepital/app/modules/transaction_detail/screens/transaction_detail_screen.dart';
+import 'package:keepital/app/modules/transaction_detail/transaction_detail_binding.dart';
 
 part './routes.dart';
 
@@ -28,5 +30,9 @@ abstract class AppPages {
       page: () => FirstWalletScreen(),
       binding: FirstWalletScreenBinding(),
     ),
+    GetPage(
+        name: Routes.transaction_detail,
+        page: () => TransactionDetailScreen(),
+        binding: TransactionDetailBinding())
   ];
 }

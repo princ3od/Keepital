@@ -16,6 +16,7 @@ class AssetStringsPng {
   static const String gooogleLogo = '$_baseImageFolder/google_logo.png';
   static const String facebookLogo = '$_baseImageFolder/facebook_logo.png';
   static const String walletList = '$_baseImageFolder/wallet_list_icon.png';
+  static const String electricity_bill = '$_baseImageFolder/electricity_bill.png';
 }
 
 class AssetStringGif {

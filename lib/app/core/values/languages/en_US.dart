@@ -36,4 +36,7 @@ const Map<String, String> enLanguagePackage = {
       'Transactions that are automatically added in future',
   'Recurring Payments': 'Recurring Payments',
   'Monitoring your repetitive bills': 'Monitoring your repetitive bills',
+  'Go to My Wallets': 'Go to My Wallets',
+  'You can create a budget for this category to be better financial management.': 'You can create a budget for this category to be better financial management.',
+  'Create budget for this month': 'Create budget for this month'
 };
