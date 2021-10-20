@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -21,51 +22,19 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 2,
       title: Row(
         children: [
           InkWell(
             borderRadius: BorderRadius.circular(20),
             onTap: () async {
-              showMaterialModalBottomSheet(
-                context: context,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
-                ),
-                builder: (context) => Container(
-                  height: 350,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Select wallet'.tr,
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                        WalletItem(),
-                        Divider(
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        Container(
-                          height: 230,
-                          child: ListView.builder(
-                              itemCount: 10,
-                              itemBuilder: (BuildContext context, int index) {
-                                return WalletItem();
-                              }),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              ShowWalletsModalBottomSheet(context);
             },
             child: Row(
               children: [
                 Container(
                     child: Image(
-                  image: AssetImage('assets/images/wallet_list_icon.png'),
+                  image: AssetImage(AssetStringsPng.walletList),
                   height: 30,
                 )),
                 Icon(Icons.arrow_drop_down,
@@ -95,7 +64,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           controller: _tabController),
       actions: [
         PopupMenuButton(
-          color: Theme.of(context).dialogBackgroundColor,
+            color: Theme.of(context).dialogBackgroundColor,
             icon: Icon(Icons.more_vert_rounded,
                 color: Theme.of(context).iconTheme.color),
             padding: EdgeInsets.all(10.0),
@@ -170,4 +139,48 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => preferedSize;
+}
+
+void ShowWalletsModalBottomSheet(BuildContext context) {
+  showMaterialModalBottomSheet(
+    context: context,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+    ),
+    builder: (context) => Container(
+      height: 350,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Text(
+              'Select wallet'.tr,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            WalletItem(),
+            Divider(
+              color: Theme.of(context).iconTheme.color,
+            ),
+            Container(
+              height: 160,
+              child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return WalletItem();
+                  }),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 12.0),
+              child: OutlinedButton(
+                onPressed: () {},
+                child: Text('Go to My Wallets'.tr),
+                style: Theme.of(context).outlinedButtonTheme.style,
+              ),
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }
