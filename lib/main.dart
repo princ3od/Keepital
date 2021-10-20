@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
+import 'package:keepital/app/data/services/app_start_service.dart';
 import 'package:keepital/app/data/services/theme_service.dart';
-import 'package:keepital/app/modules/home/screens/home_screen.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 import 'app/data/services/localization_service.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AppStartService.instance.initGetStorage();
   runApp(MyApp());
 }
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeService.theme,
-      initialRoute: Routes.firstWallet,
+      initialRoute: Routes.splash,
       locale: LocalizationService.locale,
       fallbackLocale: LocalizationService.fallbackLocale,
       translations: LocalizationService(),

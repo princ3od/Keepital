@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/modules/splash/splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {
+  final _controller = Get.find<SplashController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightBackgroundColor,
+      backgroundColor: AppColors.backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +34,7 @@ class SplashScreen extends StatelessWidget {
             ),
             Text(
               "Keepital is fetching your data...".tr,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.bodyText1,
             )
           ],
         ),
