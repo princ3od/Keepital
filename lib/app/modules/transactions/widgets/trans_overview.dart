@@ -9,7 +9,6 @@ class TransactionsOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
       color: Theme.of(context).backgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),

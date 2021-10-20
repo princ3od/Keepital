@@ -24,7 +24,7 @@ const Map<String, String> viLanguagePackage = {
   'CHANGE ICON': 'ĐỔI ICON',
   'Wallet name': 'Tên của ví',
   'Currency': 'Đơn vị tiền tệ',
-  'Money tip:': 'Mẹo quản lý tiền hiệu quả',
+  'Money tip:': 'Mẹo quản lý tiền hiệu quả:',
   'Make a budget!': 'Hãy tạo một ngân quỹ',
   'Budgets': 'Ngân sách',
   'A financial plan to balance your income and expense':
@@ -37,6 +37,9 @@ const Map<String, String> viLanguagePackage = {
       'Các giao dịch sẽ được thêm vào trong tương lai',
   'Recurring Payments': 'Các khoản chi lặp lại',
   'Monitoring your repetitive bills': 'Theo dõi các hóa đơn lặp lại',
+  'Go to My Wallets': 'Xem tất cả ví của tôi',
+  'You can create a budget for this category to be better financial management.': 'Bạn có thể tạo ví riêng cho danh mục này để quản lý chi tiêu tốt hơn.',
+  'Create budget for this month': 'Tạo ví cho tháng này'
   'Exclude from report': 'Loại trừ khỏi báo cáo',
   'This transaction is not included in Report and Overview.':
       'Giao dịch này không có trong Báo cáo và Tổng quan.',
