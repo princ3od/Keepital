@@ -7,22 +7,6 @@ class AuthProvider {
   late GoogleSignIn _googleAuthProvider;
   late String fbAcessToken;
 
-  // LoginType getLoginType() {
-  //   if (FirebaseAuth.instance.currentUser != null) {
-  //     switch (FirebaseAuth.instance.currentUser?.providerData[0].providerId) {
-  //       case "google.com":
-  //         return LoginType.withGoogle;
-  //       case "facebook.com":
-  //         return LoginType.withFacebook;
-  //       case "phone":
-  //         return LoginType.byPhone;
-  //       default:
-  //         return LoginType.withGoogle;
-  //     }
-  //   }
-  //   return LoginType.withGoogle;
-  // }
-
   User? getCurrentUser() => FirebaseAuth.instance.currentUser;
 
   Future<UserCredential?> _signInFirebase({required AuthCredential credential}) async {

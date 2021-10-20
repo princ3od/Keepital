@@ -16,7 +16,7 @@ class TransactionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () async {
-        Get.toNamed(Routes.transaction_detail, arguments: trans);
+        Get.toNamed(Routes.transactionDetail, arguments: trans);
       },
       leading: Image(image: AssetImage('assets/images/wallet_list_icon.png')),
       title: Text(
@@ -29,12 +29,7 @@ class TransactionItem extends StatelessWidget {
         style: Theme.of(context).textTheme.caption,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: Text(trans.Amount.toString(),
-          style: GoogleFonts.montserrat(
-              color: trans.Type == TransactionType.Inflow
-                  ? Colors.blue
-                  : Colors.red,
-              fontWeight: FontWeight.w400)),
+      trailing: Text(trans.Amount.toString(), style: GoogleFonts.montserrat(color: trans.Type == TransactionType.Inflow ? Colors.blue : Colors.red, fontWeight: FontWeight.w400)),
       dense: true,
       contentPadding: EdgeInsets.symmetric(vertical: 9.0),
     );

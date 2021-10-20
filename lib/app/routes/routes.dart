@@ -5,6 +5,6 @@ abstract class Routes {
   static const auth = '/auth';
   static const splash = '/splash';
   static const firstWallet = '/first_wallet';
-  static const transaction_detail = '/transaction_detail';
-   static const walletBalance = '/wallet_balance';
+  static const transactionDetail = '/transaction_detail';
+  static const walletBalance = '/wallet_balance';
 }

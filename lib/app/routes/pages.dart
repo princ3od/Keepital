@@ -37,7 +37,7 @@ abstract class AppPages {
       binding: FirstWalletScreenBinding(),
     ),
     GetPage(
-      name: Routes.transaction_detail,
+      name: Routes.transactionDetail,
       page: () => TransactionDetailScreen(),
       binding: TransactionDetailBinding(),
     ),
