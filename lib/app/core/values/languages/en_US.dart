@@ -39,4 +39,10 @@ const Map<String, String> enLanguagePackage = {
   'Go to My Wallets': 'Go to My Wallets',
   'You can create a budget for this category to be better financial management.': 'You can create a budget for this category to be better financial management.',
   'Create budget for this month': 'Create budget for this month'
+  'Exclude from report': 'Exclude from report',
+  'This transaction is not included in Report and Overview.':
+      'This transaction is not included in Report and Overview.',
+  'Enter curent balance': 'Enter curent balance',
+  'Select Wallet': 'Select Wallet',
+  'SAVE': 'SAVE',
 };

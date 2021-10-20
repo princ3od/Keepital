@@ -40,4 +40,10 @@ const Map<String, String> viLanguagePackage = {
   'Go to My Wallets': 'Xem tất cả ví của tôi',
   'You can create a budget for this category to be better financial management.': 'Bạn có thể tạo ví riêng cho danh mục này để quản lý chi tiêu tốt hơn.',
   'Create budget for this month': 'Tạo ví cho tháng này'
+  'Exclude from report': 'Loại trừ khỏi báo cáo',
+  'This transaction is not included in Report and Overview.':
+      'Giao dịch này không có trong Báo cáo và Tổng quan.',
+  'Enter curent balance': 'Nhập số dư tồn tại',
+  'Select Wallet': 'Chọn Ví',
+  'SAVE': 'LƯU',
 };
