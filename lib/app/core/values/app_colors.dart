@@ -35,4 +35,6 @@ class AppColors {
   static const double disabledIconOpacity = 0.25;
 
   static const Color secondaryButtonBGColor = Color(0x0B0A13FF);
+
+  static const Color appbarColouredBorder = Color(0xFFBDBDBD);
 }

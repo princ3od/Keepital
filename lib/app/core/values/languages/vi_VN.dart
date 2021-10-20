@@ -37,4 +37,10 @@ const Map<String, String> viLanguagePackage = {
       'Các giao dịch sẽ được thêm vào trong tương lai',
   'Recurring Payments': 'Các khoản chi lặp lại',
   'Monitoring your repetitive bills': 'Theo dõi các hóa đơn lặp lại',
+  'Exclude from report': 'Loại trừ khỏi báo cáo',
+  'This transaction is not included in Report and Overview.':
+      'Giao dịch này không có trong Báo cáo và Tổng quan.',
+  'Enter curent balance': 'Nhập số dư tồn tại',
+  'Select Wallet': 'Chọn Ví',
+  'SAVE': 'LƯU',
 };

@@ -36,4 +36,10 @@ const Map<String, String> enLanguagePackage = {
       'Transactions that are automatically added in future',
   'Recurring Payments': 'Recurring Payments',
   'Monitoring your repetitive bills': 'Monitoring your repetitive bills',
+  'Exclude from report': 'Exclude from report',
+  'This transaction is not included in Report and Overview.':
+      'This transaction is not included in Report and Overview.',
+  'Enter curent balance': 'Enter curent balance',
+  'Select Wallet': 'Select Wallet',
+  'SAVE': 'SAVE',
 };
