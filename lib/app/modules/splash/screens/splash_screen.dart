@@ -14,25 +14,28 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 300),
+            Expanded(
+              flex: 3,
               child: Container(
                 child: Image.asset(AssetStringsPng.logo),
                 width: 100,
                 height: 100,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
+            Expanded(
+              flex: 1,
               child: Container(
                 child: Image.asset(AssetStringGif.coinLoading),
                 width: 50,
                 height: 50,
               ),
             ),
-            Text(
-              "Keepital is fetching your data...".tr,
-              style: Theme.of(context).textTheme.headline6,
+            Expanded(
+              flex: 1,
+              child: Text(
+                "Keepital is fetching your data...".tr,
+                style: Theme.of(context).textTheme.headline6,
+              ),
             )
           ],
         ),
