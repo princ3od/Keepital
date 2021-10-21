@@ -21,6 +21,8 @@ class AppTheme {
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w600
         ),
         headline2: GoogleFonts.montserrat(
           color: textColor,

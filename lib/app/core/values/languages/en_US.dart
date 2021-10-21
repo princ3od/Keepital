@@ -36,4 +36,15 @@ const Map<String, String> enLanguagePackage = {
       'Transactions that are automatically added in future',
   'Recurring Payments': 'Recurring Payments',
   'Monitoring your repetitive bills': 'Monitoring your repetitive bills',
+  'add_transaction': 'Add Transaction',
+  'save' : 'SAVE',
+  'hint_category':'Select Category',
+  'hint_note':'Write note',
+  'hint_wallet':'Select wallet',
+  'hint_envent':'Select event',
+  'hint_with':'With',
+  'exclude_label':'Exclude from report',
+  'exclude_description':'This transaction will not be included in Report and Overview.',
+  'suggest_label':'Transaction Suggestion',
+  'suggest_description':'Tap on any transaction below to quickly fill out.'
 };
