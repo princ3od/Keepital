@@ -66,6 +66,9 @@ class AppTheme {
         ),
       );
   static final ThemeData lightTheme = ThemeData.light().copyWith(
+    colorScheme: ColorScheme.light().copyWith(
+      primary: AppColors.primaryColor,
+    ),
     appBarTheme: AppBarTheme(
       color: AppColors.lightBackgroundColor,
       titleTextStyle: GoogleFonts.montserrat(
