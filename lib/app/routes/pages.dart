@@ -11,6 +11,7 @@ import 'package:keepital/app/modules/transaction_detail/screens/transaction_deta
 import 'package:keepital/app/modules/transaction_detail/transaction_detail_binding.dart';
 import 'package:keepital/app/modules/wallet_balance/screens/wallet_balance_screen.dart';
 import 'package:keepital/app/modules/wallet_balance/wallet_balance_binding.dart';
+import 'package:keepital/app/modules/add_transaction/screens/add_transaction_screen.dart';
 
 part './routes.dart';
 
@@ -46,5 +47,9 @@ abstract class AppPages {
       page: () => WalletBalanceScreen(),
       binding: WalletBalanceBinding(),
     ),
+    GetPage(
+      name: Routes.addTransaction,
+      page: () => AddTransactionScreen(),
+    )
   ];
 }

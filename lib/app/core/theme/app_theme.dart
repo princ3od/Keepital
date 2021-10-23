@@ -37,6 +37,8 @@ class AppTheme {
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w600
         ),
         headline2: GoogleFonts.montserrat(
           color: textColor,
@@ -80,6 +82,9 @@ class AppTheme {
         ),
       );
   static final ThemeData lightTheme = ThemeData.light().copyWith(
+    colorScheme: ColorScheme.light().copyWith(
+      primary: AppColors.primaryColor,
+    ),
     appBarTheme: AppBarTheme(
       color: AppColors.lightBackgroundColor,
       titleTextStyle: GoogleFonts.montserrat(
