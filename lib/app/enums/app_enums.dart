@@ -1,1 +1,4 @@
-
+enum LoadingType {
+  coinSpining,
+  foldingCube,
+}
