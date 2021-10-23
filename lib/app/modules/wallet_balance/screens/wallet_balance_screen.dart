@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/wallet_balance/widgets/adjust_balance_body.dart';
 import 'package:get/get.dart';
@@ -50,8 +49,7 @@ class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
                 ),
               ),
               style: ButtonStyle(
-                overlayColor: MaterialStateColor.resolveWith((states) =>
-                    AppColors.appbarColouredBorder.withOpacity(0.3)),
+                overlayColor: MaterialStateColor.resolveWith((states) => AppColors.appbarColouredBorder.withOpacity(0.3)),
               ),
             ),
           ],
@@ -70,9 +68,7 @@ class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
                 ),
                 ExcludeSetting(
                   title: 'Exclude from report'.tr,
-                  subtitle:
-                      'This transaction is not included in Report and Overview.'
-                          .tr,
+                  subtitle: 'This transaction is not included in Report and Overview.'.tr,
                   onTap: (isChecked) {
                     print(isChecked);
                   },

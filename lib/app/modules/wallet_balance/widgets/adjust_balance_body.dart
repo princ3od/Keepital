@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:get/get.dart';
 
 class AdjustBalanceBody extends StatelessWidget {
