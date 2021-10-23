@@ -41,7 +41,7 @@ const Map<String, String> enLanguagePackage = {
   'hint_category':'Select Category',
   'hint_note':'Write note',
   'hint_wallet':'Select wallet',
-  'hint_envent':'Select event',
+  'hint_event':'Select event',
   'hint_with':'With',
   'exclude_label':'Exclude from report',
   'exclude_description':'This transaction will not be included in Report and Overview.',
