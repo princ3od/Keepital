@@ -14,8 +14,8 @@ class SplashController extends GetxController {
 
   void _navigateNextScreen() {
     if (AuthService.instance.isLogined) {
-      Get.toNamed(Routes.home);
+      Get.offAllNamed(Routes.home);
     }
-    Get.toNamed(Routes.auth);
+    Get.offAllNamed(Routes.auth);
   }
 }
