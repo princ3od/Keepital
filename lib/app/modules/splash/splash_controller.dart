@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:keepital/app/data/services/app_start_service.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class SplashController extends GetxController {
@@ -14,8 +15,18 @@ class SplashController extends GetxController {
 
   void _navigateNextScreen() {
     if (AuthService.instance.isLogined) {
-      Get.offAllNamed(Routes.home);
+      _loadDataAndNavigateToSuitableScreen();
+    } else {
+      Get.offAllNamed(Routes.auth);
     }
-    Get.offAllNamed(Routes.auth);
+  }
+
+  _loadDataAndNavigateToSuitableScreen() async {
+    await DataService.instance.loadUserData();
+    if (DataService.currentUser!.hasAnyWallet) {
+      Get.offAllNamed(Routes.home);
+    } else {
+      Get.offAllNamed(Routes.firstWallet);
+    }
   }
 }

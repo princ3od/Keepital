@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 
 class HomeController extends GetxController {
@@ -91,11 +90,8 @@ class HomeController extends GetxController {
         } else if (index == 19) {
           return Text('FUTURE');
         } else {
-          var firstDateInAWeek = DateTime.now()
-              .subtract(Duration(days: DateTime.now().weekday - 1))
-              .subtract(Duration(days: 7 * (18 - index)));
-          String firstDateDisplay =
-              DateFormat('dd/MM').format(firstDateInAWeek);
+          var firstDateInAWeek = DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).subtract(Duration(days: 7 * (18 - index)));
+          String firstDateDisplay = DateFormat('dd/MM').format(firstDateInAWeek);
 
           var lastDateInAWeek = firstDateInAWeek.add(Duration(days: 6));
           String lastDateDisplay = DateFormat('dd/MM').format(lastDateInAWeek);

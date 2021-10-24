@@ -7,6 +7,8 @@ import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/auth/auth_controller.dart';
 import 'package:keepital/app/modules/auth/widgets/button_with_lead_icon.dart';
 
@@ -44,17 +46,26 @@ class AuthenticationScreen extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 20),
               child: Text("inspirational".tr, style: GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.normal)),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-              child: ButtonWithLeadIcon(onPressed: () => _controller.signInWithGoogle(), text: 'login_google'.tr, path: AssetStringsPng.gooogleLogo),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: ButtonWithLeadIcon(onPressed: () => {}, text: 'login_facebook'.tr, path: AssetStringsPng.facebookLogo),
-            )
+            const SizedBox(height: 10),
+            Obx(() => _controller.isLoading.value ? const Center(child: DefaultLoading(size: 40)) : _buildSignInButton()),
           ],
         ),
       ),
+    );
+  }
+
+  Column _buildSignInButton() {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+          child: ButtonWithLeadIcon(onPressed: () => _controller.handleSignIn(SignInType.withGoogle), text: 'login_google'.tr, path: AssetStringsPng.gooogleLogo),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: ButtonWithLeadIcon(onPressed: () => _controller.handleSignIn(SignInType.withFacebook), text: 'login_facebook'.tr, path: AssetStringsPng.facebookLogo),
+        )
+      ],
     );
   }
 }
