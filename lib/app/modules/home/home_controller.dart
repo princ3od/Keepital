@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_value.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class HomeController extends GetxController {
   final PageController pageController = PageController();
@@ -150,5 +151,9 @@ class HomeController extends GetxController {
         return Text(extraInfo);
       });
     }
+  }
+
+  onAddTransaction() {
+    Get.toNamed(Routes.addTransaction);
   }
 }

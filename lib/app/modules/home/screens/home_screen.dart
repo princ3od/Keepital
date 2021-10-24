@@ -27,9 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _tabs = _controller.initTabBar(3);
 
     return Scaffold(
-      appBar: (_controller.needShowAppBar())
-          ? TopBar(tabController: _tabController, tabs: _tabs)
-          : null,
+      appBar: (_controller.needShowAppBar()) ? TopBar(tabController: _tabController, tabs: _tabs) : null,
       body: PageView(
         controller: _controller.pageController,
         onPageChanged: (value) {
@@ -84,14 +82,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _controller.onAddTransaction(),
         child: Icon(
           Icons.add,
           size: 20,
         ),
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
   }
 }

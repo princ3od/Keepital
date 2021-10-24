@@ -6,6 +6,7 @@ import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
 import 'package:currency_picker/currency_picker.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class FirstWalletScreen extends StatefulWidget {
   const FirstWalletScreen({Key? key}) : super(key: key);
@@ -15,8 +16,7 @@ class FirstWalletScreen extends StatefulWidget {
 }
 
 class _FirstWalletScreenState extends State<FirstWalletScreen> {
-  final FirstWalletScreenController _controller =
-      Get.find<FirstWalletScreenController>();
+  final FirstWalletScreenController _controller = Get.find<FirstWalletScreenController>();
 
   final walletNameTextEditingController = TextEditingController();
   final currencyTextEditingController = TextEditingController();
@@ -66,9 +66,7 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                 width: 250,
                 child: TextFormField(
                   textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: "Wallet name".tr),
+                  decoration: InputDecoration(border: UnderlineInputBorder(), labelText: "Wallet name".tr),
                 ),
               ),
               const SizedBox(
@@ -112,7 +110,7 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
               Container(
                 width: 250,
                 child: TextButton(
-                  onPressed: () => {},
+                  onPressed: () => Get.offNamed(Routes.home),
                   child: Text(
                     "CONTINUE".tr,
                     style: GoogleFonts.montserrat(
