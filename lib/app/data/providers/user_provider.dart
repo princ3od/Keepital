@@ -21,9 +21,9 @@ class UserProvider implements Firestoration<String, KeepitalUser> {
   }
 
   @override
-  Future<KeepitalUser> fetch(String id) {
-    // TODO: implement fetch
-    throw UnimplementedError();
+  Future<KeepitalUser> fetch(String id) async {
+    final raw = await FirebaseFirestore.instance.collection(collectionPath).doc(id).get();
+    return KeepitalUser.fromMap(raw.data());
   }
 
   @override
