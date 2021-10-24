@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/splash/splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -26,11 +28,7 @@ class SplashScreen extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: Container(
-                child: Image.asset(AssetStringGif.coinLoading),
-                width: 50,
-                height: 50,
-              ),
+              child: DefaultLoading(loadingType: LoadingType.coinSpining),
             ),
             Expanded(
               flex: 1,
