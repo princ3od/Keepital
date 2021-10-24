@@ -31,7 +31,6 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
         ),
         title: Text(
           'add_transaction'.tr,
-          style: Theme.of(context).textTheme.headline1,
         ),
         actions: <Widget>[
           TextButton(

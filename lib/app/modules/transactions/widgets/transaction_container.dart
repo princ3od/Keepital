@@ -22,11 +22,10 @@ class TransactionContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('27', style: Theme.of(context).textTheme.headline4),
+                Text('27', style: Theme.of(context).textTheme.headline3),
                 Expanded(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -44,7 +43,7 @@ class TransactionContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text('10.000', style: Theme.of(context).textTheme.bodyText1),
+                Text('10.000', style: Theme.of(context).textTheme.headline6),
               ],
             ),
             Divider(
@@ -53,9 +52,9 @@ class TransactionContainer extends StatelessWidget {
             ),
             Container(
               child: ListView.builder(
-                shrinkWrap: true,
-                itemExtent: 55,
-                physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemExtent: 55,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: _transaction.length,
                   itemBuilder: (BuildContext context, int index) {
                     return TransactionItem(
@@ -63,7 +62,9 @@ class TransactionContainer extends StatelessWidget {
                     );
                   }),
             ),
-            SizedBox(height: 10,)
+            SizedBox(
+              height: 10,
+            )
           ],
         ),
       ),

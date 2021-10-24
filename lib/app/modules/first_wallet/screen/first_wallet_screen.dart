@@ -24,119 +24,113 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Spacer(
-                flex: 2,
+      backgroundColor: AppColors.backgroundColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Spacer(
+              flex: 2,
+            ),
+            Text(
+              "Create your first wallet".tr,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Each wallet represents a source of your money".tr,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            Spacer(),
+            IconButton(
+                iconSize: 48,
+                icon: FaIcon(FontAwesomeIcons.wallet),
+                onPressed: () {
+                  print("Pressed");
+                }),
+            Text(
+              "CHANGE ICON".tr,
+              style: GoogleFonts.montserrat(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
-              Text(
-                "Create your first wallet".tr,
-                style: GoogleFonts.montserrat(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            ),
+            Spacer(),
+            SizedBox(
+              width: 250,
+              child: TextFormField(
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: "Wallet name".tr,
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 ),
               ),
-              Text(
-                "Each wallet represents a source of your money".tr,
-                style: GoogleFonts.montserrat(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w300,
-                  color: Color(0xFF38305F),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              width: 250,
+              child: TextField(
+                onTap: () {
+                  _controller.showCurrencyPickerOfWalletScreen(context);
+                },
+                style: Theme.of(context).textTheme.headline5,
+                textAlign: TextAlign.center,
+                controller: currencyTextEditingController,
+                enabled: true,
+                showCursor: false,
+                readOnly: true,
+                decoration: InputDecoration(
+                  labelText: 'Currency'.tr,
+                  suffixIcon: Icon(Icons.arrow_drop_down),
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                 ),
               ),
-              Spacer(),
-              IconButton(
-                  iconSize: 48,
-                  icon: FaIcon(FontAwesomeIcons.wallet),
-                  onPressed: () {
-                    print("Pressed");
-                  }),
-              Text(
-                "CHANGE ICON".tr,
-                style: GoogleFonts.montserrat(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+            ),
+            Spacer(),
+            Text(
+              "Money tip:".tr,
+              style: GoogleFonts.montserrat(
+                fontSize: 10,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Make a budget!".tr,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Spacer(
+              flex: 2,
+            ),
+            Container(
+              width: 250,
+              child: TextButton(
+                onPressed: () => Get.offNamed(Routes.home),
+                child: Text(
+                  "CONTINUE".tr,
+                  style: Theme.of(context).textTheme.button,
                 ),
-              ),
-              Spacer(),
-              SizedBox(
-                width: 250,
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  decoration: InputDecoration(border: UnderlineInputBorder(), labelText: "Wallet name".tr),
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                width: 250,
-                child: TextField(
-                  onTap: () {
-                    _controller.showCurrencyPickerOfWalletScreen(context);
-                  },
-                  textAlign: TextAlign.center,
-                  controller: currencyTextEditingController,
-                  enabled: true,
-                  showCursor: false,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    labelText: 'Currency'.tr,
-                    suffixIcon: Icon(Icons.arrow_drop_down),
-                  ),
-                ),
-              ),
-              Spacer(),
-              Text(
-                "Money tip:".tr,
-                style: GoogleFonts.montserrat(
-                  fontSize: 10,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-              Text(
-                "Make a budget!".tr,
-                style: GoogleFonts.montserrat(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Spacer(
-                flex: 2,
-              ),
-              Container(
-                width: 250,
-                child: TextButton(
-                  onPressed: () => Get.offNamed(Routes.home),
-                  child: Text(
-                    "CONTINUE".tr,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: BorderSide(
-                          color: Colors.transparent,
-                        ),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                      side: BorderSide(
+                        color: Colors.transparent,
                       ),
                     ),
-                    backgroundColor: MaterialStateProperty.all(
-                      AppColors.primaryColor.withOpacity(0.2),
-                    ),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    AppColors.primaryColor.withOpacity(0.2),
                   ),
                 ),
               ),
-              Spacer(),
-            ],
-          ),
+            ),
+            Spacer(),
+          ],
         ),
       ),
     );

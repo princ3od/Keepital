@@ -21,15 +21,18 @@ class TransactionItem extends StatelessWidget {
       leading: Image(image: AssetImage('assets/images/wallet_list_icon.png')),
       title: Text(
         trans.Category,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.headline6,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
         trans.Note.toString(),
-        style: Theme.of(context).textTheme.caption,
+        style: Theme.of(context).textTheme.subtitle2,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: Text(trans.Amount.toString(), style: GoogleFonts.montserrat(color: trans.Type == TransactionType.Inflow ? Colors.blue : Colors.red, fontWeight: FontWeight.w400)),
+      trailing: Text(trans.Amount.toString(),
+          style: Theme.of(context).textTheme.headline6!.apply(
+                color: trans.Type == TransactionType.Inflow ? Colors.blue : Colors.red,
+              )),
       dense: true,
       contentPadding: EdgeInsets.symmetric(vertical: 9.0),
     );

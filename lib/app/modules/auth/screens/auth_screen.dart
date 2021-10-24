@@ -32,10 +32,13 @@ class AuthenticationScreen extends StatelessWidget {
             ),
             Text(
               AppStrings.appName,
-              style: GoogleFonts.montserrat(fontSize: 28, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headline1,
             ),
             AnimatedTextKit(totalRepeatCount: 10, animatedTexts: [
-              TyperAnimatedText(AppStrings.appSlogan, textStyle: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.normal)),
+              TyperAnimatedText(
+                AppStrings.appSlogan,
+                textStyle: Theme.of(context).textTheme.headline5,
+              ),
             ]),
             Container(
               child: SvgPicture.asset(AssetStringsSvg.financialGoal),
@@ -44,7 +47,10 @@ class AuthenticationScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: Text("inspirational".tr, style: GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.normal)),
+              child: Text(
+                "inspirational".tr,
+                style: Theme.of(context).textTheme.caption,
+              ),
             ),
             const SizedBox(height: 10),
             Obx(() => _controller.isLoading.value ? const Center(child: DefaultLoading(size: 40)) : _buildSignInButton()),

@@ -34,7 +34,7 @@ class SplashScreen extends StatelessWidget {
               flex: 1,
               child: Text(
                 "Keepital is fetching your data...".tr,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline5,
               ),
             )
           ],

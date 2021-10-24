@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
+import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
-  TopBar(
-      {Key? key,
-      required TabController tabController,
-      required List<Text> tabs})
+  TopBar({Key? key, required TabController tabController, required List<Text> tabs})
       : preferedSize = Size.fromHeight(100),
         _tabController = tabController,
         _tabs = tabs,
@@ -37,8 +36,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   image: AssetImage(AssetStringsPng.walletList),
                   height: 30,
                 )),
-                Icon(Icons.arrow_drop_down,
-                    color: Theme.of(context).iconTheme.color)
+                Icon(Icons.arrow_drop_down, color: Theme.of(context).iconTheme.color)
               ],
             ),
           ),
@@ -49,24 +47,19 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Text(
                   'Wallet name',
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
-                Text('15.000.000', style: Theme.of(context).textTheme.bodyText1)
+                Text('15.000.000', style: Theme.of(context).textTheme.headline4)
               ],
             ),
           )
         ],
       ),
-      bottom: TabBar(
-          tabs: _tabs,
-          isScrollable: true,
-          physics: const BouncingScrollPhysics(),
-          controller: _tabController),
+      bottom: TabBar(tabs: _tabs, isScrollable: true, physics: const BouncingScrollPhysics(), controller: _tabController),
       actions: [
         PopupMenuButton(
             color: Theme.of(context).dialogBackgroundColor,
-            icon: Icon(Icons.more_vert_rounded,
-                color: Theme.of(context).iconTheme.color),
+            icon: Icon(Icons.more_vert_rounded, color: Theme.of(context).iconTheme.color),
             padding: EdgeInsets.all(10.0),
             offset: Offset.fromDirection(40, 40),
             shape: RoundedRectangleBorder(
@@ -81,6 +74,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               if (value == 'Search for transaction') {
               } else if (value == 'change display') {
               } else if (value == 'Adjust Balance') {
+                Get.toNamed(Routes.walletBalance);
               } else if (value == 'Select time range') {}
             },
             itemBuilder: (context) {
@@ -94,42 +88,23 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                           color: Theme.of(context).iconTheme.color,
                         ),
                         SizedBox(width: 10.0),
-                        Text('Select time range'.tr,
-                            style: Theme.of(context).textTheme.bodyText1)
+                        Text('Select time range'.tr, style: Theme.of(context).textTheme.bodyText1)
                       ],
                     )),
                 PopupMenuItem(
                     value: 'change display',
                     child: Row(
-                      children: [
-                        Icon(Icons.remove_red_eye,
-                            color: Theme.of(context).iconTheme.color),
-                        SizedBox(width: 10.0),
-                        Text(true ? 'View by date'.tr : 'View by category'.tr,
-                            style: Theme.of(context).textTheme.bodyText1)
-                      ],
+                      children: [Icon(Icons.remove_red_eye, color: Theme.of(context).iconTheme.color), SizedBox(width: 10.0), Text(true ? 'View by date'.tr : 'View by category'.tr, style: Theme.of(context).textTheme.bodyText1)],
                     )),
                 PopupMenuItem(
                     value: 'Adjust Balance',
                     child: Row(
-                      children: [
-                        Icon(Icons.account_balance_wallet,
-                            color: Theme.of(context).iconTheme.color),
-                        SizedBox(width: 10.0),
-                        Text('Adjust Balance'.tr,
-                            style: Theme.of(context).textTheme.bodyText1)
-                      ],
+                      children: [Icon(Icons.account_balance_wallet, color: Theme.of(context).iconTheme.color), SizedBox(width: 10.0), Text('Adjust Balance'.tr, style: Theme.of(context).textTheme.bodyText1)],
                     )),
                 PopupMenuItem(
                     value: 'Search for transaction',
                     child: Row(
-                      children: [
-                        Icon(Icons.search,
-                            color: Theme.of(context).iconTheme.color),
-                        SizedBox(width: 10.0),
-                        Text('Search for transaction'.tr,
-                            style: Theme.of(context).textTheme.bodyText1)
-                      ],
+                      children: [Icon(Icons.search, color: Theme.of(context).iconTheme.color), SizedBox(width: 10.0), Text('Search for transaction'.tr, style: Theme.of(context).textTheme.bodyText1)],
                     )),
               ];
             })
@@ -145,8 +120,7 @@ void ShowWalletsModalBottomSheet(BuildContext context) {
   showMaterialModalBottomSheet(
     context: context,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
     ),
     builder: (context) => Container(
       height: 350,
