@@ -24,12 +24,14 @@ dependencies:
   animated_text_kit: ^4.2.1
   cloud_firestore: ^2.5.3
   cupertino_icons: ^1.0.2
+  currency_picker: ^2.0.3
   firebase_auth: ^3.1.2
   firebase_core: ^1.7.0
   firebase_messaging: ^10.0.8
   flutter:
     sdk: flutter
   flutter_facebook_auth: ^3.5.2
+  flutter_spinkit: ^5.1.0
   flutter_svg: ^0.23.0+1
   font_awesome_flutter: ^9.1.0
   get: ^4.3.8
@@ -38,7 +40,6 @@ dependencies:
   google_sign_in: ^5.1.1
   intl: ^0.17.0
   modal_bottom_sheet: ^2.0.0
-  currency_picker: ^2.0.3
 
 dev_dependencies:
   change_app_package_name: ^1.0.0
