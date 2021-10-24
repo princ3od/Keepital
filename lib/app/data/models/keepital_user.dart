@@ -7,6 +7,7 @@ class KeepitalUser with BaseModel {
   String? name;
   String? currencyId;
   late double amount;
+  String? currentWallet;
 
   KeepitalUser(this.id, {this.name, this.currencyId, this.amount = 0});
 
