@@ -15,7 +15,7 @@ class DefaultLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     if (loadingType == LoadingType.foldingCube) {
       return SpinKitFoldingCube(
-        color: color ?? AppColors.textColor,
+        color: color ?? AppColors.textColor.withOpacity(0.6),
         size: size,
       );
     }
