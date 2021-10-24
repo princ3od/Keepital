@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:keepital/app/core/values/app_strings.dart';
+import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/providers/firestoration.dart';
 
 class UserProvider implements Firestoration<String, KeepitalUser> {
   @override
-  String get collectionPath => AppStrings.userCollectionPath;
+  String get collectionPath => AppValue.userCollectionPath;
 
   @override
   Future<KeepitalUser> add(KeepitalUser obj) async {
