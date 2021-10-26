@@ -41,5 +41,9 @@ const Map<String, String> enLanguagePackage = {
   'exclude_label': 'Exclude from report',
   'exclude_description': 'This transaction will not be included in Report and Overview.',
   'suggest_label': 'Transaction Suggestion',
-  'suggest_description': 'Tap on any transaction below to quickly fill out.'
+  'suggest_description': 'Tap on any transaction below to quickly fill out.',
+  'Warning': 'Warning',
+  'Your\'s first wallet has been added': 'Your\'s first wallet has been added',
+  'Error': 'Error',
+  'Your\'s input data is invalid': 'Your\'s input data is invalid',
 };

@@ -9,8 +9,11 @@ class WalletProvider implements Firestoration<String, Wallet> {
   String get collectionPath => AppValue.walletCollectionPath;
 
   @override
-  Future<Wallet> add(Wallet obj) {
-    throw UnimplementedError();
+  Future<Wallet> add(Wallet obj) async {
+    final userPath = await _getUserPath();
+    final userWalletCollectionReference = await userPath.collection(AppValue.walletCollectionPath);
+    var userWalletDocument = await userWalletCollectionReference.add(obj.toMap());
+    return _getWalletFromDocumentReference(userWalletDocument);
   }
 
   @override
@@ -39,4 +42,11 @@ class WalletProvider implements Firestoration<String, Wallet> {
   }
 
   Future<DocumentReference<Object?>> _getUserPath() async => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);
+  Future<Wallet> _getWalletFromDocumentReference(DocumentReference<Map<String, dynamic>> reference) async {
+    var id = reference.id;
+    var snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    data['id'] = id;
+    return Wallet.fromMap(data);
+  }
 }
