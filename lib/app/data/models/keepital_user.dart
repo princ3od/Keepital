@@ -1,13 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 
 class KeepitalUser extends BaseModel {
   String? name;
   String? currencyId;
-  late double amount;
-  String? currentWallet;
-  List<Wallet> wallets = [];
+  late num amount;
+  String currentWallet = '';
+  Map<String, Wallet> wallets = {};
 
   KeepitalUser(String id, {this.name, this.currencyId, this.amount = 0}) : super(id);
 

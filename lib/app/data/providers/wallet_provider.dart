@@ -28,12 +28,15 @@ class WalletProvider implements Firestoration<String, Wallet> {
     throw UnimplementedError();
   }
 
-  Future<List<Wallet>> fetchAll() async {
-    List<Wallet> wallets = [];
+  Future<Map<String, Wallet>> fetchAll() async {
+    Map<String, Wallet> wallets = {};
     final userPath = await _getUserPath();
     final userWalletCollection = await userPath.collection(AppValue.walletCollectionPath).get();
     for (var rawWallet in userWalletCollection.docs) {
-      wallets.add(Wallet.fromMap(rawWallet.data()));
+      Map<String, dynamic> rawWalletMap = rawWallet.data();
+      rawWalletMap['id'] = rawWallet.id;
+      Wallet w = Wallet.fromMap(rawWalletMap);
+      wallets[rawWallet.id] = w;
     }
     return wallets;
   }

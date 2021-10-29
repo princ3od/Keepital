@@ -3,10 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_value.dart';
+import 'package:keepital/app/data/models/keepital_user.dart';
+import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class HomeController extends GetxController {
   final PageController pageController = PageController();
+  
+  KeepitalUser? currentUser = DataService.currentUser;
+  Map<String, Wallet> wallets = DataService.currentUser!.wallets;
+  RxString currentWallet = DataService.currentUser!.currentWallet.obs; 
+  RxString curWalletName = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.name ?? 'Total').obs;
+  RxString curWalletAmount = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.amount.toString() ?? DataService.currentUser?.amount.toString() ?? '').obs;
 
   var tabIndex = 0.obs;
 
