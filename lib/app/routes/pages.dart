@@ -50,6 +50,10 @@ abstract class AppPages {
     GetPage(
       name: Routes.addTransaction,
       page: () => AddTransactionScreen(),
-    )
+    ),
+    GetPage(
+      name: Routes.addTransaction,
+      page: () => AddTransactionScreen(),
+    ),
   ];
 }

@@ -19,4 +19,11 @@ class Wallet extends BaseModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{'name': name, 'amount': amount, 'currencyId': currencyId, 'iconId': iconId};
   }
+
+  bool checkIsValidInputDataToAdd() {
+    if (name == "" || currencyId == "" || currencyId == "" || iconId == "") {
+      return false;
+    }
+    return true;
+  }
 }

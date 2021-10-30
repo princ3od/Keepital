@@ -11,8 +11,10 @@ class WalletProvider implements Firestoration<String, Wallet> {
   @override
   Future<Wallet> add(Wallet obj) async {
     final userPath = await _getUserPath();
-    final userWalletCollectionReference = await userPath.collection(AppValue.walletCollectionPath);
-    var userWalletDocument = await userWalletCollectionReference.add(obj.toMap());
+    final userWalletCollectionReference = userPath.collection(AppValue.walletCollectionPath);
+    var userWalletDocument = await userWalletCollectionReference.add(obj.toMap()).then((walletReference) {
+      obj.id = walletReference.id;
+    });
     return _getWalletFromDocumentReference(userWalletDocument);
   }
 

@@ -46,4 +46,12 @@ const Map<String, String> enLanguagePackage = {
   'Your\'s first wallet has been added': 'Your\'s first wallet has been added',
   'Error': 'Error',
   'Your\'s input data is invalid': 'Your\'s input data is invalid',
+  'My wallets': 'My wallets',
+  'Categories': 'Categories',
+  'Debts': 'Debts',
+  'Travel mode': 'Travel mode',
+  'Help & Support': 'Help & Support',
+  'Setting': 'Setting',
+  'About': 'About',
+  'Sign out': 'Sign out',
 };
