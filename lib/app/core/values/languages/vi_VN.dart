@@ -54,4 +54,12 @@ const Map<String, String> viLanguagePackage = {
   'Your\'s first wallet has been added': 'Chiếc ví đầu tiên của bạn thêm vào thành công',
   'Error': 'Lỗi',
   'Your\'s input data is invalid': 'Dữ liệu bạn nhập không hợp lệ',
+  'My wallets': 'My wallets',
+  'Categories': 'Loại',
+  'Debts': 'Các khoản nợ',
+  'Travel mode': 'Chế độ du lịch',
+  'Help & Support': 'Trợ giúp và liên hệ',
+  'Setting': 'Cài đặt',
+  'About': 'Thông tin thêm',
+  'Sign out': 'Thoát',
 };

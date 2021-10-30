@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 
@@ -190,4 +191,5 @@ class AppTheme {
     iconTheme: IconThemeData(color: AppColors.darkTextColor),
     scaffoldBackgroundColor: AppColors.darkDeepBackgroundColor,
   );
+  static ThemeData currentTheme = (Get.isDarkMode ? darkTheme : lightTheme);
 }
