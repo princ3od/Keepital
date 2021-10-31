@@ -62,4 +62,7 @@ const Map<String, String> viLanguagePackage = {
   'Setting': 'Cài đặt',
   'About': 'Thông tin thêm',
   'Sign out': 'Thoát',
+  'event': "Sự kiện",
+  'on_going': 'Đang diễn ',
+  'finished': 'Đã kết thúc',
 };
