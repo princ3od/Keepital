@@ -54,4 +54,12 @@ const Map<String, String> enLanguagePackage = {
   'Setting': 'Setting',
   'About': 'About',
   'Sign out': 'Sign out',
+  'event': "Events",
+  'on_going': 'On going',
+  'finished': 'Finished',
+  'spending': 'Spending',
+  'add_event': 'Add Event',
+  'mark_as_finished': 'MARK AS FINISHED',
+  'event_name': "Event's Name",
+  'currency': 'Currency'
 };
