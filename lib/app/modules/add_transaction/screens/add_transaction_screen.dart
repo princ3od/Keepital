@@ -14,10 +14,13 @@ class AddTransactionScreen extends StatefulWidget {
 }
 
 class _AddTransactionScreen extends State<AddTransactionScreen> {
+  late DateTime pickedDate = new DateTime(1900);
   bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
+    var formatter = new DateFormat('yyyy-MM-dd');
+    var dateNow = formatter.format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -114,25 +117,29 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Flexible(
-                      flex: 1,
+                    Padding(
+                      padding: const EdgeInsets.all(10),
                       child: Container(
                         child: Image.asset(AssetStringsPng.calendar),
                         width: 30,
                         height: 30,
                       ),
                     ),
-                    Flexible(
-                        flex: 5,
-                        child: TextFormField(
-                          initialValue: formatter.format(DateTime.now()),
-                          onTap: () {
-                            FocusScope.of(context).requestFocus(new FocusNode());
-                            showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100));
-                          },
-                        ))
+                    InkWell(
+                      child: Text(
+                        pickedDate == DateTime(1900) ? dateNow : formatter.format(pickedDate),
+                        style: TextStyle(decoration: TextDecoration.underline),
+                      ),
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)).then((date) {
+                          setState(() {
+                            pickedDate = date!;
+                          });
+                        });
+                      },
+                    ),
                   ],
                 ),
                 Row(
