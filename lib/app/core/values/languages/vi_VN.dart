@@ -49,5 +49,17 @@ const Map<String, String> viLanguagePackage = {
   'exclude_label': 'Không Tính Vào Báo Cáo',
   'exclude_description': 'Giao dịch này sẽ không được tính vào báo cáo và tổng quan',
   'suggest_label': 'Gợi Ý Giao Dịch',
-  'suggest_description': 'Chọn các giao dịch bên dưới để điền nhanh'
+  'suggest_description': 'Chọn các giao dịch bên dưới để điền nhanh',
+  'Warning': 'Cảnh báo',
+  'Your\'s first wallet has been added': 'Chiếc ví đầu tiên của bạn thêm vào thành công',
+  'Error': 'Lỗi',
+  'Your\'s input data is invalid': 'Dữ liệu bạn nhập không hợp lệ',
+  'My wallets': 'My wallets',
+  'Categories': 'Loại',
+  'Debts': 'Các khoản nợ',
+  'Travel mode': 'Chế độ du lịch',
+  'Help & Support': 'Trợ giúp và liên hệ',
+  'Setting': 'Cài đặt',
+  'About': 'Thông tin thêm',
+  'Sign out': 'Thoát',
 };

@@ -6,7 +6,7 @@ class Wallet extends BaseModel {
   late String currencyId;
   late String iconId;
 
-  Wallet(String id, {required this.name, required this.amount, required this.currencyId, required this.iconId}) : super(id);
+  Wallet(String? id, {required this.name, required this.amount, required this.currencyId, required this.iconId}) : super(id);
 
   Wallet.fromMap(Map<String, dynamic> data) : super(data['id']) {
     name = data['name'];
@@ -17,6 +17,6 @@ class Wallet extends BaseModel {
 
   @override
   Map<String, dynamic> toMap() {
-    throw UnimplementedError();
+    return <String, dynamic>{'name': name, 'amount': amount, 'currencyId': currencyId, 'iconId': iconId};
   }
 }
