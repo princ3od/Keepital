@@ -5,24 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/modules/event/screens/on_going_tab.dart';
 
 class EventScreen extends StatefulWidget {
   @override
   _EventScreen createState() => _EventScreen();
+
 }
+
 
 class _EventScreen extends State<EventScreen> {
   String dropdownValue = 'WalletOne';
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            child:  Icon(Icons.add),
-            onPressed: (){},
-          ),
           appBar: AppBar(
             backgroundColor: Colors.white,
             shadowColor: Colors.grey[100],
@@ -63,28 +61,29 @@ class _EventScreen extends State<EventScreen> {
                   items: <String>['WalletOne', 'WalletTwo', 'WallerThree', 'WalletFour'].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value,style: Theme.of(context).textTheme.bodyText1,),
                     );
                   }).toList(),
                 ),
               )
             ],
             bottom: TabBar(
+              labelStyle: Theme.of(context).textTheme.bodyText1,
               tabs: [
                 Tab(
-                  text: "on_going".tr,
-                  height: 15,
+                  child: Text("on_going".tr),
+                  height: MediaQuery. of(context). size. height*0.025,
                 ),
                 Tab(
-                  text: "finished".tr,
-                  height: 15,
-                )
+                  child: Text("finished".tr),
+                  height: MediaQuery. of(context). size. height*0.025,
+                ),
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              Text('on going'),
+              OnGoingTab(),
               Text('finished'),
             ],
           )),

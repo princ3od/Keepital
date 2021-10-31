@@ -9,6 +9,7 @@ class AssetStringsSvg {
 class AssetStringsPng {
   static const String _baseImageFolder = 'assets/images';
   static const String _baseIconFolder = 'assets/icons';
+  static const String event = '$_baseIconFolder/event.png';
   static const String unknownCategory = '$_baseIconFolder/unknown.png';
   static const String note = '$_baseIconFolder/note.png';
   static const String calendar = '$_baseIconFolder/calendar.png';
