@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
-import 'package:keepital/app/modules/event/screens/on_going_tab.dart';
+import 'package:keepital/app/modules/event/widgets/finished_tab.dart';
+import 'package:keepital/app/modules/event/widgets/on_going_tab.dart';
 
 class EventScreen extends StatefulWidget {
   @override
@@ -84,7 +85,7 @@ class _EventScreen extends State<EventScreen> {
           body: TabBarView(
             children: [
               OnGoingTab(),
-              Text('finished'),
+              FinishedTab(),
             ],
           )),
     );

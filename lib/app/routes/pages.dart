@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
+import 'package:keepital/app/modules/event/screens/add_event_screen.dart';
 import 'package:keepital/app/modules/event/screens/event_screen.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_binding.dart';
 import 'package:keepital/app/modules/first_wallet/screen/first_wallet_screen.dart';
@@ -59,6 +60,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
-    )
+    ),
+    GetPage(name: Routes.addEvent, page: () => AddEventScreen())
   ];
 }

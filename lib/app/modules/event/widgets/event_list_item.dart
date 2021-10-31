@@ -59,6 +59,16 @@ class EventListItemCard extends StatelessWidget {
                 Text('1,000,000 vnd')
               ],
             ),
+            Container(
+              padding: EdgeInsets.all(10),
+              height: 55,
+              child: OutlinedButton(
+                child: Text('MARK AS COMPLETE'.tr),
+                onPressed: () {
+                  print('Received click');
+                },
+              ),
+            )
           ],
         ),
       ),

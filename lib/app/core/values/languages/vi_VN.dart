@@ -65,5 +65,11 @@ const Map<String, String> viLanguagePackage = {
   'event': "Sự kiện",
   'on_going': 'Đang diễn ',
   'finished': 'Đã kết thúc',
-  'spending': 'Tổng tiền'
+  'spending': 'Tổng tiền',
+  'add_event':'Thêm Sự Kiện',
+  'mark_as_finished':'DỪNG SỰ KIỆN',
+  'event_name':"Tên Sự kiện",
+  'currency':'Đơn vị tiền tệ',
+
+
 };
