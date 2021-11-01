@@ -1,15 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:keepital/app/data/models/Transaction.dart';
+import 'package:intl/intl.dart';
+import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_item.dart';
 
 class TransactionContainer extends StatelessWidget {
-  TransactionContainer({Key? key, required List<Transaction> transaction})
-      : _transaction = transaction,
-        super(key: key);
+  TransactionContainer({Key? key, required this.transList}) : super(key: key);
 
-  final List<Transaction> _transaction;
+  final List<TransactionModel> transList;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class TransactionContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('27', style: Theme.of(context).textTheme.headline3),
+                Text(DateFormat('dd').format(transList[0].date), style: Theme.of(context).textTheme.headline3),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -30,12 +29,12 @@ class TransactionContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Monday',
+                          DateFormat('EEEE').format(transList[0].date),
                           style: Theme.of(context).textTheme.bodyText2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          'October 2020',
+                          DateFormat('MMMM yyyy').format(transList[0].date),
                           style: Theme.of(context).textTheme.bodyText1,
                           overflow: TextOverflow.ellipsis,
                         )
@@ -43,7 +42,7 @@ class TransactionContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text('10.000', style: Theme.of(context).textTheme.headline6),
+                Text(totalCalculation(transList).toString(), style: Theme.of(context).textTheme.headline6),
               ],
             ),
             Divider(
@@ -55,10 +54,10 @@ class TransactionContainer extends StatelessWidget {
                   shrinkWrap: true,
                   itemExtent: 55,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: _transaction.length,
+                  itemCount: transList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return TransactionItem(
-                      transaction: _transaction[index],
+                      transaction: transList[index],
                     );
                   }),
             ),
@@ -70,4 +69,16 @@ class TransactionContainer extends StatelessWidget {
       ),
     );
   }
+}
+
+num totalCalculation(List<TransactionModel> transList) {
+  num total = 0;
+  for (var trans in transList) {
+    if (trans.category.type == 'inflow') {
+      total += trans.amount;
+    } else if (trans.category.type == 'outflow') {
+      total -= trans.amount;
+    }
+  }
+  return total;
 }

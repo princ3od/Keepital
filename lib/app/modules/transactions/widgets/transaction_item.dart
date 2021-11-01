@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/data/models/Transaction.dart';
+import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class TransactionItem extends StatelessWidget {
-  TransactionItem({Key? key, required Transaction transaction})
+  TransactionItem({Key? key, required TransactionModel transaction})
       : trans = transaction,
         super(key: key);
 
-  final Transaction trans;
+  final TransactionModel trans;
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +19,18 @@ class TransactionItem extends StatelessWidget {
       },
       leading: Image(image: AssetImage('assets/images/wallet_list_icon.png')),
       title: Text(
-        trans.Category,
+        trans.category.name,
         style: Theme.of(context).textTheme.headline6,
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        trans.Note.toString(),
+        trans.note.toString(),
         style: Theme.of(context).textTheme.subtitle2,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: Text(trans.Amount.toString(),
+      trailing: Text(trans.amount.toString(),
           style: Theme.of(context).textTheme.headline6!.apply(
-                color: trans.Type == TransactionType.Inflow ? Colors.blue : Colors.red,
+                color: trans.category.type == 'inflow' ? Colors.blue : Colors.red,
               )),
       dense: true,
       contentPadding: EdgeInsets.symmetric(vertical: 9.0),

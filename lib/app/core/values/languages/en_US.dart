@@ -41,5 +41,22 @@ const Map<String, String> enLanguagePackage = {
   'exclude_label': 'Exclude from report',
   'exclude_description': 'This transaction will not be included in Report and Overview.',
   'suggest_label': 'Transaction Suggestion',
-  'suggest_description': 'Tap on any transaction below to quickly fill out.'
+  'suggest_description': 'Tap on any transaction below to quickly fill out.',
+  'Total': 'Total',
+  'YESTERDAY': 'YESTERDAY',
+  'TODAY': 'TODAY',
+  'FUTURE': 'FUTURE',
+  'LAST WEEK': 'LAST WEEK',
+  'THIS WEEK': 'THIS WEEK',
+  'LAST MONTH': 'LAST MONTH',
+  'THIS MONTH': 'THIS MONTH',
+  'LAST YEAR': 'LAST YEAR',
+  'THIS YEAR': 'THIS YEAR',
+  'ALL TRANSACTIONS': 'ALL TRANSACTIONS',
+  'Day': 'Day',
+  'Week': 'Week',
+  'Month': 'Month',
+  'Quarter': 'Quarter',
+  'Year': 'Year',
+  'All': 'All'
 };

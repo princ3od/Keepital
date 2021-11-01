@@ -11,7 +11,7 @@ class WalletItem extends StatelessWidget {
 
   final Wallet _wallet;
   final void Function()? _onTap;
-  String? _selectedId;
+  final String? _selectedId;
 
   @override
   Widget build(BuildContext context) {

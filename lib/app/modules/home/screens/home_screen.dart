@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/top_bar.dart';
 import 'package:keepital/app/modules/planning/screens/planning_screen.dart';
@@ -18,16 +19,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final HomeController _controller = Get.find<HomeController>();
 
-  late TabController _tabController;
-  late List<Text> _tabs;
-
   @override
   Widget build(BuildContext context) {
-    _tabController = TabController(length: 20, vsync: this, initialIndex: 18);
-    _tabs = _controller.initTabBar(3);
+    _controller.tabController = TabController(length: _controller.getTabBarLength(), vsync: this, initialIndex: _controller.getInitialTabBarIndex()).obs;
 
     return Scaffold(
-      appBar: (_controller.needShowAppBar()) ? TopBar(tabController: _tabController, tabs: _tabs) : null,
+      appBar: TopBar(
+        selectTimeRangeCallBack: selectTimeRangeCallBack,
+        selectWalletCallBack: () {
+          setState(() {});
+        },
+      ),
       body: PageView(
         controller: _controller.pageController,
         onPageChanged: (value) {
@@ -90,5 +92,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
     );
+  }
+
+  void selectTimeRangeCallBack(TimeRange range) {
+    if (range == TimeRange.all) {
+      _controller.tabController.value = TabController(length: 1, vsync: this, initialIndex: _controller.getInitialTabBarIndex());
+    } else
+      _controller.tabController.value = TabController(length: 20, vsync: this, initialIndex: _controller.getInitialTabBarIndex());
   }
 }

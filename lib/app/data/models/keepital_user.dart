@@ -1,4 +1,3 @@
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 
@@ -28,4 +27,5 @@ class KeepitalUser extends BaseModel {
   }
 
   bool get hasAnyWallet => wallets.isNotEmpty;
+  bool get iscurrentWalletEmpty => currentWallet == '';
 }

@@ -49,5 +49,22 @@ const Map<String, String> viLanguagePackage = {
   'exclude_label': 'Không Tính Vào Báo Cáo',
   'exclude_description': 'Giao dịch này sẽ không được tính vào báo cáo và tổng quan',
   'suggest_label': 'Gợi Ý Giao Dịch',
-  'suggest_description': 'Chọn các giao dịch bên dưới để điền nhanh'
+  'suggest_description': 'Chọn các giao dịch bên dưới để điền nhanh',
+  'Total': 'Tổng cộng',
+  'YESTERDAY': 'HÔM QUA',
+  'TODAY': 'HÔM NAY',
+  'FUTURE': 'TƯƠNG LAI',
+  'LAST WEEK': 'TUẦN QUA',
+  'THIS WEEK': 'TUẦN NÀY',
+  'LAST MONTH': 'THÁNG QUA',
+  'THIS MONTH': 'THÁNG NÀY',
+  'LAST YEAR': 'NĂM NGOÁI',
+  'THIS YEAR': 'NĂM NAY',
+  'ALL TRANSACTIONS': 'TẤT CẢ GIAO DỊCH',
+  'Day': 'Ngày',
+  'Week': 'Tuần',
+  'Month': 'Tháng',
+  'Quarter': 'Quý',
+  'Year': 'Năm',
+  'All': 'Tất cả'
 };
