@@ -41,7 +41,9 @@ class _AddEventScreen extends State<AddEventScreen> {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-              onPressed: () {},
+              onPressed: () {
+
+              },
               child: Text("save".tr),
             ),
           ],
