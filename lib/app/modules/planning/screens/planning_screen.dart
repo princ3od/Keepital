@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/modules/planning/widgets/planning_panel.dart';
 import 'package:keepital/app/modules/planning/widgets/planning_tile.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class PlanningScreen extends StatelessWidget {
   const PlanningScreen({Key? key}) : super(key: key);
@@ -31,7 +33,9 @@ class PlanningScreen extends StatelessWidget {
                   iconData: Icons.event,
                   title: "Events".tr,
                   subtitle: "Tracking on your spending during an actual event".tr,
-                  action: () => {},
+                  action: () {
+                    Get.toNamed(Routes.event);
+                  },
                 ),
                 Spacer(),
                 PlanningTile(
