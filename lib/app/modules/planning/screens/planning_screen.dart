@@ -48,6 +48,14 @@ class PlanningScreen extends StatelessWidget {
                       "Transactions that are automatically added in future".tr,
                   action: () => {},
                 ),
+                Spacer(),
+                PlanningTile(
+                  iconData: Icons.autorenew,
+                  title: "Recurring Transactions".tr,
+                  subtitle: "Transactions that are automatically added in future".tr,
+                  action: () => {},
+                ),
+                Spacer(),
                 PlanningTile(
                   iconData: Icons.receipt,
                   title: "Recurring Payments".tr,

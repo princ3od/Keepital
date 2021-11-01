@@ -39,5 +39,6 @@ class ProfileTile extends StatelessWidget {
             ],
           )),
     );
+
   }
 }

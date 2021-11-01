@@ -52,13 +52,12 @@ class WalletProvider implements Firestoration<String, Wallet> {
           .collection(AppValue.userCollectionPath)
           .doc(AuthService.instance.currentUser!.uid);
 
-  //It may be used in future so let these lines here...
-  // Future<Wallet> _getWalletFromDocumentReference(
-  //     DocumentReference<Map<String, dynamic>> reference) async {
-  //   var id = reference.id;
-  //   var snapshot = await reference.get();
-  //   Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-  //   data['id'] = id;
-  //   return Wallet.fromMap(data);
-  // }
+  Future<DocumentReference<Object?>> _getUserPath() async => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);
+  Future<Wallet> _getWalletFromDocumentReference(DocumentReference<Map<String, dynamic>> reference) async {
+    var id = reference.id;
+    var snapshot = await reference.get();
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    data['id'] = id;
+    return Wallet.fromMap(data);
+  }
 }
