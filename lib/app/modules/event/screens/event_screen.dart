@@ -1,5 +1,3 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -11,9 +9,7 @@ import 'package:keepital/app/modules/event/widgets/on_going_tab.dart';
 class EventScreen extends StatefulWidget {
   @override
   _EventScreen createState() => _EventScreen();
-
 }
-
 
 class _EventScreen extends State<EventScreen> {
   String dropdownValue = 'WalletOne';
@@ -34,7 +30,7 @@ class _EventScreen extends State<EventScreen> {
             ),
             title: Text(
               'event'.tr,
-              style: GoogleFonts.montserrat(fontWeight: FontWeight.w600,fontSize: 14),
+              style: GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 14),
             ),
             actions: <Widget>[
               Container(height: 30, width: 30, child: Image.asset(AssetStringsPng.walletList)),
@@ -62,7 +58,10 @@ class _EventScreen extends State<EventScreen> {
                   items: <String>['WalletOne', 'WalletTwo', 'WallerThree', 'WalletFour'].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value,style: Theme.of(context).textTheme.bodyText1,),
+                      child: Text(
+                        value,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
                     );
                   }).toList(),
                 ),
@@ -73,11 +72,11 @@ class _EventScreen extends State<EventScreen> {
               tabs: [
                 Tab(
                   child: Text("on_going".tr),
-                  height: MediaQuery. of(context). size. height*0.025,
+                  height: MediaQuery.of(context).size.height * 0.025,
                 ),
                 Tab(
                   child: Text("finished".tr),
-                  height: MediaQuery. of(context). size. height*0.025,
+                  height: MediaQuery.of(context).size.height * 0.025,
                 ),
               ],
             ),

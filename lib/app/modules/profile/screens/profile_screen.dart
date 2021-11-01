@@ -19,18 +19,19 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Profile'.tr,
-            style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
+            style:
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
           ),
-          elevation: 1,
+          elevation: 0,
         ),
         body: Container(
           child: Center(
             child: Column(
               children: [
-                SizedBox(
-                  height: 18,
-                ),
                 ProfileAvatar(controller: _controller),
+                SizedBox(
+                  height: 8,
+                ),
                 ProfileTile(
                   title: 'My wallets'.tr,
                   action: () {},
@@ -43,6 +44,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTile(
                   title: 'Travel mode'.tr,
+                  iconData: Icons.access_alarm,
+                  action: () {},
                 ),
                 ProfileTile(
                   title: 'Help & Support'.tr,
@@ -53,23 +56,33 @@ class ProfileScreen extends StatelessWidget {
                 ProfileTile(
                   title: 'About'.tr,
                 ),
-                Container(width: 350, child: Divider()),
+                Container(
+                    width: 350,
+                    child: Divider(
+                      thickness: 1,
+                    )),
                 SizedBox(
                   height: 8,
                 ),
-                Row(
-                  children: [
-                    SizedBox(width: 45.0),
-                    InkWell(
-                      child: Text(
-                        'Sign out'.tr,
-                        style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.red),
+                Container(
+                  width: 350,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        child: Text(
+                          'Sign out'.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: Colors.red),
+                        ),
+                        onTap: () {
+                          print('object');
+                        },
                       ),
-                      onTap: () {
-                        print('object');
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
