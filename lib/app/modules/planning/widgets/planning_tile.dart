@@ -13,30 +13,22 @@ class PlanningTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: 350,
-        height: 40,
         child: ListTile(
+          horizontalTitleGap: 0,
+          minVerticalPadding: 0,
+          onTap: action,
           leading: Icon(
             iconData,
             size: 30,
           ),
-          title: Text(
-            title ?? "",
-            style: GoogleFonts.montserrat(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Text(
-            subtitle ?? "",
-            style: GoogleFonts.montserrat(
-              fontSize: 10,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          trailing: InkWell(
-            child: Icon(Icons.keyboard_arrow_right),
-            onTap: action,
-          ),
+          title: Text(title ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1
+                  ?.copyWith(fontWeight: FontWeight.bold, fontSize: 14)),
+          subtitle: Text(subtitle ?? "",
+              style: Theme.of(context).textTheme.subtitle1),
+          trailing: Icon(Icons.keyboard_arrow_right),
         ));
   }
 }

@@ -21,21 +21,32 @@ class PlanningScreen extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                PlanningPanel(txtTitle: "Planning".tr, action: () => {}, icon: Icon(Icons.arrow_drop_down)),
+                PlanningPanel(
+                    txtTitle: "Planning".tr,
+                    action: () => {},
+                    icon: Icon(Icons.arrow_drop_down)),
                 PlanningTile(
                   iconData: Icons.work,
                   title: "Budgets".tr,
-                  subtitle: "A financial plan to balance your income and expense".tr,
+                  subtitle:
+                      "A financial plan to balance your income and expense".tr,
                   action: () => {},
                 ),
-                Spacer(),
                 PlanningTile(
                   iconData: Icons.event,
                   title: "Events".tr,
-                  subtitle: "Tracking on your spending during an actual event".tr,
+                  subtitle:
+                      "Tracking on your spending during an actual event".tr,
                   action: () {
                     Get.toNamed(Routes.event);
                   },
+                ),
+                PlanningTile(
+                  iconData: Icons.autorenew,
+                  title: "Recurring Transactions".tr,
+                  subtitle:
+                      "Transactions that are automatically added in future".tr,
+                  action: () => {},
                 ),
                 Spacer(),
                 PlanningTile(

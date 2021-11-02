@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class FirstWalletScreenController extends GetxController {
   var _walletProvider = WalletProvider();
@@ -18,12 +20,15 @@ class FirstWalletScreenController extends GetxController {
       isLoading.value = true;
       if (newWallet != null) {
         var result = await _walletProvider.add(newWallet);
-        if (result != null) {
-          Get.snackbar("Warning", "Your's first wallet has been added");
-        } else {
-          Get.snackbar("Error", "Your's input data is invalid");
-        }
+        DataService.currentUser?.wallets.add(result);
+        Get.snackbar("Warning", "Your's first wallet has been added");
+        Get.toNamed(Routes.home);
+      } else {
+        Get.snackbar("Error", "Your's input data is invalid");
       }
+    } on Exception catch (_) {
+      Get.snackbar(
+          "Error", "Something go wrong, please wait a minute and try again.");
     } finally {
       isLoading.value = false;
     }
@@ -43,16 +48,13 @@ class FirstWalletScreenController extends GetxController {
     );
   }
 
-  bool _checkIsValidInputDataToAdd(Wallet obj) {
-    if (obj == null || obj.name == null || obj.name == "" || obj.amount == null || obj.currencyId == null || obj.currencyId == "" || obj.iconId == null) {
-      return false;
-    }
-    return true;
-  }
-
   Wallet? _createFirstWallet() {
-    var newWallet = Wallet(null, name: walletNameTextEditingController.text, amount: 0.0, currencyId: currencyCode.value, iconId: currencyIcon.value);
-    if (_checkIsValidInputDataToAdd(newWallet)) {
+    var newWallet = Wallet(null,
+        name: walletNameTextEditingController.text,
+        amount: 0.0,
+        currencyId: currencyCode.value,
+        iconId: currencyIcon.value);
+    if (newWallet.checkIsValidInputDataToAdd()) {
       return newWallet;
     } else {
       return null;
