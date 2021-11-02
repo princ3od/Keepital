@@ -6,19 +6,15 @@ class AppColors {
   static const Color primaryColor = Color(0xFF38305F);
   static const Color secondaryColor = Color(0xFF827717);
 
-  static Color get backgroundColor =>
-      (Get.isDarkMode) ? darkBackgroundColor : lightBackgroundColor;
+  static Color get backgroundColor => (Get.isDarkMode) ? darkBackgroundColor : lightBackgroundColor;
 
-  static Color get textColor =>
-      (Get.isDarkMode) ? darkTextColor : lightTextColor;
+  static Color get textColor => (Get.isDarkMode) ? darkTextColor : lightTextColor;
 
-  static Color get disabledTextColor => (Get.isDarkMode)
-      ? darkTextColor.withOpacity(disabledTextOpacity)
-      : lightTextColor.withOpacity(disabledTextOpacity);
+  static Color get disabledTextColor => (Get.isDarkMode) ? darkTextColor.withOpacity(disabledTextOpacity) : lightTextColor.withOpacity(disabledTextOpacity);
 
-  static Color get disabledIconColor => (Get.isDarkMode)
-      ? darkTextColor.withOpacity(disabledIconOpacity)
-      : lightTextColor.withOpacity(disabledIconOpacity);
+  static Color get disabledIconColor => (Get.isDarkMode) ? darkTextColor.withOpacity(disabledIconOpacity) : lightTextColor.withOpacity(disabledIconOpacity);
+
+  static Color get indicatorCircularColour => (Get.isDarkMode) ? indicatorCircularDarkModeColour : indicatorCircularLightModeColour;
 
   static const Color lightBackgroundColor = Color(0xFFFFFFFF);
   static const Color lightDeepBackgroundColor = Color(0xFFF0F2F5);
@@ -37,4 +33,7 @@ class AppColors {
   static const Color secondaryButtonBGColor = Color(0x0B0A13FF);
 
   static const Color appbarColouredBorder = Color(0xFFBDBDBD);
+
+  static const Color indicatorCircularLightModeColour = Color(0xFFF57C00);
+  static const Color indicatorCircularDarkModeColour = Color(0xFFFAFAFA);
 }

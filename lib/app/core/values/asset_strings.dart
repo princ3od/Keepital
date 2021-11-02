@@ -9,6 +9,7 @@ class AssetStringsSvg {
 class AssetStringsPng {
   static const String _baseImageFolder = 'assets/images';
   static const String _baseIconFolder = 'assets/icons';
+  static const String event = '$_baseIconFolder/event.png';
   static const String unknownCategory = '$_baseIconFolder/unknown.png';
   static const String note = '$_baseIconFolder/note.png';
   static const String calendar = '$_baseIconFolder/calendar.png';
@@ -18,6 +19,7 @@ class AssetStringsPng {
   static const String facebookLogo = '$_baseImageFolder/facebook_logo.png';
   static const String walletList = '$_baseImageFolder/wallet_list_icon.png';
   static const String electricity_bill = '$_baseImageFolder/electricity_bill.png';
+  static const String currency ='$_baseIconFolder/currency.png';
 }
 
 class AssetStringGif {

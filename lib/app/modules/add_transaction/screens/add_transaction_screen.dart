@@ -22,6 +22,8 @@ class AddTransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = new DateFormat('yyyy-MM-dd');
+    var dateNow = formatter.format(DateTime.now());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

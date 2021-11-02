@@ -1,12 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:keepital/app/core/theme/app_theme.dart';
+import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/modules/profile/profile_controller.dart';
+import 'package:keepital/app/modules/profile/widgets/profile_avatar.dart';
+import 'package:keepital/app/modules/profile/widgets/profile_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({Key? key}) : super(key: key);
+  final _controller = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(child: Text('Profile tab')),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppTheme.currentTheme.backgroundColor,
+        appBar: AppBar(
+          title: Text(
+            'Profile'.tr,
+            style:
+                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
+          ),
+          elevation: 0,
+        ),
+        body: Container(
+          child: Center(
+            child: Column(
+              children: [
+                ProfileAvatar(controller: _controller),
+                SizedBox(
+                  height: 8,
+                ),
+                ProfileTile(
+                  title: 'My wallets'.tr,
+                  action: () {},
+                ),
+                ProfileTile(
+                  title: 'Categories'.tr,
+                ),
+                ProfileTile(
+                  title: 'Debts'.tr,
+                ),
+                ProfileTile(
+                  title: 'Travel mode'.tr,
+                  iconData: Icons.access_alarm,
+                  action: () {},
+                ),
+                ProfileTile(
+                  title: 'Help & Support'.tr,
+                ),
+                ProfileTile(
+                  title: 'Settings'.tr,
+                ),
+                ProfileTile(
+                  title: 'About'.tr,
+                ),
+                Container(
+                    width: 350,
+                    child: Divider(
+                      thickness: 1,
+                    )),
+                SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  width: 350,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        child: Text(
+                          'Sign out'.tr,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: Colors.red),
+                        ),
+                        onTap: () {
+                          print('object');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/data/services/auth_service.dart';
+import 'package:keepital/app/global_widgets/user_avatar.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/top_bar.dart';
 import 'package:keepital/app/modules/planning/screens/planning_screen.dart';
@@ -76,7 +78,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               BottomNavigationBarItem(
                   icon: Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Icon(FontAwesomeIcons.circle, size: 20),
+                    child: UserAvatar(
+                      size: 10,
+                      user: AuthService.instance.currentUser!,
+                    ),
                   ),
                   label: 'Profile'.tr),
             ],
