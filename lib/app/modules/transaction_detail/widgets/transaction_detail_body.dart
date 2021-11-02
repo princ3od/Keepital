@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
@@ -11,9 +12,9 @@ class TransactionDetailBody extends StatelessWidget {
       : _trans = trans,
         super(key: key);
 
-  HomeController _controller = Get.find<HomeController>();
+  final HomeController _controller = Get.find<HomeController>();
 
-  TransactionModel _trans;
+  final TransactionModel _trans;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class TransactionDetailBody extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.calendar_today),
-              title: Text(_trans.date.toString(), style: Theme.of(context).textTheme.bodyText1),
+              title: Text(DateFormat('dd MMMM yyy').format(_trans.date), style: Theme.of(context).textTheme.bodyText1),
             ),
             ListTile(
               leading: Image(

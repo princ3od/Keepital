@@ -25,6 +25,6 @@ class TransactionModel extends BaseModel {
 
   @override
   Map<String, dynamic> toMap() {
-    return {'id': id, 'amount': amount, 'category': category, 'contact': contact, 'currencyId': currencyId, 'date': date, 'eventId': eventId, 'extraAmountInfo': extraAmountInfo, 'note': note};
+    return {'id': id, 'amount': amount, 'category': category.id, 'contact': contact, 'currencyId': currencyId, 'date': date, 'eventId': eventId, 'extraAmountInfo': extraAmountInfo, 'note': note};
   }
 }

@@ -38,6 +38,7 @@ class AuthController extends GetxController {
     bool isExist = await _isUserExists(result.user!.uid);
     if (isExist) {
       await DataService.instance.loadUserData();
+      await DataService.instance.loadCategoryData();
     } else {
       await _createUser(result.user);
     }

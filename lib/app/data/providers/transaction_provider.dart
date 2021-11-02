@@ -11,9 +11,15 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
   final currentUser = DataService.currentUser!;
 
   @override
-  Future<TransactionModel> add(TransactionModel obj) {
-    // TODO: implement add
-    throw UnimplementedError();
+  Future<TransactionModel> add(TransactionModel obj) async {
+    final userPath = _getUserPath();
+
+    final walletPath = userPath.collection(AppValue.walletCollectionPath).doc(currentUser.currentWallet);
+    final transColl = walletPath.collection(collectionPath);
+    await transColl.add(obj.toMap()).then((transRef) {
+      obj.id = transRef.id;
+    });
+    return obj;
   }
 
   @override

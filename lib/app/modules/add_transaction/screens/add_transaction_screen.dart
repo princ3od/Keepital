@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
+import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart';
+import 'package:keepital/app/modules/add_transaction/widgets/transaction_property_item.dart';
+import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-var formatter = new DateFormat('yyyy-MM-dd');
-
-class AddTransactionScreen extends StatefulWidget {
-  @override
-  _AddTransactionScreen createState() => _AddTransactionScreen();
-}
-
-class _AddTransactionScreen extends State<AddTransactionScreen> {
-  bool _isChecked = false;
+class AddTransactionScreen extends StatelessWidget {
+  final AddTransactionController _controller = Get.find<AddTransactionController>();
+  final amountTextController = TextEditingController();
+  final noteTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,14 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-            onPressed: () {},
+            onPressed: () {
+              if (isValidData()) {
+                var trans = TransactionModel(null, amount: num.tryParse(amountTextController.text)!, category: _controller.category!, currencyId: 'USD', date: _controller.date);
+                TransactionProvider().add(trans);
+                DataService.currentUser!.currentWallet = _controller.oldWalletId;
+                Navigator.pop(context);
+              }
+            },
             child: Text("save".tr),
           ),
         ],
@@ -73,28 +84,22 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                     ),
                     Flexible(
                       flex: 5,
-                      child: TextFormField(),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        child: Image.asset(AssetStringsPng.unknownCategory),
-                        width: 30,
-                        height: 30,
+                      child: TextField(
+                        autofocus: false,
+                        keyboardType: TextInputType.number,
+                        controller: amountTextController,
                       ),
                     ),
-                    Flexible(
-                        flex: 5,
-                        child: TextFormField(
-                          decoration: InputDecoration(hintText: 'hint_category'.tr, hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 14, color: Color.fromARGB(35, 0, 0, 0))),
-                        ))
                   ],
                 ),
+                Obx(() => TransactionPropertyItem(
+                      icon: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
+                      hintText: 'hint_category'.tr,
+                      text: _controller.strCategory.value,
+                      onPressed: () {
+                        showCategoriesModalBottomSheet(context);
+                      },
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -109,49 +114,29 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                     Flexible(
                         flex: 5,
                         child: TextFormField(
-                          decoration: InputDecoration(hintText: 'hint_note'.tr, hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 14, color: Color.fromARGB(35, 0, 0, 0))),
+                          autofocus: false,
+                          controller: noteTextController,
+                          decoration: InputDecoration(hintText: 'hint_note'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
                         ))
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        child: Image.asset(AssetStringsPng.calendar),
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
-                    Flexible(
-                        flex: 5,
-                        child: TextFormField(
-                          initialValue: formatter.format(DateTime.now()),
-                          onTap: () {
-                            FocusScope.of(context).requestFocus(new FocusNode());
-                            showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100));
-                          },
-                        ))
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Icon(
-                        Icons.account_balance_wallet,
-                        size: 25.0,
-                      ),
-                    ),
-                    Flexible(
-                        flex: 5,
-                        child: TextFormField(
-                          decoration: InputDecoration(hintText: 'hint_wallet'.tr, hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 14, color: Color.fromARGB(35, 0, 0, 0))),
-                        ))
-                  ],
-                ),
+                Obx(() => TransactionPropertyItem(
+                      icon: Image.asset(AssetStringsPng.calendar),
+                      text: _controller.strDate.value,
+                      onPressed: () async {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
+                        _controller.strDate.value = formatter.format(_controller.date);
+                      },
+                    )),
+                Obx(() => TransactionPropertyItem(
+                      icon: Icon(Icons.account_balance_wallet),
+                      hintText: 'hint_wallet'.tr,
+                      text: _controller.curWalletName.value,
+                      onPressed: () {
+                        showWalletsModalBottomSheet(context);
+                      },
+                    )),
               ]),
             ),
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
@@ -232,11 +217,9 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
                         Checkbox(
                           checkColor: Colors.white,
                           activeColor: AppColors.primaryColor,
-                          value: _isChecked,
+                          value: _controller.excludeFromReport.value,
                           onChanged: (value) {
-                            setState(() {
-                              _isChecked = value!;
-                            });
+                            _controller.excludeFromReport.value = value!;
                           },
                         )
                       ]),
@@ -267,5 +250,104 @@ class _AddTransactionScreen extends State<AddTransactionScreen> {
         ),
       ),
     );
+  }
+
+  void showWalletsModalBottomSheet(BuildContext context) {
+    _controller.oldWalletId = DataService.currentUser!.currentWallet;
+    showMaterialModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+      ),
+      builder: (context) => Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Wrap(children: [
+            Column(
+              children: [
+                Text(
+                  'Select wallet'.tr,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                LimitedBox(
+                  maxHeight: 160,
+                  child: ListView.builder(
+                      itemExtent: 50.0,
+                      shrinkWrap: true,
+                      itemCount: _controller.wallets.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String key = _controller.wallets.keys.elementAt(index);
+                        return Obx(() => WalletItem(
+                              wallet: _controller.wallets[key]!,
+                              selectedId: _controller.currentWallet.value,
+                              onTap: () {
+                                DataService.currentUser!.currentWallet = key;
+                                _controller.currentWallet.value = key;
+                                _controller.curWalletName.value = _controller.wallets[_controller.currentWallet]?.name ?? '';
+                                _controller.curWalletAmount.value = _controller.wallets[_controller.currentWallet]?.amount.toString() ?? '';
+                              },
+                            ));
+                      }),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  void showCategoriesModalBottomSheet(BuildContext context) {
+    showMaterialModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+      ),
+      builder: (context) => Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Wrap(children: [
+            Column(
+              children: [
+                Text(
+                  'Select category'.tr,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                LimitedBox(
+                  maxHeight: 160,
+                  child: ListView.builder(
+                      itemExtent: 50.0,
+                      shrinkWrap: true,
+                      itemCount: _controller.categories.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Obx(() => CategoryItem(
+                              category: _controller.categories[index],
+                              selectedIndex: _controller.selectedIndex.value,
+                              index: index,
+                              onTap: () {
+                                _controller.selectedIndex.value = index;
+                                _controller.strCategory.value = _controller.categories[index].name;
+                                _controller.category = _controller.categories[index];
+                              },
+                            ));
+                      }),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  bool isValidData() {
+    if (amountTextController.text.isBlank! || _controller.selectedIndex.value == -1 || _controller.currentWallet.value == '') return false;
+    return true;
   }
 }

@@ -11,8 +11,7 @@ class CategoryProvider implements Firestoration<String, Category> {
   }
 
   @override
-  // TODO: implement collectionPath
-  String get collectionPath => throw UnimplementedError();
+  String get collectionPath => AppValue.categoryPath;
 
   @override
   Future<Category> delete(String id) {
@@ -22,8 +21,20 @@ class CategoryProvider implements Firestoration<String, Category> {
 
   @override
   Future<Category> fetch(String id) async {
-    final raw = await FirebaseFirestore.instance.collection(AppValue.categoryPath).doc(id).get();
+    final raw = await FirebaseFirestore.instance.collection(collectionPath).doc(id).get();
     return Category.fromMap(raw.data());
+  }
+
+  Future<List<Category>> fetchAll() async {
+    List<Category> categories = [];
+    final categoryCollection = await FirebaseFirestore.instance.collection(collectionPath).get();
+    for (var categoryRaw in categoryCollection.docs) {
+      var categoryRawData = categoryRaw.data();
+      categoryRawData['id'] = categoryRaw.id;
+      Category c = Category.fromMap(categoryRawData);
+      categories.add(c);
+    }
+    return categories;
   }
 
   @override

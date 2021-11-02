@@ -33,7 +33,7 @@ class TransactionDetailScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 'You can create a budget for this category to be better financial management.'.tr,
-                style: Theme.of(context).textTheme.button,
+                style: Theme.of(context).textTheme.subtitle2,
               )),
           Container(
             padding: EdgeInsets.only(top: 10),

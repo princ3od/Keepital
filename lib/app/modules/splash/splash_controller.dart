@@ -23,6 +23,7 @@ class SplashController extends GetxController {
 
   _loadDataAndNavigateToSuitableScreen() async {
     await DataService.instance.loadUserData();
+    await DataService.instance.loadCategoryData();
     if (DataService.currentUser!.hasAnyWallet) {
       Get.offAllNamed(Routes.home);
     } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 
 class WalletItem extends StatelessWidget {
@@ -18,7 +19,7 @@ class WalletItem extends StatelessWidget {
     return ListTile(
       dense: true,
       leading: Image(
-        image: AssetImage('assets/images/wallet_list_icon.png'),
+        image: AssetImage(AssetStringsPng.walletList),
         height: 30,
       ),
       title: Text(

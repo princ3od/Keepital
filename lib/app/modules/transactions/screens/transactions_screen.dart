@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/transactions/widgets/trans_overview.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_container.dart';
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+}
 
 class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({Key? key}) : super(key: key);
@@ -60,14 +67,23 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                       totalInCome += element.amount;
                   });
 
+                  Map<String, bool> selectedDates = {};
+
                   dateInChoosenTime.forEach((date) {
-                    final b = transList.where((element) => element.date.compareTo(date) == 0);
-                    transactionListSorted.add(b.toList());
+                    String strDate = DateFormat('dd MMM yyy').format(date);
+                    if (selectedDates[strDate] ?? true) {
+                      final b = transList.where((element) => element.date.isSameDate(date));
+                      transactionListSorted.add(b.toList());
+                      selectedDates[strDate] = false;
+                    }
                   });
                 }
 
                 return Container(
-                  child: ListView.builder(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 5,
+                    ),
                     itemCount: transactionListSorted.length + 1,
                     itemBuilder: (context, index) {
                       if (index == 0)
