@@ -66,7 +66,7 @@ const Map<String, String> viLanguagePackage = {
   'Month': 'Tháng',
   'Quarter': 'Quý',
   'Year': 'Năm',
-  'All': 'Tất cả'
+  'All': 'Tất cả',
   'Warning': 'Cảnh báo',
   'Your\'s first wallet has been added': 'Chiếc ví đầu tiên của bạn thêm vào thành công',
   'Error': 'Lỗi',
@@ -83,8 +83,8 @@ const Map<String, String> viLanguagePackage = {
   'on_going': 'Đang diễn ',
   'finished': 'Đã kết thúc',
   'spending': 'Tổng tiền',
-  'add_event':'Thêm Sự Kiện',
-  'mark_as_finished':'DỪNG SỰ KIỆN',
-  'event_name':"Tên Sự kiện",
-  'currency':'Đơn vị tiền tệ',
+  'add_event': 'Thêm Sự Kiện',
+  'mark_as_finished': 'DỪNG SỰ KIỆN',
+  'event_name': "Tên Sự kiện",
+  'currency': 'Đơn vị tiền tệ',
 };

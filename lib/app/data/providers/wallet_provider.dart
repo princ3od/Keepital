@@ -11,11 +11,8 @@ class WalletProvider implements Firestoration<String, Wallet> {
   @override
   Future<Wallet> add(Wallet obj) async {
     final userPath = await _getUserPath();
-    final userWalletCollectionReference =
-        userPath.collection(AppValue.walletCollectionPath);
-    await userWalletCollectionReference
-        .add(obj.toMap())
-        .then((walletReference) {
+    final userWalletCollectionReference = userPath.collection(AppValue.walletCollectionPath);
+    await userWalletCollectionReference.add(obj.toMap()).then((walletReference) {
       obj.id = walletReference.id;
     });
     return obj;
@@ -38,9 +35,8 @@ class WalletProvider implements Firestoration<String, Wallet> {
 
   Future<Map<String, Wallet>> fetchAll() async {
     Map<String, Wallet> wallets = {};
-    final userPath = await _getUserPath();
-    final userWalletCollection =
-        await userPath.collection(AppValue.walletCollectionPath).get();
+    final userPath = _getUserPath();
+    final userWalletCollection = await userPath.collection(AppValue.walletCollectionPath).get();
     for (var rawWallet in userWalletCollection.docs) {
       Map<String, dynamic> rawWalletMap = rawWallet.data();
       rawWalletMap['id'] = rawWallet.id;
@@ -50,17 +46,5 @@ class WalletProvider implements Firestoration<String, Wallet> {
     return wallets;
   }
 
-  Future<DocumentReference<Object?>> _getUserPath() async =>
-      FirebaseFirestore.instance
-          .collection(AppValue.userCollectionPath)
-          .doc(AuthService.instance.currentUser!.uid);
-
-  Future<DocumentReference<Object?>> _getUserPath() async => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);
-  Future<Wallet> _getWalletFromDocumentReference(DocumentReference<Map<String, dynamic>> reference) async {
-    var id = reference.id;
-    var snapshot = await reference.get();
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    data['id'] = id;
-    return Wallet.fromMap(data);
-  }
+  DocumentReference<Object?> _getUserPath() => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);
 }

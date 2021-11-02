@@ -20,15 +20,14 @@ class FirstWalletScreenController extends GetxController {
       isLoading.value = true;
       if (newWallet != null) {
         var result = await _walletProvider.add(newWallet);
-        DataService.currentUser?.wallets.add(result);
+        DataService.currentUser?.wallets[result.id!] = result;
         Get.snackbar("Warning", "Your's first wallet has been added");
         Get.toNamed(Routes.home);
       } else {
         Get.snackbar("Error", "Your's input data is invalid");
       }
     } on Exception catch (_) {
-      Get.snackbar(
-          "Error", "Something go wrong, please wait a minute and try again.");
+      Get.snackbar("Error", "Something go wrong, please wait a minute and try again.");
     } finally {
       isLoading.value = false;
     }
@@ -49,11 +48,7 @@ class FirstWalletScreenController extends GetxController {
   }
 
   Wallet? _createFirstWallet() {
-    var newWallet = Wallet(null,
-        name: walletNameTextEditingController.text,
-        amount: 0.0,
-        currencyId: currencyCode.value,
-        iconId: currencyIcon.value);
+    var newWallet = Wallet(null, name: walletNameTextEditingController.text, amount: 0.0, currencyId: currencyCode.value, iconId: currencyIcon.value);
     if (newWallet.checkIsValidInputDataToAdd()) {
       return newWallet;
     } else {
