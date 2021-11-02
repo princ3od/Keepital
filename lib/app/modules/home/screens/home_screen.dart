@@ -26,12 +26,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _controller.tabController = TabController(length: _controller.getTabBarLength(), vsync: this, initialIndex: _controller.getInitialTabBarIndex()).obs;
 
     return Scaffold(
-      appBar: TopBar(
-        selectTimeRangeCallBack: selectTimeRangeCallBack,
-        selectWalletCallBack: () {
-          setState(() {});
-        },
-      ),
+      appBar: _controller.needShowAppBar()
+          ? TopBar(
+              selectTimeRangeCallBack: selectTimeRangeCallBack,
+              selectWalletCallBack: () {
+                setState(() {});
+              },
+            )
+          : null,
       body: PageView(
         controller: _controller.pageController,
         onPageChanged: (value) {
