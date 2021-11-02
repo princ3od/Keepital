@@ -22,7 +22,7 @@ class FirstWalletScreenController extends GetxController {
         var result = await _walletProvider.add(newWallet);
         DataService.currentUser?.wallets[result.id!] = result;
         Get.snackbar("Warning", "Your's first wallet has been added");
-        Get.toNamed(Routes.home);
+        Get.offAllNamed(Routes.home);
       } else {
         Get.snackbar("Error", "Your's input data is invalid");
       }
