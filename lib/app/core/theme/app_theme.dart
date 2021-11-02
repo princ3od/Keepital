@@ -19,22 +19,9 @@ class AppTheme {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18))));
 
-  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData =
-      OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-              primary: Colors.white,
-              side: BorderSide(color: Colors.white, width: 2),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
 
-  static final OutlinedButtonThemeData _outlinedButtonLightThemeData =
-      OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-              primary: AppColors.primaryColor,
-              side: BorderSide(color: AppColors.primaryColor, width: 2),
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)))));
-
+  static final OutlinedButtonThemeData _outlinedButtonLightThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,

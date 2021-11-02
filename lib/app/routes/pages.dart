@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
 import 'package:keepital/app/modules/event/screens/add_event_screen.dart';
@@ -52,10 +53,7 @@ abstract class AppPages {
     GetPage(
       name: Routes.addTransaction,
       page: () => AddTransactionScreen(),
-    ),
-    GetPage(
-      name: Routes.addTransaction,
-      page: () => AddTransactionScreen(),
+      binding: AddTransactionBinding()    
     ),
     GetPage(
       name: Routes.event,
