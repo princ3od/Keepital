@@ -7,8 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/data/providers/user_provider.dart';
+import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart';
@@ -41,9 +44,21 @@ class AddTransactionScreen extends StatelessWidget {
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-            onPressed: () {
+            onPressed: () async {
               if (isValidData()) {
-                var trans = TransactionModel(null, amount: num.tryParse(amountTextController.text)!, category: _controller.category!, currencyId: 'USD', date: _controller.date);
+                num amount = num.tryParse(amountTextController.text)!;
+                Category cate = _controller.category!;
+
+                var user = DataService.currentUser!;
+                user.amount = cate.type == 'inflow' ? user.amount + amount : user.amount - amount;
+                DataService.currentUser = await UserProvider().update(user.id!, user);
+
+                var walletId = _controller.currentWallet.value;
+                var wallet = _controller.wallets[walletId]!;
+                wallet.amount = cate.type == 'inflow' ? wallet.amount + amount : wallet.amount - amount;
+                DataService.currentUser!.wallets[walletId] = await WalletProvider().update(walletId, wallet);
+
+                var trans = TransactionModel(null, amount: amount, category: cate, currencyId: 'USD', date: _controller.date);
                 TransactionProvider().add(trans);
                 DataService.currentUser!.currentWallet = _controller.oldWalletId;
                 Navigator.pop(context);
@@ -90,6 +105,7 @@ class AddTransactionScreen extends StatelessWidget {
                         autofocus: false,
                         keyboardType: TextInputType.number,
                         controller: amountTextController,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ],
@@ -172,7 +188,7 @@ class AddTransactionScreen extends StatelessWidget {
                       Flexible(
                           flex: 5,
                           child: TextFormField(
-                            decoration: InputDecoration(hintText: 'hint_event'.tr, hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 14, color: Color.fromARGB(35, 0, 0, 0))),
+                            decoration: InputDecoration(hintText: 'hint_event'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
                           ))
                     ],
                   ),
@@ -189,7 +205,7 @@ class AddTransactionScreen extends StatelessWidget {
                       Flexible(
                           flex: 5,
                           child: TextFormField(
-                            decoration: InputDecoration(hintText: 'hint_with'.tr, hintStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 14, color: Color.fromARGB(35, 0, 0, 0))),
+                            decoration: InputDecoration(hintText: 'hint_with'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
                           ))
                     ],
                   ),
@@ -228,10 +244,10 @@ class AddTransactionScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('exclude_label'.tr, style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 12)),
+                          Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
                           Text(
                             'exclude_description'.tr,
-                            style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 8, color: Color.fromARGB(127, 0, 0, 0)),
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
                           )
                         ],
                       )
@@ -241,12 +257,12 @@ class AddTransactionScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            Container(margin: EdgeInsets.only(left: 50), child: Text('suggest_label'.tr)),
+            Container(margin: EdgeInsets.only(left: 50), child: Text('suggest_label'.tr, style: Theme.of(context).textTheme.bodyText2)),
             Container(
                 margin: EdgeInsets.only(left: 50),
                 child: Text(
                   'suggest_description'.tr,
-                  style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, fontSize: 8, color: Color.fromARGB(255, 0, 0, 0)),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ))
           ],
         ),
@@ -349,7 +365,16 @@ class AddTransactionScreen extends StatelessWidget {
   }
 
   bool isValidData() {
-    if (amountTextController.text.isBlank! || _controller.selectedIndex.value == -1 || _controller.currentWallet.value == '') return false;
+    if (amountTextController.text.isBlank!) {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the amount field'.tr));
+      return false;
+    } else if (_controller.selectedIndex.value == -1) {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the category field'.tr));
+      return false;
+    } else if (_controller.currentWallet.value == '') {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the wallet field'.tr));
+      return false;
+    }
     return true;
   }
 }
