@@ -6,6 +6,7 @@ import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/profile/profile_controller.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_avatar.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_tile.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -19,8 +20,7 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Profile'.tr,
-            style:
-                Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
+            style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
           ),
           elevation: 0,
         ),
@@ -34,7 +34,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTile(
                   title: 'My wallets'.tr,
-                  action: () {},
+                  action: () => Get.toNamed(Routes.myWallets),
                 ),
                 ProfileTile(
                   title: 'Categories'.tr,
@@ -72,10 +72,7 @@ class ProfileScreen extends StatelessWidget {
                       InkWell(
                         child: Text(
                           'Sign out'.tr,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              ?.copyWith(color: Colors.red),
+                          style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.red),
                         ),
                         onTap: () {
                           print('object');

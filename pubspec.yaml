@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
+  pull_to_refresh: ^2.0.0
   animated_text_kit: ^4.2.1
   cloud_firestore: ^2.5.3
   cupertino_icons: ^1.0.2

@@ -8,6 +8,9 @@ import 'package:keepital/app/modules/first_wallet/first_wallet_binding.dart';
 import 'package:keepital/app/modules/first_wallet/screen/first_wallet_screen.dart';
 import 'package:keepital/app/modules/home/home_binding.dart';
 import 'package:keepital/app/modules/home/screens/home_screen.dart';
+import 'package:keepital/app/modules/my_wallets/my_wallets_binding.dart';
+import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
+import 'package:keepital/app/modules/my_wallets/screen/my_wallet_screen.dart';
 import 'package:keepital/app/modules/splash/screens/splash_screen.dart';
 import 'package:keepital/app/modules/splash/splash_binding.dart';
 import 'package:keepital/app/modules/transaction_detail/screens/transaction_detail_screen.dart';
@@ -50,15 +53,16 @@ abstract class AppPages {
       page: () => WalletBalanceScreen(),
       binding: WalletBalanceBinding(),
     ),
-    GetPage(
-      name: Routes.addTransaction,
-      page: () => AddTransactionScreen(),
-      binding: AddTransactionBinding()    
-    ),
+    GetPage(name: Routes.addTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
     ),
-    GetPage(name: Routes.addEvent, page: () => AddEventScreen())
+    GetPage(name: Routes.addEvent, page: () => AddEventScreen()),
+    GetPage(
+      name: Routes.myWallets,
+      page: () => MyWalletsScreen(),
+      binding: MyWalletsBinding(),
+    ),
   ];
 }

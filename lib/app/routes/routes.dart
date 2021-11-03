@@ -8,6 +8,7 @@ abstract class Routes {
   static const transactionDetail = '/transaction_detail';
   static const walletBalance = '/wallet_balance';
   static const addTransaction = '/add_transaction';
-  static const event='/event';
-  static const addEvent='/add_event';
+  static const event = '/event';
+  static const addEvent = '/add_event';
+  static const myWallets = '/my_wallets';
 }
