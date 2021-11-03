@@ -66,7 +66,7 @@ const Map<String, String> viLanguagePackage = {
   'Month': 'Tháng',
   'Quarter': 'Quý',
   'Year': 'Năm',
-  'All': 'Tất cả'
+  'All': 'Tất cả',
   'Warning': 'Cảnh báo',
   'Your\'s first wallet has been added': 'Chiếc ví đầu tiên của bạn thêm vào thành công',
   'Error': 'Lỗi',

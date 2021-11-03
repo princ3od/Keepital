@@ -58,7 +58,7 @@ const Map<String, String> enLanguagePackage = {
   'Month': 'Month',
   'Quarter': 'Quarter',
   'Year': 'Year',
-  'All': 'All'
+  'All': 'All',
   'Warning': 'Warning',
   'Your\'s first wallet has been added': 'Your\'s first wallet has been added',
   'Error': 'Error',
