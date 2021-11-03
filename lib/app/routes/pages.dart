@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';

@@ -1,5 +1,4 @@
 import 'package:keepital/app/data/models/base_model.dart';
-import 'package:keepital/app/data/models/wallet.dart';
 
 class Event extends BaseModel {
   late String name;

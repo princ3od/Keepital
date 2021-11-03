@@ -15,6 +15,5 @@ class MyWalletsController extends GetxController {
       userWalletMap.add(value);
     });
     isLoading.value = false;
-    print("load xong");
   }
 }

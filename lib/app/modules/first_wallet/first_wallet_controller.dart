@@ -5,14 +5,16 @@ import 'package:currency_picker/currency_picker.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/modules/first_wallet/widgets/category_picker.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class FirstWalletScreenController extends GetxController {
   var _walletProvider = WalletProvider();
   final walletNameTextEditingController = TextEditingController();
   final currencyTextEditingController = TextEditingController();
-  final currencyCode = "".obs;
-  final currencyIcon = "".obs;
+  final currencyId = "".obs;
+  final iconId = "".obs;
+  final currencySymbol = "".obs;
   final isLoading = false.obs;
   handAddFirstWallet() async {
     try {
@@ -41,14 +43,20 @@ class FirstWalletScreenController extends GetxController {
       showCurrencyCode: true,
       onSelect: (Currency currency) {
         currencyTextEditingController.text = currency.name;
-        currencyCode.value = currency.code;
-        currencyIcon.value = currency.symbol;
+        currencyId.value = currency.code;
+        currencySymbol.value = currency.symbol;
       },
     );
   }
 
+  void showIconCategoryPicker() {
+    Get.bottomSheet(CategoryPicker(
+      onPicked: (value) => print("$value"),
+    ));
+  }
+
   Wallet? _createFirstWallet() {
-    var newWallet = Wallet(null, name: walletNameTextEditingController.text, amount: 0.0, currencyId: currencyCode.value, iconId: currencyIcon.value);
+    var newWallet = Wallet(null, name: walletNameTextEditingController.text, amount: 0.0, currencyId: this.currencyId.value, iconId: "WalletIconPath", currencySymbol: this.currencySymbol.value);
     if (newWallet.checkIsValidInputDataToAdd()) {
       return newWallet;
     } else {
