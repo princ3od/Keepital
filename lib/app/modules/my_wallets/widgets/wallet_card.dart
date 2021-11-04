@@ -23,7 +23,10 @@ class WalletCard extends StatelessWidget {
                   SizedBox(
                     width: 17,
                   ),
-                  Icon(Icons.wallet_travel),
+                  Image.asset(
+                    "${wallet.iconId}",
+                    width: 30,
+                  ),
                   SizedBox(
                     width: 8,
                   ),
@@ -32,7 +35,7 @@ class WalletCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("${wallet.name}"),
-                      Text("${wallet.amount}"),
+                      Text("${wallet.amount} ${wallet.currencySymbol}"),
                     ],
                   ),
                 ],

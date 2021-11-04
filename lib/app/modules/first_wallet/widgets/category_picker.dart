@@ -4,7 +4,7 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/modules/first_wallet/widgets/wallet_category_item.dart';
 
 class CategoryPicker extends StatefulWidget {
-  final Function(String)? onPicked;
+  final Function(AssetGenImage)? onPicked;
   const CategoryPicker({Key? key, required this.onPicked}) : super(key: key);
 
   @override
@@ -51,6 +51,21 @@ class _CategoryPickerState extends State<CategoryPicker> {
   Widget buildListWalletCategoryItem() {
     return ListView(
       children: [
+        WalletCategoryItem(
+          genImage: Assets.imagesGoogleLogo,
+          title: "Google icon",
+          onPressed: widget.onPicked,
+        ),
+        WalletCategoryItem(
+          genImage: Assets.imagesFacebookLogo,
+          title: "Facebook icon",
+          onPressed: widget.onPicked,
+        ),
+        WalletCategoryItem(
+          genImage: Assets.imagesCoinLoading,
+          title: "Icon Loading",
+          onPressed: widget.onPicked,
+        ),
         WalletCategoryItem(
           genImage: Assets.imagesGoogleLogo,
           title: "Google icon",

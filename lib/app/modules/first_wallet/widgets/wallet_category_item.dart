@@ -4,7 +4,7 @@ import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 
 class WalletCategoryItem extends StatefulWidget {
-  final Function(String)? onPressed;
+  final Function(AssetGenImage)? onPressed;
   final AssetGenImage genImage;
   final String title;
 
@@ -22,7 +22,7 @@ class _WalletCategoryItemState extends State<WalletCategoryItem> {
     await Future.delayed(Duration(milliseconds: 500)).then((value) => {
           if (widget.onPressed != null)
             {
-              widget.onPressed!(widget.genImage.path),
+              widget.onPressed!(widget.genImage),
             },
           Get.back(),
         });

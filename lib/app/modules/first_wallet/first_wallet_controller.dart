@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:currency_picker/currency_picker.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
@@ -13,7 +14,7 @@ class FirstWalletScreenController extends GetxController {
   final walletNameTextEditingController = TextEditingController();
   final currencyTextEditingController = TextEditingController();
   final currencyId = "".obs;
-  final iconId = "".obs;
+  final iconIdAssetGenImage = Assets.iconsCalendar.obs; //default
   final currencySymbol = "".obs;
   final isLoading = false.obs;
   handAddFirstWallet() async {
@@ -51,16 +52,34 @@ class FirstWalletScreenController extends GetxController {
 
   void showIconCategoryPicker() {
     Get.bottomSheet(CategoryPicker(
-      onPicked: (value) => print("$value"),
+      onPicked: (assetGenImageValue) {
+        iconIdAssetGenImage.value = assetGenImageValue;
+      },
     ));
   }
 
   Wallet? _createFirstWallet() {
-    var newWallet = Wallet(null, name: walletNameTextEditingController.text, amount: 0.0, currencyId: this.currencyId.value, iconId: "WalletIconPath", currencySymbol: this.currencySymbol.value);
+    var newWallet = Wallet(
+      null,
+      name: walletNameTextEditingController.text,
+      amount: 0.0,
+      currencyId: this.currencyId.value,
+      iconId: iconIdAssetGenImage.value.path,
+      currencySymbol: this.currencySymbol.value,
+    );
     if (newWallet.checkIsValidInputDataToAdd()) {
       return newWallet;
     } else {
       return null;
     }
+  }
+
+  void clearCache() {
+    walletNameTextEditingController.text = "";
+    currencyTextEditingController.text = "";
+    currencyId.value = "";
+    iconIdAssetGenImage.value = Assets.iconsCalendar; //default
+    currencySymbol.value = "";
+    isLoading.value = false;
   }
 }

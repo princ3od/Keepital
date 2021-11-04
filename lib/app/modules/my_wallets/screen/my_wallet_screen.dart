@@ -12,11 +12,6 @@ class MyWalletsScreen extends StatefulWidget {
 
 class _MyWalletsScreenState extends State<MyWalletsScreen> {
   final MyWalletsController _controller = Get.find<MyWalletsController>();
-  @override
-  void initState() {
-    super.initState();
-    loadList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +36,19 @@ class _MyWalletsScreenState extends State<MyWalletsScreen> {
               ),
               Expanded(
                 flex: 3,
-                child: RefreshWidget(
-                  onRefresh: loadList,
-                  child: ListView.builder(
-                    itemCount: _controller.userWalletMap.length,
-                    itemBuilder: (BuildContext context, int index) => WalletCard(
-                      wallet: _controller.userWalletMap[index],
-                      onTap: () {},
-                    ),
-                  ),
+                child: Obx(
+                  () => _controller.isLoading.value
+                      ? Container()
+                      : RefreshWidget(
+                          onRefresh: loadList,
+                          child: ListView.builder(
+                            itemCount: _controller.userWalletMap.length,
+                            itemBuilder: (BuildContext context, int index) => WalletCard(
+                              wallet: _controller.userWalletMap[index],
+                              onTap: () {},
+                            ),
+                          ),
+                        ),
                 ),
               ),
               Expanded(
@@ -59,12 +58,18 @@ class _MyWalletsScreenState extends State<MyWalletsScreen> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _controller.handingAddNewWallet,
+          child: Icon(
+            Icons.add_outlined,
+            size: 30,
+          ),
+        ),
       ),
     );
   }
 
   Future loadList() async {
     await _controller.fetchUserWallets();
-    setState(() {});
   }
 }
