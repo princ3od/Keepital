@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_item.dart';
 
 class TransactionContainer extends StatelessWidget {
@@ -74,9 +75,9 @@ class TransactionContainer extends StatelessWidget {
 num totalCalculation(List<TransactionModel> transList) {
   num total = 0;
   for (var trans in transList) {
-    if (trans.category.type == 'inflow') {
+    if (trans.category.type == CategoryType.income) {
       total += trans.amount;
-    } else if (trans.category.type == 'outflow') {
+    } else if (trans.category.type == CategoryType.expense) {
       total -= trans.amount;
     }
   }

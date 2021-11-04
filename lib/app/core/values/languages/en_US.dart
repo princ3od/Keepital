@@ -82,5 +82,8 @@ const Map<String, String> enLanguagePackage = {
   'Info': 'info',
   'Please fill out the amount field': 'Please fill out the amount field',
   'Please fill out the category field': 'Please fill out the category field',
-  'Please fill out the wallet field': 'Please fill out the wallet field'
+  'Please fill out the wallet field': 'Please fill out the wallet field',
+  'EXPENSE': 'EXPENSE',
+  'INCOME': 'INCOME',
+  "DEBT & LOAN": 'DEBT & LOAN'
 };

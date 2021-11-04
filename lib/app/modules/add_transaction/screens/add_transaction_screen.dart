@@ -13,6 +13,7 @@ import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/transaction_property_item.dart';
@@ -50,12 +51,12 @@ class AddTransactionScreen extends StatelessWidget {
                 Category cate = _controller.category!;
 
                 var user = DataService.currentUser!;
-                user.amount = cate.type == 'inflow' ? user.amount + amount : user.amount - amount;
+                user.amount = cate.type == CategoryType.income ? user.amount + amount : user.amount - amount;
                 DataService.currentUser = await UserProvider().update(user.id!, user);
 
                 var walletId = _controller.currentWallet.value;
                 var wallet = _controller.wallets[walletId]!;
-                wallet.amount = cate.type == 'inflow' ? wallet.amount + amount : wallet.amount - amount;
+                wallet.amount = cate.type == CategoryType.income ? wallet.amount + amount : wallet.amount - amount;
                 DataService.currentUser!.wallets[walletId] = await WalletProvider().update(walletId, wallet);
 
                 var trans = TransactionModel(null, amount: amount, category: cate, currencyId: 'USD', date: _controller.date);

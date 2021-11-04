@@ -4,6 +4,7 @@ import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/modules/profile/profile_controller.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_avatar.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_tile.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -36,6 +37,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTile(
                   title: 'Categories'.tr,
+                  action: () {
+                    Get.toNamed(Routes.categories);
+                  },
                 ),
                 ProfileTile(
                   title: 'Debts'.tr,

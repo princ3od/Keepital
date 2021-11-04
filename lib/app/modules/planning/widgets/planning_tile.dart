@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PlanningTile extends StatelessWidget {
-  late IconData iconData;
+  final IconData iconData;
   final String? title;
   final String? subtitle;
-  Function()? action;
+  final Function()? action;
 
   PlanningTile(
       {required this.iconData, this.title, this.subtitle, this.action});

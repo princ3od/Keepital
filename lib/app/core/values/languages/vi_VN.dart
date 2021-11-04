@@ -72,7 +72,7 @@ const Map<String, String> viLanguagePackage = {
   'Error': 'Lỗi',
   'Your\'s input data is invalid': 'Dữ liệu bạn nhập không hợp lệ',
   'My wallets': 'My wallets',
-  'Categories': 'Loại',
+  'Categories': 'Danh mục chi tiêu',
   'Debts': 'Các khoản nợ',
   'Travel mode': 'Chế độ du lịch',
   'Help & Support': 'Trợ giúp và liên hệ',
@@ -90,5 +90,8 @@ const Map<String, String> viLanguagePackage = {
   'Info': 'Thông báo',
   'Please fill out the amount field': 'Vui lòng nhập số tiền',
   'Please fill out the category field': 'Vui lòng chọn loại chi tiêu',
-  'Please fill out the wallet field': 'Vui lòng chọn ví'
+  'Please fill out the wallet field': 'Vui lòng chọn ví',
+  'EXPENSE': 'KHOẢN CHI',
+  'INCOME': 'KHOẢN THU',
+  "DEBT & LOAN": 'KHOẢN NỢ & CHO VAY'
 };

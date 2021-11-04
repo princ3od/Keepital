@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ProfileTile extends StatelessWidget {
-  String? title;
-  Function()? action;
-  IconData? iconData;
+  final String? title;
+  final Function()? action;
+  final IconData? iconData;
 
   ProfileTile({this.title, this.action, this.iconData});
   @override
