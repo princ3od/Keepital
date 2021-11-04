@@ -121,7 +121,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => preferedSize;
 
   void showWalletsModalBottomSheet(BuildContext context) {
-    Wallet total = Wallet('', name: 'Total'.tr, amount: _controller.currentUser!.amount, currencyId: '', iconId: '');
+    Wallet total = Wallet('', name: 'Total'.tr, amount: _controller.currentUser!.amount, currencyId: '', iconId: '', currencySymbol: 'None_set');
 
     showMaterialModalBottomSheet(
       context: context,
