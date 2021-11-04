@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/transactions/widgets/trans_overview.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_container.dart';
@@ -48,7 +49,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                 if (!_controller.viewByDate) {
                   transList.forEach((element) {
                     if (!categoryInChoosenTime.contains(element.category.name)) categoryInChoosenTime.add(element.category.name);
-                    if (element.category.type == 'outflow')
+                    if (element.category.type == CategoryType.expense)
                       totalOutCome += element.amount;
                     else
                       totalInCome += element.amount;
@@ -61,7 +62,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                 } else {
                   transList.forEach((element) {
                     if (!dateInChoosenTime.contains(element.date)) dateInChoosenTime.add(element.date);
-                    if (element.category.type == 'outflow')
+                    if (element.category.type == CategoryType.expense)
                       totalOutCome += element.amount;
                     else
                       totalInCome += element.amount;
