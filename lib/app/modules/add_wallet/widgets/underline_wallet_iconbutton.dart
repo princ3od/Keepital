@@ -9,12 +9,16 @@ class UnderlineWalletIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 30,
       child: InkWell(
         onTap: () => onPresed(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Spacer(),
+            Spacer(
+              flex: 5,
+            ),
             (assetGenImage == null)
                 ? Icon(
                     Icons.ac_unit,
@@ -22,13 +26,9 @@ class UnderlineWalletIconButton extends StatelessWidget {
                   )
                 : assetGenImage!.image(width: 24, height: 24),
             Spacer(),
-            Container(
-              width: 30,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(width: 1.0, color: Colors.black),
-                ),
-              ),
+            Divider(
+              thickness: 2,
+              height: 3,
             ),
           ],
         ),

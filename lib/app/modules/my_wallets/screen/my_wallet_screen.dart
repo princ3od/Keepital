@@ -15,55 +15,53 @@ class _MyWalletsScreenState extends State<MyWalletsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            title: Text('My Wallets'),
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Get.back();
-              },
-            )),
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 8,
-              ),
-              Expanded(
-                flex: 3,
-                child: Obx(
-                  () => _controller.isLoading.value
-                      ? Container()
-                      : RefreshWidget(
-                          onRefresh: loadList,
-                          child: ListView.builder(
-                            itemCount: _controller.userWalletMap.length,
-                            itemBuilder: (BuildContext context, int index) => WalletCard(
-                              wallet: _controller.userWalletMap[index],
-                              onTap: () {},
-                            ),
+    return Scaffold(
+      appBar: AppBar(
+          title: Text('My Wallets'),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          )),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 8,
+            ),
+            Expanded(
+              flex: 3,
+              child: Obx(
+                () => _controller.isLoading.value
+                    ? Container()
+                    : RefreshWidget(
+                        onRefresh: loadList,
+                        child: ListView.builder(
+                          itemCount: _controller.userWalletMap.length,
+                          itemBuilder: (BuildContext context, int index) => WalletCard(
+                            wallet: _controller.userWalletMap[index],
+                            onTap: () {},
                           ),
                         ),
-                ),
+                      ),
               ),
-              Expanded(
-                flex: 2,
-                child: Container(),
-              ),
-            ],
-          ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _controller.handingAddNewWallet,
-          child: Icon(
-            Icons.add_outlined,
-            size: 30,
-          ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _controller.handingAddNewWallet,
+        child: Icon(
+          Icons.add_outlined,
+          size: 30,
         ),
       ),
     );

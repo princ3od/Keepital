@@ -46,17 +46,14 @@ class AddWalletScreen extends StatelessWidget {
               ),
               Container(
                 color: AppTheme.currentTheme.backgroundColor,
-                width: 411,
                 height: 133,
                 child: Column(
                   children: [
                     Container(
+                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       height: 40,
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 17,
-                          ),
                           Obx(
                             () => UnderlineWalletIconButton(
                               onPresed: () {
@@ -86,23 +83,25 @@ class AddWalletScreen extends StatelessWidget {
                     ),
                     Container(
                       height: 40,
+                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            width: 23,
-                          ),
                           Obx(
-                            () => Center(
-                              child: (_controller.firstWalletScreenController.currencySymbol.value == "")
-                                  ? Icon(Icons.money)
-                                  : SizedBox(
-                                      width: 24,
-                                      child: Text(
-                                        _controller.firstWalletScreenController.currencySymbol.value,
-                                        style: AppTheme.currentTheme.textTheme.headline2,
-                                      ),
+                            () => (_controller.firstWalletScreenController.currencySymbol.value == "")
+                                ? Icon(
+                                    Icons.money,
+                                    size: 30,
+                                  )
+                                : SizedBox(
+                                    width: 30,
+                                    child: Text(
+                                      _controller.firstWalletScreenController.currencySymbol.value,
+                                      style: AppTheme.currentTheme.textTheme.headline6!.copyWith(fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
                                     ),
-                            ),
+                                  ),
                           ),
                           SizedBox(
                             width: 16,
@@ -128,10 +127,11 @@ class AddWalletScreen extends StatelessWidget {
                     ),
                     Container(
                       height: 40,
+                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Row(
                         children: [
                           SizedBox(
-                            width: 62,
+                            width: 46,
                           ),
                           Expanded(
                             child: TextFormField(

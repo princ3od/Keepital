@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 
 class ProfileTile extends StatelessWidget {
   String? title;
@@ -13,32 +11,25 @@ class ProfileTile extends StatelessWidget {
     return InkWell(
       onTap: action,
       child: Container(
-          width: 350,
-          height: 40,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          height: 34,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      (iconData == null)
-                          ? Icon(Icons.ac_unit_outlined)
-                          : Icon(iconData),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(title ?? "",
-                          style: Theme.of(context).textTheme.subtitle1),
-                    ],
+                  (iconData == null) ? Icon(Icons.ac_unit_outlined) : Icon(iconData),
+                  SizedBox(
+                    width: 5,
                   ),
-                  Icon(Icons.keyboard_arrow_right),
+                  SizedBox(height: 10, child: Text(title ?? "", style: Theme.of(context).textTheme.subtitle1)),
                 ],
               ),
+              Icon(Icons.keyboard_arrow_right),
             ],
           )),
     );
-
   }
 }
