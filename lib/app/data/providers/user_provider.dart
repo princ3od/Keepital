@@ -26,9 +26,9 @@ class UserProvider implements Firestoration<String, KeepitalUser> {
   }
 
   @override
-  Future<KeepitalUser> update(String id, KeepitalUser obj) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<KeepitalUser> update(String id, KeepitalUser obj) async {
+    await FirebaseFirestore.instance.collection(collectionPath).doc(id).update(obj.toMap());
+    return obj;
   }
 
   Future<bool> isExists(String id) async {

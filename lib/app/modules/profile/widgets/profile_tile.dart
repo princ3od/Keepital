@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 
 class ProfileTile extends StatelessWidget {
-  String? title;
-  Function()? action;
-  IconData? iconData;
+  final String? title;
+  final Function()? action;
+  final IconData? iconData;
 
   ProfileTile({this.title, this.action, this.iconData});
   @override

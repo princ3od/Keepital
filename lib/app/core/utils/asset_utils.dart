@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 
 class AssetUtils {

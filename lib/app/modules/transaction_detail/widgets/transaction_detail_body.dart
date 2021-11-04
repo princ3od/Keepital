@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 
 class TransactionDetailBody extends StatelessWidget {
@@ -32,7 +32,7 @@ class TransactionDetailBody extends StatelessWidget {
               ),
               title: Text(_trans.category.name, style: Theme.of(context).textTheme.headline6),
             ),
-            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(_trans.amount.toString(), style: GoogleFonts.montserrat(color: _trans.category.type == 'outflow' ? Colors.red : Colors.blue, fontSize: 20))),
+            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(_trans.amount.toString(), style: Theme.of(context).textTheme.headline3!.copyWith(color: _trans.category.type == CategoryType.expense ? Colors.red : Colors.blue))),
             ListTile(
               leading: Icon(Icons.description),
               title: Text(_trans.note.toString(), style: Theme.of(context).textTheme.bodyText1),

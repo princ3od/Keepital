@@ -3,13 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class AdjustBalanceBody extends StatelessWidget {
-  late IconData iconData;
-  late String select_wallet_title;
-  late String enter_current_balance;
+  final IconData iconData;
+  final String selectWalletTitle;
+  final String enterCurrentBalance;
   AdjustBalanceBody({
     required this.iconData,
-    required this.select_wallet_title,
-    required this.enter_current_balance,
+    required this.selectWalletTitle,
+    required this.enterCurrentBalance,
   });
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class AdjustBalanceBody extends StatelessWidget {
               children: [
                 TextField(
                   decoration: InputDecoration(
-                    labelText: select_wallet_title,
+                    labelText: selectWalletTitle,
                     labelStyle: GoogleFonts.montserrat(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
@@ -48,7 +48,7 @@ class AdjustBalanceBody extends StatelessWidget {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      labelText: enter_current_balance,
+                      labelText: enterCurrentBalance,
                       labelStyle: GoogleFonts.montserrat(
                         fontSize: 10,
                         fontWeight: FontWeight.normal,

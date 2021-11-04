@@ -78,5 +78,12 @@ const Map<String, String> enLanguagePackage = {
   'add_event': 'Add Event',
   'mark_as_finished': 'MARK AS FINISHED',
   'event_name': "Event's Name",
-  'currency': 'Currency'
+  'currency': 'Currency', 
+  'Info': 'info',
+  'Please fill out the amount field': 'Please fill out the amount field',
+  'Please fill out the category field': 'Please fill out the category field',
+  'Please fill out the wallet field': 'Please fill out the wallet field',
+  'EXPENSE': 'EXPENSE',
+  'INCOME': 'INCOME',
+  "DEBT & LOAN": 'DEBT & LOAN'
 };
