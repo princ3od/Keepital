@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
+import 'package:keepital/app/modules/add_wallet/add_wallet_controller.dart';
 import 'package:keepital/app/modules/add_wallet/widgets/underline_wallet_iconbutton.dart';
-import '../add_wallet_controller.dart';
 
 class AddWalletScreen extends StatelessWidget {
   final AddWalletController _controller = Get.find<AddWalletController>();

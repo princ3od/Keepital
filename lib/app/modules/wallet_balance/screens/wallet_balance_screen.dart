@@ -59,9 +59,9 @@ class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
             child: Column(
               children: [
                 AdjustBalanceBody(
-                  enter_current_balance: 'Enter curent balance'.tr,
+                  enterCurrentBalance: 'Enter curent balance'.tr,
                   iconData: Icons.help,
-                  select_wallet_title: 'Select Wallet'.tr,
+                  selectWalletTitle: 'Select Wallet'.tr,
                 ),
                 SizedBox(
                   height: 12,

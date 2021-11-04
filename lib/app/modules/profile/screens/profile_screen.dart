@@ -36,6 +36,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 ProfileTile(
                   title: 'Categories'.tr,
+                  action: () {
+                    Get.toNamed(Routes.categories);
+                  },
                 ),
                 ProfileTile(
                   title: 'Debts'.tr,

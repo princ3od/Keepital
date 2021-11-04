@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class PlanningTile extends StatelessWidget {
-  late IconData iconData;
-  String? title;
-  String? subtitle;
-  Function()? action;
+  final IconData iconData;
+  final String? title;
+  final String? subtitle;
+  final Function()? action;
 
   PlanningTile(
       {required this.iconData, this.title, this.subtitle, this.action});

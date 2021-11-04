@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PlanningPanel extends StatelessWidget {
-  String? txtTitle;
-  Function()? action;
-  late Icon icon;
+  final String? txtTitle;
+  final Function()? action;
+  final Icon icon;
   PlanningPanel({this.txtTitle, this.action, required this.icon});
 
   @override

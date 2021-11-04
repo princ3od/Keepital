@@ -6,6 +6,8 @@ import 'package:keepital/app/modules/add_wallet/add_wallet_binding.dart';
 import 'package:keepital/app/modules/add_wallet/screen/add_wallet_screen.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
+import 'package:keepital/app/modules/category/categories_binding.dart';
+import 'package:keepital/app/modules/category/screens/categories_screen.dart';
 import 'package:keepital/app/modules/event/screens/add_event_screen.dart';
 import 'package:keepital/app/modules/event/screens/event_screen.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_binding.dart';
@@ -57,7 +59,11 @@ abstract class AppPages {
       page: () => WalletBalanceScreen(),
       binding: WalletBalanceBinding(),
     ),
-    GetPage(name: Routes.addTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
+    GetPage(
+      name: Routes.addTransaction,
+      page: () => AddTransactionScreen(),
+      binding: AddTransactionBinding()
+    ),
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
@@ -72,6 +78,11 @@ abstract class AppPages {
       name: Routes.addWallet,
       binding: AddWalletBinding(),
       page: () => AddWalletScreen(),
+    ),
+    GetPage(
+      name: Routes.categories,
+      page: () => CategoriesScreen(),
+      binding: CategoriesBinding()
     ),
   ];
 }

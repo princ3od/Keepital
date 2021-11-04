@@ -10,7 +10,7 @@ class WalletProvider implements Firestoration<String, Wallet> {
 
   @override
   Future<Wallet> add(Wallet obj) async {
-    final userPath = await _getUserPath();
+    final userPath = _getUserPath();
     final userWalletCollectionReference = userPath.collection(AppValue.walletCollectionPath);
     await userWalletCollectionReference.add(obj.toMap()).then((walletReference) {
       obj.id = walletReference.id;
@@ -29,8 +29,10 @@ class WalletProvider implements Firestoration<String, Wallet> {
   }
 
   @override
-  Future<Wallet> update(String id, Wallet obj) {
-    throw UnimplementedError();
+  Future<Wallet> update(String id, Wallet obj) async {
+    final userPath = _getUserPath();
+    await userPath.collection(AppValue.walletCollectionPath).doc(id).update(obj.toMap());
+    return obj;
   }
 
   Future<Map<String, Wallet>> fetchAll() async {

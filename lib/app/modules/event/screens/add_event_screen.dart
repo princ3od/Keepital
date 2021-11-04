@@ -3,12 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
-import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/modules/event/widgets/text_feild_with_lead_icon.dart';
 
