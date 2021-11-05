@@ -14,21 +14,20 @@ class WalletCard extends StatelessWidget {
         splashColor: AppTheme.currentTheme.splashColor,
         onTap: onTap,
         child: Container(
-          height: 50,
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          height: 40,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  SizedBox(
-                    width: 17,
-                  ),
                   Image.asset(
                     "${wallet.iconId}",
-                    width: 30,
+                    width: 24,
+                    height: 24,
                   ),
                   SizedBox(
-                    width: 8,
+                    width: 16,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -40,14 +39,7 @@ class WalletCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Icon(Icons.more_vert),
-                  SizedBox(
-                    width: 25,
-                  )
-                ],
-              )
+              Icon(Icons.more_vert),
             ],
           ),
         ),

@@ -58,15 +58,12 @@ class ProfileScreen extends StatelessWidget {
                   title: 'About'.tr,
                 ),
                 Container(
-                    width: 350,
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                     child: Divider(
                       thickness: 1,
                     )),
-                SizedBox(
-                  height: 8,
-                ),
                 Container(
-                  width: 350,
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

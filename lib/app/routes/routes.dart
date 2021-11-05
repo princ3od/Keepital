@@ -10,5 +10,7 @@ abstract class Routes {
   static const addTransaction = '/add_transaction';
   static const myWallets = '/my_wallets';
   static const addWallet = '/add_wallet';
-  static const categories='/category';
+  static const categories = '/category';
+  static const addEvent = '/addEvent';
+  static const event = '/event';
 }
