@@ -1,5 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dart';
+import 'package:keepital/app/modules/add_wallet/add_wallet_binding.dart';
+import 'package:keepital/app/modules/add_wallet/screen/add_wallet_screen.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
 import 'package:keepital/app/modules/category/categories_binding.dart';
@@ -10,6 +14,9 @@ import 'package:keepital/app/modules/first_wallet/first_wallet_binding.dart';
 import 'package:keepital/app/modules/first_wallet/screen/first_wallet_screen.dart';
 import 'package:keepital/app/modules/home/home_binding.dart';
 import 'package:keepital/app/modules/home/screens/home_screen.dart';
+import 'package:keepital/app/modules/my_wallets/my_wallets_binding.dart';
+import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
+import 'package:keepital/app/modules/my_wallets/screen/my_wallet_screen.dart';
 import 'package:keepital/app/modules/splash/screens/splash_screen.dart';
 import 'package:keepital/app/modules/splash/splash_binding.dart';
 import 'package:keepital/app/modules/transaction_detail/screens/transaction_detail_screen.dart';
@@ -63,9 +70,19 @@ abstract class AppPages {
     ),
     GetPage(name: Routes.addEvent, page: () => AddEventScreen()),
     GetPage(
+      name: Routes.myWallets,
+      page: () => MyWalletsScreen(),
+      binding: MyWalletsBinding(),
+    ),
+    GetPage(
+      name: Routes.addWallet,
+      binding: AddWalletBinding(),
+      page: () => AddWalletScreen(),
+    ),
+    GetPage(
       name: Routes.categories,
       page: () => CategoriesScreen(),
       binding: CategoriesBinding()
-    )
+    ),
   ];
 }

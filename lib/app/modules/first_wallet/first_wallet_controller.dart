@@ -2,17 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:currency_picker/currency_picker.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/modules/first_wallet/widgets/category_picker.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class FirstWalletScreenController extends GetxController {
   var _walletProvider = WalletProvider();
   final walletNameTextEditingController = TextEditingController();
   final currencyTextEditingController = TextEditingController();
-  final currencyCode = "".obs;
-  final currencyIcon = "".obs;
+  final currencyId = "".obs;
+  final iconIdAssetGenImage = Assets.iconsCalendar.obs; //default
+  final currencySymbol = "".obs;
   final isLoading = false.obs;
   handAddFirstWallet() async {
     try {
@@ -41,18 +44,42 @@ class FirstWalletScreenController extends GetxController {
       showCurrencyCode: true,
       onSelect: (Currency currency) {
         currencyTextEditingController.text = currency.name;
-        currencyCode.value = currency.code;
-        currencyIcon.value = currency.symbol;
+        currencyId.value = currency.code;
+        currencySymbol.value = currency.symbol;
       },
     );
   }
 
+  void showIconCategoryPicker() {
+    Get.bottomSheet(CategoryPicker(
+      onPicked: (assetGenImageValue) {
+        iconIdAssetGenImage.value = assetGenImageValue;
+      },
+    ));
+  }
+
   Wallet? _createFirstWallet() {
-    var newWallet = Wallet(null, name: walletNameTextEditingController.text, amount: 0.0, currencyId: currencyCode.value, iconId: currencyIcon.value);
+    var newWallet = Wallet(
+      null,
+      name: walletNameTextEditingController.text,
+      amount: 0.0,
+      currencyId: this.currencyId.value,
+      iconId: iconIdAssetGenImage.value.path,
+      currencySymbol: this.currencySymbol.value,
+    );
     if (newWallet.checkIsValidInputDataToAdd()) {
       return newWallet;
     } else {
       return null;
     }
+  }
+
+  void clearCache() {
+    walletNameTextEditingController.text = "";
+    currencyTextEditingController.text = "";
+    currencyId.value = "";
+    iconIdAssetGenImage.value = Assets.iconsCalendar; //default
+    currencySymbol.value = "";
+    isLoading.value = false;
   }
 }

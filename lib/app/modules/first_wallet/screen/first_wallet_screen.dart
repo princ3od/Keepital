@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
 
 class FirstWalletScreen extends StatefulWidget {
@@ -46,9 +47,11 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                     Spacer(),
                     IconButton(
                         iconSize: 48,
-                        icon: FaIcon(FontAwesomeIcons.wallet),
+                        icon: Obx(
+                          () => (_controller.iconIdAssetGenImage.value.path == "") ? FaIcon(FontAwesomeIcons.wallet) : _controller.iconIdAssetGenImage.value.image(),
+                        ),
                         onPressed: () {
-                          print("Pressed");
+                          _controller.showIconCategoryPicker();
                         }),
                     Text(
                       "CHANGE ICON".tr,
@@ -112,11 +115,8 @@ class _FirstWalletScreenState extends State<FirstWalletScreen> {
                     Container(
                       width: 250,
                       child: TextButton(
-                        // onPressed: () => Get.offNamed(Routes.home),
                         onPressed: () async {
-                          print("CONTINUE button pressed");
                           await _controller.handAddFirstWallet();
-                          print("________________");
                         },
                         child: Text(
                           "CONTINUE".tr,
