@@ -1,21 +1,21 @@
 import 'package:keepital/app/data/models/base_model.dart';
 
 class Wallet extends BaseModel {
-  late String name;
-  late num amount;
-  late String currencyId;
-  late String iconId;
-  late String currencySymbol;
+  String name;
+  num amount;
+  String currencyId;
+  String iconId;
+  String currencySymbol;
 
   Wallet(String? id, {required this.name, required this.amount, required this.currencyId, required this.iconId, required this.currencySymbol}) : super(id);
 
-  Wallet.fromMap(Map<String, dynamic> data) : super(data['id']) {
-    name = data['name'];
-    amount = data['amount'];
-    currencyId = data['currencyId'];
-    currencySymbol = data['currencySymbol'];
-    iconId = data['iconId'];
-  }
+  Wallet.fromMap(Map<String, dynamic> data)
+      : name = data['name'],
+        amount = data['amount'],
+        currencyId = data['currencyId'],
+        currencySymbol = data['currencySymbol'],
+        iconId = data['iconId'],
+        super(data['id']);
 
   @override
   Map<String, dynamic> toMap() {

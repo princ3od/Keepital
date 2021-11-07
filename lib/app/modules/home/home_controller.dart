@@ -6,14 +6,20 @@ import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
 
-class HomeController extends GetxController {
-  HomeController() {
-    tabs = initTabBar(selectedTimeRange.value).obs;
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
   }
+}
+
+class HomeController extends GetxController {
+  RxBool isLoading = false.obs;
+  late RxList<TransactionModel> transList;
   final PageController pageController = PageController();
   late Rx<TabController> tabController;
 
@@ -22,12 +28,39 @@ class HomeController extends GetxController {
   RxString currentWallet = DataService.currentUser!.currentWallet.obs;
   RxString curWalletName = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.name ?? 'Total'.tr).obs;
   RxString curWalletAmount = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.amount.toString() ?? DataService.currentUser?.amount.toString() ?? '').obs;
+  RxString curWalletIcon = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.iconId ?? '').obs;
 
   var tabIndex = 0.obs;
 
   var selectedTimeRange = TimeRange.month.obs;
   late RxList<Text> tabs;
   bool viewByDate = true;
+
+  HomeController() {
+    tabs = initTabBar(selectedTimeRange.value).obs;
+  }
+
+  @override
+  void onInit() async {
+    isLoading.value = true;
+    super.onInit();
+    transList = (await TransactionProvider().fetchAll()).obs;
+    isLoading.value = false;
+  }
+
+  Future reloadTransList() async {
+    isLoading.value = true;
+    transList.value = await TransactionProvider().fetchAll();
+    isLoading.value = false;
+  }
+
+  void onCurrentWalletChange(String id) {
+    DataService.currentUser!.currentWallet = id;
+    currentWallet.value = id;
+    curWalletName.value = wallets[id]?.name ?? 'Total'.tr;
+    curWalletAmount.value = wallets[id]?.amount.toString() ?? currentUser?.amount.toString() ?? '';
+    curWalletIcon.value = wallets[id]?.iconId ?? '';
+  }
 
   onTabChanged(int _tabIndex) {
     if (_tabIndex == AppValue.unusedTabIndex) {
@@ -290,7 +323,7 @@ class HomeController extends GetxController {
       isFutureTab = false;
     } else {
       DateTime time = DateTime(int.parse(chooseTime[2]), int.parse(chooseTime[1]), int.parse(chooseTime[0]));
-      transList = transList.where((element) => element.date.compareTo(time) == 0).toList();
+      transList = transList.where((element) => element.date.isSameDate(time)).toList();
     }
     return transList;
   }
@@ -309,7 +342,7 @@ class HomeController extends GetxController {
       chooseTime.clear();
 
       var firstDatePresent = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day).subtract(Duration(days: DateTime.now().weekday - 1));
-      var lastDatePresent = firstDatePresent.add(Duration(days: 6));
+      var lastDatePresent = firstDatePresent.add(Duration(days: 7));
 
       var firstDateInPast = firstDatePresent.subtract(Duration(days: 7));
       var lastDateInPast = firstDateInPast.add(Duration(days: 6));

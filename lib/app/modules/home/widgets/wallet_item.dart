@@ -18,10 +18,15 @@ class WalletItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       dense: true,
-      leading: Image(
-        image: AssetImage(AssetStringsPng.walletList),
-        height: 30,
-      ),
+      leading: _wallet.iconId.isEmpty
+          ? Image(
+              image: AssetImage(AssetStringsPng.walletList),
+              height: 30,
+            )
+          : Image.asset(
+              "${_wallet.iconId}",
+              height: 30,
+            ),
       title: Text(
         _wallet.name,
         style: Theme.of(context).textTheme.headline6,
