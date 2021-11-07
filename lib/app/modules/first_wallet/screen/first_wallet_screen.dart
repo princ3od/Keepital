@@ -4,17 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
-import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
 
-class FirstWalletScreen extends StatefulWidget {
-  const FirstWalletScreen({Key? key}) : super(key: key);
+class FirstWalletScreen extends StatelessWidget {
+  FirstWalletScreen({Key? key}) : super(key: key);
 
-  @override
-  _FirstWalletScreenState createState() => _FirstWalletScreenState();
-}
-
-class _FirstWalletScreenState extends State<FirstWalletScreen> {
   final FirstWalletScreenController _controller = Get.find<FirstWalletScreenController>();
 
   @override
