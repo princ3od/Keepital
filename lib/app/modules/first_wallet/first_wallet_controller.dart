@@ -14,7 +14,7 @@ class FirstWalletScreenController extends GetxController {
   final walletNameTextEditingController = TextEditingController();
   final currencyTextEditingController = TextEditingController();
   final currencyId = "".obs;
-  final iconIdAssetGenImage = Assets.iconsCalendar.obs; //default
+  final iconIdAssetGenImage = Assets.inAppIconWalletDefault.obs;
   final currencySymbol = "".obs;
   final isLoading = false.obs;
   handAddFirstWallet() async {
