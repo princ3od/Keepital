@@ -29,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       appBar: _controller.needShowAppBar()
           ? TopBar(
               selectTimeRangeCallBack: selectTimeRangeCallBack,
-              selectWalletCallBack: () {
-                setState(() {});
+              selectWalletCallBack: () async {
+                await _controller.reloadTransList();
               },
             )
           : null,

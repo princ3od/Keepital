@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/wallet.dart';
-import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
@@ -36,10 +35,16 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   children: [
                     Container(
-                        child: Image(
-                      image: AssetImage(AssetStringsPng.walletList),
-                      height: 30,
-                    )),
+                      child: _controller.curWalletIcon.value.isEmpty
+                          ? Image(
+                              image: AssetImage(AssetStringsPng.walletList),
+                              height: 30,
+                            )
+                          : Image.asset(
+                              "${_controller.curWalletIcon.value}",
+                              height: 30,
+                            ),
+                    ),
                     Icon(Icons.arrow_drop_down, color: Theme.of(context).iconTheme.color)
                   ],
                 ),
@@ -143,10 +148,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                       wallet: total,
                       selectedId: _controller.currentWallet.value,
                       onTap: () {
-                        DataService.currentUser!.currentWallet = '';
-                        _controller.currentWallet.value = '';
-                        _controller.curWalletName.value = 'Total'.tr;
-                        _controller.curWalletAmount.value = _controller.currentUser?.amount.toString() ?? '';
+                        _controller.onCurrentWalletChange('');
                         selectWalletCallBack();
                       }),
                 ),
@@ -165,10 +167,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                               wallet: _controller.wallets[key]!,
                               selectedId: _controller.currentWallet.value,
                               onTap: () {
-                                DataService.currentUser!.currentWallet = key;
-                                _controller.currentWallet.value = key;
-                                _controller.curWalletName.value = _controller.wallets[_controller.currentWallet]?.name ?? 'Total'.tr;
-                                _controller.curWalletAmount.value = _controller.wallets[_controller.currentWallet]?.amount.toString() ?? _controller.currentUser?.amount.toString() ?? '';
+                                _controller.onCurrentWalletChange(key);
                                 selectWalletCallBack();
                               },
                             ));

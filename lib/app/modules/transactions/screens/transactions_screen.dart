@@ -7,12 +7,8 @@ import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/transactions/widgets/trans_overview.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_container.dart';
-
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
-}
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:tuple/tuple.dart';
 
 class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({Key? key}) : super(key: key);
@@ -22,65 +18,36 @@ class TransactionsScreen extends StatefulWidget {
 }
 
 class _TransactionsScreenState extends State<TransactionsScreen> with TickerProviderStateMixin {
-  HomeController _controller = Get.find<HomeController>();
+  final HomeController _controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: TransactionProvider().fetchAll(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Obx(() => TabBarView(
-              controller: _controller.tabController.value,
-              children: _controller.tabs.map((element) {
-                List<TransactionModel> transList = (snapshot.data ?? []) as List<TransactionModel>;
-                transList = _controller.filterTransBasedOnTime(transList, element.data!);
+    return buildCtn();
+  }
 
-                List<DateTime> dateInChoosenTime = [];
-                List<String> categoryInChoosenTime = [];
+  Widget buildCtn() {
+    return Obx(() => _controller.isLoading.value
+        ? Center(child: CircularProgressIndicator())
+        : TabBarView(
+            controller: _controller.tabController.value,
+            children: _controller.tabs.map((element) {
+              RefreshController _refreshController = RefreshController(initialRefresh: false);
 
-                double totalInCome = 0;
-                double totalOutCome = 0;
+              var x = getTabData(_controller.transList.toList(), element);
+              List<List<TransactionModel>> transactionListSorted = x.item1;
+              double totalInflow = x.item2;
+              double totalOutflow = x.item3;
 
-                List<List<TransactionModel>> transactionListSorted = [];
-
-                transList.sort((a, b) => b.date.compareTo(a.date));
-
-                if (!_controller.viewByDate) {
-                  transList.forEach((element) {
-                    if (!categoryInChoosenTime.contains(element.category.name)) categoryInChoosenTime.add(element.category.name);
-                    if (element.category.type == CategoryType.expense)
-                      totalOutCome += element.amount;
-                    else
-                      totalInCome += element.amount;
-                  });
-
-                  categoryInChoosenTime.forEach((cate) {
-                    final b = transList.where((element) => element.category.name.compareTo(cate) == 0);
-                    transactionListSorted.add(b.toList());
-                  });
-                } else {
-                  transList.forEach((element) {
-                    if (!dateInChoosenTime.contains(element.date)) dateInChoosenTime.add(element.date);
-                    if (element.category.type == CategoryType.expense)
-                      totalOutCome += element.amount;
-                    else
-                      totalInCome += element.amount;
-                  });
-
-                  Map<String, bool> selectedDates = {};
-
-                  dateInChoosenTime.forEach((date) {
-                    String strDate = DateFormat('dd MMM yyy').format(date);
-                    if (selectedDates[strDate] ?? true) {
-                      final b = transList.where((element) => element.date.isSameDate(date));
-                      transactionListSorted.add(b.toList());
-                      selectedDates[strDate] = false;
-                    }
-                  });
-                }
-
-                return Container(
+              return Container(
+                child: SmartRefresher(
+                  controller: _refreshController,
+                  onLoading: () async {
+                    _refreshController.loadComplete();
+                  },
+                  onRefresh: () async {
+                    _controller.transList.value = await TransactionProvider().fetchAll();
+                    _refreshController.refreshCompleted();
+                  },
                   child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
                       height: 5,
@@ -89,18 +56,64 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                     itemBuilder: (context, index) {
                       if (index == 0)
                         return TransactionsOverview(
-                          inflow: totalInCome,
-                          outflow: totalOutCome,
+                          inflow: totalInflow,
+                          outflow: totalOutflow,
                         );
                       return TransactionContainer(transList: transactionListSorted[index - 1]);
                     },
                   ),
-                );
-              }).toList()));
-        } else {
-          return Center(child: CircularProgressIndicator());
+                ),
+              );
+            }).toList()));
+  }
+
+  Tuple3 getTabData(List<TransactionModel> transList, Text element) {
+    transList = _controller.filterTransBasedOnTime(transList, element.data!);
+
+    List<DateTime> dateInChoosenTime = [];
+    List<String> categoryInChoosenTime = [];
+
+    double totalInCome = 0;
+    double totalOutCome = 0;
+
+    List<List<TransactionModel>> transactionListSorted = [];
+
+    transList.sort((a, b) => b.date.compareTo(a.date));
+
+    if (!_controller.viewByDate) {
+      transList.forEach((element) {
+        if (!categoryInChoosenTime.contains(element.category.name)) categoryInChoosenTime.add(element.category.name);
+        if (element.category.type == CategoryType.expense)
+          totalOutCome += element.amount;
+        else
+          totalInCome += element.amount;
+      });
+
+      categoryInChoosenTime.forEach((cate) {
+        final b = transList.where((element) => element.category.name.compareTo(cate) == 0);
+        transactionListSorted.add(b.toList());
+      });
+    } else {
+      transList.forEach((element) {
+        if (!dateInChoosenTime.contains(element.date)) dateInChoosenTime.add(element.date);
+        if (element.category.type == CategoryType.expense)
+          totalOutCome += element.amount;
+        else
+          totalInCome += element.amount;
+      });
+
+      Map<String, bool> selectedDates = {};
+
+      dateInChoosenTime.forEach((date) {
+        String strDate = DateFormat('dd MMM yyy').format(date);
+        if (selectedDates[strDate] ?? true) {
+          final b = transList.where((element) => element.date.isSameDate(date));
+          transactionListSorted.add(b.toList());
+          selectedDates[strDate] = false;
         }
-      },
-    );
+      });
+    }
+
+    return Tuple3<List<List<TransactionModel>>, double, double>(transactionListSorted, totalInCome, totalOutCome);
   }
 }

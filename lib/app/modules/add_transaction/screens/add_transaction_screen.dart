@@ -7,20 +7,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
-import 'package:keepital/app/data/models/category.dart';
-import 'package:keepital/app/data/models/transaction.dart';
-import 'package:keepital/app/data/providers/transaction_provider.dart';
-import 'package:keepital/app/data/providers/user_provider.dart';
-import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
-import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/transaction_property_item.dart';
+import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddTransactionScreen extends StatelessWidget {
+  final HomeController _homeController = Get.find<HomeController>();
   final AddTransactionController _controller = Get.find<AddTransactionController>();
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
@@ -47,21 +43,9 @@ class AddTransactionScreen extends StatelessWidget {
             style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
             onPressed: () async {
               if (isValidData()) {
-                num amount = num.tryParse(amountTextController.text)!;
-                Category cate = _controller.category!;
-
-                var user = DataService.currentUser!;
-                user.amount = cate.type == CategoryType.income ? user.amount + amount : user.amount - amount;
-                DataService.currentUser = await UserProvider().update(user.id!, user);
-
-                var walletId = _controller.currentWallet.value;
-                var wallet = _controller.wallets[walletId]!;
-                wallet.amount = cate.type == CategoryType.income ? wallet.amount + amount : wallet.amount - amount;
-                DataService.currentUser!.wallets[walletId] = await WalletProvider().update(walletId, wallet);
-
-                var trans = TransactionModel(null, amount: amount, category: cate, currencyId: 'USD', date: _controller.date);
-                TransactionProvider().add(trans);
-                DataService.currentUser!.currentWallet = _controller.oldWalletId;
+                await _controller.createNewTrans(num.tryParse(amountTextController.text)!);
+                _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
+                _homeController.reloadTransList();
                 Navigator.pop(context);
               }
             },
