@@ -53,14 +53,14 @@ class AddWalletScreen extends StatelessWidget {
                       height: 40,
                       child: Row(
                         children: [
-                          Obx(
-                            () => UnderlineWalletIconButton(
-                              onPresed: () {
-                                _controller.firstWalletScreenController.showIconCategoryPicker();
-                              },
-                              assetGenImage: _controller.firstWalletScreenController.iconIdAssetGenImage.value,
-                            ),
-                          ),
+                          // Obx(
+                          //   () => UnderlineWalletIconButton(
+                          //     onPresed: () {
+                          //       _controller.firstWalletScreenController.showIconCategoryPicker();
+                          //     },
+                          //     assetGenImage: _controller.firstWalletScreenController.walletIcon.value,
+                          //   ),
+                          // ),
                           SizedBox(
                             width: 16,
                           ),
@@ -117,7 +117,7 @@ class AddWalletScreen extends StatelessWidget {
                                 isDense: true,
                                 contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                               ),
-                              onTap: () => _controller.firstWalletScreenController.showCurrencyPickerOfWalletScreen(context),
+                              onTap: () => _controller.firstWalletScreenController.showWalletCurrencyPicker(context),
                               controller: _controller.firstWalletScreenController.currencyTextEditingController,
                             ),
                           ),

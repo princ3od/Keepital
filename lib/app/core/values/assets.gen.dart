@@ -56,6 +56,18 @@ class Assets {
 
   /// File path: assets\images\wallet_list_icon.png
   static const AssetGenImage imagesWalletListIcon = AssetGenImage('assets/images/wallet_list_icon.png');
+
+  /// File path: assets\in_app_icon\education.png
+  static const AssetGenImage inAppIconEducation = AssetGenImage('assets/in_app_icon/education.png');
+
+  /// File path: assets\in_app_icon\electricity_bill.png
+  static const AssetGenImage inAppIconElectricityBill = AssetGenImage('assets/in_app_icon/electricity_bill.png');
+
+  /// File path: assets\in_app_icon\gas_bill.png
+  static const AssetGenImage inAppIconGasBill = AssetGenImage('assets/in_app_icon/gas_bill.png');
+
+  /// File path: assets\in_app_icon\wallet_default.png
+  static const AssetGenImage inAppIconWalletDefault = AssetGenImage('assets/in_app_icon/wallet_default.png');
 }
 
 class AssetGenImage extends AssetImage {
