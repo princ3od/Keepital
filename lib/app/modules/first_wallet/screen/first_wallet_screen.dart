@@ -5,6 +5,7 @@ import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
 import 'package:keepital/app/modules/first_wallet/widgets/wallet_icon_picker.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class FirstWalletScreen extends StatelessWidget {
   FirstWalletScreen({Key? key}) : super(key: key);
@@ -33,7 +34,12 @@ class FirstWalletScreen extends StatelessWidget {
             const Spacer(),
             Obx(
               () => WalletIconPicker(
-                onTap: () {},
+                onTap: () async {
+                  final result = await Get.toNamed(Routes.selectIcon);
+                  if (null != result) {
+                    _controller.walletIcon.value = result;
+                  }
+                },
                 iconPath: _controller.walletIcon.value,
               ),
             ),
