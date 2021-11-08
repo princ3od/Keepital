@@ -13,4 +13,5 @@ abstract class Routes {
   static const categories = '/category';
   static const addEvent = '/addEvent';
   static const event = '/event';
+  static const selectIcon = '/selectIcon';
 }

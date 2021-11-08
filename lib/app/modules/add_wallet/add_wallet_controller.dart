@@ -38,9 +38,9 @@ class AddWalletController extends GetxController {
           name: firstWalletScreenController.walletNameTextEditingController.text,
           amount: double.parse(walletAmountTextEditingController.text),
           currencyId: firstWalletScreenController.currencyId.value,
-          iconId: firstWalletScreenController.iconIdAssetGenImage.value.path,
+          iconId: firstWalletScreenController.walletIcon.value,
           currencySymbol: firstWalletScreenController.currencySymbol.value);
-      if (newWallet.checkIsValidInputDataToAdd()) {
+      if (newWallet.isValid) {
         return newWallet;
       } else {
         return null;
@@ -51,7 +51,7 @@ class AddWalletController extends GetxController {
   }
 
   _clearCache() {
-    firstWalletScreenController.clearCache();
+    firstWalletScreenController.clearInputData();
     walletAmountTextEditingController.clear();
   }
 

@@ -29,7 +29,6 @@ class ImageView extends StatelessWidget {
     return (AssetUtils.getAsset(source) as AssetGenImage).image(
       width: size ?? width,
       height: size ?? height,
-      color: backgroundColor,
       fit: fit,
     );
   }
