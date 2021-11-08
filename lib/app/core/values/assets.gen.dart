@@ -56,6 +56,9 @@ class Assets {
 
   /// File path: assets\images\wallet_list_icon.png
   static const AssetGenImage imagesWalletListIcon = AssetGenImage('assets/images/wallet_list_icon.png');
+
+  /// File path: assets\in_app_icon\wallet_default.png
+  static const AssetGenImage inAppIconWalletDefault = AssetGenImage('assets/in_app_icon/wallet_default.png');
 }
 
 class AssetGenImage extends AssetImage {

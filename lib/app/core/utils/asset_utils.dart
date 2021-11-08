@@ -17,6 +17,7 @@ class AssetUtils {
     Assets.imagesKeepitalLogoPng.path: Assets.imagesKeepitalLogoPng,
     Assets.imagesKeepitalLogoSvg.path: Assets.imagesKeepitalLogoSvg,
     Assets.imagesWalletListIcon.path: Assets.imagesWalletListIcon,
+    Assets.inAppIconWalletDefault.path: Assets.inAppIconWalletDefault,
   };
 
   static dynamic getAsset(String source) => assets[source];
