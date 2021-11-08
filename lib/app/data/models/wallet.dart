@@ -22,10 +22,5 @@ class Wallet extends BaseModel {
     return <String, dynamic>{'name': name, 'amount': amount, 'currencyId': currencyId, 'iconId': iconId, 'currencySymbol': currencySymbol};
   }
 
-  bool checkIsValidInputDataToAdd() {
-    if (name == "" || currencyId == "" || iconId == "" || currencySymbol == "") {
-      return false;
-    }
-    return true;
-  }
+  bool get isValid => (name.isNotEmpty && currencyId.isNotEmpty && iconId.isNotEmpty && currencySymbol.isNotEmpty);
 }
