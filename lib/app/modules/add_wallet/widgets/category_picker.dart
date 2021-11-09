@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
-import 'package:keepital/app/modules/first_wallet/widgets/wallet_category_item.dart';
+import 'package:keepital/app/modules/add_wallet/widgets/wallet_category_item.dart';
 
 class CategoryPicker extends StatefulWidget {
   final Function(AssetGenImage)? onPicked;
