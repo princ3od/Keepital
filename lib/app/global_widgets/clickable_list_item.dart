@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class TransactionPropertyItem extends StatelessWidget {
-  const TransactionPropertyItem({Key? key, required this.icon, required this.text, this.hintText = '', required this.onPressed}) : super(key: key);
+class ClickableListItem extends StatelessWidget {
+  const ClickableListItem({Key? key, required this.icon, this.text, this.hintText = '', required this.onPressed}) : super(key: key);
 
   final Widget icon;
   final String? text;
@@ -48,7 +48,8 @@ class TransactionPropertyItem extends StatelessWidget {
               )
             ],
           ),
-        ));
+        )
+      );
   }
 
   bool isTextEmpty() {

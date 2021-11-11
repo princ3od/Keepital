@@ -87,4 +87,11 @@ const Map<String, String> enLanguagePackage = {
   'INCOME': 'INCOME',
   "DEBT & LOAN": 'DEBT & LOAN',
   'Select Icon': 'Select Icon',
+  'Add category': 'Add category',
+  'Please fill out the name field': 'Please fill out the name field',
+  'Please choose the category\'s parent': 'Please choose the category\'s parent',
+  'Category name': 'Category name',
+  'Income': 'Income',
+  'Expense': 'Expense',
+  'Parent category': 'Parent category'
 };

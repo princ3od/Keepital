@@ -14,6 +14,7 @@ class WalletProvider implements Firestoration<String, Wallet> {
     final userWalletCollectionReference = userPath.collection(AppValue.walletCollectionPath);
     await userWalletCollectionReference.add(obj.toMap()).then((walletReference) {
       obj.id = walletReference.id;
+      walletReference.update({'id': walletReference.id});
     });
     return obj;
   }
@@ -41,7 +42,6 @@ class WalletProvider implements Firestoration<String, Wallet> {
     final userWalletCollection = await userPath.collection(AppValue.walletCollectionPath).get();
     for (var rawWallet in userWalletCollection.docs) {
       Map<String, dynamic> rawWalletMap = rawWallet.data();
-      rawWalletMap['id'] = rawWallet.id;
       Wallet w = Wallet.fromMap(rawWalletMap);
       wallets[rawWallet.id] = w;
     }
