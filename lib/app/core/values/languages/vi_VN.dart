@@ -95,4 +95,11 @@ const Map<String, String> viLanguagePackage = {
   'INCOME': 'KHOẢN THU',
   "DEBT & LOAN": 'KHOẢN NỢ & CHO VAY',
   'Select Icon': 'Chọn biểu tượng',
+  'Add category': 'Thêm danh mục chi tiêu',
+  'Please fill out the name field': 'Vui lòng nhập tên danh mục',
+  'Please choose the category\'s parent': 'Vui lòng chọn danh mục cha',
+  'Category name': 'Tên danh mục',
+  'Income': 'Khoản thu',
+  'Expense': 'Khoản chi',
+  'Parent category': 'Danh mục cha'
 };

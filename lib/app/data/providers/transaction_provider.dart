@@ -18,6 +18,7 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
     final transColl = walletPath.collection(collectionPath);
     await transColl.add(obj.toMap()).then((transRef) {
       obj.id = transRef.id;
+      transRef.update({'id': transRef.id});
     });
     return obj;
   }
@@ -60,7 +61,6 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
     final transColl = await walletPath.collection(collectionPath).get();
     for (var rawTrans in transColl.docs) {
       Map<String, dynamic> rawTransMap = rawTrans.data();
-      rawTransMap['id'] = rawTrans.id;
       TransactionModel t = TransactionModel.fromMap(rawTransMap);
       t.category = await CategoryProvider().fetch(rawTransMap['category']);
       transactions.add(t);

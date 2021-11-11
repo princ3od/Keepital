@@ -5,9 +5,13 @@ import 'package:keepital/app/data/providers/firestoration.dart';
 
 class CategoryProvider implements Firestoration<String, Category> {
   @override
-  Future<Category> add(Category obj) {
-    // TODO: implement add
-    throw UnimplementedError();
+  Future<Category> add(Category obj) async {
+    var categoriesColl = FirebaseFirestore.instance.collection(collectionPath);
+    await categoriesColl.add(obj.toMap()).then((transRef) {
+      obj.id = transRef.id;
+      transRef.update({'id': transRef.id});
+    });
+    return obj;
   }
 
   @override

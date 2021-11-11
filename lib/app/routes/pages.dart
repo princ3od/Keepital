@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/global_widgets/icon_selection_screen.dart';
+import 'package:keepital/app/modules/add_category/add_category_binding.dart';
+import 'package:keepital/app/modules/add_category/screens/add_category_screen.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dart';
 import 'package:keepital/app/modules/add_wallet/add_wallet_binding.dart';
 import 'package:keepital/app/modules/add_wallet/screen/add_wallet_screen.dart';
@@ -89,5 +91,10 @@ abstract class AppPages {
       name: Routes.selectIcon,
       page: () => IconSelectionScreen(),
     ),
+    GetPage(
+      name: Routes.addCategory,
+      page: () => AddCategoryScreen(),
+      binding: AddCategoryBinding()
+    )
   ];
 }

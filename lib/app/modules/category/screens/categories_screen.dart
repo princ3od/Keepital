@@ -8,6 +8,7 @@ import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart'
 import 'package:keepital/app/modules/category/categories_controller.dart';
 import 'package:keepital/app/modules/category/widgets/add_category_button.dart';
 import 'package:keepital/app/modules/category/widgets/categories_topbar.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({Key? key}) : super(key: key);
@@ -40,10 +41,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
 
   Widget createTabBarView(BuildContext context, AsyncSnapshot<Object?> snapshot) {
     var catList = snapshot.data as List<Category>;
+    List<Category> debtNLoanList = [];
     List<Category> expenseList = [];
     List<Category> incomeList = [];
     catList.forEach((element) {
-      if (element.type == CategoryType.income) {
+      if (element.isDebtNLoan) {
+        debtNLoanList.add(element);
+      } else if (element.type == CategoryType.income) {
         incomeList.add(element);
       } else if (element.type == CategoryType.expense) {
         expenseList.add(element);
@@ -57,7 +61,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
             return ListView.builder(
                 itemCount: expenseList.length + 1,
                 itemBuilder: (context, index) {
-                  if (index == 0) return AddCategoryButton(text: 'NEW EXPENSE CATEGORY',);
+                  if (index == 0)
+                    return AddCategoryButton(
+                      text: 'NEW EXPENSE CATEGORY',
+                      onTap: () {
+                        Get.toNamed(Routes.addCategory, arguments: CategoryType.expense);
+                      },
+                    );
 
                   return CategoryItem(category: expenseList[index - 1]);
                 });
@@ -65,12 +75,31 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
             return ListView.builder(
                 itemCount: incomeList.length + 1,
                 itemBuilder: (context, index) {
-                  if (index == 0) return AddCategoryButton(text: 'NEW INCOME CATEGORY',);
+                  if (index == 0)
+                    return AddCategoryButton(
+                      text: 'NEW INCOME CATEGORY',
+                      onTap: () {
+                        Get.toNamed(Routes.addCategory, arguments: CategoryType.income);
+                      },
+                    );
 
                   return CategoryItem(category: incomeList[index - 1]);
                 });
           } else {
-            return Center();
+            return ListView.builder(
+              itemCount: debtNLoanList.length + 1,
+              itemBuilder: (context, index) {
+                if (index == 0)
+                  return AddCategoryButton(
+                    text: 'NEW CATEGORY',
+                    onTap: () {
+                      Get.toNamed(Routes.addCategory, arguments: CategoryType.income);
+                    },
+                  );
+
+                return CategoryItem(category: debtNLoanList[index - 1],);
+              },
+            );
           }
         }).toList());
   }
