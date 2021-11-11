@@ -22,6 +22,17 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
     return obj;
   }
 
+  Future<TransactionModel> addToWallet(TransactionModel obj, String walletId) async {
+    final userPath = _getUserPath();
+
+    final walletPath = userPath.collection(AppValue.walletCollectionPath).doc(walletId);
+    final transColl = walletPath.collection(collectionPath);
+    await transColl.add(obj.toMap()).then((transRef) {
+      obj.id = transRef.id;
+    });
+    return obj;
+  }
+
   @override
   String get collectionPath => AppValue.transactionCollectionPath;
 

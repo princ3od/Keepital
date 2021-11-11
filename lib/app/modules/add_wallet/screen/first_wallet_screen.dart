@@ -38,10 +38,10 @@ class FirstWalletScreen extends StatelessWidget {
                 onTap: () async {
                   final result = await Get.toNamed(Routes.selectIcon);
                   if (null != result) {
-                    _controller.walletIcon.value = result;
+                    _controller.walletIconPath.value = result;
                   }
                 },
-                iconPath: _controller.walletIcon.value.path,
+                iconPath: _controller.walletIconPath.value,
               ),
             ),
             const SizedBox(height: 30),
@@ -98,7 +98,7 @@ class FirstWalletScreen extends StatelessWidget {
               width: 250,
               child: TextButton(
                 onPressed: () async {
-                  await _controller.handAddFirstWallet();
+                  await _controller.handAddWallet();
                 },
                 child: Obx(
                   () => (_controller.isLoading.value)

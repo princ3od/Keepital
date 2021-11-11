@@ -9,9 +9,9 @@ class Category extends BaseModel {
   Category(String? id, {required this.iconId, required this.name, required this.type}) : super(id);
 
   Category.fromMap(Map<String, dynamic>? data)
-      : name = data?['name'],
-        type = categoryFromString(data?['type']),
-        iconId = data?['iconId'],
+      : name = data?['name'] ?? '',
+        type = categoryFromString(data?['type'] ?? ''),
+        iconId = data?['iconId'] ?? '',
         super(data?['id']);
 
   @override
