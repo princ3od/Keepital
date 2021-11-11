@@ -4,24 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 
 class AppTheme {
-  static final ElevatedButtonThemeData _elevatedButtonThemeData =
-      ElevatedButtonThemeData(
+  static final ElevatedButtonThemeData _elevatedButtonThemeData = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       primary: AppColors.primaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
     ),
   );
 
-  static final TextButtonThemeData _secondaryButtonThemeData =
-      TextButtonThemeData(
-          style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18))));
+  static final TextButtonThemeData _secondaryButtonThemeData = TextButtonThemeData(style: TextButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
 
-  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData =
+      OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
 
-  static final OutlinedButtonThemeData _outlinedButtonLightThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonLightThemeData =
+      OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
@@ -95,8 +91,8 @@ class AppTheme {
       color: AppColors.lightBackgroundColor,
       titleTextStyle: GoogleFonts.montserrat(
         color: AppColors.lightTextColor,
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
       ),
       elevation: 1,
     ),
@@ -112,13 +108,9 @@ class AppTheme {
       showSelectedLabels: true,
       showUnselectedLabels: true,
       selectedItemColor: AppColors.lightTextColor,
-      unselectedItemColor:
-          AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
-      selectedIconTheme:
-          IconThemeData(color: AppColors.lightTextColor, opacity: 1),
-      unselectedIconTheme: IconThemeData(
-          color: AppColors.lightTextColor,
-          opacity: AppColors.disabledIconOpacity),
+      unselectedItemColor: AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
+      selectedIconTheme: IconThemeData(color: AppColors.lightTextColor, opacity: 1),
+      unselectedIconTheme: IconThemeData(color: AppColors.lightTextColor, opacity: AppColors.disabledIconOpacity),
       selectedLabelStyle: GoogleFonts.montserrat(
         fontSize: 10,
         fontWeight: FontWeight.normal,
@@ -134,8 +126,7 @@ class AppTheme {
     ),
     tabBarTheme: TabBarTheme(
       labelColor: AppColors.lightTextColor,
-      unselectedLabelColor:
-          AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
+      unselectedLabelColor: AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
       labelPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 12.0),
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(width: 2.0, color: AppColors.lightTextColor),
@@ -154,8 +145,8 @@ class AppTheme {
       color: AppColors.darkBackgroundColor,
       titleTextStyle: GoogleFonts.montserrat(
         color: AppColors.darkTextColor,
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
       ),
       elevation: 1,
     ),
@@ -171,13 +162,9 @@ class AppTheme {
       showSelectedLabels: true,
       showUnselectedLabels: true,
       selectedItemColor: AppColors.darkTextColor,
-      unselectedItemColor:
-          AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
-      selectedIconTheme:
-          IconThemeData(color: AppColors.darkTextColor, opacity: 1),
-      unselectedIconTheme: IconThemeData(
-          color: AppColors.darkTextColor,
-          opacity: AppColors.disabledIconOpacity),
+      unselectedItemColor: AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
+      selectedIconTheme: IconThemeData(color: AppColors.darkTextColor, opacity: 1),
+      unselectedIconTheme: IconThemeData(color: AppColors.darkTextColor, opacity: AppColors.disabledIconOpacity),
       selectedLabelStyle: GoogleFonts.montserrat(
         fontSize: 10,
         fontWeight: FontWeight.normal,
@@ -193,8 +180,7 @@ class AppTheme {
     ),
     tabBarTheme: TabBarTheme(
       labelColor: AppColors.darkTextColor,
-      unselectedLabelColor:
-          AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
+      unselectedLabelColor: AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
       labelPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 12.0),
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(width: 2.0, color: AppColors.darkTextColor),
