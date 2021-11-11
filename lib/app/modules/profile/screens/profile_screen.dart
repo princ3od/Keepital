@@ -66,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
               textColor: Colors.red,
               isShownTrailingIcon: false,
               iconData: Icons.exit_to_app,
-              action: () {},
+              action: () => _controller.signOut(),
             ),
           ],
         ),
