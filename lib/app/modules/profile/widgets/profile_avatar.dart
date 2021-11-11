@@ -16,15 +16,15 @@ class ProfileAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppTheme.currentTheme.backgroundColor,
-      padding: const EdgeInsets.only(left: 16, right: 16),
+      padding: const EdgeInsets.only(left: 20, right: 16),
       child: Row(
         children: [
           Stack(
             children: [
               UserAvatar(
                 user: AuthService.instance.currentUser!,
-                size: 20,
-                borderRadius: 20,
+                size: 24,
+                borderRadius: 24,
                 borderWidth: 0,
               ),
               Positioned(
@@ -45,16 +45,25 @@ class ProfileAvatar extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(width: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(AuthService.instance.currentUser!.displayName ?? '', style: Theme.of(context).textTheme.headline4),
-              Text(
-                'User ID: ${AuthService.instance.currentUser?.uid ?? ''}',
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity)),
-              ),
-            ],
+          const SizedBox(width: 20),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AuthService.instance.currentUser!.displayName ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                Text(
+                  'User ID: ${AuthService.instance.currentUser?.uid ?? ''}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity)),
+                ),
+              ],
+            ),
           ),
         ],
       ),
