@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/global_widgets/user_avatar.dart';
@@ -81,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   icon: Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: UserAvatar(
+                      borderWidth: (_controller.tabIndex.value == AppValue.profileTabIndex) ? 1.6 : 0.6,
                       size: 10,
                       user: AuthService.instance.currentUser!,
                     ),
