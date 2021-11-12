@@ -135,6 +135,7 @@ class AppTheme {
     textTheme: _textTheme(AppColors.lightTextColor),
     iconTheme: IconThemeData(color: AppColors.lightTextColor),
     scaffoldBackgroundColor: AppColors.lightDeepBackgroundColor,
+    dividerColor: AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
   );
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
@@ -189,6 +190,7 @@ class AppTheme {
     textTheme: _textTheme(AppColors.darkTextColor),
     iconTheme: IconThemeData(color: AppColors.darkTextColor),
     scaffoldBackgroundColor: AppColors.darkDeepBackgroundColor,
+    dividerColor: AppColors.darkTextColor.withOpacity(AppColors.disabledTextOpacity),
   );
   static ThemeData currentTheme = (Get.isDarkMode ? darkTheme : lightTheme);
 }

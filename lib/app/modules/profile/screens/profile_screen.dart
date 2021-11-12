@@ -23,50 +23,57 @@ class ProfileScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            ProfileAvatar(),
-            SizedBox(height: 8),
-            Divider(),
-            ProfileTile(
-              title: 'My wallets'.tr,
-              action: () => Get.toNamed(Routes.myWallets),
-              iconData: Icons.account_balance_wallet,
-            ),
-            ProfileTile(
-              title: 'Categories'.tr,
-              action: () => Get.toNamed(Routes.categories),
-              iconData: Icons.category,
-            ),
-            ProfileTile(
-              title: 'Debts'.tr,
-              iconData: Icons.payment,
-            ),
-            ProfileTile(
-              title: 'Travel mode'.tr,
-              action: () {},
-              iconData: Icons.directions_car,
-            ),
-            ProfileTile(
-              title: 'Help & Support'.tr,
-              iconData: Icons.help,
-            ),
-            ProfileTile(
-              title: 'Settings'.tr,
-              iconData: Icons.settings,
-            ),
-            ProfileTile(
-              title: 'About'.tr,
-              iconData: Icons.info,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 32),
-              child: Divider(),
-            ),
-            ProfileTile(
-              title: 'Sign out'.tr,
-              textColor: Colors.red,
-              isShownTrailingIcon: false,
-              iconData: Icons.exit_to_app,
-              action: () => _controller.signOut(),
+            const ProfileAvatar(),
+            const SizedBox(height: 4),
+            const Divider(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 4),
+                  ProfileTile(
+                    title: 'My wallets'.tr,
+                    action: () => Get.toNamed(Routes.myWallets),
+                    iconData: Icons.account_balance_wallet,
+                  ),
+                  ProfileTile(
+                    title: 'Categories'.tr,
+                    action: () => Get.toNamed(Routes.categories),
+                    iconData: Icons.category,
+                  ),
+                  ProfileTile(
+                    title: 'Debts'.tr,
+                    iconData: Icons.payment,
+                  ),
+                  ProfileTile(
+                    title: 'Travel mode'.tr,
+                    action: () {},
+                    iconData: Icons.directions_car,
+                  ),
+                  ProfileTile(
+                    title: 'Help & Support'.tr,
+                    iconData: Icons.help,
+                  ),
+                  ProfileTile(
+                    title: 'Settings'.tr,
+                    iconData: Icons.settings,
+                  ),
+                  ProfileTile(
+                    title: 'About'.tr,
+                    iconData: Icons.info,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 32),
+                    child: Divider(),
+                  ),
+                  ProfileTile(
+                    title: 'Sign out'.tr,
+                    textColor: Colors.red,
+                    isShownTrailingIcon: false,
+                    iconData: Icons.exit_to_app,
+                    action: () => _controller.signOut(),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
