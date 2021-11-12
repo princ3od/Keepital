@@ -28,6 +28,7 @@ class AuthProvider {
   }
 
   Future signOutGoogle() async {
+    _googleAuthProvider = GoogleSignIn();
     await _googleAuthProvider.signOut();
     signOutFirebase();
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
+import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/modules/profile/profile_controller.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_avatar.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_tile.dart';
@@ -16,72 +18,64 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppTheme.currentTheme.backgroundColor,
         appBar: AppBar(
-          title: Text(
-            'Profile'.tr,
-            style: Theme.of(context).textTheme.headline2?.copyWith(fontSize: 20),
-          ),
+          title: Text('Profile'.tr),
           elevation: 0,
         ),
-        body: Container(
-          child: Center(
-            child: Column(
-              children: [
-                ProfileAvatar(controller: _controller),
-                SizedBox(
-                  height: 8,
-                ),
-                ProfileTile(
-                  title: 'My wallets'.tr,
-                  action: () => Get.toNamed(Routes.myWallets),
-                ),
-                ProfileTile(
-                  title: 'Categories'.tr,
-                  action: () {
-                    Get.toNamed(Routes.categories);
-                  },
-                ),
-                ProfileTile(
-                  title: 'Debts'.tr,
-                ),
-                ProfileTile(
-                  title: 'Travel mode'.tr,
-                  iconData: Icons.access_alarm,
-                  action: () {},
-                ),
-                ProfileTile(
-                  title: 'Help & Support'.tr,
-                ),
-                ProfileTile(
-                  title: 'Settings'.tr,
-                ),
-                ProfileTile(
-                  title: 'About'.tr,
-                ),
-                Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Divider(
-                      thickness: 1,
-                    )),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        child: Text(
-                          'Sign out'.tr,
-                          style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.red),
-                        ),
-                        onTap: () {
-                          print('object');
-                        },
-                      ),
-                    ],
+        body: Column(
+          children: [
+            const ProfileAvatar(),
+            const SizedBox(height: 4),
+            const Divider(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 4),
+                  ProfileTile(
+                    title: 'My wallets'.tr,
+                    action: () => Get.toNamed(Routes.myWallets),
+                    iconData: Icons.account_balance_wallet,
                   ),
-                ),
-              ],
+                  ProfileTile(
+                    title: 'Categories'.tr,
+                    action: () => Get.toNamed(Routes.categories),
+                    iconData: Icons.category,
+                  ),
+                  ProfileTile(
+                    title: 'Debts'.tr,
+                    iconData: Icons.payment,
+                  ),
+                  ProfileTile(
+                    title: 'Travel mode'.tr,
+                    action: () {},
+                    iconData: Icons.directions_car,
+                  ),
+                  ProfileTile(
+                    title: 'Help & Support'.tr,
+                    iconData: Icons.help,
+                  ),
+                  ProfileTile(
+                    title: 'Settings'.tr,
+                    iconData: Icons.settings,
+                  ),
+                  ProfileTile(
+                    title: 'About'.tr,
+                    iconData: Icons.info,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 32),
+                    child: Divider(),
+                  ),
+                  ProfileTile(
+                    title: 'Sign out'.tr,
+                    textColor: Colors.red,
+                    isShownTrailingIcon: false,
+                    iconData: Icons.exit_to_app,
+                    action: () => _controller.signOut(),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

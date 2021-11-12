@@ -6,20 +6,24 @@ import 'package:keepital/app/core/values/asset_strings.dart';
 class UserAvatar extends StatelessWidget {
   final User user;
   final int size;
+  final double borderRadius;
+  final double borderWidth;
   const UserAvatar({
     Key? key,
     required this.user,
     required this.size,
+    this.borderRadius = 12.0,
+    this.borderWidth = 0.8,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
         border: Border.all(
           color: AppColors.textColor,
-          width: 0.8,
+          width: borderWidth,
         ),
       ),
       child: CircleAvatar(
