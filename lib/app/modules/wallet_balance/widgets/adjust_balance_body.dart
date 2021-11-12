@@ -3,13 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 
 class AdjustBalanceBody extends StatelessWidget {
-  final IconData iconData;
+  final String iconImgData;
   final String selectWalletTitle;
   final String enterCurrentBalance;
+  final void Function() onPressed;
+  final TextEditingController selectedWalletController;
+  final TextEditingController currentBalanceController;
   AdjustBalanceBody({
-    required this.iconData,
+    required this.iconImgData,
     required this.selectWalletTitle,
     required this.enterCurrentBalance,
+    required this.onPressed,
+    required this.selectedWalletController,
+    required this.currentBalanceController,
   });
   @override
   Widget build(BuildContext context) {
@@ -22,11 +28,25 @@ class AdjustBalanceBody extends StatelessWidget {
           SizedBox(
             width: 8,
           ),
-          IconButton(
-            iconSize: 40,
-            onPressed: null,
-            icon: Icon(iconData),
-          ),
+          // IconButton(
+          //   iconSize: 40,
+          //   onPressed: onPressed,
+          //   icon: (iconImgData == "")
+          //       ? Icon(Icons.help)
+          //       : ImageIcon(
+          //           AssetImage('assets/in_app_icon/wallet_default.png'),
+          //         ),
+          // ),
+          (iconImgData == "")
+              ? IconButton(
+                  icon: Icon(Icons.help),
+                  onPressed: onPressed,
+                  iconSize: 40,
+                )
+              : InkWell(
+                  child: Container(padding: const EdgeInsets.all(8.0), child: Image.asset(iconImgData, width: 40, height: 40)),
+                  onTap: onPressed,
+                ),
           SizedBox(
             width: 8,
           ),
@@ -35,6 +55,7 @@ class AdjustBalanceBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextField(
+                  controller: selectedWalletController,
                   decoration: InputDecoration(
                     labelText: selectWalletTitle,
                     labelStyle: GoogleFonts.montserrat(
@@ -46,6 +67,7 @@ class AdjustBalanceBody extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   child: TextField(
+                    controller: currentBalanceController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: enterCurrentBalance,

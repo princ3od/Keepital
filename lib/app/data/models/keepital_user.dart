@@ -18,12 +18,7 @@ class KeepitalUser extends BaseModel {
 
   @override
   Map<String, dynamic> toMap() {
-    return {
-      'id': this.id,
-      'name': this.name,
-      'currencyId': this.currencyId,
-      'amount': this.amount,
-    };
+    return {'id': this.id, 'name': this.name, 'currencyId': this.currencyId, 'amount': this.amount, 'currentWallet': this.currentWallet};
   }
 
   bool get hasAnyWallet => wallets.isNotEmpty;
