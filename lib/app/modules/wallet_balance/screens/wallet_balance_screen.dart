@@ -27,7 +27,9 @@ class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
             preferredSize: Size.fromHeight(3.0)),
         leading: IconButton(
           color: Colors.black,
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
           icon: Icon(Icons.close),
           iconSize: 24,
         ),
@@ -40,7 +42,9 @@ class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              _controller.onSavePressed();
+            },
             child: Text(
               "SAVE".tr,
               style: GoogleFonts.montserrat(
@@ -73,12 +77,11 @@ class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
                 height: 12,
               ),
               ExcludeSetting(
-                title: 'Exclude from report'.tr,
-                subtitle: 'This transaction is not included in Report and Overview.'.tr,
-                onTap: (isChecked) {
-                  print(isChecked);
-                },
-              ),
+                  title: 'Exclude from report'.tr,
+                  subtitle: 'This transaction is not included in Report and Overview.'.tr,
+                  onTap: (isChecked) {
+                    _controller.onExcludeSettingChanged(isChecked);
+                  }),
             ],
           ),
         ),

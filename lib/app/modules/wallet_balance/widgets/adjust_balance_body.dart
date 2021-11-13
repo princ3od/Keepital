@@ -28,24 +28,18 @@ class AdjustBalanceBody extends StatelessWidget {
           SizedBox(
             width: 8,
           ),
-          // IconButton(
-          //   iconSize: 40,
-          //   onPressed: onPressed,
-          //   icon: (iconImgData == "")
-          //       ? Icon(Icons.help)
-          //       : ImageIcon(
-          //           AssetImage('assets/in_app_icon/wallet_default.png'),
-          //         ),
-          // ),
           (iconImgData == "")
               ? IconButton(
                   icon: Icon(Icons.help),
                   onPressed: onPressed,
                   iconSize: 40,
                 )
-              : InkWell(
-                  child: Container(padding: const EdgeInsets.all(8.0), child: Image.asset(iconImgData, width: 40, height: 40)),
-                  onTap: onPressed,
+              : Container(
+                  padding: EdgeInsets.all(8),
+                  child: InkWell(
+                    child: Image.asset(iconImgData, width: 40),
+                    onTap: onPressed,
+                  ),
                 ),
           SizedBox(
             width: 8,
