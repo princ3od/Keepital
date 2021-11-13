@@ -16,4 +16,10 @@ class AuthService {
     _loginType = SignInType.withGoogle;
     return await AuthProvider().signInWithGoogle();
   }
+
+  Future<void> signOut() async {
+    if (loginType == SignInType.withGoogle) {
+      await AuthProvider().signOutGoogle();
+    } else {}
+  }
 }

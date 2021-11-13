@@ -1,82 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
-import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/user_avatar.dart';
 import 'package:keepital/app/modules/profile/profile_controller.dart';
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({
     Key? key,
-    required ProfileController controller,
-  })  : _controller = controller,
-        super(key: key);
-
-  final ProfileController _controller;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 1,
-      child: Container(
-        color: AppTheme.currentTheme.backgroundColor,
-        height: 45,
-        child: Column(
-          children: [
-            Spacer(
-              flex: 1,
-            ),
-            Row(
-              children: [
-                SizedBox(width: 32.0),
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    SizedBox(
-                      height: 28,
-                      width: 28,
-                      child: CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: NetworkImage(
-                            _controller.currentUser?.photoURL ?? ""),
-                        backgroundColor: Colors.transparent,
-                      ),
+    return Container(
+      color: AppTheme.currentTheme.backgroundColor,
+      padding: const EdgeInsets.only(left: 20, right: 16),
+      child: Row(
+        children: [
+          Stack(
+            children: [
+              UserAvatar(
+                user: AuthService.instance.currentUser!,
+                size: 24,
+                borderRadius: 24,
+                borderWidth: 0,
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: SizedBox(
+                  width: 12,
+                  height: 12,
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundColor: Colors.white,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: (AuthService.instance.loginType == SignInType.withGoogle) ? Assets.imagesGoogleLogo.image() : Assets.imagesFacebookLogo.image(),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      left: 20,
-                      child: SizedBox(
-                        width: 10,
-                        height: 10,
-                        child: CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.white,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child:
-                                (_controller.loginType == SignInType.withGoogle)
-                                    ? Image.asset(AssetStringsPng.gooogleLogo)
-                                    : Image.asset(AssetStringsPng.facebookLogo),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-                SizedBox(
-                  width: 8,
+              )
+            ],
+          ),
+          const SizedBox(width: 20),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AuthService.instance.currentUser!.displayName ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
-                Text(_controller.currentUser?.displayName ?? "",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        ?.copyWith(fontSize: 12)),
+                Text(
+                  'User ID: ${AuthService.instance.currentUser?.uid ?? ''}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity)),
+                ),
               ],
             ),
-            Spacer(
-              flex: 10,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

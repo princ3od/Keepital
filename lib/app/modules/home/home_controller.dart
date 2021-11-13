@@ -466,4 +466,9 @@ class HomeController extends GetxController {
   onAddTransaction() {
     Get.toNamed(Routes.addTransaction);
   }
+
+  onUpdateWalletBalance() {
+    String currentWalletId = DataService.currentUser!.currentWallet;
+    curWalletAmount.value = DataService.currentUser!.wallets[currentWalletId]!.amount.toString();
+  }
 }

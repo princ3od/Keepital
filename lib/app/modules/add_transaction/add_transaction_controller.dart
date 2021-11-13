@@ -16,9 +16,6 @@ class AddTransactionController extends GetxController {
   late var curWalletName = (wallets[currentWallet]?.name ?? '').obs;
   late var curWalletAmount = (wallets[currentWallet]?.amount.toString() ?? '').obs;
 
-  var categories = DataService.categories;
-  RxInt selectedIndex = (-1).obs;
-
   RxNum amount = RxNum(0);
   Category? category;
   late var strCategory = ''.tr.obs;
@@ -29,9 +26,9 @@ class AddTransactionController extends GetxController {
 
   RxBool excludeFromReport = false.obs;
 
-  String oldWalletId = '';
+  String oldWalletId = DataService.currentUser!.currentWallet;
 
-  Future createNewTrans(num amount) async {
+  Future createNewTrans(num amount, String note) async {
     var user = DataService.currentUser!;
     user.amount = category!.type == CategoryType.income ? user.amount + amount : user.amount - amount;
     DataService.currentUser = await UserProvider().update(user.id!, user);
@@ -41,8 +38,14 @@ class AddTransactionController extends GetxController {
     wallet.amount = category!.type == CategoryType.income ? wallet.amount + amount : wallet.amount - amount;
     DataService.currentUser!.wallets[walletId] = await WalletProvider().update(walletId, wallet);
 
-    var trans = TransactionModel(null, amount: amount, category: category!, currencyId: 'USD', date: date);
+    var trans = TransactionModel(null, amount: amount, category: category!, currencyId: wallet.currencyId, date: date, note: note);
     await TransactionProvider().add(trans);
     DataService.currentUser!.currentWallet = oldWalletId;
+  }
+
+  void onSelectCategory(Category? category)
+  {
+    strCategory.value = category?.name ?? '';
+    this.category = category;
   }
 }

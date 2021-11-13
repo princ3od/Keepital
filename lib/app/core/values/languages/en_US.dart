@@ -28,7 +28,7 @@ const Map<String, String> enLanguagePackage = {
   'A financial plan to balance your income and expense': 'A financial plan to balance your income and expense',
   'Events': 'Events',
   'Tracking on your spending during an actual event': 'Tracking on your spending during an actual event',
-  'Recurring Transactions': 'Transactions that are automatically added in future',
+  'Recurring Transactions': 'Recurring Transactions',
   'Recurring Payments': 'Recurring Payments',
   'Monitoring your repetitive bills': 'Monitoring your repetitive bills',
   'add_transaction': 'Add Transaction',
@@ -87,4 +87,11 @@ const Map<String, String> enLanguagePackage = {
   'INCOME': 'INCOME',
   "DEBT & LOAN": 'DEBT & LOAN',
   'Select Icon': 'Select Icon',
+  'Add category': 'Add category',
+  'Please fill out the name field': 'Please fill out the name field',
+  'Please choose the category\'s parent': 'Please choose the category\'s parent',
+  'Category name': 'Category name',
+  'Income': 'Income',
+  'Expense': 'Expense',
+  'Parent category': 'Parent category'
 };

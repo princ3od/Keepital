@@ -2,12 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/providers/firestoration.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 
 class CategoryProvider implements Firestoration<String, Category> {
   @override
-  Future<Category> add(Category obj) {
-    // TODO: implement add
-    throw UnimplementedError();
+  Future<Category> add(Category obj) async {
+    var categoriesColl = userCollectionRef.collection(collectionPath);
+    await categoriesColl.add(obj.toMap()).then((cateRef) {
+      obj.id = cateRef.id;
+      cateRef.update({'id': cateRef.id});
+    });
+    return obj;
   }
 
   @override
@@ -21,16 +26,15 @@ class CategoryProvider implements Firestoration<String, Category> {
 
   @override
   Future<Category> fetch(String id) async {
-    final raw = await FirebaseFirestore.instance.collection(collectionPath).doc(id).get();
+    final raw = await userCollectionRef.collection(collectionPath).doc(id).get();
     return Category.fromMap(raw.data());
   }
 
   Future<List<Category>> fetchAll() async {
     List<Category> categories = [];
-    final categoryCollection = await FirebaseFirestore.instance.collection(collectionPath).get();
+    final categoryCollection = await userCollectionRef.collection(collectionPath).get();
     for (var categoryRaw in categoryCollection.docs) {
       var categoryRawData = categoryRaw.data();
-      categoryRawData['id'] = categoryRaw.id;
       Category c = Category.fromMap(categoryRawData);
       categories.add(c);
     }
@@ -42,4 +46,29 @@ class CategoryProvider implements Firestoration<String, Category> {
     // TODO: implement update
     throw UnimplementedError();
   }
+
+  Future<List<Category>> fetchAllPublic() async {
+    List<Category> categories = [];
+    final categoryCollection = await FirebaseFirestore.instance.collection(collectionPath).get();
+    for (var categoryRaw in categoryCollection.docs) {
+      var categoryRawData = categoryRaw.data();
+      Category c = Category.fromMap(categoryRawData);
+      categories.add(c);
+    }
+    return categories;
+  }
+
+  Future makeACopy2CurUser() async {
+    var categories = await fetchAllPublic();
+
+    final userColl = FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(curUserId);
+    for (var category in categories) {
+      userColl.collection(AppValue.categoryPath).add(category.toMap()).then((cateRef) {
+        cateRef.update({'id': cateRef.id});
+      });
+    }
+  }
+
+  String get curUserId => DataService.currentUser!.id!;
+  get userCollectionRef => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(curUserId);
 }

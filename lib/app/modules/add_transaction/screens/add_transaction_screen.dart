@@ -8,9 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/global_widgets/category_selector.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
-import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart';
-import 'package:keepital/app/modules/add_transaction/widgets/transaction_property_item.dart';
+import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -43,7 +43,7 @@ class AddTransactionScreen extends StatelessWidget {
             style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
             onPressed: () async {
               if (isValidData()) {
-                await _controller.createNewTrans(num.tryParse(amountTextController.text)!);
+                await _controller.createNewTrans(num.tryParse(amountTextController.text)!, noteTextController.text);
                 _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
                 _homeController.reloadTransList();
                 Navigator.pop(context);
@@ -95,12 +95,15 @@ class AddTransactionScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                Obx(() => TransactionPropertyItem(
+                Obx(() => ClickableListItem(
                       icon: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
                       hintText: 'hint_category'.tr,
                       text: _controller.strCategory.value,
-                      onPressed: () {
-                        showCategoriesModalBottomSheet(context);
+                      onPressed: () async {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        var category = await showCategoriesModalBottomSheet(context);
+
+                        _controller.onSelectCategory(category);
                       },
                     )),
                 Row(
@@ -123,7 +126,7 @@ class AddTransactionScreen extends StatelessWidget {
                         ))
                   ],
                 ),
-                Obx(() => TransactionPropertyItem(
+                Obx(() => ClickableListItem(
                       icon: Image.asset(AssetStringsPng.calendar),
                       text: _controller.strDate.value,
                       onPressed: () async {
@@ -132,11 +135,12 @@ class AddTransactionScreen extends StatelessWidget {
                         _controller.strDate.value = formatter.format(_controller.date);
                       },
                     )),
-                Obx(() => TransactionPropertyItem(
+                Obx(() => ClickableListItem(
                       icon: Icon(Icons.account_balance_wallet),
                       hintText: 'hint_wallet'.tr,
                       text: _controller.curWalletName.value,
                       onPressed: () {
+                        FocusScope.of(context).requestFocus(new FocusNode());
                         showWalletsModalBottomSheet(context);
                       },
                     )),
@@ -256,7 +260,6 @@ class AddTransactionScreen extends StatelessWidget {
   }
 
   void showWalletsModalBottomSheet(BuildContext context) {
-    _controller.oldWalletId = DataService.currentUser!.currentWallet;
     showMaterialModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -303,57 +306,12 @@ class AddTransactionScreen extends StatelessWidget {
     );
   }
 
-  void showCategoriesModalBottomSheet(BuildContext context) {
-    showMaterialModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-      ),
-      builder: (context) => Container(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Wrap(children: [
-            Column(
-              children: [
-                Text(
-                  'Select category'.tr,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                LimitedBox(
-                  maxHeight: 160,
-                  child: ListView.builder(
-                      itemExtent: 50.0,
-                      shrinkWrap: true,
-                      itemCount: _controller.categories.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Obx(() => CategoryItem(
-                              category: _controller.categories[index],
-                              selectedIndex: _controller.selectedIndex.value,
-                              index: index,
-                              onTap: () {
-                                _controller.selectedIndex.value = index;
-                                _controller.strCategory.value = _controller.categories[index].name;
-                                _controller.category = _controller.categories[index];
-                              },
-                            ));
-                      }),
-                ),
-                SizedBox(
-                  height: 10,
-                )
-              ],
-            ),
-          ]),
-        ),
-      ),
-    );
-  }
 
   bool isValidData() {
     if (amountTextController.text.isBlank!) {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the amount field'.tr));
       return false;
-    } else if (_controller.selectedIndex.value == -1) {
+    } else if (_controller.strCategory.value == '') {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the category field'.tr));
       return false;
     } else if (_controller.currentWallet.value == '') {

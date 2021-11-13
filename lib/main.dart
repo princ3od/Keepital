@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
+import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/data/services/app_start_service.dart';
 import 'package:keepital/app/data/services/theme_service.dart';
 import 'package:keepital/app/routes/pages.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Keepital',
+      title: AppStrings.appName,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeService.theme,

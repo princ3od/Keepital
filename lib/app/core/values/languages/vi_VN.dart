@@ -14,7 +14,7 @@ const Map<String, String> viLanguagePackage = {
   'Adjust Balance': 'Thay đổi số dư',
   'Search for transaction': 'Tìm giao dịch',
   'Select wallet': 'Chọn ví',
-  'login_google': 'Tiếp tục với Goolge',
+  'login_google': 'Tiếp tục với Google',
   'inspirational': 'Hãy đạt đến mục tiêu tài chính của bạn ngay hôm nay',
   'login_facebook': 'Tiếp tục với Facebook',
   'Create your first wallet': 'Tạo chiếc ví đầu tiên của bạn',
@@ -95,4 +95,11 @@ const Map<String, String> viLanguagePackage = {
   'INCOME': 'KHOẢN THU',
   "DEBT & LOAN": 'KHOẢN NỢ & CHO VAY',
   'Select Icon': 'Chọn biểu tượng',
+  'Add category': 'Thêm danh mục chi tiêu',
+  'Please fill out the name field': 'Vui lòng nhập tên danh mục',
+  'Please choose the category\'s parent': 'Vui lòng chọn danh mục cha',
+  'Category name': 'Tên danh mục',
+  'Income': 'Khoản thu',
+  'Expense': 'Khoản chi',
+  'Parent category': 'Danh mục cha'
 };

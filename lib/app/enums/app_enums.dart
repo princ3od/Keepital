@@ -10,7 +10,7 @@ enum SignInType {
 
 enum TimeRange { day, week, month, quarter, year, all }
 
-enum CategoryType { debtNLoan, expense, income }
+enum CategoryType { expense, income }
 
 extension CategoryTypeTransform on CategoryType {
   String str() {

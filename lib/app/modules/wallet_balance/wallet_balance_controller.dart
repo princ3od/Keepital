@@ -5,6 +5,7 @@ import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'widgets/wallets_modal_bottom_sheet.dart';
@@ -18,11 +19,9 @@ class WalletBalanceController extends GetxController {
   var isExcludedReport = false.obs;
   Wallet? selectedWallet;
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    await WalletProvider().fetchAll().then(
-          (value) => wallets = value.values.toList(),
-        );
+    wallets = DataService.currentUser!.wallets.values.toList();
   }
 
   void showModalBottomShee() {
@@ -53,6 +52,7 @@ class WalletBalanceController extends GetxController {
       this.selectedWallet?.name = selectedWalletController.text;
       this.selectedWallet?.amount = num.parse(currentBalanceController.text);
       await WalletProvider().update(this.selectedWallet!.id.toString(), this.selectedWallet!);
+      DataService.currentUser!.wallets[selectedWallet?.id ?? ""] = this.selectedWallet!;
       await onUpdateComplete(selectedWallet!);
     }
   }
@@ -76,7 +76,7 @@ class WalletBalanceController extends GetxController {
 
   Future createNewTrans(Wallet wallet) async {
     await Get.toNamed(Routes.categories);
-    var category = Category('hy0YLUVk5iRNu9PWCPXj', iconId: '', name: 'Another', type: (changedAmount < 0) ? CategoryType.income : CategoryType.expense);
+    var category = Category('v2ORTsRjiq7sslcp5xvf', iconId: '', name: 'Another', type: (changedAmount < 0) ? CategoryType.income : CategoryType.expense, isDebtNLoan: false, parent: '');
     var trans = TransactionModel(
       null,
       amount: (changedAmount < 0) ? -changedAmount : changedAmount,

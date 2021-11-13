@@ -117,7 +117,7 @@ class AddWalletController extends GetxController {
   onCompletedAddWallet() {}
 
   Future createNewTrans(String walletId) async {
-    var category = Category('hy0YLUVk5iRNu9PWCPXj', iconId: '', name: 'Another', type: CategoryType.income);
+    var category = Category('v2ORTsRjiq7sslcp5xvf', iconId: '', name: 'Another', type: CategoryType.income, isDebtNLoan: false, parent: '');
     var trans = TransactionModel(
       null,
       amount: num.parse(walletAmountTextEditingController.text == "" ? "0" : walletAmountTextEditingController.text),
