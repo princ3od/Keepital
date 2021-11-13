@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,9 +37,7 @@ class _AddEventScreen extends State<AddEventScreen> {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-              onPressed: () {
-
-              },
+              onPressed: () {},
               child: Text("save".tr),
             ),
           ],

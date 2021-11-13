@@ -6,9 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/event.dart';
 
-class EventListItemCard extends StatelessWidget {
-  final Event item;
-  const EventListItemCard({ required this.item});
+class EventItem extends StatelessWidget {
+  final Event event;
+  const EventItem({required this.event});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,10 +26,10 @@ class EventListItemCard extends StatelessWidget {
                   child: Image.asset(AssetStringsPng.event),
                 ),
                 Text(
-                  item.name,
+                  event.name,
                   style: GoogleFonts.montserrat(fontSize: 12, fontWeight: FontWeight.w500),
                 ),
-                Spacer(flex:5),
+                Spacer(flex: 5),
                 InkWell(
                     splashColor: Colors.grey,
                     onTap: () {},
@@ -37,7 +37,9 @@ class EventListItemCard extends StatelessWidget {
                       Icons.edit,
                       size: 25,
                     )),
-                Spacer(flex: 1,),
+                Spacer(
+                  flex: 1,
+                ),
                 InkWell(
                     splashColor: Colors.grey,
                     onTap: () {},
@@ -49,7 +51,7 @@ class EventListItemCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 34.0),
-              child: Text(DateFormat('dd/MM/yyyy').format(item.date), style: Theme.of(context).textTheme.subtitle2),
+              child: Text(DateFormat('dd/MM/yyyy').format(event.endDate), style: Theme.of(context).textTheme.subtitle2),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,7 +60,7 @@ class EventListItemCard extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 34.0),
                   child: Text('spending'.tr, style: Theme.of(context).textTheme.subtitle2),
                 ),
-                Text(item.spending.toString()+" "+ item.currency)
+                Text(event.spending.toString() + " " + event.currencyId)
               ],
             ),
             Container(

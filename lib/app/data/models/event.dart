@@ -3,14 +3,16 @@ import 'package:keepital/app/data/models/base_model.dart';
 class Event extends BaseModel {
   String name;
   DateTime endDate;
-  String currency;
+  String currencyId;
+  String currencySymbol;
   double spending;
   bool isMarkedCompleted;
 
   Event(
     String? id, {
     required this.name,
-    required this.currency,
+    required this.currencyId,
+    required this.currencySymbol,
     required this.spending,
     required this.isMarkedCompleted,
     required this.endDate,
@@ -21,7 +23,8 @@ class Event extends BaseModel {
         endDate = DateTime.tryParse(data['endDate'].toDate().toString()) ?? DateTime.now(),
         spending = data['spending'] ?? 0,
         isMarkedCompleted = data['isMarkedCompleted'] ?? false,
-        currency = data['currency'] ?? '',
+        currencyId = data['currencyId'] ?? '',
+        currencySymbol = data['currencySymbol'] ?? '',
         super(data['id']);
 
   @override
@@ -29,7 +32,7 @@ class Event extends BaseModel {
     return <String, dynamic>{
       'name': name,
       'endDate': endDate,
-      'currency': currency,
+      'currency': currencyId,
       'spending': spending,
       'isMarkedCompleted': isMarkedCompleted,
     };
