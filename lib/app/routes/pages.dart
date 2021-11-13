@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/global_widgets/icon_selection_screen.dart';
 import 'package:keepital/app/modules/add_category/add_category_binding.dart';
 import 'package:keepital/app/modules/add_category/screens/add_category_screen.dart';
@@ -18,7 +16,6 @@ import 'package:keepital/app/modules/first_wallet/screen/first_wallet_screen.dar
 import 'package:keepital/app/modules/home/home_binding.dart';
 import 'package:keepital/app/modules/home/screens/home_screen.dart';
 import 'package:keepital/app/modules/my_wallets/my_wallets_binding.dart';
-import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
 import 'package:keepital/app/modules/my_wallets/screen/my_wallet_screen.dart';
 import 'package:keepital/app/modules/splash/screens/splash_screen.dart';
 import 'package:keepital/app/modules/splash/splash_binding.dart';

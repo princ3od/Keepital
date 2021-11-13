@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
-import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/modules/profile/profile_controller.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_avatar.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_tile.dart';

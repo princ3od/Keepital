@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
+import 'package:keepital/app/data/providers/category_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/data/services/data_service.dart';
@@ -10,6 +11,7 @@ import 'package:keepital/app/routes/pages.dart';
 class AuthController extends GetxController {
   var isLoading = false.obs;
   var _userProvider = UserProvider();
+  var _categoryProvider = CategoryProvider();
 
   handleSignIn(SignInType signInType) async {
     try {
@@ -41,6 +43,7 @@ class AuthController extends GetxController {
       await DataService.instance.loadCategoryData();
     } else {
       await _createUser(result.user);
+      await _copyCategories();
     }
     _navigateToSuitableScreen();
   }
@@ -56,6 +59,10 @@ class AuthController extends GetxController {
   _createUser(User? user) async {
     KeepitalUser keepitalUser = KeepitalUser(user!.uid, amount: 0, currencyId: '0', name: user.displayName);
     DataService.currentUser = await _userProvider.add(keepitalUser);
+  }
+
+  _copyCategories() async {
+    await _categoryProvider.makeACopy2CurUser();
   }
 
   _navigateToSuitableScreen() {
