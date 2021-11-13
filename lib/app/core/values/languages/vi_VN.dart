@@ -14,7 +14,7 @@ const Map<String, String> viLanguagePackage = {
   'Adjust Balance': 'Thay đổi số dư',
   'Search for transaction': 'Tìm giao dịch',
   'Select wallet': 'Chọn ví',
-  'login_google': 'Tiếp tục với Goolge',
+  'login_google': 'Tiếp tục với Google',
   'inspirational': 'Hãy đạt đến mục tiêu tài chính của bạn ngay hôm nay',
   'login_facebook': 'Tiếp tục với Facebook',
   'Create your first wallet': 'Tạo chiếc ví đầu tiên của bạn',
