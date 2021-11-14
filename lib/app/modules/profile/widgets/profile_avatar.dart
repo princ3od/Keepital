@@ -5,7 +5,6 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/global_widgets/user_avatar.dart';
-import 'package:keepital/app/modules/profile/profile_controller.dart';
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({

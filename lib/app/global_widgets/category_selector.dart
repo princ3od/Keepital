@@ -3,12 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/data/models/category.dart';
-import 'package:keepital/app/data/services/data_service.dart';
-import 'package:keepital/app/modules/add_transaction/widgets/category_item.dart';
+import 'package:keepital/app/data/providers/category_provider.dart';
+import 'package:keepital/app/global_widgets/category_item.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 Future<Category?> showCategoriesModalBottomSheet(BuildContext context) async {
-  var categories = DataService.categories;
+  var categories = await CategoryProvider().conditionalFetch('');
   var selectedIndex = (-1).obs;
 
   await showMaterialModalBottomSheet(
@@ -39,7 +39,7 @@ Future<Category?> showCategoriesModalBottomSheet(BuildContext context) async {
                               category: categories[index],
                               selectedIndex: selectedIndex.value,
                               index: index,
-                              onTap: () {
+                              onTap: (category) {
                                 selectedIndex.value = index;
                               },
                             ));

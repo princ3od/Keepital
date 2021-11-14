@@ -8,15 +8,13 @@ import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/services/data_service.dart';
-import 'package:keepital/app/global_widgets/category_selector.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
-import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
+import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddTransactionScreen extends StatelessWidget {
-  final HomeController _homeController = Get.find<HomeController>();
   final AddTransactionController _controller = Get.find<AddTransactionController>();
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
@@ -44,8 +42,6 @@ class AddTransactionScreen extends StatelessWidget {
             onPressed: () async {
               if (isValidData()) {
                 await _controller.createNewTrans(num.tryParse(amountTextController.text)!, noteTextController.text);
-                _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
-                _homeController.reloadTransList();
                 Navigator.pop(context);
               }
             },
@@ -101,7 +97,7 @@ class AddTransactionScreen extends StatelessWidget {
                       text: _controller.strCategory.value,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        var category = await showCategoriesModalBottomSheet(context);
+                        var category = await Get.toNamed(Routes.categories, arguments: true);
 
                         _controller.onSelectCategory(category);
                       },

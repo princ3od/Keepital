@@ -7,10 +7,12 @@ import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/modules/home/home_controller.dart';
 
 var formatter = new DateFormat('dd MMMM yyyy');
 
 class AddTransactionController extends GetxController {
+  final HomeController _homeController = Get.find<HomeController>();
   var wallets = DataService.currentUser!.wallets;
   var currentWallet = DataService.currentUser!.currentWallet.obs;
   late var curWalletName = (wallets[currentWallet]?.name ?? '').obs;
@@ -41,10 +43,12 @@ class AddTransactionController extends GetxController {
     var trans = TransactionModel(null, amount: amount, category: category!, currencyId: wallet.currencyId, date: date, note: note);
     await TransactionProvider().add(trans);
     DataService.currentUser!.currentWallet = oldWalletId;
+
+    _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
+    _homeController.reloadTransList();
   }
 
-  void onSelectCategory(Category? category)
-  {
+  void onSelectCategory(Category? category) {
     strCategory.value = category?.name ?? '';
     this.category = category;
   }

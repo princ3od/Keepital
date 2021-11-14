@@ -30,6 +30,18 @@ class CategoryProvider implements Firestoration<String, Category> {
     return Category.fromMap(raw.data());
   }
 
+  Future<List<Category>> conditionalFetch(String parent) async {
+    List<Category> categories = [];
+
+    final categoriesRaw = await userCollectionRef.collection(collectionPath).where('parent', isEqualTo: parent).get();
+    for (var categoryRaw in categoriesRaw.docs) {
+      var cateRawData = categoryRaw.data();
+      Category c = Category.fromMap(cateRawData);
+      categories.add(c);
+    }
+    return categories;
+  }
+
   Future<List<Category>> fetchAll() async {
     List<Category> categories = [];
     final categoryCollection = await userCollectionRef.collection(collectionPath).get();
