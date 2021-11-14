@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ProfileTile(
                     title: 'Categories'.tr,
-                    action: () => Get.toNamed(Routes.categories),
+                    action: () => Get.toNamed(Routes.categories, arguments: false),
                     iconData: Icons.category,
                   ),
                   ProfileTile(

@@ -7,7 +7,7 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem({Key? key, required this.category, this.onTap, this.selectedIndex, this.index}) : super(key: key);
 
   final Category category;
-  final void Function()? onTap;
+  final void Function(Category category)? onTap;
   final int? selectedIndex;
   final int? index;
 
@@ -28,7 +28,11 @@ class CategoryItem extends StatelessWidget {
         child: Icon(Icons.check_circle, color: Theme.of(context).iconTheme.color),
         visible: isVisisble(),
       ),
-      onTap: onTap,
+      onTap: () {
+        if (onTap != null) {
+          onTap!(category);
+        }
+      },
     );
   }
 

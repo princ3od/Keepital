@@ -11,8 +11,7 @@ import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class AddCategoryScreen extends StatelessWidget {
-  AddCategoryScreen({Key? key}) : super(key: key)
-  {
+  AddCategoryScreen({Key? key}) : super(key: key) {
     _controller.categoryType = Rx(Get.arguments);
   }
 
@@ -21,15 +20,15 @@ class AddCategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AddCategoryTopBar(onSaveTap: () {
-        if (isValidData())
-        {
-          _controller.onSave(nameTextController.text);
-          Navigator.pop(context);
-        }
-      },),
+      appBar: AddCategoryTopBar(
+        onSaveTap: () {
+          if (isValidData()) {
+            _controller.onSave(nameTextController.text);
+            Navigator.pop(context);
+          }
+        },
+      ),
       body: Wrap(
         children: [
           Container(
@@ -114,11 +113,15 @@ class AddCategoryScreen extends StatelessWidget {
                         ],
                       ),
                     )),
-                Obx(() => ClickableListItem(icon: Icon(Icons.category), text: _controller.parentName.value, hintText: 'Parent category'.tr, onPressed: () async {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                  _controller.parent = await showCategoriesModalBottomSheet(context);
-                  _controller.parentName.value = _controller.parent?.name ?? '';
-                }))
+                Obx(() => ClickableListItem(
+                    icon: Icon(Icons.category),
+                    text: _controller.parentName.value,
+                    hintText: 'Parent category'.tr,
+                    onPressed: () async {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      _controller.parent = await showCategoriesModalBottomSheet(context);
+                      _controller.parentName.value = _controller.parent?.name ?? '';
+                    }))
               ],
             ),
           )
@@ -130,9 +133,6 @@ class AddCategoryScreen extends StatelessWidget {
   bool isValidData() {
     if (nameTextController.text.isBlank!) {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the name field'.tr));
-      return false;
-    } else if (_controller.parent == null) {
-      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please choose the category\'s parent'.tr));
       return false;
     }
     return true;
