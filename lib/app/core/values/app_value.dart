@@ -13,3 +13,9 @@ class AppValue {
   static const favoritedCurrencies = ['VND', 'USD'];
   static const delayTime = Duration(milliseconds: 500);
 }
+
+class FormatValue {
+  static const fullDateFormat = 'dd MMMM, yyyy';
+  static const monthReducedDateFormat = 'dd MMM, yyyy';
+  static const numbericDateFormat = 'dd/MM/yyyy';
+}

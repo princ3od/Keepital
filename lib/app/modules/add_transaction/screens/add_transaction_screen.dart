@@ -92,7 +92,7 @@ class AddTransactionScreen extends StatelessWidget {
                   ],
                 ),
                 Obx(() => ClickableListItem(
-                      icon: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
+                      leading: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
                       hintText: 'hint_category'.tr,
                       text: _controller.strCategory.value,
                       onPressed: () async {
@@ -123,7 +123,7 @@ class AddTransactionScreen extends StatelessWidget {
                   ],
                 ),
                 Obx(() => ClickableListItem(
-                      icon: Image.asset(AssetStringsPng.calendar),
+                      leading: Image.asset(AssetStringsPng.calendar),
                       text: _controller.strDate.value,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -132,7 +132,7 @@ class AddTransactionScreen extends StatelessWidget {
                       },
                     )),
                 Obx(() => ClickableListItem(
-                      icon: Icon(Icons.account_balance_wallet),
+                      leading: Icon(Icons.account_balance_wallet),
                       hintText: 'hint_wallet'.tr,
                       text: _controller.curWalletName.value,
                       onPressed: () {
@@ -301,7 +301,6 @@ class AddTransactionScreen extends StatelessWidget {
       ),
     );
   }
-
 
   bool isValidData() {
     if (amountTextController.text.isBlank!) {

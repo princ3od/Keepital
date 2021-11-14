@@ -1,3 +1,4 @@
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/base_model.dart';
 
 class Event extends BaseModel {
@@ -5,6 +6,7 @@ class Event extends BaseModel {
   DateTime endDate;
   String currencyId;
   String currencySymbol;
+  String iconId = Assets.inAppIconEducation.path;
   double spending;
   bool isMarkedCompleted;
 
@@ -25,6 +27,7 @@ class Event extends BaseModel {
         isMarkedCompleted = data['isMarkedCompleted'] ?? false,
         currencyId = data['currencyId'] ?? '',
         currencySymbol = data['currencySymbol'] ?? '',
+        iconId = data['iconId'] ?? Assets.inAppIconEducation.path,
         super(data['id']);
 
   @override
@@ -32,7 +35,9 @@ class Event extends BaseModel {
     return <String, dynamic>{
       'name': name,
       'endDate': endDate,
-      'currency': currencyId,
+      'currencyId': currencyId,
+      'currencySymbol': currencySymbol,
+      'iconId': iconId,
       'spending': spending,
       'isMarkedCompleted': isMarkedCompleted,
     };

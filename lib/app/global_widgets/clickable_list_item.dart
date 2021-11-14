@@ -2,33 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ClickableListItem extends StatelessWidget {
-  const ClickableListItem({Key? key, required this.icon, this.text, this.hintText = '', required this.onPressed}) : super(key: key);
+  const ClickableListItem({
+    Key? key,
+    required this.leading,
+    this.text,
+    this.hintText = '',
+    required this.onPressed,
+    this.textStyle,
+  }) : super(key: key);
 
-  final Widget icon;
+  final Widget leading;
   final String? text;
   final String hintText;
   final Function() onPressed;
-
+  final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        height: 60,
+        padding: EdgeInsets.only(left: 16),
         child: InkWell(
           onTap: onPressed,
           child: Row(
             children: [
+              leading,
               Expanded(
-                flex: 1,
-                child: Container(
-                  child: icon,
-                  height: 30,
-                ),
-              ),
-              Expanded(
-                flex: 10,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 2),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,8 +47,7 @@ class ClickableListItem extends StatelessWidget {
               )
             ],
           ),
-        )
-      );
+        ));
   }
 
   bool isTextEmpty() {

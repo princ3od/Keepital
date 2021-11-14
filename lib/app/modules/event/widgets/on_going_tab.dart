@@ -11,16 +11,16 @@ class FakeData {
 }
 
 class OnGoingTab extends StatelessWidget {
-  final items = List.from(FakeData.events);
-
+  final List<Event>? events;
+  OnGoingTab({Key? key, this.events}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: items.length,
+        itemCount: events?.length ?? FakeData.events.length,
         padding: const EdgeInsets.all(10),
         itemBuilder: (BuildContext context, int index) {
-          return EventItem(event: items[index]);
+          return EventItem(event: events?[index] ?? FakeData.events[index]);
         },
       ),
     );
