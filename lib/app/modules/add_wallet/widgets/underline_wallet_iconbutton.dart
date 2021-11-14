@@ -3,8 +3,8 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 
 class UnderlineWalletIconButton extends StatelessWidget {
   final VoidCallback onPresed;
-  final AssetGenImage? assetGenImage;
-  const UnderlineWalletIconButton({Key? key, required this.onPresed, this.assetGenImage}) : super(key: key);
+  final String? assetGenImagePath;
+  const UnderlineWalletIconButton({Key? key, required this.onPresed, this.assetGenImagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,16 @@ class UnderlineWalletIconButton extends StatelessWidget {
             Spacer(
               flex: 5,
             ),
-            (assetGenImage == null)
+            (assetGenImagePath == null)
                 ? Icon(
                     Icons.ac_unit,
                     size: 24,
                   )
-                : assetGenImage!.image(width: 24, height: 24),
+                : Image.asset(
+                    assetGenImagePath!,
+                    width: 24,
+                    height: 24,
+                  ),
             Spacer(),
             Divider(
               thickness: 2,

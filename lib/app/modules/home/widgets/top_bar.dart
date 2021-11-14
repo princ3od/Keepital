@@ -78,11 +78,11 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     bottomRight: Radius.circular(10.0),
                   ),
                 ),
-                onSelected: (value) {
+                onSelected: (value) async {
                   if (value == 'Search for transaction') {
                   } else if (value == 'change display') {
                   } else if (value == 'Adjust Balance') {
-                    Get.toNamed(Routes.walletBalance);
+                    await Get.toNamed(Routes.walletBalance)!.then((value) => _controller.onUpdateWalletBalance());
                   } else if (value == 'Select time range') {
                     handleSelectTimeRange(context);
                   }

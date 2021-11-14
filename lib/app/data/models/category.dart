@@ -11,11 +11,11 @@ class Category extends BaseModel {
   Category(String? id, {required this.iconId, required this.name, required this.type, required this.parent, required this.isDebtNLoan}) : super(id);
 
   Category.fromMap(Map<String, dynamic>? data)
-      : name = data?['name'],
-        type = categoryFromString(data?['type']),
-        iconId = data?['iconId'],
-        parent = data?["parent"],
-        isDebtNLoan = data?["isDebtNLoan"],
+      : name = data?['name'] ?? '',
+        type = categoryFromString(data?['type'] ?? ''),
+        iconId = data?['iconId'] ?? '',
+        parent = data?["parent"] ?? '',
+        isDebtNLoan = data?["isDebtNLoan"] ?? false,
         super(data?['id']);
 
   @override

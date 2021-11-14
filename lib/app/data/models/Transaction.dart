@@ -10,8 +10,9 @@ class TransactionModel extends BaseModel {
   String? eventId;
   num? extraAmountInfo;
   String? note;
+  bool excludeFromReport;
 
-  TransactionModel(String? id, {required this.amount, required this.category, this.contact, required this.currencyId, required this.date, this.eventId, this.extraAmountInfo, this.note}) : super(id);
+  TransactionModel(String? id, {required this.amount, required this.category, this.contact, required this.currencyId, required this.date, this.eventId, this.extraAmountInfo, this.note, this.excludeFromReport = false}) : super(id);
 
   TransactionModel.fromMap(Map<String, dynamic> data)
       : amount = data['amount'],
@@ -21,10 +22,11 @@ class TransactionModel extends BaseModel {
         eventId = data['eventId'],
         extraAmountInfo = data['extraAmountInfo'],
         note = data['note'],
+        excludeFromReport = data['excludeFromReport'] ?? false,
         super(data['id']);
 
   @override
   Map<String, dynamic> toMap() {
-    return {'id': id, 'amount': amount, 'category': category.id, 'contact': contact, 'currencyId': currencyId, 'date': date, 'eventId': eventId, 'extraAmountInfo': extraAmountInfo, 'note': note};
+    return {'id': id, 'amount': amount, 'category': category.id, 'contact': contact, 'currencyId': currencyId, 'date': date, 'eventId': eventId, 'extraAmountInfo': extraAmountInfo, 'note': note, 'excludeFromReport': excludeFromReport};
   }
 }
