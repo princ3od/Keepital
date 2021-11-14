@@ -75,9 +75,7 @@ class CategoryProvider implements Firestoration<String, Category> {
 
     final userColl = FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(curUserId);
     for (var category in categories) {
-      userColl.collection(AppValue.categoryPath).add(category.toMap()).then((cateRef) {
-        cateRef.update({'id': cateRef.id});
-      });
+      userColl.collection(AppValue.categoryPath).doc(category.id).set(category.toMap());
     }
   }
 
