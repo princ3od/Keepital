@@ -10,11 +10,18 @@ class Utils {
 }
 
 extension DateToString on DateTime {
-  String get fullDate => DateFormat(FormatValue.fullDateFormat).format(this);
-  String get monthReducedDate => DateFormat(FormatValue.monthReducedDateFormat).format(this);
-  String get numbericDate => DateFormat(FormatValue.numbericDateFormat).format(this);
+  String get fullDate => DateFormat(FormatValue.fullDateFormat, Get.locale.toString()).format(this);
+  String get monthReducedDate => DateFormat(FormatValue.monthReducedDateFormat, Get.locale.toString()).format(this);
+  String get numbericDate => DateFormat(FormatValue.numbericDateFormat, Get.locale.toString()).format(this);
+  String get dayInWeek => DateFormat(FormatValue.dayFormat, Get.locale.toString()).format(this);
 }
 
-extension MoneyToString on double {
+extension DoubleToMoney on double {
   String money(String symbol) => NumberFormat.currency(locale: Get.locale.toString(), symbol: symbol).format(this);
+  String get readable => NumberFormat.decimalPattern().format(this);
+}
+
+extension NumToMoney on num {
+  String money(String symbol) => NumberFormat.currency(locale: Get.locale.toString(), symbol: symbol).format(this);
+  String get readable => NumberFormat.decimalPattern().format(this);
 }
