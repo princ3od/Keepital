@@ -28,9 +28,6 @@ class WalletBalanceController extends GetxController {
     Get.bottomSheet(
       WalletsModalsBottomSheet(
         onSelect: (Wallet selectedWallet) async {
-          await Future.delayed(
-            Duration(milliseconds: 500),
-          );
           onCloseModalBottomSheet(selectedWallet);
         },
         wallets: wallets,
@@ -51,7 +48,7 @@ class WalletBalanceController extends GetxController {
       changedAmount = double.parse(selectedWallet!.amount.toString()) - double.parse(currentBalanceController.text);
       this.selectedWallet?.name = selectedWalletController.text;
       this.selectedWallet?.amount = num.parse(currentBalanceController.text);
-      await WalletProvider().update(this.selectedWallet!.id.toString(), this.selectedWallet!);
+      await WalletProvider().update(this.selectedWallet!.id!, this.selectedWallet!);
       DataService.currentUser!.wallets[selectedWallet?.id ?? ""] = this.selectedWallet!;
       await onUpdateComplete(selectedWallet!);
     }

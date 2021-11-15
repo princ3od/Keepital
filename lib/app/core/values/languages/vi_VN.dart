@@ -76,7 +76,7 @@ const Map<String, String> viLanguagePackage = {
   'Debts': 'Các khoản nợ',
   'Travel mode': 'Chế độ du lịch',
   'Help & Support': 'Trợ giúp và liên hệ',
-  'Setting': 'Cài đặt',
+  'Settings': 'Cài đặt',
   'About': 'Thông tin thêm',
   'Sign out': 'Thoát',
   'event': "Sự kiện",

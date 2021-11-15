@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/event/widgets/text_feild_with_lead_icon.dart';
 
@@ -34,6 +35,7 @@ class _AddEventScreen extends State<AddEventScreen> {
           ),
           title: Text(
             'add_event'.tr,
+            style: Theme.of(context).textTheme.headline6,
           ),
           actions: <Widget>[
             TextButton(
@@ -52,6 +54,13 @@ class _AddEventScreen extends State<AddEventScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  ClickableListItem(
+                    onPressed: () {},
+                    leading: Icon(
+                      Icons.calendar_today,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextFieldWithLeadIcon(imagePath: AssetStringsPng.unknownCategory, hint: 'event_name'.tr),
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
