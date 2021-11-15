@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
@@ -55,20 +56,8 @@ class AddTransactionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            Container(
+            SectionPanel(
               padding: EdgeInsets.only(bottom: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 0.8), // changes position of shadow
-                  ),
-                ],
-              ),
               child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -92,7 +81,7 @@ class AddTransactionScreen extends StatelessWidget {
                   ],
                 ),
                 Obx(() => ClickableListItem(
-                      icon: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
+                      leading: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
                       hintText: 'hint_category'.tr,
                       text: _controller.strCategory.value,
                       onPressed: () async {
@@ -123,7 +112,7 @@ class AddTransactionScreen extends StatelessWidget {
                   ],
                 ),
                 Obx(() => ClickableListItem(
-                      icon: Image.asset(AssetStringsPng.calendar),
+                      leading: Image.asset(AssetStringsPng.calendar),
                       text: _controller.strDate.value,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -132,7 +121,7 @@ class AddTransactionScreen extends StatelessWidget {
                       },
                     )),
                 Obx(() => ClickableListItem(
-                      icon: Icon(Icons.account_balance_wallet),
+                      leading: Icon(Icons.account_balance_wallet),
                       hintText: 'hint_wallet'.tr,
                       text: _controller.curWalletName.value,
                       onPressed: () {
@@ -143,20 +132,8 @@ class AddTransactionScreen extends StatelessWidget {
               ]),
             ),
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            Container(
+            SectionPanel(
               padding: EdgeInsets.only(bottom: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 0.8), // changes position of shadow
-                  ),
-                ],
-              ),
               child: Column(
                 children: [
                   Row(
@@ -198,19 +175,7 @@ class AddTransactionScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 0.8), // changes position of shadow
-                  ),
-                ],
-              ),
+            SectionPanel(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -301,7 +266,6 @@ class AddTransactionScreen extends StatelessWidget {
       ),
     );
   }
-
 
   bool isValidData() {
     if (amountTextController.text.isBlank!) {

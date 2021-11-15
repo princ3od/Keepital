@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/data/services/app_start_service.dart';
@@ -10,6 +11,7 @@ import 'app/data/services/localization_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeDateFormatting();
   await AppStartService.instance.initGetStorage();
   runApp(MyApp());
 }

@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/global_widgets/clickable_list_item.dart';
+import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/event/widgets/text_feild_with_lead_icon.dart';
 
 class AddEventScreen extends StatefulWidget {
@@ -35,13 +35,12 @@ class _AddEventScreen extends State<AddEventScreen> {
           ),
           title: Text(
             'add_event'.tr,
+            style: Theme.of(context).textTheme.headline6,
           ),
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-              onPressed: () {
-
-              },
+              onPressed: () {},
               child: Text("save".tr),
             ),
           ],
@@ -50,23 +49,18 @@ class _AddEventScreen extends State<AddEventScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            Container(
+            SectionPanel(
               padding: EdgeInsets.only(bottom: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: Offset(0, 0.8), // changes position of shadow
-                  ),
-                ],
-              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  ClickableListItem(
+                    onPressed: () {},
+                    leading: Icon(
+                      Icons.calendar_today,
+                      color: Colors.black,
+                    ),
+                  ),
                   TextFieldWithLeadIcon(imagePath: AssetStringsPng.unknownCategory, hint: 'event_name'.tr),
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),

@@ -51,12 +51,12 @@ class AppTheme {
         ),
         subtitle1: GoogleFonts.montserrat(
           color: textColor,
-          fontSize: 10,
+          fontSize: 10.5,
           fontWeight: FontWeight.normal,
         ),
         subtitle2: GoogleFonts.montserrat(
           color: textColor.withOpacity(0.5),
-          fontSize: 10,
+          fontSize: 10.5,
           fontWeight: FontWeight.w500,
         ),
         bodyText1: GoogleFonts.montserrat(
@@ -94,7 +94,7 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
-      elevation: 1,
+      elevation: 1.5,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
     textButtonTheme: _secondaryButtonThemeData,
@@ -149,7 +149,7 @@ class AppTheme {
         fontSize: 18,
         fontWeight: FontWeight.w600,
       ),
-      elevation: 1,
+      elevation: 1.5,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
     textButtonTheme: _secondaryButtonThemeData,
