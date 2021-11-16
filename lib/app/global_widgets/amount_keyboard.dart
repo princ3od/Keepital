@@ -10,18 +10,11 @@ class EnterAmountScreen extends StatefulWidget {
 }
 
 class _EnterAmountScreenState extends State<EnterAmountScreen> {
-  // biến xác định việc kết thúc nhập
   var isEnd = false;
-  // đầu vào của user
   var userInput = '';
-  // kết quả đầu ra
   var answer = '';
-  // đầu vào được format
   var userInputFormat = '';
-  // đầu ra được format
   var answerFormat = '';
-
-// mảng các nút
   final List<String> buttons = ['AC', '÷', '×', '⌫', '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '=', '0', '000', '.', '✓'];
 
   @override
@@ -138,12 +131,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
                                   buildKeyOfCalculator(3, AppColors.calculatorForegroundColor, AppColors.calculatorFunctionButtonColor),
                                   buildKeyOfCalculator(7, AppColors.calculatorForegroundColor, AppColors.calculatorFunctionButtonColor),
                                   buildKeyOfCalculator(11, AppColors.calculatorForegroundColor, AppColors.calculatorFunctionButtonColor),
-                                  buildKeyOfCalculator(
-                                      isEnd ? 19 : 15,
-                                      AppColors.calculatorForegroundColor,
-                                      isEnd ? AppColors.calculatorCompleteButtonColor : AppColors.calculatorCalculateButtonColor, //Color(0xff22a115) : Color(0xff25b197),
-                                      2),
-                                  //KeyOfCalc(19, Color(0xffdbdddd)),
+                                  buildKeyOfCalculator(isEnd ? 19 : 15, AppColors.calculatorForegroundColor, isEnd ? AppColors.calculatorCompleteButtonColor : AppColors.calculatorCalculateButtonColor, 2),
                                 ],
                               ),
                             ],
@@ -161,7 +149,6 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     );
   }
 
-  // xác định button được nhấn là dấu
   bool isOperator(String x) {
     if (x == '÷' || x == 'x' || x == '-' || x == '+' || x == '=') {
       return true;
@@ -169,9 +156,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     return false;
   }
 
-  // tính toán phép tính
   void equalPressed() {
-    // Kiểm tra xem ký tự cuối cùng có phải là dấu hay không.
     var sign = [
       '+',
       '-',
@@ -197,7 +182,6 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     });
   }
 
-  // Convert to formatter for displaying.
   convertInput() {
     final intRegex = RegExp(r'[+|\-|*|/]');
     var listString = intRegex.allMatches(userInput).map((m) => m.group(0)).toList();
@@ -216,12 +200,10 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
     }
   }
 
-  // hàm xử lý khi nhấn nút
   keyOnclick(int index) {
     setState(() {
       isEnd = false;
     });
-    // Nút 'C'
     if (index == 0) {
       setState(() {
         userInput = '';
@@ -229,52 +211,32 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
         userInputFormat = '';
         answerFormat = '0';
       });
-    }
-
-    // Nút 'Delete'
-    else if (index == 3) {
+    } else if (index == 3) {
       {
         if (userInput.isEmpty) return;
         setState(() {
           userInput = userInput.substring(0, userInput.length - 1);
           userInputFormat = userInput;
-          //convertInput();
         });
         convertInput();
       }
-    }
-
-    // Nút '='
-    else if (index == 15) {
+    } else if (index == 15) {
       setState(() {
         isEnd = true;
         equalPressed();
       });
-    }
-
-    // Nút 'Confirm'
-    else if (index == 19) {
+    } else if (index == 19) {
       if (answer != null && answer != '') Navigator.pop(context, answer);
-    }
-
-    // những nút khác
-    else {
+    } else {
       setState(() {
         var sign = ['+', '-', '*', '/'];
         var input;
-
-        // nút dấu nhân
         if (buttons[index] == '×')
           input = '*';
-        // nút dấu chia
         else if (buttons[index] == '÷')
           input = '/';
-        // các nút số + dấu +,-
         else
           input = buttons[index];
-
-        // if (input == '.' && userInput.contains('.')) return;
-
         if (input == '.') return;
 
         if (sign.contains(input)) {
@@ -292,9 +254,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
         }
 
         if (userInput.length < 12) userInput += input;
-
         if (userInput.length > 12) userInput = userInput.substring(0, 12);
-
         final intRegex = RegExp(r'[+|\-|*|/]');
         var listString = intRegex.allMatches(userInput).map((m) => m.group(0)).toList();
         var listNumber = userInput.split(intRegex);
@@ -323,14 +283,14 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: backgroundColor, //Color(0xff282c35),
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
                 color: AppTheme.currentTheme.primaryColor.withOpacity(0.5),
                 spreadRadius: 1.5,
                 blurRadius: 7,
-                offset: Offset(0, 2), // changes position of shadow
+                offset: Offset(0, 2),
               ),
             ],
           ),
