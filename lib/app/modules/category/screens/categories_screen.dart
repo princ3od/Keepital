@@ -22,8 +22,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
   bool isCategorySelector = Get.arguments;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _controller.tabController = TabController(length: 3, vsync: this, initialIndex: 1).obs;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: CategoriesTopBar(),
