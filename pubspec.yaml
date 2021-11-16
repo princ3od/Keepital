@@ -44,6 +44,7 @@ dependencies:
   tuple: ^2.0.0
   math_expressions: ^2.2.0
   money_formatter: ^0.0.3
+  enum_to_string: ^2.0.1
 
 dev_dependencies:
   change_app_package_name: ^1.0.0

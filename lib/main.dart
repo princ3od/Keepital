@@ -6,7 +6,6 @@ import 'package:keepital/app/core/values/app_strings.dart';
 import 'package:keepital/app/data/services/app_start_service.dart';
 import 'package:keepital/app/data/services/theme_service.dart';
 import 'package:keepital/app/routes/pages.dart';
-
 import 'app/data/services/localization_service.dart';
 
 void main() async {
