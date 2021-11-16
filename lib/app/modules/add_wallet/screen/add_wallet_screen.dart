@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/modules/add_wallet/add_wallet_controller.dart';
 import 'package:keepital/app/modules/add_wallet/widgets/underline_wallet_iconbutton.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class AddWalletScreen extends StatelessWidget {
   final AddWalletController _controller = Get.find<AddWalletController>();
@@ -135,14 +136,20 @@ class AddWalletScreen extends StatelessWidget {
                           child: TextFormField(
                             style: Theme.of(context).textTheme.headline5,
                             textAlign: TextAlign.left,
+                            enabled: true,
+                            showCursor: false,
+                            readOnly: true,
                             decoration: InputDecoration(
                               border: UnderlineInputBorder(),
                               labelText: "Wallet amount",
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                             ),
-                            keyboardType: TextInputType.number,
                             controller: _controller.walletAmountTextEditingController,
+                            onTap: () async {
+                              var result = await Get.toNamed(Routes.amountKeyboard);
+                              print(result);
+                            },
                           ),
                         ),
                       ],

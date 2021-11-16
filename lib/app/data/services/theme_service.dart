@@ -13,7 +13,7 @@ class ThemeService {
     if (theme != null) {
       return ThemeMode.values[theme];
     }
-    return ThemeMode.light;
+    return ThemeMode.dark;
   }
 
   static _saveTheme(ThemeMode themeMode) => _box.write(_key, themeMode);

@@ -6,6 +6,7 @@ class AssetUtils {
     Assets.inAppIconEducation.path: Assets.inAppIconEducation,
     Assets.inAppIconElectricityBill.path: Assets.inAppIconElectricityBill,
     Assets.inAppIconGasBill.path: Assets.inAppIconGasBill,
+    Assets.iconsUnknown.path: Assets.iconsUnknown,
   };
 
   static dynamic getAsset(String source) => assets[source];
