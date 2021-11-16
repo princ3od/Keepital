@@ -94,5 +94,6 @@ const Map<String, String> enLanguagePackage = {
   'Category name': 'Category name',
   'Income': 'Income',
   'Expense': 'Expense',
-  'Parent category': 'Parent category'
+  'Parent category': 'Parent category',
+  'Amount': 'Amount'
 };

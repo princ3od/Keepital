@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/services/data_service.dart';
@@ -22,7 +22,6 @@ class AddTransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var formatter = new DateFormat('yyyy-MM-dd');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -36,6 +35,7 @@ class AddTransactionScreen extends StatelessWidget {
         ),
         title: Text(
           'add_transaction'.tr,
+          style: Theme.of(context).textTheme.headline6,
         ),
         actions: <Widget>[
           TextButton(
@@ -62,17 +62,14 @@ class AddTransactionScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                      ),
+                    Container(
+                      width: 65,
+                      height: 30,
                     ),
-                    Flexible(
-                      flex: 5,
+                    Expanded(
                       child: TextField(
                         autofocus: false,
+                        decoration: InputDecoration(hintText: 'Amount'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
                         keyboardType: TextInputType.number,
                         controller: amountTextController,
                         style: Theme.of(context).textTheme.bodyText1,
@@ -94,21 +91,18 @@ class AddTransactionScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        child: Image.asset(AssetStringsPng.note),
-                        width: 30,
-                        height: 30,
-                      ),
+                    Container(
+                      child: Image.asset(AssetStringsPng.note),
+                      width: 65,
+                      height: 30,
                     ),
-                    Flexible(
-                        flex: 5,
-                        child: TextFormField(
-                          autofocus: false,
-                          controller: noteTextController,
-                          decoration: InputDecoration(hintText: 'hint_note'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
-                        ))
+                    Expanded(
+                      child: TextFormField(
+                        autofocus: false,
+                        controller: noteTextController,
+                        decoration: InputDecoration(hintText: 'hint_note'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
+                      ),
+                    )
                   ],
                 ),
                 Obx(() => ClickableListItem(
@@ -117,7 +111,7 @@ class AddTransactionScreen extends StatelessWidget {
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
-                        _controller.strDate.value = formatter.format(_controller.date);
+                        _controller.strDate.value = _controller.date.fullDate;
                       },
                     )),
                 Obx(() => ClickableListItem(

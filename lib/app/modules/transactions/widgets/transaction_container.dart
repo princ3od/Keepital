@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -24,7 +22,7 @@ class TransactionContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(DateFormat('dd').format(transList[0].date), style: Theme.of(context).textTheme.headline3),
+                Text(transList[0].date.onlyDate, style: Theme.of(context).textTheme.headline3),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -37,7 +35,7 @@ class TransactionContainer extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          DateFormat('MMMM yyyy').format(transList[0].date),
+                          transList[0].date.fullMonth,
                           style: Theme.of(context).textTheme.bodyText1,
                           overflow: TextOverflow.ellipsis,
                         )

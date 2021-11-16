@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -35,13 +36,13 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Row(
                   children: [
                     Container(
-                      child: _controller.curWalletIcon.value.isEmpty
+                      child: _controller.currentWallet.value.iconId.isEmpty
                           ? Image(
                               image: AssetImage(AssetStringsPng.walletList),
                               height: 30,
                             )
                           : Image.asset(
-                              "${_controller.curWalletIcon.value}",
+                              "${_controller.currentWallet.value.iconId}",
                               height: 30,
                             ),
                     ),
@@ -55,10 +56,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _controller.curWalletName.value,
+                          _controller.currentWallet.value.name,
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
-                        Text(_controller.curWalletAmount.value, style: Theme.of(context).textTheme.headline4)
+                        Text(_controller.currentWallet.value.amount.money(_controller.currentWallet.value.currencySymbol), style: Theme.of(context).textTheme.headline4)
                       ],
                     ),
                   ))
@@ -126,7 +127,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => preferedSize;
 
   void showWalletsModalBottomSheet(BuildContext context) {
-    Wallet total = Wallet('', name: 'Total'.tr, amount: _controller.currentUser!.amount, currencyId: '', iconId: '', currencySymbol: 'None_set');
+    Wallet total = _controller.total;
 
     showMaterialModalBottomSheet(
       context: context,
@@ -146,7 +147,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 Obx(
                   () => WalletItem(
                       wallet: total,
-                      selectedId: _controller.currentWallet.value,
+                      selectedId: _controller.currentWallet.value.id,
                       onTap: () {
                         _controller.onCurrentWalletChange('');
                         selectWalletCallBack();
@@ -165,7 +166,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                         String key = _controller.wallets.keys.elementAt(index);
                         return Obx(() => WalletItem(
                               wallet: _controller.wallets[key]!,
-                              selectedId: _controller.currentWallet.value,
+                              selectedId: _controller.currentWallet.value.id,
                               onTap: () {
                                 _controller.onCurrentWalletChange(key);
                                 selectWalletCallBack();

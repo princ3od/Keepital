@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -32,21 +32,21 @@ class TransactionDetailBody extends StatelessWidget {
               ),
               title: Text(_trans.category.name, style: Theme.of(context).textTheme.headline6),
             ),
-            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(_trans.amount.toString(), style: Theme.of(context).textTheme.headline3!.copyWith(color: _trans.category.type == CategoryType.expense ? Colors.red : Colors.blue))),
+            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(_trans.amount.readable, style: Theme.of(context).textTheme.headline3!.copyWith(color: _trans.category.type == CategoryType.expense ? Colors.red : Colors.blue))),
             ListTile(
               leading: Icon(Icons.description),
               title: Text(_trans.note.toString(), style: Theme.of(context).textTheme.bodyText1),
             ),
             ListTile(
               leading: Icon(Icons.calendar_today),
-              title: Text(DateFormat('dd MMMM yyy').format(_trans.date), style: Theme.of(context).textTheme.bodyText1),
+              title: Text(_trans.date.fullDate, style: Theme.of(context).textTheme.bodyText1),
             ),
             ListTile(
               leading: Image(
                 image: AssetImage(AssetStringsPng.walletList),
                 height: 30,
               ),
-              title: Text(_controller.curWalletName.value, style: Theme.of(context).textTheme.bodyText1),
+              title: Text(_controller.currentWallet.value.name, style: Theme.of(context).textTheme.bodyText1),
             ),
             ListTile(
               leading: Icon(Icons.people),

@@ -2,23 +2,25 @@ import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 
 class KeepitalUser extends BaseModel {
-  String? name;
-  String? currencyId;
-  late num amount;
+  String name;
+  String currencyId;
+  String currencySymbol;
+  num amount;
   String currentWallet = '';
   Map<String, Wallet> wallets = {};
 
-  KeepitalUser(String id, {this.name, this.currencyId, this.amount = 0}) : super(id);
+  KeepitalUser(String id, {required this.name, required this.currencyId, required this.currencySymbol, this.amount = 0}) : super(id);
 
-  KeepitalUser.fromMap(Map<String, dynamic>? data) : super(data?['id'] ?? '') {
-    name = data?['name'] ?? '';
-    currencyId = data?['currencyId'] ?? '';
-    amount = data?['amount'] ?? 0;
-  }
+  KeepitalUser.fromMap(Map<String, dynamic>? data)
+      : name = data?['name'] ?? '',
+        currencyId = data?['currencyId'] ?? '',
+        currencySymbol = data?['currencySymbol'] ?? '',
+        amount = data?['amount'] ?? 0,
+        super(data?['id'] ?? '');
 
   @override
   Map<String, dynamic> toMap() {
-    return {'id': this.id, 'name': this.name, 'currencyId': this.currencyId, 'amount': this.amount, 'currentWallet': this.currentWallet};
+    return {'id': this.id, 'name': this.name, 'currencyId': this.currencyId, 'currencySymbol': this.currencySymbol, 'amount': this.amount, 'currentWallet': this.currentWallet};
   }
 
   bool get hasAnyWallet => wallets.isNotEmpty;
