@@ -37,7 +37,7 @@ class ClickableListItem extends StatelessWidget {
                   child: Text(
                     isTextEmpty() ? hintText : text!,
                     style: isTextEmpty()
-                        ? Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity - 0.15), fontSize: textSize)
+                        ? Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity - 0.10), fontSize: textSize)
                         : Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: textSize),
                   ),
                 ),
