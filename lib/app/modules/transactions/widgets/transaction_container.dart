@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_item.dart';
@@ -30,7 +32,7 @@ class TransactionContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          DateFormat('EEEE').format(transList[0].date),
+                          transList[0].date.dayInWeek,
                           style: Theme.of(context).textTheme.bodyText2,
                           overflow: TextOverflow.ellipsis,
                         ),

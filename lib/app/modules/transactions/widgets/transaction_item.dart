@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
@@ -29,7 +30,7 @@ class TransactionItem extends StatelessWidget {
         style: Theme.of(context).textTheme.subtitle2,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: Text(trans.amount.toString(),
+      trailing: Text(trans.amount.readable,
           style: Theme.of(context).textTheme.headline6!.apply(
                 color: trans.category.type == CategoryType.income ? Colors.blue : Colors.red,
               )),

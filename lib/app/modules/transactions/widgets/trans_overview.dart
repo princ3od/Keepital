@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 
 class TransactionsOverview extends StatelessWidget {
   TransactionsOverview({Key? key, required this.inflow, required this.outflow}) : super(key: key);
@@ -21,21 +22,21 @@ class TransactionsOverview extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Inflow'.tr, style: Theme.of(context).textTheme.bodyText1),
-                Text(inflow.toString(), style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.blue)),
+                Text(inflow.readable, style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.blue)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Outflow'.tr, style: Theme.of(context).textTheme.bodyText1),
-                Text(outflow.toString(), style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red)),
+                Text(outflow.readable, style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red)),
               ],
             ),
             Divider(
               color: Theme.of(context).secondaryHeaderColor,
             ),
             Container(
-              child: Text((inflow - outflow).toString(), style: Theme.of(context).textTheme.headline4),
+              child: Text((inflow - outflow).readable, style: Theme.of(context).textTheme.headline4),
               alignment: Alignment.centerRight,
             ),
             Padding(

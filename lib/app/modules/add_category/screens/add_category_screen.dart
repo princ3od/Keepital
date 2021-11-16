@@ -114,7 +114,7 @@ class AddCategoryScreen extends StatelessWidget {
                       ),
                     )),
                 Obx(() => ClickableListItem(
-                    icon: Icon(Icons.category),
+                    leading: Icon(Icons.category),
                     text: _controller.parentName.value,
                     hintText: 'Parent category'.tr,
                     onPressed: () async {

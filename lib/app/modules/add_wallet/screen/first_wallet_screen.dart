@@ -3,14 +3,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
-import 'package:keepital/app/modules/first_wallet/first_wallet_controller.dart';
-import 'package:keepital/app/modules/first_wallet/widgets/wallet_icon_picker.dart';
+import 'package:keepital/app/modules/add_wallet/widgets/wallet_icon_picker.dart';
 import 'package:keepital/app/routes/pages.dart';
+
+import '../add_wallet_controller.dart';
 
 class FirstWalletScreen extends StatelessWidget {
   FirstWalletScreen({Key? key}) : super(key: key);
 
-  final FirstWalletScreenController _controller = Get.find<FirstWalletScreenController>();
+  final AddWalletController _controller = Get.find<AddWalletController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,10 @@ class FirstWalletScreen extends StatelessWidget {
                 onTap: () async {
                   final result = await Get.toNamed(Routes.selectIcon);
                   if (null != result) {
-                    _controller.walletIcon.value = result;
+                    _controller.walletIconPath.value = result;
                   }
                 },
-                iconPath: _controller.walletIcon.value,
+                iconPath: _controller.walletIconPath.value,
               ),
             ),
             const SizedBox(height: 30),
@@ -97,7 +98,7 @@ class FirstWalletScreen extends StatelessWidget {
               width: 250,
               child: TextButton(
                 onPressed: () async {
-                  await _controller.handAddFirstWallet();
+                  await _controller.handAddWallet();
                 },
                 child: Obx(
                   () => (_controller.isLoading.value)

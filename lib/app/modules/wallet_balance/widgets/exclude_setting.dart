@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class ExcludeSetting extends StatefulWidget {
   late String title;
   late String subtitle;
-  
-  late void Function(bool isChecked)onTap;
+
+  late void Function(bool isChecked) onTap;
 
   ExcludeSetting({required this.title, required this.subtitle, required this.onTap});
 
@@ -53,5 +54,4 @@ class _ExcludeSettingState extends State<ExcludeSetting> {
       ),
     );
   }
-
 }
