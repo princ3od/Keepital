@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/global_widgets/amount_keyboard.dart';
 import 'package:keepital/app/global_widgets/icon_selection_screen.dart';
 import 'package:keepital/app/modules/add_category/add_category_binding.dart';
 import 'package:keepital/app/modules/add_category/screens/add_category_screen.dart';
@@ -88,10 +89,10 @@ abstract class AppPages {
       name: Routes.selectIcon,
       page: () => IconSelectionScreen(),
     ),
+    GetPage(name: Routes.addCategory, page: () => AddCategoryScreen(), binding: AddCategoryBinding()),
     GetPage(
-      name: Routes.addCategory,
-      page: () => AddCategoryScreen(),
-      binding: AddCategoryBinding()
-    )
+      name: Routes.amountKeyboard,
+      page: () => EnterAmountScreen(),
+    ),
   ];
 }
