@@ -103,5 +103,7 @@ const Map<String, String> viLanguagePackage = {
   'Income': 'Khoản thu',
   'Expense': 'Khoản chi',
   'Parent category': 'Danh mục cha',
-  'Amount': 'Số tiền'
+  'Amount': 'Số tiền',
+  'transaction': 'giao dịch',
+  'transactions': 'giao dịch'
 };

@@ -20,8 +20,9 @@ class FormatValue {
   static const numbericDateFormat = 'dd/MM/yyyy';
   static const onlyDateFormat = 'dd';
   static const dayFormat = 'EEEE';
-  static const fullMonthFormat = 'MMMM yyyy';
+  static const fullMonthFormat = 'MMMM, yyyy';
   static const shortMonthFormat = 'MM/yyyy';
   static const dayInMonthFormat = 'dd/MM';
   static const yearFormat = 'yyyy';
+  static const monthNDayFormat = 'MMMM, yyyy, EEEE';
 }

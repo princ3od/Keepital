@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/utils/utils.dart';
-import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
 
-class TransactionItem extends StatelessWidget {
-  TransactionItem({Key? key, required TransactionModel transaction})
+class TransactionDateItem extends StatelessWidget {
+  TransactionDateItem({Key? key, required TransactionModel transaction})
       : trans = transaction,
         super(key: key);
 
@@ -23,18 +22,9 @@ class TransactionItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
+            width: 45,
             padding: EdgeInsets.only(left: 5, right: 10),
-            child: trans.category.iconId.isEmpty
-                ? Image(
-                    image: AssetImage(AssetStringsPng.electricity_bill),
-                    height: 30,
-                    width: 30,
-                  )
-                : Image.asset(
-                    "${trans.category.iconId}",
-                    height: 30,
-                    width: 30,
-                  ),
+            child: Text(trans.date.onlyDate, style: Theme.of(context).textTheme.headline2),
           ),
           Expanded(
               child: Column(
@@ -44,8 +34,8 @@ class TransactionItem extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 2),
                 child: Text(
-                  trans.category.name,
-                  style: Theme.of(context).textTheme.headline5,
+                  trans.date.monthNDay,
+                  style: Theme.of(context).textTheme.headline6,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

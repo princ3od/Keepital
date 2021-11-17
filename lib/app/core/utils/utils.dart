@@ -19,6 +19,7 @@ extension DateToString on DateTime {
   String get shortMonth => DateFormat(FormatValue.shortMonthFormat, Get.locale.toString()).format(this);
   String get dayInMonth => DateFormat(FormatValue.dayInMonthFormat, Get.locale.toString()).format(this);
   String get fullYear => DateFormat(FormatValue.yearFormat, Get.locale.toString()).format(this);
+  String get monthNDay => DateFormat(FormatValue.monthNDayFormat, Get.locale.toString()).format(this);
 }
 
 extension DoubleToMoney on double {

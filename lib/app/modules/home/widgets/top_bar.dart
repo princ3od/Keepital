@@ -82,6 +82,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                 onSelected: (value) async {
                   if (value == 'Search for transaction') {
                   } else if (value == 'change display') {
+                    _controller.viewByDate.value = !_controller.viewByDate.value;
                   } else if (value == 'Adjust Balance') {
                     await Get.toNamed(Routes.walletBalance)!.then((value) => _controller.onUpdateWalletBalance());
                   } else if (value == 'Select time range') {
@@ -105,7 +106,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     PopupMenuItem(
                         value: 'change display',
                         child: Row(
-                          children: [Icon(Icons.remove_red_eye, color: Theme.of(context).iconTheme.color), SizedBox(width: 10.0), Text(true ? 'View by date'.tr : 'View by category'.tr, style: Theme.of(context).textTheme.bodyText1)],
+                          children: [Icon(Icons.remove_red_eye, color: Theme.of(context).iconTheme.color), SizedBox(width: 10.0), Text(_controller.viewByDate.value ? 'View by category'.tr : 'View by date'.tr, style: Theme.of(context).textTheme.bodyText1)],
                         )),
                     PopupMenuItem(
                         value: 'Adjust Balance',

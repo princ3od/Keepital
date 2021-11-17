@@ -25,7 +25,7 @@ class HomeController extends GetxController {
 
   var selectedTimeRange = TimeRange.month.obs;
   late RxList<Text> tabs;
-  bool viewByDate = true;
+  RxBool viewByDate = true.obs;
 
   HomeController() {
     currentWallet = total.obs;

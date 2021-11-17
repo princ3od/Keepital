@@ -7,7 +7,8 @@ import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/transactions/widgets/trans_overview.dart';
-import 'package:keepital/app/modules/transactions/widgets/transaction_container.dart';
+import 'package:keepital/app/modules/transactions/widgets/transaction_by_category_container.dart';
+import 'package:keepital/app/modules/transactions/widgets/transaction_by_date_container.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tuple/tuple.dart';
 
@@ -60,7 +61,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                           inflow: totalInflow,
                           outflow: totalOutflow,
                         );
-                      return TransactionContainer(transList: transactionListSorted[index - 1]);
+                      return _controller.viewByDate.value ? TransactionByDateContainer(transList: transactionListSorted[index - 1]) : TransactionByCategoryContainer(transList: transactionListSorted[index - 1]);
                     },
                   ),
                 ),
@@ -81,7 +82,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
 
     transList.sort((a, b) => b.date.compareTo(a.date));
 
-    if (!_controller.viewByDate) {
+    if (!_controller.viewByDate.value) {
       transList.forEach((element) {
         if (!categoryInChoosenTime.contains(element.category.name)) categoryInChoosenTime.add(element.category.name);
         if (element.category.type == CategoryType.expense)
