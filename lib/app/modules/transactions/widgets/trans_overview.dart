@@ -21,26 +21,26 @@ class TransactionsOverview extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Inflow'.tr, style: Theme.of(context).textTheme.bodyText1),
+                Text('Inflow'.tr, style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).hintColor)),
                 Text(inflow.readable, style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.blue)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Outflow'.tr, style: Theme.of(context).textTheme.bodyText1),
+                Text('Outflow'.tr, style: Theme.of(context).textTheme.headline6!.copyWith(color: Theme.of(context).hintColor)),
                 Text(outflow.readable, style: Theme.of(context).textTheme.headline4!.copyWith(color: Colors.red)),
               ],
             ),
             Divider(
-              color: Theme.of(context).secondaryHeaderColor,
+              color: Theme.of(context).dividerColor,
             ),
             Container(
               child: Text((inflow - outflow).readable, style: Theme.of(context).textTheme.headline4),
               alignment: Alignment.centerRight,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.only(bottom: 5),
               child: TextButton(onPressed: () {}, child: Text('View report for this period'.tr), style: Theme.of(context).textButtonTheme.style),
             )
           ],

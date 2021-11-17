@@ -57,7 +57,7 @@ class AuthController extends GetxController {
   }
 
   _createUser(User? user) async {
-    KeepitalUser keepitalUser = KeepitalUser(user!.uid, amount: 0, currencyId: '0', name: user.displayName);
+    KeepitalUser keepitalUser = KeepitalUser(user!.uid, amount: 0, currencyId: '0', currencySymbol: '', name: user.displayName ?? '');
     DataService.currentUser = await _userProvider.add(keepitalUser);
   }
 

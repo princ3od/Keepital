@@ -13,20 +13,18 @@ class AppTheme {
 
   static final TextButtonThemeData _secondaryButtonThemeData = TextButtonThemeData(style: TextButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
 
-  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData =
-      OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
 
-  static final OutlinedButtonThemeData _outlinedButtonLightThemeData =
-      OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonLightThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          fontWeight: FontWeight.w600,
         ),
         headline2: GoogleFonts.montserrat(
           color: textColor,
-          fontSize: 20,
+          fontSize: 25,
           fontWeight: FontWeight.w600,
         ),
         headline3: GoogleFonts.montserrat(

@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/category.dart';
+import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -62,6 +64,7 @@ class AddWalletController extends GetxController {
       isLoading.value = true;
       if (newWallet != null) {
         var result = await _walletProvider.add(newWallet);
+        _addCurrencyIdNSymbol(result);
         DataService.currentUser?.wallets[result.id!] = result;
         await createNewTrans(result.id!);
         Get.snackbar("Warning", "Your's first wallet has been added");
@@ -85,6 +88,14 @@ class AddWalletController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  void _addCurrencyIdNSymbol(Wallet w) {
+    curUser.currencySymbol = w.currencySymbol;
+    curUser.currencyId = w.currencySymbol;
+    UserProvider().update(curUser.id!, curUser);
+  }
+
+  KeepitalUser get curUser => DataService.currentUser!;
 
   Wallet? _createWallet() {
     try {
@@ -120,6 +131,7 @@ class AddWalletController extends GetxController {
     var category = Category('v2ORTsRjiq7sslcp5xvf', iconId: '', name: 'Another', type: CategoryType.income, isDebtNLoan: false, parent: '');
     var trans = TransactionModel(
       null,
+      note: '',
       amount: num.parse(walletAmountTextEditingController.text == "" ? "0" : walletAmountTextEditingController.text),
       category: category,
       currencyId: currencyId.value,

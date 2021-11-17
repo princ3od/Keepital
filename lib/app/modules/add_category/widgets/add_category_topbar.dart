@@ -27,7 +27,7 @@ class AddCategoryTopBar extends StatelessWidget implements PreferredSizeWidget {
         style: Theme.of(context).textTheme.headline6,
       ),
       actions: [
-        TextButton(onPressed: onSaveTap, child: Text('Save'.tr), style: Theme.of(context).textButtonTheme.style,)
+        TextButton(onPressed: onSaveTap, child: Text('save'.tr), style: Theme.of(context).textButtonTheme.style,)
       ],
     );
   }

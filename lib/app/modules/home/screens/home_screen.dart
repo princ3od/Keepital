@@ -23,9 +23,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final HomeController _controller = Get.find<HomeController>();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _controller.tabController = TabController(length: _controller.getTabBarLength(), vsync: this, initialIndex: _controller.getInitialTabBarIndex()).obs;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: _controller.needShowAppBar()
           ? TopBar(

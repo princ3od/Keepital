@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
@@ -11,34 +11,28 @@ import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return year == other.year && month == other.month && day == other.day;
-  }
-}
-
 class HomeController extends GetxController {
+  Wallet total = Wallet('', name: 'Total'.tr, amount: DataService.currentUser!.amount, currencyId: DataService.currentUser!.currencyId, iconId: '', currencySymbol: DataService.currentUser!.currencySymbol);
   RxBool isLoading = false.obs;
   late RxList<TransactionModel> transList;
   final PageController pageController = PageController();
   late Rx<TabController> tabController;
 
-  KeepitalUser? currentUser = DataService.currentUser;
   Map<String, Wallet> wallets = DataService.currentUser!.wallets;
-  RxString currentWallet = DataService.currentUser!.currentWallet.obs;
-  RxString curWalletName = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.name ?? 'Total'.tr).obs;
-  RxString curWalletAmount = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.amount.toString() ?? DataService.currentUser?.amount.toString() ?? '').obs;
-  RxString curWalletIcon = (DataService.currentUser!.wallets[DataService.currentUser!.currentWallet]?.iconId ?? '').obs;
+  late Rx<Wallet> currentWallet;
 
   var tabIndex = 0.obs;
 
   var selectedTimeRange = TimeRange.month.obs;
   late RxList<Text> tabs;
-  bool viewByDate = true;
+  RxBool viewByDate = true.obs;
 
   HomeController() {
+    currentWallet = total.obs;
     tabs = initTabBar(selectedTimeRange.value).obs;
   }
+
+  KeepitalUser get curUser => DataService.currentUser!;
 
   @override
   void onInit() async {
@@ -55,11 +49,8 @@ class HomeController extends GetxController {
   }
 
   void onCurrentWalletChange(String id) {
+    currentWallet.value = wallets[id] ?? total;
     DataService.currentUser!.currentWallet = id;
-    currentWallet.value = id;
-    curWalletName.value = wallets[id]?.name ?? 'Total'.tr;
-    curWalletAmount.value = wallets[id]?.amount.toString() ?? currentUser?.amount.toString() ?? '';
-    curWalletIcon.value = wallets[id]?.iconId ?? '';
   }
 
   onTabChanged(int _tabIndex) {
@@ -115,7 +106,7 @@ class HomeController extends GetxController {
           return Text('FUTURE'.tr);
         else {
           var date = DateTime(now.year, now.month - (18 - index), 1);
-          String dateDisplay = DateFormat('MM/yyyy').format(date);
+          String dateDisplay = date.shortMonth;
           return Text(dateDisplay);
         }
       });
@@ -130,7 +121,7 @@ class HomeController extends GetxController {
           return Text('FUTURE'.tr);
         else {
           var date = DateTime(now.year, now.month, now.day - (18 - index));
-          String dateDisplay = DateFormat('dd MMMM yyyy').format(date);
+          String dateDisplay = date.fullDate;
           return Text(dateDisplay);
         }
       });
@@ -144,10 +135,10 @@ class HomeController extends GetxController {
           return Text('FUTURE'.tr);
         else {
           var firstDateInAWeek = DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).subtract(Duration(days: 7 * (18 - index)));
-          String firstDateDisplay = DateFormat('dd/MM').format(firstDateInAWeek);
+          String firstDateDisplay = firstDateInAWeek.dayInMonth;
 
           var lastDateInAWeek = firstDateInAWeek.add(Duration(days: 6));
-          String lastDateDisplay = DateFormat('dd/MM').format(lastDateInAWeek);
+          String lastDateDisplay = lastDateInAWeek.dayInMonth;
 
           return Text(firstDateDisplay + ' - ' + lastDateDisplay);
         }
@@ -189,7 +180,7 @@ class HomeController extends GetxController {
           return Text('FUTURE'.tr);
         else {
           var date = DateTime(now.year - (18 - index), now.month, 1);
-          String dateDisplay = DateFormat('yyyy').format(date);
+          String dateDisplay = date.fullYear;
           return Text(dateDisplay);
         }
       });
@@ -253,77 +244,25 @@ class HomeController extends GetxController {
   }
 
   List<TransactionModel> filterTransBasedOnDay(List<TransactionModel> transList, String choseTab) {
-    var chooseTime = choseTab.split(' ');
     bool isFutureTab = false;
-
-    if (chooseTime.length == 2) {
-      chooseTime.clear();
-      int nowDay = DateTime.now().day;
-      int nowMonth = DateTime.now().month;
-      int nowYear = DateTime.now().year;
+    DateTime choseDate = DateTime.now();
+    try {
+      choseDate = choseTab.date();
+    } catch (identifier) {
       if (choseTab == 'YESTERDAY'.tr) {
-        chooseTime.add((nowDay - 1).toString());
-        chooseTime.add((nowMonth).toString());
-        chooseTime.add(nowYear.toString());
+        choseDate = choseDate.subtract(Duration(days: 1));
       } else if (choseTab == 'TODAY'.tr) {
-        chooseTime.add((nowDay).toString());
-        chooseTime.add((nowMonth).toString());
-        chooseTime.add(nowYear.toString());
       } else {
-        chooseTime.add((nowDay + 1).toString());
-        chooseTime.add((nowMonth).toString());
-        chooseTime.add(nowYear.toString());
+        choseDate = choseDate.add(Duration(days: 1));
         isFutureTab = true;
-      }
-    } else {
-      switch (chooseTime[1]) {
-        case 'January':
-          chooseTime[1] = '1';
-          break;
-        case 'February':
-          chooseTime[1] = '2';
-          break;
-        case 'March':
-          chooseTime[1] = '3';
-          break;
-        case 'April':
-          chooseTime[1] = '4';
-          break;
-        case 'May':
-          chooseTime[1] = '5';
-          break;
-        case 'June':
-          chooseTime[1] = '6';
-          break;
-        case 'July':
-          chooseTime[1] = '7';
-          break;
-        case 'August':
-          chooseTime[1] = '8';
-          break;
-        case 'September':
-          chooseTime[1] = '9';
-          break;
-        case 'October':
-          chooseTime[1] = '10';
-          break;
-        case 'November':
-          chooseTime[1] = '11';
-          break;
-        case 'December':
-          chooseTime[1] = '12';
-          break;
-        default:
       }
     }
 
     if (isFutureTab) {
-      DateTime futureTime = DateTime(int.parse(chooseTime[2]), int.parse(chooseTime[1]), int.parse(chooseTime[0]));
-      transList = transList.where((element) => element.date.compareTo(futureTime) > 0).toList();
+      transList = transList.where((element) => element.date.compareTo(choseDate) > 0).toList();
       isFutureTab = false;
     } else {
-      DateTime time = DateTime(int.parse(chooseTime[2]), int.parse(chooseTime[1]), int.parse(chooseTime[0]));
-      transList = transList.where((element) => element.date.isSameDate(time)).toList();
+      transList = transList.where((element) => element.date.isSameDate(choseDate)).toList();
     }
     return transList;
   }
@@ -468,7 +407,9 @@ class HomeController extends GetxController {
   }
 
   onUpdateWalletBalance() {
-    String currentWalletId = DataService.currentUser!.currentWallet;
-    curWalletAmount.value = DataService.currentUser!.wallets[currentWalletId]!.amount.toString();
+    String id = DataService.currentUser!.currentWallet;
+    currentWallet.update((wallet) {
+      wallet?.amount = curUser.wallets[id]!.amount;
+    });
   }
 }
