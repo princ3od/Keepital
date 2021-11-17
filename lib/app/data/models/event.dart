@@ -3,7 +3,7 @@ import 'package:keepital/app/data/models/base_model.dart';
 
 class Event extends BaseModel {
   String name;
-  DateTime endDate;
+  DateTime? endDate;
   String currencyId;
   String currencySymbol;
   String iconId = Assets.inAppIconEducation.path;
@@ -17,7 +17,7 @@ class Event extends BaseModel {
     required this.currencySymbol,
     required this.spending,
     required this.isMarkedCompleted,
-    required this.endDate,
+    this.endDate,
   }) : super(id);
 
   Event.fromMap(Map<String, dynamic> data)
@@ -43,5 +43,5 @@ class Event extends BaseModel {
     };
   }
 
-  bool get isCompleted => isMarkedCompleted || endDate.isBefore(DateTime.now());
+  bool get isCompleted => isMarkedCompleted || endDate!.isBefore(DateTime.now());
 }

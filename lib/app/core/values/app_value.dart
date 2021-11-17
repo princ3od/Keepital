@@ -9,6 +9,7 @@ class AppValue {
   static const categoryPath = 'categories';
   static const walletCollectionPath = 'wallets';
   static const transactionCollectionPath = 'transactions';
+  static const eventCollectionPath = 'events';
 
   static const favoritedCurrencies = ['VND', 'USD'];
   static const delayTime = Duration(milliseconds: 500);

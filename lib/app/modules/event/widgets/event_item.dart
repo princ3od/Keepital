@@ -51,10 +51,11 @@ class _EventItemState extends State<EventItem> {
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 42.0),
-              child: Text(widget.event.endDate.numbericDate, style: Theme.of(context).textTheme.bodyText1),
-            ),
+            if (widget.event.endDate != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 42.0),
+                child: Text(widget.event.endDate!.numbericDate, style: Theme.of(context).textTheme.bodyText1),
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
