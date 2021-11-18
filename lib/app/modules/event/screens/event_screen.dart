@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/modules/event/widgets/finished_tab.dart';
 import 'package:keepital/app/modules/event/widgets/on_going_tab.dart';
 import 'package:keepital/app/routes/pages.dart';
@@ -24,7 +22,6 @@ class _EventScreen extends State<EventScreen> {
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Colors.black,
               ),
               onPressed: () => Navigator.pop(context),
             ),

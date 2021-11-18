@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/global_widgets/textfield_with_icon_picker_item.dart';
 import 'package:keepital/app/modules/event/add_event_controller.dart';
@@ -18,21 +19,18 @@ class AddEventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.grey[100],
           leading: IconButton(
             icon: Icon(
               Icons.close_sharp,
-              color: Colors.black,
             ),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text('add_event'.tr),
           actions: <Widget>[
             TextButton(
-              style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-              onPressed: () => _controller.addEvent,
-              child: Text("save".tr),
+              style: TextButton.styleFrom(primary: AppColors.textColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
+              onPressed: _controller.addEvent,
+              child: Obx(() => _controller.isLoading.value ? DefaultLoading(size: 16) : Text("save".tr)),
             ),
           ],
         ),
@@ -48,12 +46,7 @@ class AddEventScreen extends StatelessWidget {
                   children: [
                     TextfieldWithIconPicker(
                       iconId: _controller.eventIcon.value,
-                      onPressed: () async {
-                        final result = await Get.toNamed(Routes.selectIcon);
-                        if (result != null) {
-                          _controller.eventIcon.value = result;
-                        }
-                      },
+                      onPressed: () => _controller.selectIcon(context),
                       hintText: 'event_name'.tr,
                       textEditingController: _controller.eventNameController,
                     ),
@@ -69,7 +62,7 @@ class AddEventScreen extends StatelessWidget {
                         FontAwesomeIcons.dollarSign,
                       ),
                       text: _controller.currencyName.value,
-                      onPressed: () => _controller.pickCurrency(context),
+                      onPressed: () => _controller.selectCurrency(context),
                     )
                   ],
                 ),
