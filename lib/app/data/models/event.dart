@@ -8,7 +8,7 @@ class Event extends BaseModel {
   String currencySymbol;
   String iconId = Assets.inAppIconEducation.path;
   double spending;
-  bool isMarkedCompleted;
+  bool isMarkedFinished;
 
   Event(
     String? id, {
@@ -16,19 +16,19 @@ class Event extends BaseModel {
     required this.currencyId,
     required this.currencySymbol,
     required this.spending,
-    required this.isMarkedCompleted,
+    required this.isMarkedFinished,
     this.endDate,
   }) : super(id);
 
-  Event.fromMap(Map<String, dynamic> data)
+  Event.fromMap(String id, Map<String, dynamic> data)
       : name = data['name'] ?? '',
         endDate = DateTime.tryParse(data['endDate'].toDate().toString()) ?? DateTime.now(),
         spending = data['spending'] ?? 0,
-        isMarkedCompleted = data['isMarkedCompleted'] ?? false,
+        isMarkedFinished = data['isMarkedFinished'] ?? false,
         currencyId = data['currencyId'] ?? '',
         currencySymbol = data['currencySymbol'] ?? '',
         iconId = data['iconId'] ?? Assets.inAppIconEducation.path,
-        super(data['id']);
+        super(id);
 
   @override
   Map<String, dynamic> toMap() {
@@ -39,9 +39,10 @@ class Event extends BaseModel {
       'currencySymbol': currencySymbol,
       'iconId': iconId,
       'spending': spending,
-      'isMarkedCompleted': isMarkedCompleted,
+      'isMarkedFinished': isMarkedFinished,
     };
   }
 
-  bool get isCompleted => isMarkedCompleted || endDate!.isBefore(DateTime.now());
+  bool get isFinished => isMarkedFinished || endDate!.isBefore(DateTime.now());
+  bool get isNotFinished => !isMarkedFinished || !endDate!.isBefore(DateTime.now());
 }

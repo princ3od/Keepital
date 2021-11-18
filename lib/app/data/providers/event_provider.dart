@@ -32,6 +32,15 @@ class EventProvider implements Firestoration<String, Event> {
     throw UnimplementedError();
   }
 
+  Future<List<Event>> fetchAll() async {
+    List<Event> events = [];
+    final raw = await userCollectionReference.collection(collectionPath).orderBy('endDate').get();
+    for (var item in raw.docs) {
+      events.add(Event.fromMap(item.id, item.data()));
+    }
+    return events;
+  }
+
   get currentUserId => DataService.currentUser!.id;
   DocumentReference get userCollectionReference => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(currentUserId);
 }

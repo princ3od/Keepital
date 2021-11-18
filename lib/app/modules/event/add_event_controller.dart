@@ -59,7 +59,7 @@ class AddEventController extends GetxController {
       name: eventNameController.text,
       currencyId: currencyCode,
       currencySymbol: currencySymbol,
-      isMarkedCompleted: false,
+      isMarkedFinished: false,
       spending: 0,
       endDate: endDate.value,
     );

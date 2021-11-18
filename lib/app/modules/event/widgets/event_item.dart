@@ -18,7 +18,7 @@ class EventItem extends StatefulWidget {
 }
 
 class _EventItemState extends State<EventItem> {
-  String get buttonText => widget.event.isMarkedCompleted ? 'mark_as_finished'.tr : 'mark_as_unfinished'.tr;
+  String get buttonText => widget.event.isMarkedFinished ? 'mark_as_finished'.tr : 'mark_as_unfinished'.tr;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -54,7 +54,7 @@ class _EventItemState extends State<EventItem> {
             if (widget.event.endDate != null)
               Padding(
                 padding: const EdgeInsets.only(left: 42.0),
-                child: Text(widget.event.endDate!.numbericDate, style: Theme.of(context).textTheme.bodyText1),
+                child: Text(widget.event.endDate!.fullDate, style: Theme.of(context).textTheme.bodyText1),
               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,7 +75,7 @@ class _EventItemState extends State<EventItem> {
                 child: Text(buttonText),
                 onPressed: () {
                   setState(() {
-                    widget.event.isMarkedCompleted = !widget.event.isMarkedCompleted;
+                    widget.event.isMarkedFinished = !widget.event.isMarkedFinished;
                   });
                   widget.onMark?.call();
                 },
