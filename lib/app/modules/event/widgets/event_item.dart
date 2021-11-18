@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/data/models/event.dart';
+import 'package:keepital/app/modules/event/event_controller.dart';
 
 class EventItem extends StatefulWidget {
   const EventItem({required this.event, this.onMark, this.onEdit, this.onDelete});
@@ -18,7 +20,7 @@ class EventItem extends StatefulWidget {
 }
 
 class _EventItemState extends State<EventItem> {
-  String get buttonText => widget.event.isMarkedCompleted ? 'mark_as_finished'.tr : 'mark_as_unfinished'.tr;
+  String get buttonText => widget.event.isMarkedFinished ? 'mark_as_unfinished'.tr : 'mark_as_finished'.tr;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -51,10 +53,11 @@ class _EventItemState extends State<EventItem> {
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 42.0),
-              child: Text(widget.event.endDate.numbericDate, style: Theme.of(context).textTheme.bodyText1),
-            ),
+            if (widget.event.endDate != null)
+              Padding(
+                padding: const EdgeInsets.only(left: 42.0),
+                child: Text(widget.event.endDate!.fullDate, style: Theme.of(context).textTheme.bodyText1),
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -74,7 +77,8 @@ class _EventItemState extends State<EventItem> {
                 child: Text(buttonText),
                 onPressed: () {
                   setState(() {
-                    widget.event.isMarkedCompleted = !widget.event.isMarkedCompleted;
+                    widget.event.isMarkedFinished = !widget.event.isMarkedFinished;
+                    Get.find<EventController>().onMarkEvent(widget.event);
                   });
                   widget.onMark?.call();
                 },

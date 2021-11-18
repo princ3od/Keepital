@@ -38,7 +38,7 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
   String get collectionPath => AppValue.transactionCollectionPath;
 
   @override
-  Future<TransactionModel> delete(String id) {
+  Future<String> delete(String id) {
     // TODO: implement delete
     throw UnimplementedError();
   }

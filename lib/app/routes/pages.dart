@@ -11,6 +11,7 @@ import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
 import 'package:keepital/app/modules/category/categories_binding.dart';
 import 'package:keepital/app/modules/category/screens/categories_screen.dart';
+import 'package:keepital/app/modules/event/event_binding.dart';
 import 'package:keepital/app/modules/event/screens/add_event_screen.dart';
 import 'package:keepital/app/modules/event/screens/event_screen.dart';
 import 'package:keepital/app/modules/add_wallet/screen/first_wallet_screen.dart';
@@ -68,8 +69,16 @@ abstract class AppPages {
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
+      binding: EventBinding(),
     ),
-    GetPage(name: Routes.addEvent, page: () => AddEventScreen()),
+    GetPage(
+      name: Routes.addEvent,
+      page: () => AddEventScreen(),
+    ),
+    GetPage(
+      name: Routes.editEvent,
+      page: () => AddEventScreen(editEvent: Get.arguments),
+    ),
     GetPage(
       name: Routes.myWallets,
       page: () => MyWalletsScreen(),
@@ -89,7 +98,11 @@ abstract class AppPages {
       name: Routes.selectIcon,
       page: () => IconSelectionScreen(),
     ),
-    GetPage(name: Routes.addCategory, page: () => AddCategoryScreen(), binding: AddCategoryBinding()),
+    GetPage(
+      name: Routes.addCategory,
+      page: () => AddCategoryScreen(),
+      binding: AddCategoryBinding(),
+    ),
     GetPage(
       name: Routes.amountKeyboard,
       page: () => EnterAmountScreen(),

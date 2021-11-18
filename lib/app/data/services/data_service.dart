@@ -1,5 +1,6 @@
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
+import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
@@ -15,8 +16,11 @@ class DataService {
   loadCategoryData() async {
     categories = await CategoryProvider().fetchAll();
   }
+
   loadUserData() async {
     currentUser = await UserProvider().fetch(AuthService.instance.currentUser!.uid);
     currentUser!.wallets = await WalletProvider().fetchAll();
   }
+
+  static List<Wallet> get wallets => currentUser!.wallets.values.toList();
 }

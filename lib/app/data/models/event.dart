@@ -3,32 +3,35 @@ import 'package:keepital/app/data/models/base_model.dart';
 
 class Event extends BaseModel {
   String name;
-  DateTime endDate;
+  DateTime? endDate;
   String currencyId;
   String currencySymbol;
+  String currencyName;
   String iconId = Assets.inAppIconEducation.path;
   double spending;
-  bool isMarkedCompleted;
+  bool isMarkedFinished;
 
   Event(
     String? id, {
     required this.name,
     required this.currencyId,
     required this.currencySymbol,
+    required this.currencyName,
     required this.spending,
-    required this.isMarkedCompleted,
-    required this.endDate,
+    required this.isMarkedFinished,
+    this.endDate,
   }) : super(id);
 
-  Event.fromMap(Map<String, dynamic> data)
+  Event.fromMap(String id, Map<String, dynamic> data)
       : name = data['name'] ?? '',
         endDate = DateTime.tryParse(data['endDate'].toDate().toString()) ?? DateTime.now(),
         spending = data['spending'] ?? 0,
-        isMarkedCompleted = data['isMarkedCompleted'] ?? false,
+        isMarkedFinished = data['isMarkedFinished'] ?? false,
         currencyId = data['currencyId'] ?? '',
         currencySymbol = data['currencySymbol'] ?? '',
+        currencyName = data['currencyName'] ?? '',
         iconId = data['iconId'] ?? Assets.inAppIconEducation.path,
-        super(data['id']);
+        super(id);
 
   @override
   Map<String, dynamic> toMap() {
@@ -37,11 +40,13 @@ class Event extends BaseModel {
       'endDate': endDate,
       'currencyId': currencyId,
       'currencySymbol': currencySymbol,
+      'currencyName': currencyName,
       'iconId': iconId,
       'spending': spending,
-      'isMarkedCompleted': isMarkedCompleted,
+      'isMarkedFinished': isMarkedFinished,
     };
   }
 
-  bool get isCompleted => isMarkedCompleted || endDate.isBefore(DateTime.now());
+  bool get isFinished => isMarkedFinished || endDate!.isBefore(DateTime.now());
+  bool get isNotFinished => !isMarkedFinished || !endDate!.isBefore(DateTime.now());
 }

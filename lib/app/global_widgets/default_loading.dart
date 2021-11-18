@@ -17,6 +17,7 @@ class DefaultLoading extends StatelessWidget {
       return SpinKitFoldingCube(
         color: color ?? AppColors.textColor.withOpacity(0.6),
         size: size,
+        duration: Duration(milliseconds: 1800),
       );
     }
     return Image.asset(
