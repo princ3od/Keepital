@@ -10,14 +10,15 @@ class EventProvider implements Firestoration<String, Event> {
 
   @override
   Future<Event> add(Event obj) async {
-    await userCollectionReference.collection(collectionPath).add(obj.toMap());
+    final result = await userCollectionReference.collection(collectionPath).add(obj.toMap());
+    obj.id = result.id;
     return obj;
   }
 
   @override
-  Future<Event> delete(String id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<String> delete(String id) async {
+    await userCollectionReference.collection(collectionPath).doc(id).delete();
+    return id;
   }
 
   @override
@@ -27,9 +28,9 @@ class EventProvider implements Firestoration<String, Event> {
   }
 
   @override
-  Future<Event> update(String id, Event obj) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<Event> update(String id, Event obj) async {
+    await userCollectionReference.collection(collectionPath).doc(id).update(obj.toMap());
+    return obj;
   }
 
   Future<List<Event>> fetchAll() async {

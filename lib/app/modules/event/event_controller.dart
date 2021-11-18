@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/data/providers/event_provider.dart';
@@ -28,5 +30,44 @@ class EventController extends GetxController {
       onGoingEvents.add(result);
       isLoading.value = false;
     }
+  }
+
+  onMarkEvent(Event event) async {
+    await _eventProvider.update(event.id!, event);
+    if (event.isMarkedFinished) {
+      onGoingEvents.remove(event);
+      finishedEvents.add(event);
+    } else {
+      onGoingEvents.add(event);
+      finishedEvents.remove(event);
+    }
+  }
+
+  onEditEvent(Event event) async {
+    final result = await Get.toNamed(Routes.editEvent, arguments: event);
+    if (result == null) {
+      return;
+    }
+    if (event.isNotFinished) {
+      onGoingEvents.remove(event);
+      onGoingEvents.add(result);
+    } else {
+      finishedEvents.remove(event);
+      finishedEvents.add(result);
+    }
+    refresh();
+  }
+
+  onDeleteEvent(Event event) async {
+    Utils.showLoadingDialog();
+    await Future.delayed(AppValue.delayTime);
+    await _eventProvider.delete(event.id!);
+    if (event.isNotFinished) {
+      onGoingEvents.remove(event);
+    } else {
+      finishedEvents.remove(event);
+    }
+    refresh();
+    Utils.hideLoadingDialog();
   }
 }

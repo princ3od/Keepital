@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/data/models/event.dart';
+import 'package:keepital/app/modules/event/event_controller.dart';
 
 class EventItem extends StatefulWidget {
   const EventItem({required this.event, this.onMark, this.onEdit, this.onDelete});
@@ -18,7 +20,7 @@ class EventItem extends StatefulWidget {
 }
 
 class _EventItemState extends State<EventItem> {
-  String get buttonText => widget.event.isMarkedFinished ? 'mark_as_finished'.tr : 'mark_as_unfinished'.tr;
+  String get buttonText => widget.event.isMarkedFinished ? 'mark_as_unfinished'.tr : 'mark_as_finished'.tr;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -76,6 +78,7 @@ class _EventItemState extends State<EventItem> {
                 onPressed: () {
                   setState(() {
                     widget.event.isMarkedFinished = !widget.event.isMarkedFinished;
+                    Get.find<EventController>().onMarkEvent(widget.event);
                   });
                   widget.onMark?.call();
                 },

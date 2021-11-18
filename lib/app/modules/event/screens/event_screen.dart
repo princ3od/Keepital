@@ -2,12 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/event/event_controller.dart';
 import 'package:keepital/app/modules/event/widgets/finished_tab.dart';
 import 'package:keepital/app/modules/event/widgets/on_going_tab.dart';
-import 'package:keepital/app/routes/pages.dart';
 
 class EventScreen extends StatelessWidget {
   final _controller = Get.find<EventController>();
@@ -38,8 +36,8 @@ class EventScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Obx(() => _controller.isLoading.value ? DefaultLoading() : OnGoingTab(events: _controller.onGoingEvents)),
-              Obx(() => _controller.isLoading.value ? DefaultLoading() : FinishedTab(events: _controller.finishedEvents)),
+              Obx(() => _controller.isLoading.value ? DefaultLoading() : OnGoingTab(events: _controller.onGoingEvents.value)),
+              Obx(() => _controller.isLoading.value ? DefaultLoading() : FinishedTab(events: _controller.finishedEvents.value)),
             ],
           )),
     );

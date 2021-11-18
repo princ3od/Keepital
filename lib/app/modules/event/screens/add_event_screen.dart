@@ -6,17 +6,19 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/global_widgets/textfield_with_icon_picker_item.dart';
 import 'package:keepital/app/modules/event/add_event_controller.dart';
-import 'package:keepital/app/routes/pages.dart';
 
 class AddEventScreen extends StatelessWidget {
-  final _controller = Get.put(AddEventController());
+  final Event? editEvent;
+  AddEventScreen({this.editEvent});
   @override
   Widget build(BuildContext context) {
+    final _controller = Get.put(AddEventController(editEvent));
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -29,8 +31,8 @@ class AddEventScreen extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               style: TextButton.styleFrom(primary: AppColors.textColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-              onPressed: _controller.addEvent,
-              child: Obx(() => _controller.isLoading.value ? DefaultLoading(size: 16) : Text("save".tr)),
+              onPressed: () => _controller.save(context),
+              child: Text("save".tr),
             ),
           ],
         ),

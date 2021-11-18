@@ -6,6 +6,7 @@ class Event extends BaseModel {
   DateTime? endDate;
   String currencyId;
   String currencySymbol;
+  String currencyName;
   String iconId = Assets.inAppIconEducation.path;
   double spending;
   bool isMarkedFinished;
@@ -15,6 +16,7 @@ class Event extends BaseModel {
     required this.name,
     required this.currencyId,
     required this.currencySymbol,
+    required this.currencyName,
     required this.spending,
     required this.isMarkedFinished,
     this.endDate,
@@ -27,6 +29,7 @@ class Event extends BaseModel {
         isMarkedFinished = data['isMarkedFinished'] ?? false,
         currencyId = data['currencyId'] ?? '',
         currencySymbol = data['currencySymbol'] ?? '',
+        currencyName = data['currencyName'] ?? '',
         iconId = data['iconId'] ?? Assets.inAppIconEducation.path,
         super(id);
 
@@ -37,6 +40,7 @@ class Event extends BaseModel {
       'endDate': endDate,
       'currencyId': currencyId,
       'currencySymbol': currencySymbol,
+      'currencyName': currencyName,
       'iconId': iconId,
       'spending': spending,
       'isMarkedFinished': isMarkedFinished,
