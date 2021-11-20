@@ -36,4 +36,32 @@ class AppColors {
 
   static const Color indicatorCircularLightModeColour = Color(0xFFF57C00);
   static const Color indicatorCircularDarkModeColour = Color(0xFFFAFAFA);
+
+  static Color get calculatorForegroundColor => Get.isDarkMode ? _calculatorForegroundDarkColor : _calculatorForegroundLightColor;
+  static Color _calculatorForegroundLightColor = Color(0xffdbdddd);
+  static Color _calculatorForegroundDarkColor = Color(0xffdbdddd);
+
+  static Color get calculatorNumberButtonBackgroundColor => Get.isDarkMode ? _calculatorNumberButtonBackgroundDarkColor : _calculatorNumberButtonBackgroundLightColor;
+  static Color _calculatorNumberButtonBackgroundLightColor = Color(0xff282c35);
+  static Color _calculatorNumberButtonBackgroundDarkColor = Color(0xff282c35);
+
+  static Color _calculatorFunctionButtonLightColor = Color(0xff444b59);
+  static Color _calculatorFunctionButtonDarkColor = Color(0xff444b59);
+  static Color get calculatorFunctionButtonColor => Get.isDarkMode ? _calculatorFunctionButtonDarkColor : _calculatorFunctionButtonLightColor;
+
+  static Color _calculatorCancelButtonLightColor = Color(0xffb34048);
+  static Color _calculatorCancelButtonDarkColor = Color(0xffb34048);
+  static Color get calculatorCancelButtonColor => Get.isDarkMode ? _calculatorCancelButtonDarkColor : _calculatorCancelButtonLightColor;
+
+  static Color calculatorCompleteButtonLightColor = Color(0xFF4FCC5C);
+  static Color calculatorCompleteButtonDarkColor = Color(0xFF4FCC5C);
+  static Color get calculatorCompleteButtonColor => Get.isDarkMode ? calculatorCompleteButtonDarkColor : calculatorCompleteButtonLightColor;
+
+  static Color _calculatorCalculateButtonLightColor = Color(0xff444b59);
+  static Color _calculatorCalculateButtonDarkColor = Color(0xff444b59);
+  static Color get calculatorCalculateButtonColor => Get.isDarkMode ? _calculatorCalculateButtonDarkColor : _calculatorCalculateButtonLightColor;
+
+  static const Color _caculatorBackgroundDarkColor = Color(0xff797B7E);
+  static const Color _caculatorBackgroundLightColor = Color(0x66BCBCBC);
+  static Color get calculatorBackgroundColor => Get.isDarkMode ? _caculatorBackgroundDarkColor.withOpacity(0.2) : _caculatorBackgroundLightColor;
 }

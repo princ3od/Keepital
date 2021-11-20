@@ -4,39 +4,34 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/global_widgets/textfield_with_icon_picker_item.dart';
-import 'package:keepital/app/routes/pages.dart';
+import 'package:keepital/app/modules/event/add_event_controller.dart';
 
-class AddEventScreen extends StatefulWidget {
-  @override
-  _AddEventScreen createState() => _AddEventScreen();
-}
-
-class _AddEventScreen extends State<AddEventScreen> {
+class AddEventScreen extends StatelessWidget {
+  final Event? editEvent;
+  AddEventScreen({this.editEvent});
   @override
   Widget build(BuildContext context) {
+    final _controller = Get.put(AddEventController(editEvent));
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.grey[100],
           leading: IconButton(
             icon: Icon(
               Icons.close_sharp,
-              color: Colors.black,
             ),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text(
-            'add_event'.tr,
-            style: Theme.of(context).textTheme.headline6,
-          ),
+          title: Text('add_event'.tr),
           actions: <Widget>[
             TextButton(
-              style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-              onPressed: () {},
+              style: TextButton.styleFrom(primary: AppColors.textColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
+              onPressed: () => _controller.save(context),
               child: Text("save".tr),
             ),
           ],
@@ -45,37 +40,34 @@ class _AddEventScreen extends State<AddEventScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            SectionPanel(
-              padding: EdgeInsets.only(bottom: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextfieldWithIconPicker(
-                    onPressed: () async {
-                      final result = await Get.toNamed(Routes.selectIcon);
-                    },
-                    hintText: 'event_name'.tr,
-                    textEditingController: TextEditingController(),
-                  ),
-                  ClickableListItem(
-                    hintText: 'Ending date'.tr,
-                    leading: Icon(Icons.calendar_today),
-                    onPressed: () {},
-                  ),
-                  ClickableListItem(
-                    hintText: 'Wallet name'.tr,
-                    leading: Icon(FontAwesomeIcons.wallet),
-                    onPressed: () {},
-                  ),
-                  ClickableListItem(
-                    hintText: 'currency'.tr,
-                    leading: Icon(
-                      FontAwesomeIcons.dollarSign,
+            Obx(
+              () => SectionPanel(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextfieldWithIconPicker(
+                      iconId: _controller.eventIcon.value,
+                      onPressed: () => _controller.selectIcon(context),
+                      hintText: 'event_name'.tr,
+                      textEditingController: _controller.eventNameController,
                     ),
-                    text: '',
-                    onPressed: () {},
-                  )
-                ],
+                    ClickableListItem(
+                      hintText: 'Ending date'.tr,
+                      text: _controller.endDate.value.fullDate,
+                      leading: Icon(Icons.calendar_today),
+                      onPressed: () => _controller.selectEndDate(context),
+                    ),
+                    ClickableListItem(
+                      hintText: 'currency'.tr,
+                      leading: Icon(
+                        FontAwesomeIcons.dollarSign,
+                      ),
+                      text: _controller.currencyName.value,
+                      onPressed: () => _controller.selectCurrency(context),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

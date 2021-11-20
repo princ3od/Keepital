@@ -19,7 +19,7 @@ class CategoryProvider implements Firestoration<String, Category> {
   String get collectionPath => AppValue.categoryPath;
 
   @override
-  Future<Category> delete(String id) {
+  Future<String> delete(String id) {
     // TODO: implement delete
     throw UnimplementedError();
   }

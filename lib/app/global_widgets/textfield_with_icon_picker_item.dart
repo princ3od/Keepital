@@ -33,7 +33,7 @@ class TextfieldWithIconPicker extends StatelessWidget {
                 children: [
                   SizedBox(height: 13),
                   ImageView(
-                    iconId ?? Assets.iconsUnknown.path,
+                    iconEmpty ? Assets.iconsUnknown.path : iconId!,
                     size: iconSize ?? 36,
                   ),
                   Divider(
@@ -57,4 +57,6 @@ class TextfieldWithIconPicker extends StatelessWidget {
       ],
     );
   }
+
+  bool get iconEmpty => iconId == null || iconId!.isEmpty;
 }

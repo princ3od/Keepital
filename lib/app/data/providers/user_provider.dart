@@ -14,7 +14,7 @@ class UserProvider implements Firestoration<String, KeepitalUser> {
   }
 
   @override
-  Future<KeepitalUser> delete(String id) {
+  Future<String> delete(String id) {
     // TODO: implement delete
     throw UnimplementedError();
   }

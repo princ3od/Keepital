@@ -20,7 +20,7 @@ class WalletProvider implements Firestoration<String, Wallet> {
   }
 
   @override
-  Future<Wallet> delete(String id) {
+  Future<String> delete(String id) {
     throw UnimplementedError();
   }
 

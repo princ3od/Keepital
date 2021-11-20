@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_value.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 
 class Utils {
   static bool isLightMode(BuildContext context) {
     return Theme.of(context).brightness == Brightness.light;
+  }
+
+  static Future<dynamic> showLoadingDialog() async {
+    return await Get.dialog(Center(child: DefaultLoading()));
+  }
+
+  static void hideLoadingDialog() {
+    Get.back();
   }
 }
 
