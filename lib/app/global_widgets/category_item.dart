@@ -15,10 +15,15 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       dense: true,
-      leading: Image(
-        image: AssetImage(AssetStringsPng.electricity_bill),
-        height: 30,
-      ),
+      leading: category.iconId.isEmpty
+          ? Image(
+              image: AssetImage(AssetStringsPng.electricity_bill),
+              height: 30,
+            )
+          : Image.asset(
+              category.iconId,
+              width: 30,
+            ),
       title: Text(
         category.name,
         style: Theme.of(context).textTheme.headline6,

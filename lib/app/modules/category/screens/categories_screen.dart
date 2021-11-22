@@ -44,11 +44,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
         controller: _controller.tabController.value,
         children: _controller.tabs.map((element) {
           if (element.data == 'EXPENSE'.tr) {
-            return createListView(context, _controller.expenseList, 'NEW EXPENSE CATEGORY');
+            return createListView(context, _controller.expenseList, 'NEW EXPENSE CATEGORY'.tr);
           } else if (element.data == 'INCOME'.tr) {
-            return createListView(context, _controller.incomeList, 'NEW INCOME CATEGORY');
+            return createListView(context, _controller.incomeList, 'NEW INCOME CATEGORY'.tr);
           } else {
-            return createListView(context, _controller.debtNLoanList, 'NEW CATEGORY');
+            return createListView(context, _controller.debtNLoanList, 'NEW CATEGORY'.tr);
           }
         }).toList()));
   }
@@ -63,7 +63,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
               child: AddCategoryButton(
                 text: buttonText,
                 onTap: () {
-                  Get.toNamed(Routes.addCategory, arguments: CategoryType.expense);
+                  Get.toNamed(Routes.addCategory, arguments: getCategory(buttonText));
                 },
               ),
             );
@@ -89,5 +89,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
     if (isCategorySelector) {
       Get.back<Category>(result: category);
     } else {}
+  }
+
+  CategoryType getCategory(String buttonText) {
+    if (buttonText == 'NEW INCOME CATEGORY'.tr) {
+      return CategoryType.income;
+    }
+    return CategoryType.expense;
   }
 }

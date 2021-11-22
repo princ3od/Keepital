@@ -9,7 +9,7 @@ class AddCategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.add, color: Theme.of(context).primaryColor,),
+      leading: Icon(Icons.add, color: Theme.of(context).iconTheme.color,),
       title: Text(text ?? '', style: Theme.of(context).textTheme.button),
       onTap: onTap,
     );

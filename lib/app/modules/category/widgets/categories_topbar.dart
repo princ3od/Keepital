@@ -18,7 +18,7 @@ class CategoriesTopBar extends StatelessWidget implements PreferredSizeWidget {
           leading: IconButton(
             icon: Icon(
               Icons.close_sharp,
-              color: Colors.black,
+              color: Theme.of(context).iconTheme.color,
             ),
             onPressed: () => Navigator.pop(context),
           ),

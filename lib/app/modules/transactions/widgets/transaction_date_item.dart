@@ -15,42 +15,50 @@ class TransactionDateItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        Get.toNamed(Routes.transactionDetail, arguments: trans);
-      },
-      child: Row(
-        children: [
-          Container(
-            width: 45,
-            padding: EdgeInsets.only(left: 5, right: 10),
-            child: Text(trans.date.onlyDate, style: Theme.of(context).textTheme.headline2),
-          ),
-          Expanded(
+    return Material(
+      color: Theme.of(context).backgroundColor,
+      child: InkWell(
+        onTap: () async {
+          Get.toNamed(Routes.transactionDetail, arguments: trans);
+        },
+        child: Row(
+          children: [
+            Container(
+              width: 45,
+              child: Center(child: Text(trans.date.onlyDate, style: Theme.of(context).textTheme.headline2)),
+            ),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                child: Text(
-                  trans.date.monthNDay,
-                  style: Theme.of(context).textTheme.headline6,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    trans.date.monthNDay,
+                    style: Theme.of(context).textTheme.headline6,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Text(
+                    trans.note.toString(),
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Theme.of(context).hintColor),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
-              Text(
-                trans.note.toString(),
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Theme.of(context).hintColor),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          )),
-          Text(trans.amount.readable,
-              style: Theme.of(context).textTheme.headline6!.apply(
-                    color: trans.category.type == CategoryType.income ? Colors.blue : Colors.red,
-                  )),
-        ],
+            )),
+            Text(trans.amount.readable,
+                style: Theme.of(context).textTheme.headline6!.apply(
+                      color: trans.category.type == CategoryType.income ? Colors.blue : Colors.red,
+                    )),
+            SizedBox(
+              width: 5,
+            )
+          ],
+        ),
       ),
     );
   }

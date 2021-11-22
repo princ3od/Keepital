@@ -41,7 +41,7 @@ class TransactionsOverview extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
-              child: TextButton(onPressed: () {}, child: Text('View report for this period'.tr), style: Theme.of(context).textButtonTheme.style),
+              child: TextButton(onPressed: () {}, child: Text('View report for this period'.tr, style: Theme.of(context).textTheme.button,), style: Theme.of(context).textButtonTheme.style,),
             )
           ],
         ),

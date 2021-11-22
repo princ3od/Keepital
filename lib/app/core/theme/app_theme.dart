@@ -11,7 +11,8 @@ class AppTheme {
     ),
   );
 
-  static final TextButtonThemeData _secondaryButtonThemeData = TextButtonThemeData(style: TextButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 10), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
+  static final TextButtonThemeData _secondaryButtonDarkThemeData = TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.white ,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
+  static final TextButtonThemeData _secondaryButtonLightThemeData = TextButtonThemeData(style: TextButton.styleFrom(primary: AppColors.primaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
 
   static final OutlinedButtonThemeData _outlinedButtonDarkThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
 
@@ -19,13 +20,13 @@ class AppTheme {
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
-          fontSize: 35,
-          fontWeight: FontWeight.w600,
+          fontSize: 27,
+          fontWeight: FontWeight.w400,
         ),
         headline2: GoogleFonts.montserrat(
           color: textColor,
           fontSize: 25,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w400,
         ),
         headline3: GoogleFonts.montserrat(
           color: textColor,
@@ -95,7 +96,7 @@ class AppTheme {
       elevation: 1.5,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
-    textButtonTheme: _secondaryButtonThemeData,
+    textButtonTheme: _secondaryButtonLightThemeData,
     outlinedButtonTheme: _outlinedButtonLightThemeData,
     primaryColor: AppColors.primaryColor,
     primaryColorDark: AppColors.primaryColor,
@@ -150,7 +151,7 @@ class AppTheme {
       elevation: 1.5,
     ),
     elevatedButtonTheme: _elevatedButtonThemeData,
-    textButtonTheme: _secondaryButtonThemeData,
+    textButtonTheme: _secondaryButtonDarkThemeData,
     outlinedButtonTheme: _outlinedButtonDarkThemeData,
     primaryColor: AppColors.primaryColor,
     primaryColorDark: AppColors.primaryColor,
