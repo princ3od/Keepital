@@ -7,34 +7,40 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
-import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
+import 'package:keepital/app/modules/add_transaction/widgets/icon_textfield.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddTransactionScreen extends StatelessWidget {
   final AddTransactionController _controller = Get.find<AddTransactionController>();
-  final amountTextController = TextEditingController();
-  final noteTextController = TextEditingController();
+  final TransactionModel? trans = Get.arguments;
+
+  AddTransactionScreen() {
+    if (isEditing) {
+      _controller.onLoadData(trans!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(trans);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        shadowColor: Colors.grey[100],
+        backgroundColor: Theme.of(context).backgroundColor,
         leading: IconButton(
           icon: Icon(
             Icons.close_sharp,
-            color: Colors.black,
+            color: Theme.of(context).iconTheme.color,
           ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'add_transaction'.tr,
+          getTitle,
           style: Theme.of(context).textTheme.headline6,
         ),
         actions: <Widget>[
@@ -42,8 +48,11 @@ class AddTransactionScreen extends StatelessWidget {
             style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
             onPressed: () async {
               if (isValidData()) {
-                await _controller.createNewTrans(num.tryParse(amountTextController.text)!, noteTextController.text);
-                Navigator.pop(context);
+                 if (isEditing) {
+                   await _controller.modifyTrans(trans!);
+                 }
+                 else await _controller.createNewTrans();
+                Get.back();
               }
             },
             child: Text("save".tr),
@@ -59,23 +68,10 @@ class AddTransactionScreen extends StatelessWidget {
             SectionPanel(
               padding: EdgeInsets.only(bottom: 20),
               child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 65,
-                      height: 30,
-                    ),
-                    Expanded(
-                      child: TextField(
-                        autofocus: false,
-                        decoration: InputDecoration(hintText: 'Amount'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
-                        keyboardType: TextInputType.number,
-                        controller: amountTextController,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ),
-                  ],
+                IconTextField(
+                  textEditingController: _controller.amountTextController,
+                  keyboardType: TextInputType.number,
+                  hintText: 'Amount'.tr,
                 ),
                 Obx(() => ClickableListItem(
                       leading: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
@@ -88,25 +84,13 @@ class AddTransactionScreen extends StatelessWidget {
                         _controller.onSelectCategory(category);
                       },
                     )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      child: Image.asset(AssetStringsPng.note),
-                      width: 65,
-                      height: 30,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        autofocus: false,
-                        controller: noteTextController,
-                        decoration: InputDecoration(hintText: 'hint_note'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
-                      ),
-                    )
-                  ],
+                IconTextField(
+                  textEditingController: _controller.noteTextController,
+                  hintText: 'hint_note'.tr,
+                  icon: Image.asset(AssetStringsPng.note, color: Theme.of(context).iconTheme.color),
                 ),
                 Obx(() => ClickableListItem(
-                      leading: Image.asset(AssetStringsPng.calendar),
+                      leading: Image.asset(AssetStringsPng.calendar, color: Theme.of(context).iconTheme.color),
                       text: _controller.strDate.value,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -117,7 +101,7 @@ class AddTransactionScreen extends StatelessWidget {
                 Obx(() => ClickableListItem(
                       leading: Icon(Icons.account_balance_wallet),
                       hintText: 'hint_wallet'.tr,
-                      text: _controller.curWalletName.value,
+                      text: _controller.walletName.value,
                       onPressed: () {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         showWalletsModalBottomSheet(context);
@@ -130,23 +114,10 @@ class AddTransactionScreen extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 20),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          child: Image.asset(AssetStringsPng.calendar),
-                          width: 30,
-                          height: 30,
-                        ),
-                      ),
-                      Flexible(
-                          flex: 5,
-                          child: TextFormField(
-                            decoration: InputDecoration(hintText: 'hint_event'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
-                          ))
-                    ],
+                  ClickableListItem(
+                    onPressed: () {},
+                    leading: Image.asset(AssetStringsPng.calendar),
+                    hintText: 'hint_event'.tr,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -240,12 +211,10 @@ class AddTransactionScreen extends StatelessWidget {
                         String key = _controller.wallets.keys.elementAt(index);
                         return Obx(() => WalletItem(
                               wallet: _controller.wallets[key]!,
-                              selectedId: _controller.currentWallet.value,
+                              selectedId: _controller.walletId.value,
                               onTap: () {
-                                DataService.currentUser!.currentWallet = key;
-                                _controller.currentWallet.value = key;
-                                _controller.curWalletName.value = _controller.wallets[_controller.currentWallet]?.name ?? '';
-                                _controller.curWalletAmount.value = _controller.wallets[_controller.currentWallet]?.amount.toString() ?? '';
+                                _controller.walletId.value = key;
+                                _controller.walletName.value = _controller.wallets[key]!.name;
                               },
                             ));
                       }),
@@ -261,17 +230,20 @@ class AddTransactionScreen extends StatelessWidget {
     );
   }
 
+  String get getTitle => trans == null ? 'add_transaction'.tr : 'edit_transaction'.tr;
+
   bool isValidData() {
-    if (amountTextController.text.isBlank!) {
+    if (_controller.amountTextController.text.isBlank!) {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the amount field'.tr));
       return false;
     } else if (_controller.strCategory.value == '') {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the category field'.tr));
       return false;
-    } else if (_controller.currentWallet.value == '') {
+    } else if (_controller.walletId.value == '') {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the wallet field'.tr));
       return false;
     }
     return true;
   }
+  bool get isEditing => trans != null;
 }

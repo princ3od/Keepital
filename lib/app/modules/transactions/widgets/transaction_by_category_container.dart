@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -16,13 +17,13 @@ class TransactionByCategoryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     String nTrans = transList.length == 1 ? '${transList.length} ' + 'transaction'.tr : '${transList.length} ' + 'transactions'.tr;
     return Container(
-      margin: EdgeInsets.all(2),
       color: Theme.of(context).backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-            Row(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Row(
               children: [
                 transList[0].category.iconId.isEmpty
                     ? Image(
@@ -40,7 +41,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 3),
+                          padding: const EdgeInsets.symmetric(vertical: 3),
                           child: Text(
                             transList[0].category.name,
                             style: Theme.of(context).textTheme.headline5,
@@ -56,27 +57,25 @@ class TransactionByCategoryContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(totalCalculation(transList).toString(), style: Theme.of(context).textTheme.headline6),
+                Text(totalCalculation(transList).readable, style: Theme.of(context).textTheme.headline6),
               ],
             ),
-            Divider(
-              height: 2,
-              color: Theme.of(context).dividerColor,
-            ),
-            Container(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemExtent: 55,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: transList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return TransactionDateItem(
-                      transaction: transList[index],
-                    );
-                  }),
-            ),
-          ],
-        ),
+          ),
+          Divider(
+            height: 2,
+            color: Theme.of(context).dividerColor,
+          ),
+          ListView.builder(
+              shrinkWrap: true,
+              itemExtent: 55,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: transList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return TransactionDateItem(
+                  transaction: transList[index],
+                );
+              }),
+        ],
       ),
     );
   }

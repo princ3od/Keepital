@@ -14,15 +14,15 @@ class TransactionByDateContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(2),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Theme.of(context).backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: Row(
               children: [
-                Text(transList[0].date.onlyDate, style: Theme.of(context).textTheme.headline1),
+                Container(width: 35, child: Center(child: Text(transList[0].date.onlyDate, style: Theme.of(context).textTheme.headline1))),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -30,7 +30,7 @@ class TransactionByDateContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(top: 3, bottom: 2),
+                          padding: const EdgeInsets.symmetric(vertical: 3),
                           child: Text(
                             transList[0].date.dayInWeek,
                             style: Theme.of(context).textTheme.headline5,
@@ -46,27 +46,25 @@ class TransactionByDateContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(totalCalculation(transList).toString(), style: Theme.of(context).textTheme.headline6),
+                Text(totalCalculation(transList).readable, style: Theme.of(context).textTheme.headline6),
               ],
             ),
-            Divider(
-              height: 2,
-              color: Theme.of(context).dividerColor,
-            ),
-            Container(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemExtent: 55,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: transList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return TransactionItem(
-                      transaction: transList[index],
-                    );
-                  }),
-            ),
-          ],
-        ),
+          ),
+          Divider(
+            height: 2,
+            color: Theme.of(context).dividerColor,
+          ),
+          ListView.builder(
+              shrinkWrap: true,
+              itemExtent: 55,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: transList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return TransactionItem(
+                  transaction: transList[index],
+                );
+              }),
+        ],
       ),
     );
   }

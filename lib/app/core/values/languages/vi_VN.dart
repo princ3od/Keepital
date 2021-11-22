@@ -105,5 +105,9 @@ const Map<String, String> viLanguagePackage = {
   'Parent category': 'Danh mục cha',
   'Amount': 'Số tiền',
   'transaction': 'giao dịch',
-  'transactions': 'giao dịch'
+  'transactions': 'giao dịch',
+  'NEW EXPENSE CATEGORY': 'THÊM DANH MỤC CHI',
+  'NEW INCOME CATEGORY': 'THÊM DANH MỤC THU',
+  'NEW CATEGORY': 'THÊM DANH MỤC CHI TIÊU',
+  'edit_transaction': 'Sửa'
 };
