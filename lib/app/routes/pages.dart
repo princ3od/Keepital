@@ -105,7 +105,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.amountKeyboard,
-      page: () => EnterAmountScreen(),
+      page: () => EnterAmountScreen(currentAmount: Get.arguments),
     ),
   ];
 }

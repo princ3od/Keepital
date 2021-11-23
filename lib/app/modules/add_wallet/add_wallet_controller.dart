@@ -1,17 +1,15 @@
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/category.dart';
-import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
-import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
-import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
 import 'package:keepital/app/routes/pages.dart';
 
@@ -19,14 +17,17 @@ class AddWalletController extends GetxController {
   var _walletProvider = WalletProvider();
   var walletNameTextEditingController = TextEditingController(text: 'Cash');
   var currencyTextEditingController = TextEditingController();
+  var currencyName = ''.obs;
   var currencyId = "".obs;
   var walletIconPath = Assets.inAppIconWalletDefault.path.obs;
   var currencySymbol = "".obs;
+  var walletAmount = 0.0.obs;
   final walletAmountTextEditingController = TextEditingController();
 
   var isLoading = false.obs;
 
   void showWalletCurrencyPicker(BuildContext context) {
+    FocusScope.of(context).requestFocus(new FocusNode());
     return showCurrencyPicker(
       context: context,
       showFlag: true,
@@ -36,66 +37,55 @@ class AddWalletController extends GetxController {
         currencyTextEditingController.text = currency.name;
         currencyId.value = currency.code;
         currencySymbol.value = currency.symbol;
+        currencyName.value = currency.name;
       },
       favorite: AppValue.favoritedCurrencies,
     );
   }
 
-  Future<void> showIconCategoryPicker() async {
-    var result = await Get.toNamed(Routes.selectIcon);
+  void selectIcon(BuildContext context) async {
+    FocusScope.of(context).requestFocus(new FocusNode());
+    final result = await Get.toNamed(Routes.selectIcon);
     if (result != null) {
       walletIconPath.value = result;
     }
   }
 
-  void clearInputData() {
-    walletNameTextEditingController.text = "";
-    currencyTextEditingController.text = "";
-    currencyId.value = "";
-    walletIconPath.value = Assets.inAppIconWalletDefault.path;
-    currencySymbol.value = "";
-    isLoading.value = false;
-    walletAmountTextEditingController.clear();
-  }
-
-  handAddWallet() async {
+  onSave(BuildContext context) async {
+    FocusScope.of(context).requestFocus(new FocusNode());
     try {
+      if (Get.isDialogOpen!) {
+        return;
+      }
+      Utils.showLoadingDialog();
       var newWallet = _createWallet();
-      isLoading.value = true;
       if (newWallet != null) {
         var result = await _walletProvider.add(newWallet);
-        _addCurrencyIdNSymbol(result);
         DataService.currentUser?.wallets[result.id!] = result;
-        await createNewTrans(result.id!);
-        Get.snackbar("Warning", "Your's first wallet has been added");
-        clearInputData();
+        if (newWallet.amount != 0) {
+          await createNewTrans(result.id!);
+        }
         switch (Get.currentRoute) {
           case Routes.firstWallet:
             onClosedAddFirstWallet(result);
             break;
           case Routes.addWallet:
-            onCompletedAddWallet();
+            onClosedAddWallet(result);
             break;
           default:
             break;
         }
       } else {
-        Get.snackbar("Error", "Your's input data is invalid");
+        Utils.hideLoadingDialog();
+        Get.snackbar("Error", "Your input data is invalid");
       }
     } on Exception catch (_) {
+      Utils.hideLoadingDialog();
       Get.snackbar("Error", "Something go wrong, please wait a minute and try again.");
     } finally {
-      isLoading.value = false;
+      Utils.hideLoadingDialog();
     }
   }
-
-  void _addCurrencyIdNSymbol(Wallet w) {
-    curUser.currencySymbol = w.currencySymbol;
-    curUser.currencyId = w.currencySymbol;
-    UserProvider().update(curUser.id!, curUser);
-  }
-
-  KeepitalUser get curUser => DataService.currentUser!;
 
   Wallet? _createWallet() {
     try {
@@ -117,17 +107,11 @@ class AddWalletController extends GetxController {
 
   onClosedAddFirstWallet(Wallet wallet) async {
     await WalletProvider().updateCurrentWallet(wallet);
-    Get.toNamed(Routes.home);
+    Get.offAllNamed(Routes.home);
   }
-
-  onClosed() {
-    MyWalletsController _walletsController = Get.find<MyWalletsController>();
-  }
-
-  onCompletedAddWallet() {}
 
   Future createNewTrans(String walletId) async {
-    var category = Category('v2ORTsRjiq7sslcp5xvf', iconId: '', name: 'Another', type: CategoryType.income, isDebtNLoan: false, parent: '');
+    final Category category = DataService.categories.where((element) => element.name == "Others").first;
     var trans = TransactionModel(
       null,
       note: '',
@@ -137,5 +121,11 @@ class AddWalletController extends GetxController {
       date: DateTime.now(),
     );
     await TransactionProvider().addToWallet(trans, walletId);
+  }
+
+  void onClosedAddWallet(Wallet result) {
+    Get.back();
+    MyWalletsController myWalletsController = Get.find<MyWalletsController>();
+    myWalletsController.userWalletMap.add(result);
   }
 }

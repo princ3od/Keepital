@@ -98,7 +98,7 @@ class FirstWalletScreen extends StatelessWidget {
               width: 250,
               child: TextButton(
                 onPressed: () async {
-                  await _controller.handAddWallet();
+                  await _controller.onSave(context);
                 },
                 child: Obx(
                   () => (_controller.isLoading.value)

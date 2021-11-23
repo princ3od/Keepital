@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
+import 'package:keepital/app/core/utils/utils.dart';
+import 'package:keepital/app/global_widgets/clickable_list_item.dart';
+import 'package:keepital/app/global_widgets/section_panel.dart';
+import 'package:keepital/app/global_widgets/textfield_with_icon_picker_item.dart';
 import 'package:keepital/app/modules/add_wallet/add_wallet_controller.dart';
-import 'package:keepital/app/modules/add_wallet/widgets/underline_wallet_iconbutton.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class AddWalletScreen extends StatelessWidget {
@@ -17,7 +21,7 @@ class AddWalletScreen extends StatelessWidget {
             color: AppTheme.currentTheme.iconTheme.color,
           ),
           onPressed: () {
-            _controller.onClosed();
+            // _controller.onClosed();
             Get.back();
           },
         ),
@@ -27,140 +31,55 @@ class AddWalletScreen extends StatelessWidget {
         ),
         actions: [
           TextButton(
-              onPressed: () async {
-                await _controller.handAddWallet();
-              },
-              child: Text(
-                'SAVE',
-                style: AppTheme.currentTheme.textTheme.headline6,
-              ))
+            onPressed: () async {
+              await _controller.onSave(context);
+            },
+            child: Text(
+              'SAVE',
+            ),
+          )
         ],
         elevation: 1,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 13,
-            ),
-            Container(
-              color: AppTheme.currentTheme.backgroundColor,
-              height: 133,
+      body: Column(
+        children: [
+          const SizedBox(height: 16),
+          Obx(
+            () => SectionPanel(
+              padding: EdgeInsets.only(bottom: 20),
               child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    height: 40,
-                    child: Row(
-                      children: [
-                        Obx(
-                          () => UnderlineWalletIconButton(
-                            onPresed: () {
-                              _controller.showIconCategoryPicker();
-                            },
-                            assetGenImagePath: _controller.walletIconPath.value,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            controller: _controller.walletNameTextEditingController,
-                            style: Theme.of(context).textTheme.headline5,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              labelText: "Wallet Name",
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  TextfieldWithIconPicker(
+                    textEditingController: _controller.walletNameTextEditingController,
+                    onPressed: () => _controller.selectIcon(context),
+                    iconId: _controller.walletIconPath.value,
                   ),
-                  Container(
-                    height: 40,
-                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Obx(
-                          () => (_controller.currencySymbol.value == "")
-                              ? Icon(
-                                  Icons.money,
-                                  size: 30,
-                                )
-                              : SizedBox(
-                                  width: 30,
-                                  child: Text(
-                                    _controller.currencySymbol.value,
-                                    style: AppTheme.currentTheme.textTheme.headline6!.copyWith(fontWeight: FontWeight.w600),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                          child: TextField(
-                            style: Theme.of(context).textTheme.headline5,
-                            textAlign: TextAlign.left,
-                            enabled: true,
-                            showCursor: false,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              labelText: 'Currency'.tr,
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                            ),
-                            onTap: () => _controller.showWalletCurrencyPicker(context),
-                            controller: _controller.currencyTextEditingController,
-                          ),
-                        ),
-                      ],
+                  ClickableListItem(
+                    hintText: 'currency'.tr,
+                    leading: Icon(
+                      FontAwesomeIcons.dollarSign,
                     ),
+                    text: _controller.currencyName.value,
+                    onPressed: () => _controller.showWalletCurrencyPicker(context),
                   ),
-                  Container(
-                    height: 40,
-                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 46,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            style: Theme.of(context).textTheme.headline5,
-                            textAlign: TextAlign.left,
-                            enabled: true,
-                            showCursor: false,
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              border: UnderlineInputBorder(),
-                              labelText: "Wallet amount",
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                            ),
-                            controller: _controller.walletAmountTextEditingController,
-                            onTap: () async {
-                              var result = await Get.toNamed(Routes.amountKeyboard);
-                              print(result);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                  ClickableListItem(
+                    text: _controller.walletAmount.value.readable,
+                    textSize: 24,
+                    onPressed: () async {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      var result = await Get.toNamed(Routes.amountKeyboard, arguments: _controller.walletAmount.toString());
+                      if (result != null) {
+                        _controller.walletAmount.value = double.parse(result);
+                        _controller.walletAmountTextEditingController.text = result;
+                      }
+                    },
+                    hintText: 'Wallet amount'.tr,
                   ),
-                  Spacer(),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
