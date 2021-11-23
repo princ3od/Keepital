@@ -1,8 +1,10 @@
+import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/utils/utils.dart';
+import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/global_widgets/textfield_with_icon_picker_item.dart';
@@ -10,7 +12,20 @@ import 'package:keepital/app/modules/add_wallet/add_wallet_controller.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class AddWalletScreen extends StatelessWidget {
+  AddWalletScreen({Key? key, this.wallet}) : super(key: key) {
+    if (wallet != null) {
+      _controller.walletNameTextEditingController.text = wallet!.name;
+      _controller.walletAmount.value = wallet!.amount.toDouble();
+      _controller.walletAmountTextEditingController.text = wallet!.amount.toString();
+      _controller.walletIconPath.value = wallet!.iconId;
+      _controller.currencySymbol.value = wallet!.currencySymbol;
+      _controller.currencyId.value = wallet!.currencyId;
+      _controller.currencyName.value = CurrencyService().findByCode(wallet!.currencyId)!.name;
+      _controller.oldWallet = wallet;
+    }
+  }
   final AddWalletController _controller = Get.find<AddWalletController>();
+  final Wallet? wallet;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,11 +10,12 @@ abstract class Routes {
   static const addTransaction = '/add_transaction';
   static const myWallets = '/my_wallets';
   static const addWallet = '/add_wallet';
+  static const editWallet = '/edit_wallet';
   static const categories = '/category';
-  static const addEvent = '/addEvent';
-  static const editEvent = '/editEvent';
+  static const addEvent = '/add_event';
+  static const editEvent = '/edit_event';
   static const event = '/event';
-  static const selectIcon = '/selectIcon';
+  static const selectIcon = '/select_icon';
   static const addCategory = '/add_category';
   static const amountKeyboard = '/amount_keyboard';
 }

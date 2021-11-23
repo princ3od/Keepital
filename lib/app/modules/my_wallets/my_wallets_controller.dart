@@ -28,4 +28,12 @@ class MyWalletsController extends GetxController {
       Get.offAllNamed(Routes.firstWallet);
     }
   }
+
+  Future<void> editWallet(int index) async {
+    var result = await Get.toNamed(Routes.editWallet, arguments: wallets.value[index]);
+    if (result != null) {
+      wallets.value[index] = result;
+      wallets.refresh();
+    }
+  }
 }

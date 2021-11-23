@@ -90,6 +90,11 @@ abstract class AppPages {
       page: () => AddWalletScreen(),
     ),
     GetPage(
+      name: Routes.editWallet,
+      binding: AddWalletBinding(),
+      page: () => AddWalletScreen(wallet: Get.arguments),
+    ),
+    GetPage(
       name: Routes.categories,
       page: () => CategoriesScreen(),
       binding: CategoriesBinding(),

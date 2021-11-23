@@ -43,10 +43,7 @@ class WalletProvider implements Firestoration<String, Wallet> {
     final userPath = _getUserPath();
     final userWalletCollection = await userPath.collection(AppValue.walletCollectionPath).get();
     for (var rawWallet in userWalletCollection.docs) {
-      Map<String, dynamic> rawWalletMap = rawWallet.data();
-      rawWalletMap['id'] = rawWallet.id;
-      Wallet w = Wallet.fromMap(rawWalletMap);
-      wallets[rawWallet.id] = w;
+      wallets[rawWallet.id] = Wallet.fromMap(rawWallet.id, rawWallet.data());
     }
     return wallets;
   }
