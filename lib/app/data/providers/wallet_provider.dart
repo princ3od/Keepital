@@ -20,8 +20,10 @@ class WalletProvider implements Firestoration<String, Wallet> {
   }
 
   @override
-  Future<String> delete(String id) {
-    throw UnimplementedError();
+  Future<String> delete(String id) async {
+    final userPath = _getUserPath();
+    await userPath.collection(AppValue.walletCollectionPath).doc(id).delete();
+    return id;
   }
 
   @override

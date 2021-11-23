@@ -31,12 +31,12 @@ class MyWalletsScreen extends StatelessWidget {
           children: [
             SizedBox(height: 16),
             Expanded(
-              child: Container(
-                child: ListView.builder(
+              child: Obx(
+                () => ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  itemCount: _controller.userWalletMap.length,
+                  itemCount: _controller.wallets.length,
                   itemBuilder: (BuildContext context, int index) => WalletCard(
-                    wallet: _controller.userWalletMap[index],
+                    wallet: _controller.wallets.value[index],
                     onTap: () {},
                   ),
                 ),

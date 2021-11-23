@@ -124,8 +124,8 @@ class AddWalletController extends GetxController {
   }
 
   void onClosedAddWallet(Wallet result) {
-    Get.back();
+    Get.back(result: result);
     MyWalletsController myWalletsController = Get.find<MyWalletsController>();
-    myWalletsController.userWalletMap.add(result);
+    myWalletsController.wallets.add(result);
   }
 }

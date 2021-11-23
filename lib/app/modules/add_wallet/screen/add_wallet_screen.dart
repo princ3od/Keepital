@@ -21,7 +21,6 @@ class AddWalletScreen extends StatelessWidget {
             color: AppTheme.currentTheme.iconTheme.color,
           ),
           onPressed: () {
-            // _controller.onClosed();
             Get.back();
           },
         ),
