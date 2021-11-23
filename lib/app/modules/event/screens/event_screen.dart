@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/event/event_controller.dart';
 import 'package:keepital/app/modules/event/widgets/finished_tab.dart';
@@ -18,6 +19,7 @@ class EventScreen extends StatelessWidget {
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
+                color: AppColors.textColor,
               ),
               onPressed: () => Navigator.pop(context),
             ),
