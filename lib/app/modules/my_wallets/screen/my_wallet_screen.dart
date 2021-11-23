@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
-import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
 import 'package:keepital/app/modules/my_wallets/widgets/wallet_card.dart';
 
@@ -38,6 +37,9 @@ class MyWalletsScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) => WalletCard(
                     wallet: _controller.wallets.value[index],
                     onTap: () {},
+                    onDelete: () {
+                      _controller.deleteWallet(_controller.wallets.value[index]);
+                    },
                   ),
                 ),
               ),
