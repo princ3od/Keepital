@@ -1,3 +1,4 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
@@ -31,14 +32,20 @@ class TextfieldWithIconPicker extends StatelessWidget {
               onTap: onPressed,
               child: Column(
                 children: [
-                  SizedBox(height: 13),
+                  SizedBox(height: 6),
                   ImageView(
                     iconEmpty ? Assets.iconsUnknown.path : iconId!,
                     size: iconSize ?? 36,
                   ),
-                  Divider(
-                    thickness: 2,
-                  ),
+                  SizedBox(height: 6),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: DottedLine(
+                      dashColor: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity),
+                      dashGapLength: 0,
+                      lineLength: double.infinity,
+                    ),
+                  )
                 ],
               ),
             )),

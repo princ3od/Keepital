@@ -21,11 +21,12 @@ environment:
   sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
-  pull_to_refresh: ^2.0.0
   animated_text_kit: ^4.2.1
   cloud_firestore: ^2.5.3
   cupertino_icons: ^1.0.2
   currency_picker: ^2.0.3
+  dotted_line: ^3.1.0
+  enum_to_string: ^2.0.1
   firebase_auth: ^3.1.2
   firebase_core: ^1.7.0
   firebase_messaging: ^10.0.8
@@ -40,22 +41,21 @@ dependencies:
   google_fonts: ^2.1.0
   google_sign_in: ^5.1.1
   intl: ^0.17.0
-  modal_bottom_sheet: ^2.0.0
-  tuple: ^2.0.0
   math_expressions: ^2.2.0
+  modal_bottom_sheet: ^2.0.0
   money_formatter: ^0.0.3
-  enum_to_string: ^2.0.1
+  pull_to_refresh: ^2.0.0
+  tuple: ^2.0.0
 
 dev_dependencies:
+  build_runner: null
   change_app_package_name: ^1.0.0
+  flutter_gen: ^4.1.0
+  flutter_gen_runner: null
   flutter_launcher_icons: ^0.9.2
   flutter_native_splash: ^1.2.4
-  flutter_gen: ^4.1.0
   flutter_test:
     sdk: flutter
-  build_runner:
-  flutter_gen_runner:
-  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

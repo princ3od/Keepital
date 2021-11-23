@@ -8,11 +8,9 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
-import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
-import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class AddWalletController extends GetxController {
@@ -20,9 +18,9 @@ class AddWalletController extends GetxController {
   var walletNameTextEditingController = TextEditingController(text: 'Cash');
   var currencyTextEditingController = TextEditingController();
   var currencyName = ''.obs;
-  var currencyId = "".obs;
+  var currencyId = '';
   var walletIconPath = Assets.inAppIconWalletDefault.path.obs;
-  var currencySymbol = "".obs;
+  var currencySymbol = '';
   var walletAmount = 0.0.obs;
   final walletAmountTextEditingController = TextEditingController();
   Wallet? oldWallet;
@@ -38,8 +36,8 @@ class AddWalletController extends GetxController {
       showCurrencyCode: true,
       onSelect: (Currency currency) async {
         currencyTextEditingController.text = currency.name;
-        currencyId.value = currency.code;
-        currencySymbol.value = currency.symbol;
+        currencyId = currency.code;
+        currencySymbol = currency.symbol;
         currencyName.value = currency.name;
         if (oldWallet != null) {
           var amoutExchange = await ExchangeMoney.exchange(oldWallet!.currencyId, currency.code, oldWallet!.amount.toDouble());
@@ -109,9 +107,9 @@ class AddWalletController extends GetxController {
         oldWallet?.id,
         name: walletNameTextEditingController.text,
         amount: double.parse(walletAmountTextEditingController.text == "" ? "0" : walletAmountTextEditingController.text),
-        currencyId: currencyId.value,
+        currencyId: currencyId,
         iconId: walletIconPath.value,
-        currencySymbol: currencySymbol.value,
+        currencySymbol: currencySymbol,
       );
       if (newWallet.isValid) {
         return newWallet;
@@ -135,7 +133,7 @@ class AddWalletController extends GetxController {
       note: 'Adjut balance'.tr,
       amount: num.parse(walletAmountTextEditingController.text == "" ? "0" : walletAmountTextEditingController.text),
       category: category,
-      currencyId: currencyId.value,
+      currencyId: currencyId,
       date: DateTime.now(),
     );
     if (oldWallet != null) {

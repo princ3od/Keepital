@@ -18,8 +18,8 @@ class AddWalletScreen extends StatelessWidget {
       _controller.walletAmount.value = wallet!.amount.toDouble();
       _controller.walletAmountTextEditingController.text = wallet!.amount.toString();
       _controller.walletIconPath.value = wallet!.iconId;
-      _controller.currencySymbol.value = wallet!.currencySymbol;
-      _controller.currencyId.value = wallet!.currencyId;
+      _controller.currencySymbol = wallet!.currencySymbol;
+      _controller.currencyId = wallet!.currencyId;
       _controller.currencyName.value = CurrencyService().findByCode(wallet!.currencyId)!.name;
       _controller.oldWallet = wallet;
     }
@@ -69,6 +69,7 @@ class AddWalletScreen extends StatelessWidget {
                     iconId: _controller.walletIconPath.value,
                   ),
                   ClickableListItem(
+                    enabled: (wallet == null) ? true : false,
                     hintText: 'currency'.tr,
                     leading: Icon(
                       FontAwesomeIcons.dollarSign,
