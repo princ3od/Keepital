@@ -10,6 +10,7 @@ import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
+import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
 
 class AddTransactionController extends GetxController {
   AddTransactionController() {
@@ -18,6 +19,7 @@ class AddTransactionController extends GetxController {
   }
 
   final HomeController _homeController = Get.find<HomeController>();
+  final TransactionDetailController _transDetailController = Get.find<TransactionDetailController>();
   
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
@@ -75,6 +77,7 @@ class AddTransactionController extends GetxController {
     var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note);
     await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
 
+    _transDetailController.onTransUpdated(modTrans);
     _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
     await _homeController.reloadTransList();
   }

@@ -38,7 +38,7 @@ class TransactionDetailAppbar extends StatelessWidget implements PreferredSizeWi
           icon: Container(child: Icon(Icons.edit)),
           color: Theme.of(context).iconTheme.color,
           onPressed: () async {
-            Get.toNamed(Routes.addTransaction, arguments: controller.trans);
+            Get.toNamed(Routes.addTransaction, arguments: controller.trans.value);
           },
         ),
         IconButton(

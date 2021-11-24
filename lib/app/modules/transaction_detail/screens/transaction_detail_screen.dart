@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
 import 'package:keepital/app/modules/transaction_detail/widgets/transaction_detail_appbar.dart';
 import 'package:keepital/app/modules/transaction_detail/widgets/transaction_detail_body.dart';
@@ -18,9 +19,9 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   void initState() {
     super.initState();
-    controller.trans = Get.arguments;
+    controller.trans = Rx(Get.arguments as TransactionModel);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +29,12 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            child: TransactionDetailBody(
-              trans: controller.trans,
-            ),
-            alignment: Alignment.topCenter,
-          ),
+          Obx(() => Container(
+                child: TransactionDetailBody(
+                  trans: controller.trans.value,
+                ),
+                alignment: Alignment.topCenter,
+              )),
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(

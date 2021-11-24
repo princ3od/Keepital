@@ -11,7 +11,7 @@ import 'package:keepital/app/modules/home/home_controller.dart';
 class TransactionDetailController extends GetxController
 {
   final HomeController _homeController = Get.find<HomeController>();
-  late TransactionModel trans;
+  late Rx<TransactionModel> trans;
 
   Future<bool> deleteTransaction() async {
     await TransactionProvider().deleteInWallet(transId(), walletId());
@@ -35,14 +35,18 @@ class TransactionDetailController extends GetxController
     _homeController.total.amount -= amount;
   }
 
+  void onTransUpdated(TransactionModel trans) {
+    this.trans.value = trans;
+  }
+
   String transId() {
-    if (trans.id == null) throw NullThrownError();
-    return trans.id!;
+    if (trans.value.id == null) throw NullThrownError();
+    return trans.value.id!;
   }
   String walletId() {
-    if (trans.walletId == null) throw NullThrownError();
-    return trans.walletId!;
+    if (trans.value.walletId == null) throw NullThrownError();
+    return trans.value.walletId!;
   }
   Map<String, Wallet> get wallets => DataService.currentUser!.wallets;
-  num get amount => trans.category.type == CategoryType.expense ? -trans.amount : trans.amount;
+  num get amount => trans.value.category.type == CategoryType.expense ? -trans.value.amount : trans.value.amount;
 }

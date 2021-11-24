@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:keepital/app/core/values/assets.gen.dart';
 
 class UnderlineWalletIconButton extends StatelessWidget {
   final VoidCallback onPresed;
