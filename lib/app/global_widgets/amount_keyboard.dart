@@ -5,6 +5,8 @@ import 'package:math_expressions/math_expressions.dart';
 import 'package:money_formatter/money_formatter.dart';
 
 class EnterAmountScreen extends StatefulWidget {
+  final String? currentAmount;
+  EnterAmountScreen({this.currentAmount});
   @override
   _EnterAmountScreenState createState() => _EnterAmountScreenState();
 }
@@ -16,6 +18,15 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
   var userInputFormat = '';
   var answerFormat = '';
   final List<String> buttons = ['AC', '÷', '×', '⌫', '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '=', '0', '000', '.', '✓'];
+
+  @override
+  void initState() {
+    userInput = widget.currentAmount ?? '';
+    if (userInput.isNotEmpty) {
+      equalPressed();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

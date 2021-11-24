@@ -20,8 +20,10 @@ class WalletProvider implements Firestoration<String, Wallet> {
   }
 
   @override
-  Future<String> delete(String id) {
-    throw UnimplementedError();
+  Future<String> delete(String id) async {
+    final userPath = _getUserPath();
+    await userPath.collection(AppValue.walletCollectionPath).doc(id).delete();
+    return id;
   }
 
   @override
@@ -41,10 +43,7 @@ class WalletProvider implements Firestoration<String, Wallet> {
     final userPath = _getUserPath();
     final userWalletCollection = await userPath.collection(AppValue.walletCollectionPath).get();
     for (var rawWallet in userWalletCollection.docs) {
-      Map<String, dynamic> rawWalletMap = rawWallet.data();
-      rawWalletMap['id'] = rawWallet.id;
-      Wallet w = Wallet.fromMap(rawWalletMap);
-      wallets[rawWallet.id] = w;
+      wallets[rawWallet.id] = Wallet.fromMap(rawWallet.id, rawWallet.data());
     }
     return wallets;
   }

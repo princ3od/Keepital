@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:dotted_line/dotted_line.dart';
 
 class ClickableListItem extends StatelessWidget {
   const ClickableListItem({
@@ -10,6 +11,7 @@ class ClickableListItem extends StatelessWidget {
     this.hintText = '',
     required this.onPressed,
     this.textSize = 12,
+    this.enabled = true,
   }) : super(key: key);
 
   final Widget? leading;
@@ -17,39 +19,45 @@ class ClickableListItem extends StatelessWidget {
   final String hintText;
   final Function() onPressed;
   final double? textSize;
+  final bool enabled;
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: InkWell(
-      onTap: onPressed,
+    return InkWell(
+      onTap: enabled ? onPressed : null,
       child: Row(
         children: [
           SizedBox(width: 8),
-          Expanded(flex: 1, child: Center(child: leading)),
+          Expanded(flex: 1, child: Opacity(opacity: enabled ? 0.7 : 0.5, child: Center(child: leading))),
           SizedBox(width: 8),
           Expanded(
             flex: 7,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 22, bottom: 6),
-                  child: Text(
-                    isTextEmpty() ? hintText : text!,
-                    style: isTextEmpty()
-                        ? Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity - 0.10), fontSize: textSize)
-                        : Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: textSize),
+            child: Opacity(
+              opacity: enabled ? 1 : 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24, bottom: 8),
+                    child: Text(
+                      isTextEmpty() ? hintText : text!,
+                      style: isTextEmpty()
+                          ? Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity), fontSize: textSize)
+                          : Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: textSize),
+                    ),
                   ),
-                ),
-                Divider(
-                  color: AppColors.textColor,
-                )
-              ],
+                  const SizedBox(height: 8),
+                  DottedLine(
+                    dashColor: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity),
+                    dashGapLength: enabled ? 0 : 8,
+                    dashLength: enabled ? 1 : 16,
+                  )
+                ],
+              ),
             ),
           )
         ],
       ),
-    ));
+    );
   }
 
   bool isTextEmpty() {

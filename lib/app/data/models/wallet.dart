@@ -9,13 +9,13 @@ class Wallet extends BaseModel {
 
   Wallet(String? id, {required this.name, required this.amount, required this.currencyId, required this.iconId, required this.currencySymbol}) : super(id);
 
-  Wallet.fromMap(Map<String, dynamic> data)
+  Wallet.fromMap(String? id, Map<String, dynamic> data)
       : name = data['name'],
         amount = data['amount'],
         currencyId = data['currencyId'],
         currencySymbol = data['currencySymbol'],
         iconId = data['iconId'],
-        super(data['id']);
+        super(id);
 
   @override
   Map<String, dynamic> toMap() {

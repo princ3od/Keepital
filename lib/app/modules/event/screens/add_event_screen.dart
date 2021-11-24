@@ -8,7 +8,6 @@ import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
-import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/global_widgets/textfield_with_icon_picker_item.dart';
 import 'package:keepital/app/modules/event/add_event_controller.dart';
@@ -24,6 +23,7 @@ class AddEventScreen extends StatelessWidget {
           leading: IconButton(
             icon: Icon(
               Icons.close_sharp,
+              color: AppColors.textColor,
             ),
             onPressed: () => Navigator.pop(context),
           ),

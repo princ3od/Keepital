@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
-import 'package:keepital/app/modules/my_wallets/widgets/refresh_widget.dart';
 import 'package:keepital/app/modules/my_wallets/widgets/wallet_card.dart';
+import 'package:keepital/app/routes/pages.dart';
 
-class MyWalletsScreen extends StatefulWidget {
-  const MyWalletsScreen({Key? key}) : super(key: key);
-  @override
-  _MyWalletsScreenState createState() => _MyWalletsScreenState();
-}
-
-class _MyWalletsScreenState extends State<MyWalletsScreen> {
+class MyWalletsScreen extends StatelessWidget {
+  MyWalletsScreen({Key? key}) : super(key: key);
   final MyWalletsController _controller = Get.find<MyWalletsController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('My Wallets'),
+          title: Text(
+            'My wallets'.tr,
+            style: Theme.of(context).textTheme.headline6,
+          ),
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: AppColors.textColor,
             ),
             onPressed: () {
               Get.back();
@@ -30,44 +29,33 @@ class _MyWalletsScreenState extends State<MyWalletsScreen> {
       body: Center(
         child: Column(
           children: [
-            SizedBox(
-              height: 8,
-            ),
+            SizedBox(height: 16),
             Expanded(
-              flex: 3,
               child: Obx(
-                () => _controller.isLoading.value
-                    ? Container()
-                    : RefreshWidget(
-                        onRefresh: loadList,
-                        child: ListView.builder(
-                          itemCount: _controller.userWalletMap.length,
-                          itemBuilder: (BuildContext context, int index) => WalletCard(
-                            wallet: _controller.userWalletMap[index],
-                            onTap: () {},
-                          ),
-                        ),
-                      ),
+                () => ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: _controller.wallets.length,
+                  itemBuilder: (BuildContext context, int index) => WalletCard(
+                    wallet: _controller.wallets.value[index],
+                    onTap: () {
+                      _controller.editWallet(index);
+                    },
+                    onDelete: () {
+                      _controller.deleteWallet(_controller.wallets.value[index]);
+                    },
+                  ),
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _controller.handingAddNewWallet,
+        onPressed: _controller.navigatoToAddWalletScreen,
         child: Icon(
           Icons.add_outlined,
-          size: 30,
         ),
       ),
     );
-  }
-
-  Future loadList() async {
-    await _controller.fetchUserWallets();
   }
 }
