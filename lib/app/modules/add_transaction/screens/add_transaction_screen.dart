@@ -8,6 +8,7 @@ import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/global_widgets/clickable_chips_input.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
@@ -28,7 +29,6 @@ class AddTransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(trans);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -48,10 +48,10 @@ class AddTransactionScreen extends StatelessWidget {
             style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
             onPressed: () async {
               if (isValidData()) {
-                 if (isEditing) {
-                   await _controller.modifyTrans(trans!);
-                 }
-                 else await _controller.createNewTrans();
+                if (isEditing) {
+                  await _controller.modifyTrans(trans!);
+                } else
+                  await _controller.createNewTrans();
                 Get.back();
               }
             },
@@ -119,23 +119,26 @@ class AddTransactionScreen extends StatelessWidget {
                     leading: Image.asset(AssetStringsPng.calendar),
                     hintText: 'hint_event'.tr,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Icon(
+                  Obx(() => ClickableChipsInput(
+                        onPressed: () async {
+                          var x = await Get.toNamed(Routes.addChipsScreen, arguments: listToString(_controller.peoples.value));
+                          if (x != null)
+                          {
+                            _controller.peoples.value = x.split(',');
+                          }
+                        },
+                        onDeleted: () {
+                          _controller.peoples.update((val) {
+                            val?.clear();
+                          });
+                        },
+                        leading: Icon(
                           Icons.people,
                           size: 25.0,
                         ),
-                      ),
-                      Flexible(
-                          flex: 5,
-                          child: TextFormField(
-                            decoration: InputDecoration(hintText: 'hint_with'.tr, hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Colors.grey[350])),
-                          ))
-                    ],
-                  ),
+                        items: _controller.peoples.value,
+                        hintText: 'hint_with'.tr,
+                      ))
                 ],
               ),
             ),
@@ -245,5 +248,6 @@ class AddTransactionScreen extends StatelessWidget {
     }
     return true;
   }
+
   bool get isEditing => trans != null;
 }

@@ -20,7 +20,7 @@ class AddTransactionController extends GetxController {
 
   final HomeController _homeController = Get.find<HomeController>();
   late final TransactionDetailController _transDetailController;
-  
+
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
 
@@ -33,13 +33,15 @@ class AddTransactionController extends GetxController {
   late RxString walletId;
   late RxString walletName;
 
+  Rx<List<String>?> peoples = Rx<List<String>?>([]);
+
   RxBool excludeFromReport = false.obs;
 
   Future createNewTrans() async {
     num amount = num.tryParse(amountTextController.text)!;
     String note = noteTextController.text;
 
-    amount = category!.type == CategoryType.income ? amount : -amount; 
+    amount = category!.type == CategoryType.income ? amount : -amount;
 
     var user = DataService.currentUser!;
     user.amount += amount;
@@ -50,7 +52,7 @@ class AddTransactionController extends GetxController {
     wallet.amount += amount;
     DataService.currentUser!.wallets[walletId.value] = await WalletProvider().update(walletId.value, wallet);
 
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note);
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
     await TransactionProvider().addToWallet(trans, walletId.value);
 
     _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
@@ -74,7 +76,7 @@ class AddTransactionController extends GetxController {
     wallet.amount += diff;
     DataService.currentUser!.wallets[walletId.value] = await WalletProvider().update(walletId.value, wallet);
 
-    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note);
+    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
     await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
 
     _transDetailController.onTransUpdated(modTrans);
@@ -89,6 +91,7 @@ class AddTransactionController extends GetxController {
 
   void onLoadData(TransactionModel trans) {
     _transDetailController = Get.find<TransactionDetailController>();
+
     oldAmount = trans.category.type == CategoryType.income ? trans.amount : -trans.amount;
     amountTextController.text = trans.amount.toString();
 
@@ -102,6 +105,8 @@ class AddTransactionController extends GetxController {
 
     walletId.value = trans.walletId ?? '';
     walletName.value = wallets[walletId]?.name ?? '';
+
+    peoples.value = stringToList(trans.contact);
   }
 
   num oldAmount = 0;
