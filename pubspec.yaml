@@ -46,6 +46,7 @@ dependencies:
   money_formatter: ^0.0.3
   pull_to_refresh: ^2.0.0
   tuple: ^2.0.0
+  chips_choice: ^2.0.1
 
 dev_dependencies:
   build_runner: null

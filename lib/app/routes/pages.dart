@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/global_widgets/add_peoples.dart';
 import 'package:keepital/app/global_widgets/amount_keyboard.dart';
 import 'package:keepital/app/global_widgets/icon_selection_screen.dart';
 import 'package:keepital/app/modules/add_category/add_category_binding.dart';
@@ -112,5 +113,9 @@ abstract class AppPages {
       name: Routes.amountKeyboard,
       page: () => EnterAmountScreen(currentAmount: Get.arguments),
     ),
+    GetPage(
+        name: Routes.addChipsScreen,
+        page: () => AddPeoplesScreen(),
+    )
   ];
 }

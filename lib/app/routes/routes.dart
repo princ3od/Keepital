@@ -18,4 +18,5 @@ abstract class Routes {
   static const selectIcon = '/select_icon';
   static const addCategory = '/add_category';
   static const amountKeyboard = '/amount_keyboard';
+  static const addChipsScreen = '/add_chips';
 }

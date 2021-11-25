@@ -109,5 +109,8 @@ const Map<String, String> viLanguagePackage = {
   'NEW EXPENSE CATEGORY': 'THÊM DANH MỤC CHI',
   'NEW INCOME CATEGORY': 'THÊM DANH MỤC THU',
   'NEW CATEGORY': 'THÊM DANH MỤC CHI TIÊU',
-  'edit_transaction': 'Sửa'
+  'edit_transaction': 'Sửa',
+  'Add peoples': 'Thêm bạn bè',
+  'Type in names separated by comma (,)': 'Gõ tên bạn bè, mỗi người phân cách bởi dấu phẩy (,)',
+  'You can type in peoples who pay with you in this transaction': 'Bạn có thể thêm bạn bè đã cùng tham gia vào giao dịch này'
 };

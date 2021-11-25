@@ -53,3 +53,22 @@ extension DateOnlyCompare on DateTime {
     return year == other.year && month == other.month && day == other.day;
   }
 }
+
+List<String> stringToList(String? str) {
+    if (str == null) return [];
+    var res = str.split(',');
+    for (int i = 0; i < res.length; i++) {
+      res[i] = res[i].trim();
+    }
+    if (res.last == ' ' || res.last == '') res.remove(res.last);
+    return res;
+  }
+
+  String listToString(List<String>? l) {
+    if (l == null) return '';
+    String res = '';
+    for (var str in l) {
+      res += '$str, ';
+    }
+    return res;
+  }
