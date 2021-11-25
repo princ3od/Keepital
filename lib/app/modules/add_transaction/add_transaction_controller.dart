@@ -19,7 +19,7 @@ class AddTransactionController extends GetxController {
   }
 
   final HomeController _homeController = Get.find<HomeController>();
-  final TransactionDetailController _transDetailController = Get.find<TransactionDetailController>();
+  late final TransactionDetailController _transDetailController;
   
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
@@ -88,6 +88,7 @@ class AddTransactionController extends GetxController {
   }
 
   void onLoadData(TransactionModel trans) {
+    _transDetailController = Get.find<TransactionDetailController>();
     oldAmount = trans.category.type == CategoryType.income ? trans.amount : -trans.amount;
     amountTextController.text = trans.amount.toString();
 
