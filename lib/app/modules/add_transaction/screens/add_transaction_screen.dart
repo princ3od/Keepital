@@ -123,6 +123,7 @@ class AddTransactionScreen extends StatelessWidget {
                   Obx(() => ClickableChipsInput(
                         onPressed: () async {
                           var x = await Get.toNamed(Routes.addChipsScreen, arguments: listToString(_controller.peoples.value));
+
                           if (x != null) {
                             _controller.peoples.value = x.split(',');
                           }

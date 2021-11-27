@@ -85,6 +85,7 @@ class AddTransactionController extends GetxController {
 
   Future updateTransaction(TransactionModel oldTrans, num amount, String note) async {
     var wallet = wallets[walletId]!;
+
     var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
     await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
 
