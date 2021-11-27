@@ -61,7 +61,12 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                           inflow: totalInflow,
                           outflow: totalOutflow,
                         );
-                      return _controller.viewByDate.value ? TransactionByDateContainer(transList: transactionListSorted[index - 1]) : TransactionByCategoryContainer(transList: transactionListSorted[index - 1]);
+                      return _controller.viewByDate.value
+                          ? TransactionByDateContainer(transList: transactionListSorted[index - 1], exchangeRates: _controller.exchangeRates)
+                          : TransactionByCategoryContainer(
+                              transList: transactionListSorted[index - 1],
+                              exchangeRates: _controller.exchangeRates,
+                            );
                     },
                   ),
                 ),
@@ -85,10 +90,18 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
     if (!_controller.viewByDate.value) {
       transList.forEach((element) {
         if (!categoryInChoosenTime.contains(element.category.name)) categoryInChoosenTime.add(element.category.name);
+
+        double rate = 1;
+        if (_controller.isTotalWallet) {
+          var fromCur = element.currencyId;
+          var toCur = _controller.total.currencyId;
+          rate = _controller.exchangeRates[Tuple2(fromCur, toCur)] ?? 1;
+        }
+
         if (element.category.type == CategoryType.expense)
-          totalOutCome += element.amount;
+          totalOutCome += element.amount * rate;
         else
-          totalInCome += element.amount;
+          totalInCome += element.amount * rate;
       });
 
       categoryInChoosenTime.forEach((cate) {
@@ -98,10 +111,18 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
     } else {
       transList.forEach((element) {
         if (!dateInChoosenTime.contains(element.date)) dateInChoosenTime.add(element.date);
+
+        double rate = 1;
+        if (_controller.isTotalWallet) {
+          var fromCur = element.currencyId;
+          var toCur = _controller.total.currencyId;
+          rate = _controller.exchangeRates[Tuple2(fromCur, toCur)] ?? 1;
+        }
+
         if (element.category.type == CategoryType.expense)
-          totalOutCome += element.amount;
+          totalOutCome += element.amount * rate;
         else
-          totalInCome += element.amount;
+          totalInCome += element.amount * rate;
       });
 
       Map<String, bool> selectedDates = {};

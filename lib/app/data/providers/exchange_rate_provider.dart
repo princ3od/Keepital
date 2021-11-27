@@ -11,7 +11,7 @@ class ExchangeRate {
   factory ExchangeRate._fromJson(String base, String target, Map<String, dynamic> json) {
     return ExchangeRate(
       date: json['date'],
-      rate: json['$target'],
+      rate: double.tryParse('${json[target]}')!,
       base: base,
       target: target,
     );

@@ -99,6 +99,7 @@ class AddTransactionScreen extends StatelessWidget {
                       },
                     )),
                 Obx(() => ClickableListItem(
+                      enabled: !isEditing,
                       leading: Icon(Icons.account_balance_wallet),
                       hintText: 'hint_wallet'.tr,
                       text: _controller.walletName.value,
@@ -122,8 +123,7 @@ class AddTransactionScreen extends StatelessWidget {
                   Obx(() => ClickableChipsInput(
                         onPressed: () async {
                           var x = await Get.toNamed(Routes.addChipsScreen, arguments: listToString(_controller.peoples.value));
-                          if (x != null)
-                          {
+                          if (x != null) {
                             _controller.peoples.value = x.split(',');
                           }
                         },
