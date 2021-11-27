@@ -36,7 +36,7 @@ class TransactionDetailBody extends StatelessWidget {
                     ),
               title: Text(trans.category.name, style: Theme.of(context).textTheme.headline6),
             ),
-            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(trans.amount.readable, style: Theme.of(context).textTheme.headline3!.copyWith(color: amountColor))),
+            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(trans.amount.money(currencySymbol), style: Theme.of(context).textTheme.headline3!.copyWith(color: amountColor))),
             Visibility(
               visible: haveNote,
               child: ListTile(
@@ -70,6 +70,8 @@ class TransactionDetailBody extends StatelessWidget {
       ]),
     );
   }
+  
+  String get currencySymbol => DataService.currentUser!.wallets[trans.walletId]?.currencySymbol ?? 'None';
 
   bool get haveNote => trans.note != null && trans.note != '';
   bool get isPayWithOthers => peoples.length > 0;

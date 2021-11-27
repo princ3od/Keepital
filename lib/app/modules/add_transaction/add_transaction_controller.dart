@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/utils/exchange_rate.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
@@ -42,20 +43,14 @@ class AddTransactionController extends GetxController {
     String note = noteTextController.text;
 
     amount = category!.type == CategoryType.income ? amount : -amount;
+    num diffInTotal = await ExchangeMoney.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
-    var user = DataService.currentUser!;
-    user.amount += amount;
-    DataService.currentUser = await UserProvider().update(user.id!, user);
-    _homeController.total.amount += amount;
+    updateTotalAmount(diffInTotal);
+    _homeController.total.amount += diffInTotal;
 
-    var wallet = wallets[walletId]!;
-    wallet.amount += amount;
-    DataService.currentUser!.wallets[walletId.value] = await WalletProvider().update(walletId.value, wallet);
+    updateWalletAmountNTransaction(amount);
+    addTransaction(amount, note);
 
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
-    await TransactionProvider().addToWallet(trans, walletId.value);
-
-    _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
     await _homeController.reloadTransList();
   }
 
@@ -64,24 +59,43 @@ class AddTransactionController extends GetxController {
     String note = noteTextController.text;
 
     amount = category!.type == CategoryType.income ? amount : -amount;
-
     num diff = amount - oldAmount;
+    num diffInTotal = await ExchangeMoney.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
+    updateTotalAmount(diffInTotal);
+    _homeController.total.amount += diffInTotal;
+
+    updateWalletAmountNTransaction(diff);
+    updateTransaction(oldTrans, amount, note);
+
+    await _homeController.reloadTransList();
+  }
+
+  Future updateTotalAmount(num diff) async {
     var user = DataService.currentUser!;
     user.amount += diff;
     DataService.currentUser = await UserProvider().update(user.id!, user);
-    _homeController.total.amount += diff;
+  }
 
+  Future updateWalletAmountNTransaction(num diff) async {
     var wallet = wallets[walletId]!;
     wallet.amount += diff;
     DataService.currentUser!.wallets[walletId.value] = await WalletProvider().update(walletId.value, wallet);
+  }
+
+  Future updateTransaction(TransactionModel oldTrans, num amount, String note) async {
+    var wallet = wallets[walletId]!;
 
     var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
     await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
 
     _transDetailController.onTransUpdated(modTrans);
-    _homeController.onCurrentWalletChange(DataService.currentUser!.currentWallet);
-    await _homeController.reloadTransList();
+  }
+
+  Future addTransaction(num amount, String note) async {
+    var wallet = wallets[walletId]!;
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
+    await TransactionProvider().addToWallet(trans, walletId.value);
   }
 
   void onSelectCategory(Category? category) {
@@ -111,6 +125,7 @@ class AddTransactionController extends GetxController {
 
   num oldAmount = 0;
 
+  String get totalCurrencyId => DataService.currentUser!.currencyId;
   String get currentWallet => DataService.currentUser!.currentWallet;
   Map<String, Wallet> get wallets => DataService.currentUser!.wallets;
 }

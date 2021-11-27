@@ -9,6 +9,7 @@ import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/routes/pages.dart';
@@ -123,7 +124,15 @@ class AddWalletController extends GetxController {
 
   onClosedAddFirstWallet(Wallet wallet) async {
     await WalletProvider().updateCurrentWallet(wallet);
+    await updateCurrencyUser(wallet);
     Get.offAllNamed(Routes.home);
+  }
+
+  Future updateCurrencyUser(Wallet wallet) async {
+    var user = DataService.currentUser!;
+    user.currencyId = wallet.currencyId;
+    user.currencySymbol = wallet.currencySymbol;
+    await UserProvider().update(user.id!, user);
   }
 
   Future createNewTrans(String walletId) async {
