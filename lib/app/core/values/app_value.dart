@@ -12,6 +12,7 @@ class AppValue {
   static const eventCollectionPath = 'events';
 
   static const favoritedCurrencies = ['VND', 'USD'];
+  static const aseCurrency = 'USD';
   static const delayTime = Duration(milliseconds: 500);
 }
 
@@ -26,4 +27,8 @@ class FormatValue {
   static const dayInMonthFormat = 'dd/MM';
   static const yearFormat = 'yyyy';
   static const monthNDayFormat = 'MMMM, yyyy, EEEE';
+}
+
+class UrlValue {
+  static const exchangeRateUrl = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${AppValue.aseCurrency}.json';
 }
