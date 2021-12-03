@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
-import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/wallet_selector.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
-import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   TopBar({Key? key, required this.selectTimeRangeCallBack, required this.selectWalletCallBack})
@@ -31,7 +29,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () async {
-                  showWalletsModalBottomSheet(context);
+                  showWalletsModalBottomSheet(context, total: _controller.total, selectedId: _controller.currentWallet.value.id, onSelectWallet: (id) {
+                    _controller.onCurrentWalletChange(id);
+                    selectWalletCallBack();
+                  });
                 },
                 child: Row(
                   children: [
@@ -126,70 +127,6 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => preferedSize;
-
-  void showWalletsModalBottomSheet(BuildContext context) {
-    Wallet total = _controller.total;
-
-    showMaterialModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-      ),
-      builder: (context) => Container(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Wrap(children: [
-            Column(
-              children: [
-                Text(
-                  'Select wallet'.tr,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Obx(
-                  () => WalletItem(
-                      wallet: total,
-                      selectedId: _controller.currentWallet.value.id,
-                      onTap: () {
-                        _controller.onCurrentWalletChange('');
-                        selectWalletCallBack();
-                      }),
-                ),
-                Divider(
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                LimitedBox(
-                  maxHeight: 160,
-                  child: ListView.builder(
-                      itemExtent: 50.0,
-                      shrinkWrap: true,
-                      itemCount: _controller.wallets.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        String key = _controller.wallets.keys.elementAt(index);
-                        return Obx(() => WalletItem(
-                              wallet: _controller.wallets[key]!,
-                              selectedId: _controller.currentWallet.value.id,
-                              onTap: () {
-                                _controller.onCurrentWalletChange(key);
-                                selectWalletCallBack();
-                              },
-                            ));
-                      }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Go to My Wallets'.tr),
-                    style: Theme.of(context).outlinedButtonTheme.style,
-                  ),
-                )
-              ],
-            ),
-          ]),
-        ),
-      ),
-    );
-  }
 
   void handleSelectTimeRange(BuildContext context) {
     showMenu(

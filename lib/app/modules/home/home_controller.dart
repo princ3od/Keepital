@@ -31,7 +31,6 @@ class HomeController extends GetxController {
 
   Map<Tuple2<String, String>, double> exchangeRates = {};
 
-
   HomeController() {
     currentWallet = total.obs;
     tabs = initTabBar(selectedTimeRange.value).obs;
@@ -44,18 +43,10 @@ class HomeController extends GetxController {
     isLoading.value = true;
     super.onInit();
     transList = (await TransactionProvider().fetchAll()).obs;
-    await loadExchangeRates();
     isLoading.value = false;
   }
 
   bool get isTotalWallet => currentWallet.value.id == '';
-
-  Future loadExchangeRates() async {
-    for (var w1 in wallets.values) {
-      exchangeRates[Tuple2(w1.currencyId, total.currencyId)] = (await ExchangeRate.getExchangeRate(w1.currencyId, total.currencyId)).rate;
-      exchangeRates[Tuple2(total.currencyId, w1.currencyId)] = (await ExchangeRate.getExchangeRate(total.currencyId, w1.currencyId)).rate;
-    }
-  }
 
   Future reloadTransList() async {
     isLoading.value = true;
@@ -417,8 +408,12 @@ class HomeController extends GetxController {
   int getInitialTabBarIndex() => selectedTimeRange.value == TimeRange.all ? 0 : 18;
   int getTabBarLength() => selectedTimeRange.value == TimeRange.all ? 1 : 20;
 
-  onAddTransaction() {
-    Get.toNamed(Routes.addTransaction);
+  onAddTransaction() async {
+    var result = await Get.toNamed(Routes.addTransaction);
+    if (result != null) {
+      total.amount += result;
+      await reloadTransList();
+    }
   }
 
   onUpdateWalletBalance() {

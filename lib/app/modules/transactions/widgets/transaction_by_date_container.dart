@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_item.dart';
@@ -78,9 +79,9 @@ num totalCalculation(List<TransactionModel> transList, Map<Tuple2<String, String
   for (var trans in transList) {
     double rate = 1;
     if (isTotalWallet) {
-      var fromCur = trans.currencyId;
-      var toCur = DataService.currentUser!.currencyId;
-      rate = exchangeRates?[Tuple2(fromCur, toCur)] ?? 1;
+      var fromCurrency = trans.currencyId;
+      var toCurrency = DataService.currentUser!.currencyId;
+      rate = ExchangeRate.getRate(fromCurrency, toCurrency);
     }
 
     if (trans.category.type == CategoryType.income) {

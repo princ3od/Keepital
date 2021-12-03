@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/global_widgets/clickable_chips_input.dart';
+import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
@@ -19,9 +20,9 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddTransactionScreen extends StatelessWidget {
   final AddTransactionController _controller = Get.find<AddTransactionController>();
-  final TransactionModel? trans = Get.arguments;
+  final TransactionModel? trans;
 
-  AddTransactionScreen() {
+  AddTransactionScreen({Key? key, this.trans}) {
     if (isEditing) {
       _controller.onLoadData(trans!);
     }
@@ -30,35 +31,22 @@ class AddTransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
-        leading: IconButton(
-          icon: Icon(
-            Icons.close_sharp,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          getTitle,
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        actions: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(primary: AppColors.primaryColor, textStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600)),
-            onPressed: () async {
-              if (isValidData()) {
-                if (isEditing) {
+      appBar: CommonAppBar(
+          title: getTitle,
+          onSaveTap: () async {
+            FocusScope.of(context).requestFocus(new FocusNode());
+            if (isValidData()) {
+              switch (Get.currentRoute) {
+                case Routes.editTransaction:
                   await _controller.modifyTrans(trans!);
-                } else
+                  break;
+                case Routes.addRecurringTransaction:
+                  break;
+                default:
                   await _controller.createNewTrans();
-                Get.back();
               }
-            },
-            child: Text("save".tr),
-          ),
-        ],
-      ),
+            }
+          }),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +62,10 @@ class AddTransactionScreen extends StatelessWidget {
                   hintText: 'Amount'.tr,
                 ),
                 Obx(() => ClickableListItem(
-                      leading: ImageIcon(AssetImage(AssetStringsPng.unknownCategory)),
+                      leading: ImageView(
+                        _controller.categoryIconId.value,
+                        size: 24,
+                      ),
                       hintText: 'hint_category'.tr,
                       text: _controller.strCategory.value,
                       onPressed: () async {
@@ -110,79 +101,9 @@ class AddTransactionScreen extends StatelessWidget {
                     )),
               ]),
             ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            SectionPanel(
-              padding: EdgeInsets.only(bottom: 20),
-              child: Column(
-                children: [
-                  ClickableListItem(
-                    onPressed: () {},
-                    leading: Image.asset(AssetStringsPng.calendar),
-                    hintText: 'hint_event'.tr,
-                  ),
-                  Obx(() => ClickableChipsInput(
-                        onPressed: () async {
-                          var x = await Get.toNamed(Routes.addChipsScreen, arguments: listToString(_controller.peoples.value));
-
-                          if (x != null) {
-                            _controller.peoples.value = x.split(',');
-                          }
-                        },
-                        onDeleted: () {
-                          _controller.peoples.update((val) {
-                            val?.clear();
-                          });
-                        },
-                        leading: Icon(
-                          Icons.people,
-                          size: 25.0,
-                        ),
-                        items: _controller.peoples.value,
-                        hintText: 'hint_with'.tr,
-                      ))
-                ],
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            SectionPanel(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        Checkbox(
-                          checkColor: Colors.white,
-                          activeColor: AppColors.primaryColor,
-                          value: _controller.excludeFromReport.value,
-                          onChanged: (value) {
-                            _controller.excludeFromReport.value = value!;
-                          },
-                        )
-                      ]),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
-                          Text(
-                            'exclude_description'.tr,
-                            style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-            Container(margin: EdgeInsets.only(left: 50), child: Text('suggest_label'.tr, style: Theme.of(context).textTheme.bodyText2)),
-            Container(
-                margin: EdgeInsets.only(left: 50),
-                child: Text(
-                  'suggest_description'.tr,
-                  style: Theme.of(context).textTheme.subtitle1,
-                ))
+            Visibility(visible: !isAddRecurringTrans, child: additionalInformation(context)),
+            Visibility(visible: !isAddRecurringTrans, child: excludeFromReport(context)),
+            Visibility(visible: !isAddRecurringTrans, child: suggest(context))
           ],
         ),
       ),
@@ -234,7 +155,106 @@ class AddTransactionScreen extends StatelessWidget {
     );
   }
 
-  String get getTitle => trans == null ? 'add_transaction'.tr : 'edit_transaction'.tr;
+  Widget additionalInformation(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.width * 0.05),
+        SectionPanel(
+          padding: EdgeInsets.only(bottom: 20),
+          child: Column(
+            children: [
+              ClickableListItem(
+                onPressed: () {},
+                leading: Image.asset(AssetStringsPng.calendar),
+                hintText: 'hint_event'.tr,
+              ),
+              Obx(() => ClickableChipsInput(
+                    onPressed: () async {
+                      var x = await Get.toNamed(Routes.addChipsScreen, arguments: listToString(_controller.peoples.value));
+
+                      if (x != null) {
+                        _controller.peoples.value = x.split(',');
+                      }
+                    },
+                    onDeleted: () {
+                      _controller.peoples.update((val) {
+                        val?.clear();
+                      });
+                    },
+                    leading: Icon(
+                      Icons.people,
+                      size: 25.0,
+                    ),
+                    items: _controller.peoples.value,
+                    hintText: 'hint_with'.tr,
+                  ))
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget excludeFromReport(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.width * 0.05),
+        SectionPanel(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Checkbox(
+                      checkColor: Colors.white,
+                      activeColor: AppColors.primaryColor,
+                      value: _controller.excludeFromReport.value,
+                      onChanged: (value) {
+                        _controller.excludeFromReport.value = value!;
+                      },
+                    )
+                  ]),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
+                      Text(
+                        'exclude_description'.tr,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
+                      )
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget suggest(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.width * 0.05),
+        Container(margin: EdgeInsets.only(left: 25), child: Text('suggest_label'.tr, style: Theme.of(context).textTheme.bodyText2)),
+        Container(
+            margin: EdgeInsets.only(left: 25),
+            child: Text(
+              'suggest_description'.tr,
+              style: Theme.of(context).textTheme.subtitle1,
+            ))
+      ],
+    );
+  }
+
+  String get getTitle {
+    if (isEditing) return 'edit_transaction'.tr;
+    if (isAddRecurringTrans) return 'add_recurring_transaction'.tr;
+    return 'add_transaction'.tr;
+  }
 
   bool isValidData() {
     if (_controller.amountTextController.text.isBlank!) {
@@ -251,4 +271,5 @@ class AddTransactionScreen extends StatelessWidget {
   }
 
   bool get isEditing => trans != null;
+  bool get isAddRecurringTrans => Get.currentRoute == Routes.addRecurringTransaction;
 }

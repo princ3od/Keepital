@@ -37,9 +37,7 @@ class TransactionDetailAppbar extends StatelessWidget implements PreferredSizeWi
           splashRadius: 20.0,
           icon: Container(child: Icon(Icons.edit)),
           color: Theme.of(context).iconTheme.color,
-          onPressed: () async {
-            Get.toNamed(Routes.addTransaction, arguments: controller.trans.value);
-          },
+          onPressed: controller.navigateToEditTransactionScreen,
         ),
         IconButton(
           splashRadius: 20.0,

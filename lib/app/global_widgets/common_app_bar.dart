@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
-class AddCategoryTopBar extends StatelessWidget implements PreferredSizeWidget {
-  AddCategoryTopBar({Key? key, this.onSaveTap})
+class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
+  CommonAppBar({Key? key, required this.title, this.onSaveTap})
       : size = Size.fromHeight(55),
         super(key: key);
 
   final Size size;
+  final String title;
   final Function()? onSaveTap;
 
   @override
@@ -18,16 +20,20 @@ class AddCategoryTopBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: Icon(
           Icons.close_sharp,
-          color: Colors.black,
+          color: Theme.of(context).iconTheme.color,
         ),
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => Get.back(),
       ),
       title: Text(
-        'Add category'.tr,
+        title,
         style: Theme.of(context).textTheme.headline6,
       ),
       actions: [
-        TextButton(onPressed: onSaveTap, child: Text('save'.tr), style: Theme.of(context).textButtonTheme.style,)
+        TextButton(
+          onPressed: onSaveTap,
+          child: Text('save'.tr),
+          style: Theme.of(context).textButtonTheme.style,
+        )
       ],
     );
   }
