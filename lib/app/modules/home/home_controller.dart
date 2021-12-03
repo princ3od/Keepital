@@ -6,10 +6,12 @@ import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
+import 'package:tuple/tuple.dart';
 
 class HomeController extends GetxController {
   Wallet total = Wallet('', name: 'Total'.tr, amount: DataService.currentUser!.amount, currencyId: DataService.currentUser!.currencyId, iconId: '', currencySymbol: DataService.currentUser!.currencySymbol);
@@ -26,6 +28,8 @@ class HomeController extends GetxController {
   var selectedTimeRange = TimeRange.month.obs;
   late RxList<Text> tabs;
   RxBool viewByDate = true.obs;
+
+  Map<Tuple2<String, String>, double> exchangeRates = {};
 
   HomeController() {
     currentWallet = total.obs;
@@ -404,8 +408,12 @@ class HomeController extends GetxController {
   int getInitialTabBarIndex() => selectedTimeRange.value == TimeRange.all ? 0 : 18;
   int getTabBarLength() => selectedTimeRange.value == TimeRange.all ? 1 : 20;
 
-  onAddTransaction() {
-    Get.toNamed(Routes.addTransaction);
+  onAddTransaction() async {
+    var result = await Get.toNamed(Routes.addTransaction);
+    if (result != null) {
+      total.amount += result;
+      await reloadTransList();
+    }
   }
 
   onUpdateWalletBalance() {

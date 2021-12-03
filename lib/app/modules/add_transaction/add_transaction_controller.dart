@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/utils/exchange_rate.dart';
 import 'package:keepital/app/core/utils/utils.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/wallet.dart';
@@ -12,6 +14,7 @@ import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
+import 'package:tuple/tuple.dart';
 
 class AddTransactionController extends GetxController {
   AddTransactionController() {
@@ -27,6 +30,7 @@ class AddTransactionController extends GetxController {
 
   Category? category;
   var strCategory = ''.tr.obs;
+  RxString categoryIconId = Assets.iconsUnknown.path.obs;
 
   var date = DateTime.now();
   late var strDate = date.fullDate.obs;
@@ -100,6 +104,8 @@ class AddTransactionController extends GetxController {
 
   void onSelectCategory(Category? category) {
     strCategory.value = category?.name ?? '';
+    categoryIconId.value = category?.iconId ?? Assets.iconsUnknown.path;
+    if (categoryIconId.value.isEmpty) categoryIconId.value = Assets.inAppIconElectricityBill.path;
     this.category = category;
   }
 
@@ -111,6 +117,8 @@ class AddTransactionController extends GetxController {
 
     category = trans.category;
     strCategory.value = category?.name ?? '';
+    categoryIconId.value = category?.iconId ?? Assets.iconsUnknown.path;
+    if (categoryIconId.value.isEmpty) categoryIconId.value = Assets.inAppIconElectricityBill.path;
 
     noteTextController.text = trans.note ?? '';
 
@@ -121,6 +129,14 @@ class AddTransactionController extends GetxController {
     walletName.value = wallets[walletId]?.name ?? '';
 
     peoples.value = stringToList(trans.contact);
+  }
+
+  void onAddTransactionClosed(num diffInTotal) {
+    Get.back(result: diffInTotal);
+  }
+
+  void onEditTransactionClosed(num diffInTotal, TransactionModel modTrans) {
+    Get.back(result: Tuple2(diffInTotal, modTrans));
   }
 
   num oldAmount = 0;

@@ -5,8 +5,8 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/global_widgets/category_selector.dart';
+import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/modules/add_category/add_category_controller.dart';
-import 'package:keepital/app/modules/add_category/widgets/add_category_topbar.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 
@@ -21,11 +21,12 @@ class AddCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AddCategoryTopBar(
+      appBar: CommonAppBar(
+        title: 'Add category'.tr,
         onSaveTap: () {
           if (isValidData()) {
             _controller.onSave(nameTextController.text);
-            Navigator.pop(context);
+            Get.back();
           }
         },
       ),

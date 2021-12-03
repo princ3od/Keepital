@@ -12,9 +12,10 @@ import 'package:keepital/app/modules/transactions/widgets/transaction_date_item.
 import 'package:tuple/tuple.dart';
 
 class TransactionByCategoryContainer extends StatelessWidget {
-  TransactionByCategoryContainer({Key? key, required this.transList}) : super(key: key);
+  TransactionByCategoryContainer({Key? key, required this.transList, this.exchangeRates}) : super(key: key);
 
   final List<TransactionModel> transList;
+  final Map<Tuple2<String, String>, double>? exchangeRates;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(totalCalculation(transList).readable, style: Theme.of(context).textTheme.headline6),
+                Text(totalCalculation(transList, exchangeRates).readable, style: Theme.of(context).textTheme.headline6),
               ],
             ),
           ),
@@ -84,7 +85,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
   }
 }
 
-num totalCalculation(List<TransactionModel> transList) {
+num totalCalculation(List<TransactionModel> transList, Map<Tuple2<String, String>, double>? exchangeRates) {
   num total = 0;
   for (var trans in transList) {
     double rate = 1;

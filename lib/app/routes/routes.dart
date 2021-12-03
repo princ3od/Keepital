@@ -8,6 +8,7 @@ abstract class Routes {
   static const transactionDetail = '/transaction_detail';
   static const walletBalance = '/wallet_balance';
   static const addTransaction = '/add_transaction';
+  static const editTransaction = '/edit_transaction';
   static const myWallets = '/my_wallets';
   static const addWallet = '/add_wallet';
   static const editWallet = '/edit_wallet';
@@ -19,4 +20,6 @@ abstract class Routes {
   static const addCategory = '/add_category';
   static const amountKeyboard = '/amount_keyboard';
   static const addChipsScreen = '/add_chips';
+  static const recurringTransaction = '/recurring_transaction';
+  static const addRecurringTransaction = '/add_recurring_transaction';
 }

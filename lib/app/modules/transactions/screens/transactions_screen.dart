@@ -6,6 +6,7 @@ import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/transactions/widgets/trans_overview.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_by_category_container.dart';
@@ -30,7 +31,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
 
   Widget buildCtn() {
     return Obx(() => _controller.isLoading.value
-        ? Center(child: CircularProgressIndicator())
+        ? DefaultLoading()
         : TabBarView(
             controller: _controller.tabController.value,
             children: _controller.tabs.map((element) {
