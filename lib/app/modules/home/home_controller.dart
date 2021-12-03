@@ -6,12 +6,10 @@ import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
-import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
-import 'package:tuple/tuple.dart';
 
 class HomeController extends GetxController {
   Wallet total = Wallet('', name: 'Total'.tr, amount: DataService.currentUser!.amount, currencyId: DataService.currentUser!.currencyId, iconId: '', currencySymbol: DataService.currentUser!.currencySymbol);
@@ -29,9 +27,6 @@ class HomeController extends GetxController {
   late RxList<Text> tabs;
   RxBool viewByDate = true.obs;
 
-  Map<Tuple2<String, String>, double> exchangeRates = {};
-
-
   HomeController() {
     currentWallet = total.obs;
     tabs = initTabBar(selectedTimeRange.value).obs;
@@ -44,18 +39,10 @@ class HomeController extends GetxController {
     isLoading.value = true;
     super.onInit();
     transList = (await TransactionProvider().fetchAll()).obs;
-    await loadExchangeRates();
     isLoading.value = false;
   }
 
   bool get isTotalWallet => currentWallet.value.id == '';
-
-  Future loadExchangeRates() async {
-    for (var w1 in wallets.values) {
-      exchangeRates[Tuple2(w1.currencyId, total.currencyId)] = (await ExchangeRate.getExchangeRate(w1.currencyId, total.currencyId)).rate;
-      exchangeRates[Tuple2(total.currencyId, w1.currencyId)] = (await ExchangeRate.getExchangeRate(total.currencyId, w1.currencyId)).rate;
-    }
-  }
 
   Future reloadTransList() async {
     isLoading.value = true;

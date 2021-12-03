@@ -12,7 +12,7 @@ class AppValue {
   static const eventCollectionPath = 'events';
 
   static const favoritedCurrencies = ['VND', 'USD'];
-  static const aseCurrency = 'USD';
+  static const baseCurrency = 'usd';
   static const delayTime = Duration(milliseconds: 500);
 }
 
@@ -30,5 +30,5 @@ class FormatValue {
 }
 
 class UrlValue {
-  static const exchangeRateUrl = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${AppValue.aseCurrency}.json';
+  static const exchangeRateUrl = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${AppValue.baseCurrency}.min.json';
 }

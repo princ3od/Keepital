@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
@@ -62,10 +63,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                           outflow: totalOutflow,
                         );
                       return _controller.viewByDate.value
-                          ? TransactionByDateContainer(transList: transactionListSorted[index - 1], exchangeRates: _controller.exchangeRates)
+                          ? TransactionByDateContainer(transList: transactionListSorted[index - 1])
                           : TransactionByCategoryContainer(
                               transList: transactionListSorted[index - 1],
-                              exchangeRates: _controller.exchangeRates,
                             );
                     },
                   ),
@@ -93,9 +93,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
 
         double rate = 1;
         if (_controller.isTotalWallet) {
-          var fromCur = element.currencyId;
-          var toCur = _controller.total.currencyId;
-          rate = _controller.exchangeRates[Tuple2(fromCur, toCur)] ?? 1;
+          var fromCurrency = element.currencyId;
+          var toCurrency = _controller.total.currencyId;
+          rate = ExchangeRate.getRate(fromCurrency, toCurrency);
         }
 
         if (element.category.type == CategoryType.expense)
@@ -114,9 +114,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
 
         double rate = 1;
         if (_controller.isTotalWallet) {
-          var fromCur = element.currencyId;
-          var toCur = _controller.total.currencyId;
-          rate = _controller.exchangeRates[Tuple2(fromCur, toCur)] ?? 1;
+          var fromCurrency = element.currencyId;
+          var toCurrency = _controller.total.currencyId;
+          rate = ExchangeRate.getRate(fromCurrency, toCurrency);
         }
 
         if (element.category.type == CategoryType.expense)

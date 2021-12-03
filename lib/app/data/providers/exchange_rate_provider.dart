@@ -1,32 +1,48 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:keepital/app/core/values/app_value.dart';
 
 class ExchangeRate {
-  final String base;
-  final String target;
-  final String date;
-  final double rate;
-  ExchangeRate({required this.base, required this.date, required this.rate, required this.target});
+  static String baseCurrency = AppValue.baseCurrency.toLowerCase();
+  static String? date;
+  static Map<String, double> rates = {};
+  static get hasExchangeRate => rates.isNotEmpty;
 
-  factory ExchangeRate._fromJson(String base, String target, Map<String, dynamic> json) {
-    return ExchangeRate(
-      date: json['date'],
-      rate: double.tryParse('${json[target]}')!,
-      base: base,
-      target: target,
-    );
+  static double exchange(String origin, String target, double amount) {
+    if (!hasExchangeRate) {
+      return amount;
+    }
+    if (origin == baseCurrency) {
+      return amount * rates[target]!;
+    }
+    return amount * rates[target]! / rates[origin]!;
   }
 
-  static Future<ExchangeRate> getExchangeRate(String baseCurrency, String targetCurrency) async {
-    String base = baseCurrency.toLowerCase();
-    String target = targetCurrency.toLowerCase();
-    String url = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/$base/$target.json';
-    Uri uri = Uri.parse(url);
-    http.Response response = await http.get(uri);
-    if (response.statusCode == 200) {
-      return ExchangeRate._fromJson(base, target, json.decode(response.body));
-    } else {
-      throw Exception('Failed to load exchange rate');
+  static double getRate(String origin, String target) {
+    if (!hasExchangeRate) {
+      return 1;
     }
+    if (origin == baseCurrency) {
+      return rates[target]!;
+    }
+    return rates[target]! / rates[origin]!;
+  }
+
+  static Future<bool> fetchExchangeRate() async {
+    String url = UrlValue.exchangeRateUrl;
+    var response;
+    try {
+      response = await Dio().get(url);
+      Map<String, dynamic> data = response.data;
+      if (response.statusCode == 200) {
+        date = data['date'];
+        rates = data[baseCurrency].cast<String, double>();
+
+        return true;
+      }
+    } on Exception catch (e) {
+      throw Exception('Failed to load exchange rate.');
+    }
+    return false;
   }
 }

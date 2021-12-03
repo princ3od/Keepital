@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/utils/exchange_rate.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
@@ -43,7 +43,7 @@ class AddTransactionController extends GetxController {
     String note = noteTextController.text;
 
     amount = category!.type == CategoryType.income ? amount : -amount;
-    num diffInTotal = await ExchangeMoney.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
+    num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
     updateTotalAmount(diffInTotal);
     _homeController.total.amount += diffInTotal;
@@ -60,7 +60,7 @@ class AddTransactionController extends GetxController {
 
     amount = category!.type == CategoryType.income ? amount : -amount;
     num diff = amount - oldAmount;
-    num diffInTotal = await ExchangeMoney.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
+    num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
     updateTotalAmount(diffInTotal);
     _homeController.total.amount += diffInTotal;

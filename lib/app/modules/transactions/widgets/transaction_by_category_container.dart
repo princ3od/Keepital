@@ -5,16 +5,16 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_date_item.dart';
 import 'package:tuple/tuple.dart';
 
 class TransactionByCategoryContainer extends StatelessWidget {
-  TransactionByCategoryContainer({Key? key, required this.transList, this.exchangeRates}) : super(key: key);
+  TransactionByCategoryContainer({Key? key, required this.transList}) : super(key: key);
 
   final List<TransactionModel> transList;
-  final Map<Tuple2<String, String>, double>? exchangeRates;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text(totalCalculation(transList, exchangeRates).readable, style: Theme.of(context).textTheme.headline6),
+                Text(totalCalculation(transList).readable, style: Theme.of(context).textTheme.headline6),
               ],
             ),
           ),
@@ -84,14 +84,14 @@ class TransactionByCategoryContainer extends StatelessWidget {
   }
 }
 
-num totalCalculation(List<TransactionModel> transList, Map<Tuple2<String, String>, double>? exchangeRates) {
+num totalCalculation(List<TransactionModel> transList) {
   num total = 0;
   for (var trans in transList) {
     double rate = 1;
     if (isTotalWallet) {
-      var fromCur = trans.currencyId;
-      var toCur = DataService.currentUser!.currencyId;
-      rate = exchangeRates?[Tuple2(fromCur, toCur)] ?? 1;
+      var fromCurrency = trans.currencyId;
+      var toCurrency = DataService.currentUser!.currencyId;
+      rate = ExchangeRate.getRate(fromCurrency, toCurrency);
     }
 
     if (trans.category.type == CategoryType.income) {
