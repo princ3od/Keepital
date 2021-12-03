@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 
 class TransactionsOverview extends StatelessWidget {
   TransactionsOverview({Key? key, required this.inflow, required this.outflow}) : super(key: key);
@@ -36,12 +37,19 @@ class TransactionsOverview extends StatelessWidget {
               color: Theme.of(context).dividerColor,
             ),
             Container(
-              child: Text((inflow - outflow).money('\$'), style: Theme.of(context).textTheme.headline4),
+              child: Text((inflow - outflow).money(DataService.currentUser!.currencySymbol), style: Theme.of(context).textTheme.headline4),
               alignment: Alignment.centerRight,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
-              child: TextButton(onPressed: () {}, child: Text('View report for this period'.tr, style: Theme.of(context).textTheme.button,), style: Theme.of(context).textButtonTheme.style,),
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  'View report for this period'.tr,
+                  style: Theme.of(context).textTheme.button,
+                ),
+                style: Theme.of(context).textButtonTheme.style,
+              ),
             )
           ],
         ),

@@ -12,6 +12,8 @@ class ExchangeRate {
     if (!hasExchangeRate) {
       return amount;
     }
+    origin = origin.toLowerCase();
+    target = target.toLowerCase();
     if (origin == baseCurrency) {
       return amount * rates[target]!;
     }
@@ -22,6 +24,8 @@ class ExchangeRate {
     if (!hasExchangeRate) {
       return 1;
     }
+    origin = origin.toLowerCase();
+    target = target.toLowerCase();
     if (origin == baseCurrency) {
       return rates[target]!;
     }
@@ -37,7 +41,6 @@ class ExchangeRate {
       if (response.statusCode == 200) {
         date = data['date'];
         rates = data[baseCurrency].cast<String, double>();
-
         return true;
       }
     } on Exception catch (e) {
