@@ -36,7 +36,7 @@ class TransactionsOverview extends StatelessWidget {
               color: Theme.of(context).dividerColor,
             ),
             Container(
-              child: Text((inflow - outflow).readable, style: Theme.of(context).textTheme.headline4),
+              child: Text((inflow - outflow).money('\$'), style: Theme.of(context).textTheme.headline4),
               alignment: Alignment.centerRight,
             ),
             Padding(

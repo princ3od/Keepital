@@ -31,7 +31,6 @@ class HomeController extends GetxController {
 
   Map<Tuple2<String, String>, double> exchangeRates = {};
 
-
   HomeController() {
     currentWallet = total.obs;
     tabs = initTabBar(selectedTimeRange.value).obs;
@@ -417,8 +416,12 @@ class HomeController extends GetxController {
   int getInitialTabBarIndex() => selectedTimeRange.value == TimeRange.all ? 0 : 18;
   int getTabBarLength() => selectedTimeRange.value == TimeRange.all ? 1 : 20;
 
-  onAddTransaction() {
-    Get.toNamed(Routes.addTransaction);
+  onAddTransaction() async {
+    var result = await Get.toNamed(Routes.addTransaction);
+    if (result != null) {
+      total.amount += result;
+      await reloadTransList();
+    }
   }
 
   onUpdateWalletBalance() {
