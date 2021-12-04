@@ -6,6 +6,7 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -44,7 +45,7 @@ class AddTransactionController extends GetxController {
     String note = noteTextController.text;
 
     amount = category!.type == CategoryType.income ? amount : -amount;
-    num diffInTotal = await ExchangeMoney.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
+    num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
     DataService.instance.updateTotalAmount(diffInTotal);
     DataService.instance.updateWalletAmount(walletId.value, amount);
@@ -59,7 +60,7 @@ class AddTransactionController extends GetxController {
 
     amount = category!.type == CategoryType.income ? amount : -amount;
     num diff = amount - oldAmount;
-    num diffInTotal = await ExchangeMoney.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
+    num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
     DataService.instance.updateTotalAmount(diffInTotal);
     DataService.instance.updateWalletAmount(walletId.value, diff);

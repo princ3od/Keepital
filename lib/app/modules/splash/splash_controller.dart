@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/services/app_start_service.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/data/services/data_service.dart';
@@ -24,6 +25,7 @@ class SplashController extends GetxController {
   _loadDataAndNavigateToSuitableScreen() async {
     await DataService.instance.loadUserData();
     await DataService.instance.loadCategoryData();
+    await ExchangeRate.fetchExchangeRate();
     if (DataService.currentUser!.hasAnyWallet) {
       Get.offAllNamed(Routes.home);
     } else {

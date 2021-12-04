@@ -8,6 +8,7 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
@@ -41,7 +42,7 @@ class AddWalletController extends GetxController {
         currencySymbol = currency.symbol;
         currencyName.value = currency.name;
         if (oldWallet != null) {
-          var amoutExchange = await ExchangeMoney.exchange(oldWallet!.currencyId, currency.code, oldWallet!.amount.toDouble());
+          var amoutExchange = ExchangeRate.exchange(oldWallet!.currencyId, currency.code, oldWallet!.amount.toDouble());
           walletAmount.value = amoutExchange;
           walletAmountTextEditingController.text = amoutExchange.toString();
         }

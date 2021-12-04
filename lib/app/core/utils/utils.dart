@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_value.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 
 class Utils {
@@ -33,11 +34,13 @@ extension DateToString on DateTime {
 
 extension DoubleToMoney on double {
   String money(String symbol) => NumberFormat.currency(locale: Get.locale.toString(), symbol: symbol).format(this);
+  String exchange(String origin, String target, String symbol) => ExchangeRate.exchange(origin, target, this).money(symbol);
   String get readable => NumberFormat.decimalPattern().format(this);
 }
 
 extension NumToMoney on num {
   String money(String symbol) => NumberFormat.currency(locale: Get.locale.toString(), symbol: symbol).format(this);
+  String exchange(String origin, String target, String symbol) => ExchangeRate.exchange(origin, target, this.toDouble()).money(symbol);
   String get readable => NumberFormat.decimalPattern().format(this);
 }
 
@@ -55,20 +58,20 @@ extension DateOnlyCompare on DateTime {
 }
 
 List<String> stringToList(String? str) {
-    if (str == null) return [];
-    var res = str.split(',');
-    for (int i = 0; i < res.length; i++) {
-      res[i] = res[i].trim();
-    }
-    if (res.last == ' ' || res.last == '') res.remove(res.last);
-    return res;
+  if (str == null) return [];
+  var res = str.split(',');
+  for (int i = 0; i < res.length; i++) {
+    res[i] = res[i].trim();
   }
+  if (res.last == ' ' || res.last == '') res.remove(res.last);
+  return res;
+}
 
-  String listToString(List<String>? l) {
-    if (l == null) return '';
-    String res = '';
-    for (var str in l) {
-      res += '$str, ';
-    }
-    return res;
+String listToString(List<String>? l) {
+  if (l == null) return '';
+  String res = '';
+  for (var str in l) {
+    res += '$str, ';
   }
+  return res;
+}

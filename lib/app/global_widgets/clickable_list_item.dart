@@ -49,7 +49,7 @@ class ClickableListItem extends StatelessWidget {
                   DottedLine(
                     dashColor: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity),
                     dashGapLength: enabled ? 0 : 8,
-                    dashLength: enabled ? 1 : 16,
+                    dashLength: 16,
                   )
                 ],
               ),
