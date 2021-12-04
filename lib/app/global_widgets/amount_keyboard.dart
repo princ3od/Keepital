@@ -237,7 +237,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
         equalPressed();
       });
     } else if (index == 19) {
-      if (answer != null && answer != '') Navigator.pop(context, answer);
+      if (answer != '') Navigator.pop(context, answer);
     } else {
       setState(() {
         var sign = ['+', '-', '*', '/'];

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/my_wallets/my_wallets_controller.dart';
 import 'package:keepital/app/modules/my_wallets/widgets/wallet_card.dart';
-import 'package:keepital/app/routes/pages.dart';
 
 class MyWalletsScreen extends StatelessWidget {
   MyWalletsScreen({Key? key}) : super(key: key);

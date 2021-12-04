@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 
@@ -43,7 +42,7 @@ class ExchangeRate {
         rates = data[baseCurrency].cast<String, num>();
         return true;
       }
-    } on Exception catch (e) {
+    } on Exception {
       throw Exception('Failed to load exchange rate.');
     }
     return false;

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/modules/planning/widgets/planning_tile.dart';
-import 'package:keepital/app/modules/recurring_transaction/screens/recurring_transaction_screen.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class PlanningScreen extends StatelessWidget {

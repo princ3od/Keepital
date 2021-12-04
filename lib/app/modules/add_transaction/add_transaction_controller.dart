@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/utils/exchange_rate.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/transaction.dart';
@@ -10,8 +9,6 @@ import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
-import 'package:keepital/app/modules/home/home_controller.dart';
-import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
 import 'package:tuple/tuple.dart';
 
 class AddTransactionController extends GetxController {
@@ -19,9 +16,6 @@ class AddTransactionController extends GetxController {
     walletId = currentWallet.obs;
     walletName = (wallets[walletId]?.name ?? '').obs;
   }
-
-  final HomeController _homeController = Get.find<HomeController>();
-  late final TransactionDetailController _transDetailController;
 
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
@@ -92,8 +86,6 @@ class AddTransactionController extends GetxController {
   }
 
   void onLoadData(TransactionModel trans) {
-    _transDetailController = Get.find<TransactionDetailController>();
-
     oldAmount = trans.category.type == CategoryType.income ? trans.amount : -trans.amount;
     amountTextController.text = trans.amount.toString();
 
