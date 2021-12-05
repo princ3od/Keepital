@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
-import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -18,7 +17,7 @@ class TransactionDetailController extends GetxController
   Future<bool> deleteTransaction() async {
     await TransactionProvider().deleteInWallet(transId(), walletId());
     await updateWallet();
-    await updateUser();
+    await DataService.updateTotalAmount(-amount);
 
     await _homeController.reloadTransList();
     return true;
@@ -27,14 +26,6 @@ class TransactionDetailController extends GetxController
   Future updateWallet() async {
     wallets[walletId()]!.amount -= amount;
     await WalletProvider().update(walletId(), wallets[walletId()]!);
-  }
-
-  Future updateUser() async {
-    var user = DataService.currentUser!;
-    user.amount -= amount;
-    DataService.currentUser = await UserProvider().update(user.id!, user);
-
-    _homeController.total.amount -= amount;
   }
 
   void onTransUpdated(TransactionModel trans) {
@@ -48,7 +39,6 @@ class TransactionDetailController extends GetxController
 
       onTransUpdated(val.item2);
 
-      _homeController.total.amount += val.item1;
       await _homeController.reloadTransList();
     }
   }

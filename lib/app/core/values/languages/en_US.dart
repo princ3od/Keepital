@@ -104,5 +104,6 @@ const Map<String, String> enLanguagePackage = {
   'edit_transaction': 'Edit',
   'Add peoples': 'Add peoples',
   'Type in names separated by comma (,)': 'Type in names separated by comma (,)',
-  'You can type in peoples who pay with you in this transaction': 'You can type in peoples who pay with you in this transaction'
+  'You can type in peoples who pay with you in this transaction': 'You can type in peoples who pay with you in this transaction',
+  'add_recurring_transaction': 'Add recurring transaction'
 };

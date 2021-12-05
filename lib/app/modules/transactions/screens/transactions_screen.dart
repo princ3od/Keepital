@@ -5,6 +5,7 @@ import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
@@ -95,7 +96,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
         double rate = 1;
         if (_controller.isTotalWallet) {
           var fromCurrency = element.currencyId;
-          var toCurrency = _controller.total.currencyId;
+          var toCurrency = DataService.total.currencyId;
           rate = ExchangeRate.getRate(fromCurrency, toCurrency);
         }
 
@@ -116,7 +117,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
         double rate = 1;
         if (_controller.isTotalWallet) {
           var fromCurrency = element.currencyId;
-          var toCurrency = _controller.total.currencyId;
+          var toCurrency = DataService.total.currencyId;
           rate = ExchangeRate.getRate(fromCurrency, toCurrency);
         }
 

@@ -3,9 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
-import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
-import 'package:keepital/app/global_widgets/wallet_selector.dart';
+import 'package:keepital/app/global_widgets/wallet_button.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/routes/pages.dart';
 
@@ -26,30 +26,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           elevation: 2,
           title: Row(
             children: [
-              InkWell(
-                borderRadius: BorderRadius.circular(20),
-                onTap: () async {
-                  showWalletsModalBottomSheet(context, total: _controller.total, selectedId: _controller.currentWallet.value.id, onSelectWallet: (id) {
-                    _controller.onCurrentWalletChange(id);
-                    selectWalletCallBack();
-                  });
+              WalletButton(
+                onWalletChange: (id) {
+                  selectWalletCallBack();
                 },
-                child: Row(
-                  children: [
-                    Container(
-                      child: _controller.currentWallet.value.iconId.isEmpty
-                          ? Image(
-                              image: AssetImage(AssetStringsPng.walletList),
-                              height: 30,
-                            )
-                          : Image.asset(
-                              "${_controller.currentWallet.value.iconId}",
-                              height: 30,
-                            ),
-                    ),
-                    Icon(Icons.arrow_drop_down, color: Theme.of(context).iconTheme.color)
-                  ],
-                ),
               ),
               Obx(() => Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -57,10 +37,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          _controller.currentWallet.value.name,
+                          DataService.currentWallet.value.name,
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
-                        Text(_controller.currentWallet.value.amount.money(_controller.currentWallet.value.currencySymbol), style: Theme.of(context).textTheme.headline4)
+                        Text(DataService.currentWallet.value.amount.money(DataService.currentWallet.value.currencySymbol), style: Theme.of(context).textTheme.headline4)
                       ],
                     ),
                   ))

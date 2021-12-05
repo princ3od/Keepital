@@ -112,5 +112,6 @@ const Map<String, String> viLanguagePackage = {
   'edit_transaction': 'Sửa',
   'Add peoples': 'Thêm bạn bè',
   'Type in names separated by comma (,)': 'Gõ tên bạn bè, mỗi người phân cách bởi dấu phẩy (,)',
-  'You can type in peoples who pay with you in this transaction': 'Bạn có thể thêm bạn bè đã cùng tham gia vào giao dịch này'
+  'You can type in peoples who pay with you in this transaction': 'Bạn có thể thêm bạn bè đã cùng tham gia vào giao dịch này',
+  'add_recurring_transaction': 'Thêm giao dịch định kì'
 };

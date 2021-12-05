@@ -75,3 +75,6 @@ String listToString(List<String>? l) {
   }
   return res;
 }
+
+const recurUnits = ['days', 'weeks', 'months', 'years'];
+const recurOpts = ['Forever', 'Until', 'For'];

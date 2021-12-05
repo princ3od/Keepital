@@ -19,6 +19,8 @@ class AddTransactionController extends GetxController {
 
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
+  final cycleLengthTextController = TextEditingController(text: '1');
+  final numRepetitionsTextController = TextEditingController(text: '1');
 
   Category? category;
   var strCategory = ''.tr.obs;
@@ -32,6 +34,9 @@ class AddTransactionController extends GetxController {
 
   Rx<List<String>?> peoples = Rx<List<String>?>([]);
 
+  RxInt selectedUnitIndex = 0.obs;
+  RxInt selectedOptsIndex = 0.obs;
+
   RxBool excludeFromReport = false.obs;
 
   Future createNewTrans() async {
@@ -41,7 +46,7 @@ class AddTransactionController extends GetxController {
     amount = category!.type == CategoryType.income ? amount : -amount;
     num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
-    DataService.instance.updateTotalAmount(diffInTotal);
+    DataService.updateTotalAmount(diffInTotal);
     DataService.instance.updateWalletAmount(walletId.value, amount);
     addTransaction(amount, note);
 
@@ -56,7 +61,7 @@ class AddTransactionController extends GetxController {
     num diff = amount - oldAmount;
     num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
-    DataService.instance.updateTotalAmount(diffInTotal);
+    DataService.updateTotalAmount(diffInTotal);
     DataService.instance.updateWalletAmount(walletId.value, diff);
     var modTrans = await updateTransaction(oldTrans, amount, note);
 

@@ -10,6 +10,7 @@ class AppValue {
   static const walletCollectionPath = 'wallets';
   static const transactionCollectionPath = 'transactions';
   static const eventCollectionPath = 'events';
+  static const recurringTransactionPath = 'recurringTransaction';
 
   static const favoritedCurrencies = ['VND', 'USD'];
   static const baseCurrency = 'usd';

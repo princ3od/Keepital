@@ -14,6 +14,7 @@ import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/icon_textfield.dart';
+import 'package:keepital/app/modules/add_transaction/widgets/repeat_options_for%20_recurring_trans.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -80,15 +81,18 @@ class AddTransactionScreen extends StatelessWidget {
                   hintText: 'hint_note'.tr,
                   icon: Image.asset(AssetStringsPng.note, color: Theme.of(context).iconTheme.color),
                 ),
-                Obx(() => ClickableListItem(
-                      leading: Image.asset(AssetStringsPng.calendar, color: Theme.of(context).iconTheme.color),
-                      text: _controller.strDate.value,
-                      onPressed: () async {
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
-                        _controller.strDate.value = _controller.date.fullDate;
-                      },
-                    )),
+                Visibility(
+                  visible: !isAddRecurringTrans,
+                  child: Obx(() => ClickableListItem(
+                        leading: Image.asset(AssetStringsPng.calendar, color: Theme.of(context).iconTheme.color),
+                        text: _controller.strDate.value,
+                        onPressed: () async {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
+                          _controller.strDate.value = _controller.date.fullDate;
+                        },
+                      )),
+                ),
                 Obx(() => ClickableListItem(
                       enabled: !isEditing,
                       leading: Icon(Icons.account_balance_wallet),
@@ -101,8 +105,38 @@ class AddTransactionScreen extends StatelessWidget {
                     )),
               ]),
             ),
+            Visibility(
+                visible: isAddRecurringTrans,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SectionPanel(
+                      padding: EdgeInsets.all(0),
+                      child: Obx(() => RepeatOptionsForRecurringTrans(
+                            cycleLengthTextController: _controller.cycleLengthTextController,
+                            numRepetitionsTextController: _controller.numRepetitionsTextController,
+                            selectedOptsIndex: _controller.selectedOptsIndex.value,
+                            selectedUnitIndex: _controller.selectedUnitIndex.value,
+                            onUnitSelected: (index) {
+                              _controller.selectedUnitIndex.value = index ?? 0;
+                            },
+                            onOptsSelected: (index) {
+                              _controller.selectedOptsIndex.value = index ?? 0;
+                            },
+                            onFromDatePressed: () {
+
+                            },
+                            onToDatePressed: () {
+                              
+                            },
+                          )),
+                    ),
+                  ],
+                )),
             Visibility(visible: !isAddRecurringTrans, child: additionalInformation(context)),
-            Visibility(visible: !isAddRecurringTrans, child: excludeFromReport(context)),
+            excludeFromReport(context),
             Visibility(visible: !isAddRecurringTrans, child: suggest(context))
           ],
         ),

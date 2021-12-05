@@ -8,7 +8,7 @@ import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-void showWalletsModalBottomSheet(BuildContext context, {required Wallet? total, required String? selectedId, Function(String)? onSelectWallet}) {
+void showWalletsModalBottomSheet(BuildContext context, {required String? selectedId, Function(String)? onSelectWallet}) {
   RxString observableSelectedId = (selectedId ?? '').obs;
   showMaterialModalBottomSheet(
     context: context,
@@ -26,7 +26,7 @@ void showWalletsModalBottomSheet(BuildContext context, {required Wallet? total, 
                 style: Theme.of(context).textTheme.headline5,
               ),
               Obx(() => WalletItem(
-                  wallet: total!,
+                  wallet: DataService.total,
                   selectedId: observableSelectedId.value,
                   onTap: () {
                     observableSelectedId.value = '';
