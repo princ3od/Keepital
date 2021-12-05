@@ -64,4 +64,7 @@ class AppColors {
   static const Color _caculatorBackgroundDarkColor = Color(0xff797B7E);
   static const Color _caculatorBackgroundLightColor = Color(0x66BCBCBC);
   static Color get calculatorBackgroundColor => Get.isDarkMode ? _caculatorBackgroundDarkColor.withOpacity(0.2) : _caculatorBackgroundLightColor;
+
+  static const Color textFieldBackgroundDarkColor = Color(0xFF242526);
+  static const Color textFieldBackgroundLightColor = Color(0xFF38305F);
 }

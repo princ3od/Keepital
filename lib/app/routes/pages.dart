@@ -8,6 +8,8 @@ import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dar
 import 'package:keepital/app/modules/add_wallet/add_wallet_binding.dart';
 import 'package:keepital/app/modules/add_wallet/first_wallet_binding.dart';
 import 'package:keepital/app/modules/add_wallet/screen/add_wallet_screen.dart';
+import 'package:keepital/app/modules/app_setting/screen/setting_screen.dart';
+import 'package:keepital/app/modules/app_setting/setting_binding.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
 import 'package:keepital/app/modules/category/categories_binding.dart';
@@ -70,10 +72,11 @@ abstract class AppPages {
       binding: AddTransactionBinding(),
     ),
     GetPage(
-      name: Routes.editTransaction,
-      page: () => AddTransactionScreen(trans: Get.arguments,),
-      binding: AddTransactionBinding()
-    ),
+        name: Routes.editTransaction,
+        page: () => AddTransactionScreen(
+              trans: Get.arguments,
+            ),
+        binding: AddTransactionBinding()),
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
@@ -124,15 +127,8 @@ abstract class AppPages {
       name: Routes.addChipsScreen,
       page: () => AddPeoplesScreen(),
     ),
-    GetPage(
-      name: Routes.recurringTransaction,
-      page: () => RecurringTransactionScreen(),
-      binding: RecurringTransactionBinding()
-    ),
-    GetPage(
-      name: Routes.addRecurringTransaction,
-      page: () => AddTransactionScreen(),
-      binding: AddTransactionBinding()
-    )
+    GetPage(name: Routes.recurringTransaction, page: () => RecurringTransactionScreen(), binding: RecurringTransactionBinding()),
+    GetPage(name: Routes.addRecurringTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
+    GetPage(name: Routes.appSetting, page: () => SettingScreen(), binding: SettingBinding()),
   ];
 }

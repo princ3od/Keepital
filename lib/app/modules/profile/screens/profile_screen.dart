@@ -14,13 +14,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppTheme.currentTheme.backgroundColor,
         appBar: AppBar(
           title: Text('Profile'.tr),
           elevation: 0,
         ),
         body: Column(
           children: [
+            const SizedBox(height: 8),
             const ProfileAvatar(),
             const SizedBox(height: 4),
             const Divider(),
@@ -54,6 +54,7 @@ class ProfileScreen extends StatelessWidget {
                   ProfileTile(
                     title: 'Settings'.tr,
                     iconData: Icons.settings,
+                    action: () => Get.toNamed(Routes.appSetting),
                   ),
                   ProfileTile(
                     title: 'About'.tr,
