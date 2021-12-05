@@ -5,7 +5,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
-import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/global_widgets/clickable_chips_input.dart';
@@ -42,6 +41,7 @@ class AddTransactionScreen extends StatelessWidget {
                   await _controller.modifyTrans(trans!);
                   break;
                 case Routes.addRecurringTransaction:
+                  await _controller.createNewRecurringTrans();
                   break;
                 default:
                   await _controller.createNewTrans();
@@ -125,11 +125,18 @@ class AddTransactionScreen extends StatelessWidget {
                             onOptsSelected: (index) {
                               _controller.selectedOptsIndex.value = index ?? 0;
                             },
-                            onFromDatePressed: () {
-
+                            fromDate: _controller.strStartDate.value,
+                            toDate: _controller.strEndDate.value,
+                            onFromDatePressed: () async {
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                              _controller.startDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2100)) ?? DateTime.now();
+                              _controller.strStartDate.value = _controller.startDate.fullDate;
                             },
-                            onToDatePressed: () {
-                              
+                            onToDatePressed: () async {
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                              _controller.endDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2100)) ?? DateTime.now();
+                              _controller.strEndDate.value = _controller.endDate?.fullDate ?? '';
+                              print(_controller.endDate);
                             },
                           )),
                     ),
@@ -234,32 +241,38 @@ class AddTransactionScreen extends StatelessWidget {
       children: [
         SizedBox(height: MediaQuery.of(context).size.width * 0.05),
         SectionPanel(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Checkbox(
-                      checkColor: Colors.white,
-                      activeColor: AppColors.primaryColor,
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                flex: 1,
+                child: Obx(() => Checkbox(
+                      checkColor: Theme.of(context).backgroundColor,
+                      activeColor: Theme.of(context).iconTheme.color!.withOpacity(0.7),
                       value: _controller.excludeFromReport.value,
                       onChanged: (value) {
                         _controller.excludeFromReport.value = value!;
                       },
+                    )),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                flex: 7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
+                    Text(
+                      'exclude_description'.tr,
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
                     )
-                  ]),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
-                      Text(
-                        'exclude_description'.tr,
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
-                      )
-                    ],
-                  )
-                ],
+                  ],
+                ),
               )
             ],
           ),
@@ -299,6 +312,12 @@ class AddTransactionScreen extends StatelessWidget {
       return false;
     } else if (_controller.walletId.value == '') {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the wallet field'.tr));
+      return false;
+    } else if (_controller.cycleLengthTextController.text.isEmpty) {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the cycle length field'.tr));
+      return false;
+    } else if (_controller.numRepetitionsTextController.text.isEmpty && _controller.selectedOptsIndex.value == 2) {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the number of repetitions'.tr));
       return false;
     }
     return true;

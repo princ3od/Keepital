@@ -20,6 +20,16 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
     return obj;
   }
 
+  Future<RecurringTransaction> addToWallet(RecurringTransaction obj, String walletId) async {
+    final walletPath = _getUserPath.collection(AppValue.walletCollectionPath).doc(walletId);
+    final recurTransColl = walletPath.collection(collectionPath);
+
+    await recurTransColl.add(obj.toMap()).then((transRef) {
+      obj.id = transRef.id;
+    });
+    return obj;
+  }
+
   @override
   String get collectionPath => AppValue.recurringTransactionPath;
 

@@ -33,16 +33,16 @@ class _WalletButtonState extends State<WalletButton> {
       child: Row(
         children: [
           Container(
-                child: currentWalletId.isEmpty
-                    ? Image(
-                        image: AssetImage(AssetStringsPng.walletList),
-                        height: 30,
-                      )
-                    : Image.asset(
-                        "${wallet(currentWalletId).iconId}",
-                        height: 30,
-                      ),
-              ),
+            child: currentWalletId.isEmpty
+                ? Image(
+                    image: AssetImage(AssetStringsPng.walletList),
+                    height: 30,
+                  )
+                : Image.asset(
+                    "${wallet(currentWalletId).iconId}",
+                    height: 30,
+                  ),
+          ),
           Icon(Icons.arrow_drop_down, color: Theme.of(context).iconTheme.color)
         ],
       ),

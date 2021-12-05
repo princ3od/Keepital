@@ -26,6 +26,6 @@ class RecurringTransaction extends BaseModel {
 
   @override
   Map<String, dynamic> toMap() {
-    return {'amount': amount, 'category': category.id, 'currencyId': currencyId, 'note': note, 'excludeFromReport': excludeFromReport, 'options': options.toMap()};
+    return {'amount': amount, 'category': category.id, 'currencyId': currencyId, 'note': note, 'excludeFromReport': excludeFromReport, 'isMarkedFinished': isMarkedFinished, 'options': options.toMap()};
   }
 }

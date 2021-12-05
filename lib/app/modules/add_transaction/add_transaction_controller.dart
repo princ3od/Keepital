@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/models/recurring_transaction.dart';
+import 'package:keepital/app/data/models/repeat_options.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
+import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -33,6 +36,11 @@ class AddTransactionController extends GetxController {
   late RxString walletName;
 
   Rx<List<String>?> peoples = Rx<List<String>?>([]);
+
+  DateTime startDate = DateTime.now();
+  late var strStartDate = startDate.fullDate.obs;
+  DateTime? endDate;
+  late var strEndDate = ''.obs;
 
   RxInt selectedUnitIndex = 0.obs;
   RxInt selectedOptsIndex = 0.obs;
@@ -68,10 +76,22 @@ class AddTransactionController extends GetxController {
     onEditTransactionClosed(diffInTotal, modTrans);
   }
 
+  Future createNewRecurringTrans() async {
+    num amount = num.tryParse(amountTextController.text)!;
+    String note = noteTextController.text;
+
+    var wallet = wallets[walletId]!;
+    var repeatOpts = RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
+    var trans = RecurringTransaction('', category: category!, currencyId: wallet.currencyId, isMarkedFinished: false, amount: amount, options: repeatOpts, note: note, walletId: wallet.id, excludeFromReport: excludeFromReport.value);
+    trans = await RecurringTransactionProvider().addToWallet(trans, walletId.value);
+
+    onAddRecurringTransClosed(trans);
+  }
+
   Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note) async {
     var wallet = wallets[walletId]!;
 
-    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
+    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
     await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
 
     return modTrans;
@@ -79,7 +99,7 @@ class AddTransactionController extends GetxController {
 
   Future addTransaction(num amount, String note) async {
     var wallet = wallets[walletId]!;
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
     await TransactionProvider().addToWallet(trans, walletId.value);
   }
 
@@ -116,6 +136,10 @@ class AddTransactionController extends GetxController {
 
   void onEditTransactionClosed(num diffInTotal, TransactionModel modTrans) {
     Get.back(result: Tuple2(diffInTotal, modTrans));
+  }
+
+  void onAddRecurringTransClosed(RecurringTransaction trans) {
+    Get.back(result: trans);
   }
 
   num oldAmount = 0;
