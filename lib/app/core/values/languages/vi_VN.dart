@@ -113,5 +113,7 @@ const Map<String, String> viLanguagePackage = {
   'Add peoples': 'Thêm bạn bè',
   'Type in names separated by comma (,)': 'Gõ tên bạn bè, mỗi người phân cách bởi dấu phẩy (,)',
   'You can type in peoples who pay with you in this transaction': 'Bạn có thể thêm bạn bè đã cùng tham gia vào giao dịch này',
-  'add_recurring_transaction': 'Thêm giao dịch định kì'
+  'add_recurring_transaction': 'Thêm giao dịch định kì',
+  'Please fill out the cycle length field': 'Vui lòng nhập chu kỳ',
+  'Please fill out the number of repetitions': 'Vui lòng nhập số lần lặp giao dịch này'
 };
