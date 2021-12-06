@@ -395,7 +395,7 @@ class HomeController extends GetxController {
 
   onAddTransaction() async {
     var result = await Get.toNamed(Routes.addTransaction);
-    if (result != null) {
+    if (result is num) {
       await reloadTransList();
     }
   }

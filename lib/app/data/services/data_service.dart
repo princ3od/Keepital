@@ -16,7 +16,6 @@ class DataService {
   static KeepitalUser? currentUser;
   static List<Category> categories = [];
 
-  
   static late Rx<Wallet> currentWallet;
 
   loadCategoryData() async {
@@ -48,6 +47,7 @@ class DataService {
     user.amount += diff;
     currentUser = await UserProvider().update(user.id!, user);
     total.amount += diff;
+    currentWallet.update((val) {});
   }
 
   static void onCurrentWalletChange(String id) {

@@ -26,7 +26,7 @@ class TransactionByDateContainer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Row(
               children: [
-                Container(width: 35, child: Center(child: Text(transList[0].date.onlyDate, style: Theme.of(context).textTheme.headline1))),
+                Container(width: 35, child: Center(child: Text(transList[0].date.onlyDate, style: Theme.of(context).textTheme.headline2))),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
