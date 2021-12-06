@@ -107,5 +107,6 @@ const Map<String, String> enLanguagePackage = {
   'You can type in peoples who pay with you in this transaction': 'You can type in peoples who pay with you in this transaction',
   'add_recurring_transaction': 'Add recurring transaction',
   'Please fill out the cycle length field': 'Please fill out the cycle length field',
-  'Please fill out the number of repetitions': 'Please fill out the number of repetitions'
+  'Please fill out the number of repetitions': 'Please fill out the number of repetitions',
+  'edit_recurring_transaction': 'Edit recurring transaction'
 };

@@ -6,7 +6,9 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/global_widgets/clickable_chips_input.dart';
 import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
@@ -20,7 +22,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddTransactionScreen extends StatelessWidget {
   final AddTransactionController _controller = Get.find<AddTransactionController>();
-  final TransactionModel? trans;
+  final BaseModel? trans;
 
   AddTransactionScreen({Key? key, this.trans}) {
     if (isEditing) {
@@ -38,10 +40,13 @@ class AddTransactionScreen extends StatelessWidget {
             if (isValidData()) {
               switch (Get.currentRoute) {
                 case Routes.editTransaction:
-                  await _controller.modifyTrans(trans!);
+                  await _controller.modifyTrans(trans as TransactionModel);
                   break;
                 case Routes.addRecurringTransaction:
                   await _controller.createNewRecurringTrans();
+                  break;
+                case Routes.editRecurringTransaction:
+                  await _controller.modifyRecurringTrans(trans as RecurringTransaction);
                   break;
                 default:
                   await _controller.createNewTrans();
@@ -82,7 +87,7 @@ class AddTransactionScreen extends StatelessWidget {
                   icon: Image.asset(AssetStringsPng.note, color: Theme.of(context).iconTheme.color),
                 ),
                 Visibility(
-                  visible: !isAddRecurringTrans,
+                  visible: !isRecurringTrans,
                   child: Obx(() => ClickableListItem(
                         leading: Image.asset(AssetStringsPng.calendar, color: Theme.of(context).iconTheme.color),
                         text: _controller.strDate.value,
@@ -106,7 +111,7 @@ class AddTransactionScreen extends StatelessWidget {
               ]),
             ),
             Visibility(
-                visible: isAddRecurringTrans,
+                visible: isRecurringTrans,
                 child: Column(
                   children: [
                     SizedBox(
@@ -142,9 +147,9 @@ class AddTransactionScreen extends StatelessWidget {
                     ),
                   ],
                 )),
-            Visibility(visible: !isAddRecurringTrans, child: additionalInformation(context)),
+            Visibility(visible: !isRecurringTrans, child: additionalInformation(context)),
             excludeFromReport(context),
-            Visibility(visible: !isAddRecurringTrans, child: suggest(context))
+            Visibility(visible: !isRecurringTrans, child: suggest(context))
           ],
         ),
       ),
@@ -298,9 +303,16 @@ class AddTransactionScreen extends StatelessWidget {
   }
 
   String get getTitle {
-    if (isEditing) return 'edit_transaction'.tr;
-    if (isAddRecurringTrans) return 'add_recurring_transaction'.tr;
-    return 'add_transaction'.tr;
+    switch (Get.currentRoute) {
+      case Routes.editTransaction:
+        return 'edit_transaction'.tr;
+      case Routes.addRecurringTransaction:
+        return 'add_recurring_transaction'.tr;
+      case Routes.editRecurringTransaction:
+        return 'edit_recurring_transaction'.tr;
+      default:
+        return 'add_transaction'.tr;
+    }
   }
 
   bool isValidData() {
@@ -322,7 +334,4 @@ class AddTransactionScreen extends StatelessWidget {
     }
     return true;
   }
-
-  bool get isEditing => trans != null;
-  bool get isAddRecurringTrans => Get.currentRoute == Routes.addRecurringTransaction;
 }

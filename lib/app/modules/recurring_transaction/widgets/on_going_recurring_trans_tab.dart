@@ -17,7 +17,12 @@ class OnGoingTransactionTab extends StatelessWidget {
         itemCount: transactions.length,
         padding: EdgeInsets.all(10),
         itemBuilder: (context, index) {
-          return RecurringTransactionItem(transaction: transactions[index],);
+          return RecurringTransactionItem(
+            transaction: transactions[index],
+            onDelete: () => _controller.onDeleteEvent(transactions[index]),
+            onMark: () => _controller.onMarkRecurringTrans(transactions[index]),
+            onEdit: () => _controller.navigateToEditTransaction(transactions[index]),
+          );
         },
       ),
     );

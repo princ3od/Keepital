@@ -70,10 +70,11 @@ abstract class AppPages {
       binding: AddTransactionBinding(),
     ),
     GetPage(
-      name: Routes.editTransaction,
-      page: () => AddTransactionScreen(trans: Get.arguments,),
-      binding: AddTransactionBinding()
-    ),
+        name: Routes.editTransaction,
+        page: () => AddTransactionScreen(
+              trans: Get.arguments,
+            ),
+        binding: AddTransactionBinding()),
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
@@ -124,15 +125,13 @@ abstract class AppPages {
       name: Routes.addChipsScreen,
       page: () => AddPeoplesScreen(),
     ),
+    GetPage(name: Routes.recurringTransaction, page: () => RecurringTransactionScreen(), binding: RecurringTransactionBinding()),
+    GetPage(name: Routes.addRecurringTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
     GetPage(
-      name: Routes.recurringTransaction,
-      page: () => RecurringTransactionScreen(),
-      binding: RecurringTransactionBinding()
-    ),
-    GetPage(
-      name: Routes.addRecurringTransaction,
-      page: () => AddTransactionScreen(),
-      binding: AddTransactionBinding()
-    )
+        name: Routes.editRecurringTransaction,
+        page: () => AddTransactionScreen(
+              trans: Get.arguments,
+            ),
+        binding: AddTransactionBinding()),
   ];
 }

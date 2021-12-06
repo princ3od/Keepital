@@ -7,6 +7,7 @@ import 'package:keepital/app/data/providers/category_provider.dart';
 import 'package:keepital/app/data/providers/firestoration.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/global_widgets/wallet_button.dart';
 
 class RecurringTransactionProvider implements Firestoration<String, RecurringTransaction> {
   @override
@@ -34,9 +35,16 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
   String get collectionPath => AppValue.recurringTransactionPath;
 
   @override
-  Future<String> delete(String id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<String> delete(String id) async {
+    final transRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(DataService.currentWallet.value.id).collection(collectionPath);
+    await transRef.doc(id).delete();
+    return id;
+  }
+
+  Future<String> deleteInWallet(String id, String walletId) async {
+    final transRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(walletId).collection(collectionPath);
+    await transRef.doc(id).delete();
+    return id;
   }
 
   @override
@@ -80,9 +88,10 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
   }
 
   @override
-  Future<RecurringTransaction> update(String id, RecurringTransaction obj) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<RecurringTransaction> update(String id, RecurringTransaction obj) async {
+    var transRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(obj.walletId).collection(collectionPath).doc(id);
+    transRef.update(obj.toMap());
+    return obj;
   }
 
   DocumentReference<Object?> get _getUserPath => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);

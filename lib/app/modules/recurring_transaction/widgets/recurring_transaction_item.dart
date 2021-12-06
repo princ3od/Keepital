@@ -77,7 +77,9 @@ class _RecurringTransactionItemState extends State<RecurringTransactionItem> {
             padding: const EdgeInsets.only(left: 42.0, top: 5.0),
             child: OutlinedButton(
               child: Text(buttonText),
-              onPressed: () {},
+              onPressed: () {
+                widget.onMark?.call();
+              },
             ),
           )
         ],
