@@ -59,6 +59,7 @@ class ProfileScreen extends StatelessWidget {
                   ProfileTile(
                     title: 'About'.tr,
                     iconData: Icons.info,
+                    action: () => Get.toNamed(Routes.about),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 32),

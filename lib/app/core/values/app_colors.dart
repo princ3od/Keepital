@@ -5,6 +5,7 @@ class AppColors {
   AppColors._();
   static const Color primaryColor = Color(0xFF38305F);
   static const Color secondaryColor = Color(0xFF827717);
+  static const whiteAccentColor = Color(0xffFAFAFA);
 
   static Color get backgroundColor => (Get.isDarkMode) ? darkBackgroundColor : lightBackgroundColor;
 

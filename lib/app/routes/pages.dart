@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:keepital/app/global_widgets/add_peoples.dart';
 import 'package:keepital/app/global_widgets/amount_keyboard.dart';
 import 'package:keepital/app/global_widgets/icon_selection_screen.dart';
+import 'package:keepital/app/modules/about/about_page.dart';
 import 'package:keepital/app/modules/add_category/add_category_binding.dart';
 import 'package:keepital/app/modules/add_category/screens/add_category_screen.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dart';
@@ -130,5 +131,6 @@ abstract class AppPages {
     GetPage(name: Routes.recurringTransaction, page: () => RecurringTransactionScreen(), binding: RecurringTransactionBinding()),
     GetPage(name: Routes.addRecurringTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
     GetPage(name: Routes.appSetting, page: () => SettingScreen(), binding: SettingBinding()),
+    GetPage(name: Routes.about, page: () => AboutPage()),
   ];
 }

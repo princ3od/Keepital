@@ -23,4 +23,5 @@ abstract class Routes {
   static const recurringTransaction = '/recurring_transaction';
   static const addRecurringTransaction = '/add_recurring_transaction';
   static const appSetting = '/app_setting';
+  static const about = '/about';
 }
