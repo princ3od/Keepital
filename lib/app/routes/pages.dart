@@ -2,12 +2,15 @@ import 'package:get/get.dart';
 import 'package:keepital/app/global_widgets/add_peoples.dart';
 import 'package:keepital/app/global_widgets/amount_keyboard.dart';
 import 'package:keepital/app/global_widgets/icon_selection_screen.dart';
+import 'package:keepital/app/modules/about/about_page.dart';
 import 'package:keepital/app/modules/add_category/add_category_binding.dart';
 import 'package:keepital/app/modules/add_category/screens/add_category_screen.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_binding.dart';
 import 'package:keepital/app/modules/add_wallet/add_wallet_binding.dart';
 import 'package:keepital/app/modules/add_wallet/first_wallet_binding.dart';
 import 'package:keepital/app/modules/add_wallet/screen/add_wallet_screen.dart';
+import 'package:keepital/app/modules/app_setting/screen/setting_screen.dart';
+import 'package:keepital/app/modules/app_setting/setting_binding.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
 import 'package:keepital/app/modules/category/categories_binding.dart';
@@ -133,5 +136,7 @@ abstract class AppPages {
               trans: Get.arguments,
             ),
         binding: AddTransactionBinding()),
+    GetPage(name: Routes.appSetting, page: () => SettingScreen(), binding: SettingBinding()),
+    GetPage(name: Routes.about, page: () => AboutPage()),
   ];
 }

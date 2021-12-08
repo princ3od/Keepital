@@ -1,9 +1,11 @@
 import 'dart:collection';
+import 'dart:convert';
 
 import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/values/languages/en_US.dart';
 import 'package:keepital/app/core/values/languages/vi_VN.dart';
+import 'package:keepital/app/modules/app_setting/setting_controller.dart';
 
 class LocalizationService extends Translations {
   static final locale = _getLocaleFromLanguage();
@@ -43,5 +45,15 @@ class LocalizationService extends Translations {
       if (lang == languageCodes[i]) return locales[i];
     }
     return Get.locale!;
+  }
+
+  Future<String?> getLanguague() async {
+    var storage = AppSettingStorage();
+    String value = await storage.readAppConfig();
+    if (value != "") {
+      var json = jsonDecode(value);
+      var defaultLanguage = json['default_language'];
+      return defaultLanguage;
+    }
   }
 }

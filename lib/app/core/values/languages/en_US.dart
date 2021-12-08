@@ -108,5 +108,12 @@ const Map<String, String> enLanguagePackage = {
   'add_recurring_transaction': 'Add recurring transaction',
   'Please fill out the cycle length field': 'Please fill out the cycle length field',
   'Please fill out the number of repetitions': 'Please fill out the number of repetitions',
-  'edit_recurring_transaction': 'Edit recurring transaction'
+  'edit_recurring_transaction': 'Edit recurring transaction',
+  'View': 'View',
+  'Defaut Currency': 'Defaut Currency',
+  'Theme Mode': 'Theme Mode',
+  'Dislay Language': 'Dislay Language',
+  'Notifications': 'Notification',
+  'Show Notification': 'Show Notification',
+  'Allow Sound': 'Allow Sound',
 };

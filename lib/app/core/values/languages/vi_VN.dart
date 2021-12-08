@@ -116,5 +116,12 @@ const Map<String, String> viLanguagePackage = {
   'add_recurring_transaction': 'Thêm giao dịch định kì',
   'Please fill out the cycle length field': 'Vui lòng nhập chu kỳ',
   'Please fill out the number of repetitions': 'Vui lòng nhập số lần lặp giao dịch này',
-  'edit_recurring_transaction': 'Sửa giao dịch định kỳ'
+  'edit_recurring_transaction': 'Sửa giao dịch định kỳ',
+  'View': 'Cấu hình',
+  'Defaut Currency': 'Đơn vị tiền tệ mặc định',
+  'Theme Mode': 'Chế độ giao diện',
+  'Dislay Language': 'Ngôn ngữ hiển thị',
+  'Notifications': 'Thông báo',
+  'Show Notification': 'Hiển thị thông báo',
+  'Allow Sound': 'Cho phép âm thanh',
 };

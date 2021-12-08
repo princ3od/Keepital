@@ -12,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting();
   await AppStartService.instance.initGetStorage();
+
   runApp(MyApp());
 }
 
