@@ -5,22 +5,24 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
-import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/global_widgets/clickable_chips_input.dart';
 import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/icon_textfield.dart';
+import 'package:keepital/app/modules/add_transaction/widgets/repeat_options_for%20_recurring_trans.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddTransactionScreen extends StatelessWidget {
   final AddTransactionController _controller = Get.find<AddTransactionController>();
-  final TransactionModel? trans;
+  final BaseModel? trans;
 
   AddTransactionScreen({Key? key, this.trans}) {
     if (isEditing) {
@@ -38,9 +40,13 @@ class AddTransactionScreen extends StatelessWidget {
             if (isValidData()) {
               switch (Get.currentRoute) {
                 case Routes.editTransaction:
-                  await _controller.modifyTrans(trans!);
+                  await _controller.modifyTrans(trans as TransactionModel);
                   break;
                 case Routes.addRecurringTransaction:
+                  await _controller.createNewRecurringTrans();
+                  break;
+                case Routes.editRecurringTransaction:
+                  await _controller.modifyRecurringTrans(trans as RecurringTransaction);
                   break;
                 default:
                   await _controller.createNewTrans();
@@ -80,15 +86,18 @@ class AddTransactionScreen extends StatelessWidget {
                   hintText: 'hint_note'.tr,
                   icon: Image.asset(AssetStringsPng.note, color: Theme.of(context).iconTheme.color),
                 ),
-                Obx(() => ClickableListItem(
-                      leading: Image.asset(AssetStringsPng.calendar, color: Theme.of(context).iconTheme.color),
-                      text: _controller.strDate.value,
-                      onPressed: () async {
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
-                        _controller.strDate.value = _controller.date.fullDate;
-                      },
-                    )),
+                Visibility(
+                  visible: !isRecurringTrans,
+                  child: Obx(() => ClickableListItem(
+                        leading: Image.asset(AssetStringsPng.calendar, color: Theme.of(context).iconTheme.color),
+                        text: _controller.strDate.value,
+                        onPressed: () async {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
+                          _controller.strDate.value = _controller.date.fullDate;
+                        },
+                      )),
+                ),
                 Obx(() => ClickableListItem(
                       enabled: !isEditing,
                       leading: Icon(Icons.account_balance_wallet),
@@ -101,9 +110,46 @@ class AddTransactionScreen extends StatelessWidget {
                     )),
               ]),
             ),
-            Visibility(visible: !isAddRecurringTrans, child: additionalInformation(context)),
-            Visibility(visible: !isAddRecurringTrans, child: excludeFromReport(context)),
-            Visibility(visible: !isAddRecurringTrans, child: suggest(context))
+            Visibility(
+                visible: isRecurringTrans,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SectionPanel(
+                      padding: EdgeInsets.all(0),
+                      child: Obx(() => RepeatOptionsForRecurringTrans(
+                            cycleLengthTextController: _controller.cycleLengthTextController,
+                            numRepetitionsTextController: _controller.numRepetitionsTextController,
+                            selectedOptsIndex: _controller.selectedOptsIndex.value,
+                            selectedUnitIndex: _controller.selectedUnitIndex.value,
+                            onUnitSelected: (index) {
+                              _controller.selectedUnitIndex.value = index ?? 0;
+                            },
+                            onOptsSelected: (index) {
+                              _controller.selectedOptsIndex.value = index ?? 0;
+                            },
+                            fromDate: _controller.strStartDate.value,
+                            toDate: _controller.strEndDate.value,
+                            onFromDatePressed: () async {
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                              _controller.startDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2100)) ?? DateTime.now();
+                              _controller.strStartDate.value = _controller.startDate.fullDate;
+                            },
+                            onToDatePressed: () async {
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                              _controller.endDate = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime.now(), lastDate: DateTime(2100)) ?? DateTime.now();
+                              _controller.strEndDate.value = _controller.endDate?.fullDate ?? '';
+                              print(_controller.endDate);
+                            },
+                          )),
+                    ),
+                  ],
+                )),
+            Visibility(visible: !isRecurringTrans, child: additionalInformation(context)),
+            excludeFromReport(context),
+            Visibility(visible: !isRecurringTrans, child: suggest(context))
           ],
         ),
       ),
@@ -200,32 +246,38 @@ class AddTransactionScreen extends StatelessWidget {
       children: [
         SizedBox(height: MediaQuery.of(context).size.width * 0.05),
         SectionPanel(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Row(
             children: [
-              Row(
-                children: [
-                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Checkbox(
-                      checkColor: Colors.white,
-                      activeColor: AppColors.primaryColor,
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                flex: 1,
+                child: Obx(() => Checkbox(
+                      checkColor: Theme.of(context).backgroundColor,
+                      activeColor: Theme.of(context).iconTheme.color!.withOpacity(0.7),
                       value: _controller.excludeFromReport.value,
                       onChanged: (value) {
                         _controller.excludeFromReport.value = value!;
                       },
+                    )),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                flex: 7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
+                    Text(
+                      'exclude_description'.tr,
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
                     )
-                  ]),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('exclude_label'.tr, style: Theme.of(context).textTheme.bodyText1),
-                      Text(
-                        'exclude_description'.tr,
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color: Color.fromARGB(127, 0, 0, 0)),
-                      )
-                    ],
-                  )
-                ],
+                  ],
+                ),
               )
             ],
           ),
@@ -251,9 +303,16 @@ class AddTransactionScreen extends StatelessWidget {
   }
 
   String get getTitle {
-    if (isEditing) return 'edit_transaction'.tr;
-    if (isAddRecurringTrans) return 'add_recurring_transaction'.tr;
-    return 'add_transaction'.tr;
+    switch (Get.currentRoute) {
+      case Routes.editTransaction:
+        return 'edit_transaction'.tr;
+      case Routes.addRecurringTransaction:
+        return 'add_recurring_transaction'.tr;
+      case Routes.editRecurringTransaction:
+        return 'edit_recurring_transaction'.tr;
+      default:
+        return 'add_transaction'.tr;
+    }
   }
 
   bool isValidData() {
@@ -266,10 +325,13 @@ class AddTransactionScreen extends StatelessWidget {
     } else if (_controller.walletId.value == '') {
       Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the wallet field'.tr));
       return false;
+    } else if (_controller.cycleLengthTextController.text.isEmpty) {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the cycle length field'.tr));
+      return false;
+    } else if (_controller.numRepetitionsTextController.text.isEmpty && _controller.selectedOptsIndex.value == 2) {
+      Get.snackbar('', '', titleText: Text('Info'.tr), messageText: Text('Please fill out the number of repetitions'.tr));
+      return false;
     }
     return true;
   }
-
-  bool get isEditing => trans != null;
-  bool get isAddRecurringTrans => Get.currentRoute == Routes.addRecurringTransaction;
 }

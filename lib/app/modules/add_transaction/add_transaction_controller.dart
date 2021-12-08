@@ -1,19 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/utils/exchange_rate.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
+import 'package:keepital/app/data/models/recurring_transaction.dart';
+import 'package:keepital/app/data/models/repeat_options.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
+import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
-import 'package:keepital/app/data/providers/user_provider.dart';
-import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
-import 'package:keepital/app/modules/home/home_controller.dart';
-import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
+import 'package:keepital/app/routes/pages.dart';
 import 'package:tuple/tuple.dart';
 
 class AddTransactionController extends GetxController {
@@ -22,11 +22,10 @@ class AddTransactionController extends GetxController {
     walletName = (wallets[walletId]?.name ?? '').obs;
   }
 
-  final HomeController _homeController = Get.find<HomeController>();
-  late final TransactionDetailController _transDetailController;
-
   final amountTextController = TextEditingController();
   final noteTextController = TextEditingController();
+  final cycleLengthTextController = TextEditingController(text: '1');
+  final numRepetitionsTextController = TextEditingController(text: '1');
 
   Category? category;
   var strCategory = ''.tr.obs;
@@ -40,6 +39,14 @@ class AddTransactionController extends GetxController {
 
   Rx<List<String>?> peoples = Rx<List<String>?>([]);
 
+  DateTime startDate = DateTime.now();
+  late var strStartDate = startDate.fullDate.obs;
+  DateTime? endDate;
+  late var strEndDate = ''.obs;
+
+  RxInt selectedUnitIndex = 0.obs;
+  RxInt selectedOptsIndex = 0.obs;
+
   RxBool excludeFromReport = false.obs;
 
   Future createNewTrans() async {
@@ -49,13 +56,11 @@ class AddTransactionController extends GetxController {
     amount = category!.type == CategoryType.income ? amount : -amount;
     num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
-    updateTotalAmount(diffInTotal);
-    _homeController.total.amount += diffInTotal;
-
-    updateWalletAmountNTransaction(amount);
+    DataService.updateTotalAmount(diffInTotal);
+    DataService.instance.updateWalletAmount(walletId.value, amount);
     addTransaction(amount, note);
 
-    await _homeController.reloadTransList();
+    onAddTransactionClosed(diffInTotal);
   }
 
   Future modifyTrans(TransactionModel oldTrans) async {
@@ -66,39 +71,48 @@ class AddTransactionController extends GetxController {
     num diff = amount - oldAmount;
     num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
-    updateTotalAmount(diffInTotal);
-    _homeController.total.amount += diffInTotal;
+    DataService.updateTotalAmount(diffInTotal);
+    DataService.instance.updateWalletAmount(walletId.value, diff);
+    var modTrans = await updateTransaction(oldTrans, amount, note);
 
-    updateWalletAmountNTransaction(diff);
-    updateTransaction(oldTrans, amount, note);
-
-    await _homeController.reloadTransList();
+    onEditTransactionClosed(diffInTotal, modTrans);
   }
 
-  Future updateTotalAmount(num diff) async {
-    var user = DataService.currentUser!;
-    user.amount += diff;
-    DataService.currentUser = await UserProvider().update(user.id!, user);
-  }
+  Future createNewRecurringTrans() async {
+    num amount = num.tryParse(amountTextController.text)!;
+    String note = noteTextController.text;
 
-  Future updateWalletAmountNTransaction(num diff) async {
     var wallet = wallets[walletId]!;
-    wallet.amount += diff;
-    DataService.currentUser!.wallets[walletId.value] = await WalletProvider().update(walletId.value, wallet);
+    var repeatOpts = RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
+    var trans = RecurringTransaction('', category: category!, currencyId: wallet.currencyId, isMarkedFinished: false, amount: amount, options: repeatOpts, note: note, walletId: wallet.id, excludeFromReport: excludeFromReport.value);
+    trans = await RecurringTransactionProvider().addToWallet(trans, walletId.value);
+
+    onRecurringTransClosed(trans);
   }
 
-  Future updateTransaction(TransactionModel oldTrans, num amount, String note) async {
+  Future modifyRecurringTrans(RecurringTransaction old) async {
+    num amount = num.tryParse(amountTextController.text)!;
+    String note = noteTextController.text;
+
+    var repeatOpts = RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
+    var trans = RecurringTransaction(old.id, category: category!, currencyId: old.currencyId, isMarkedFinished: old.isMarkedFinished, amount: amount, options: repeatOpts, note: note, walletId: old.walletId, excludeFromReport: excludeFromReport.value);
+    trans = await RecurringTransactionProvider().update(trans.id!, trans);
+
+    onRecurringTransClosed(trans);
+  }
+
+  Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note) async {
     var wallet = wallets[walletId]!;
 
-    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
+    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
     await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
 
-    _transDetailController.onTransUpdated(modTrans);
+    return modTrans;
   }
 
   Future addTransaction(num amount, String note) async {
     var wallet = wallets[walletId]!;
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value));
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
     await TransactionProvider().addToWallet(trans, walletId.value);
   }
 
@@ -109,9 +123,15 @@ class AddTransactionController extends GetxController {
     this.category = category;
   }
 
-  void onLoadData(TransactionModel trans) {
-    _transDetailController = Get.find<TransactionDetailController>();
+  void onLoadData(BaseModel trans) {
+    if (isEditingTrans) {
+      onEditTransLoad(trans as TransactionModel);
+    } else if (isEditingRecuringTrans) {
+      onEditRecurringTrans(trans as RecurringTransaction);
+    }
+  }
 
+  void onEditTransLoad(TransactionModel trans) {
     oldAmount = trans.category.type == CategoryType.income ? trans.amount : -trans.amount;
     amountTextController.text = trans.amount.toString();
 
@@ -129,6 +149,34 @@ class AddTransactionController extends GetxController {
     walletName.value = wallets[walletId]?.name ?? '';
 
     peoples.value = stringToList(trans.contact);
+
+    excludeFromReport.value = trans.excludeFromReport;
+  }
+
+  void onEditRecurringTrans(RecurringTransaction trans) {
+    oldAmount = trans.category.type == CategoryType.income ? trans.amount : -trans.amount;
+    amountTextController.text = trans.amount.toString();
+
+    category = trans.category;
+    strCategory.value = category?.name ?? '';
+    categoryIconId.value = category?.iconId ?? Assets.iconsUnknown.path;
+    if (categoryIconId.value.isEmpty) categoryIconId.value = Assets.inAppIconElectricityBill.path;
+
+    noteTextController.text = trans.note ?? '';
+
+    walletId.value = trans.walletId ?? '';
+    walletName.value = wallets[walletId]?.name ?? '';
+
+    cycleLengthTextController.text = trans.options.cycleLength.toString();
+    numRepetitionsTextController.text = (trans.options.numRepetition ?? 1).toString();
+    startDate = trans.options.startDate;
+    strStartDate.value = startDate.fullDate;
+    endDate = trans.options.endDate;
+    strEndDate.value = endDate?.fullDate ?? '';
+    selectedUnitIndex.value = trans.options.recurUnitId;
+    selectedOptsIndex.value = trans.options.id;
+
+    excludeFromReport.value = trans.excludeFromReport;
   }
 
   void onAddTransactionClosed(num diffInTotal) {
@@ -139,9 +187,19 @@ class AddTransactionController extends GetxController {
     Get.back(result: Tuple2(diffInTotal, modTrans));
   }
 
+  void onRecurringTransClosed(RecurringTransaction trans) {
+    Get.back(result: trans);
+  }
+
   num oldAmount = 0;
 
   String get totalCurrencyId => DataService.currentUser!.currencyId;
   String get currentWallet => DataService.currentUser!.currentWallet;
   Map<String, Wallet> get wallets => DataService.currentUser!.wallets;
 }
+
+bool get isEditing => isEditingTrans || isEditingRecuringTrans;
+bool get isEditingTrans => Get.currentRoute == Routes.editTransaction;
+bool get isEditingRecuringTrans => Get.currentRoute == Routes.editRecurringTransaction;
+bool get isAddRecurringTrans => Get.currentRoute == Routes.addRecurringTransaction;
+bool get isRecurringTrans => isEditingRecuringTrans || isAddRecurringTrans;

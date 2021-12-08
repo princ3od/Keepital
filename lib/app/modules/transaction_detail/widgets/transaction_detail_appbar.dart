@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
-import 'package:keepital/app/routes/pages.dart';
 
 class TransactionDetailAppbar extends StatelessWidget implements PreferredSizeWidget {
   TransactionDetailAppbar({Key? key})

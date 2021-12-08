@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 
 class ExchangeRate {
   static String baseCurrency = AppValue.baseCurrency.toLowerCase();
   static String? date;
-  static Map<String, dynamic> rates = {};
+  static Map<String, num> rates = {};
   static get hasExchangeRate => rates.isNotEmpty;
 
   static double exchange(String origin, String target, double amount) {
@@ -43,10 +42,10 @@ class ExchangeRate {
       Map<String, dynamic> data = response.data;
       if (response.statusCode == 200) {
         date = data['date'];
-        rates = data[baseCurrency].cast<String, dynamic>();
+        rates = data[baseCurrency].cast<String, num>();
         return true;
       }
-    } on Exception catch (e) {
+    } on Exception {
       throw Exception('Failed to load exchange rate.');
     }
     return false;

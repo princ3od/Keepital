@@ -13,7 +13,7 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
   Future<TransactionModel> add(TransactionModel obj) async {
     final userPath = _getUserPath;
 
-    final walletPath = userPath.collection(AppValue.walletCollectionPath).doc(currentUser.currentWallet);
+    final walletPath = userPath.collection(AppValue.walletCollectionPath).doc(obj.walletId);
     final transColl = walletPath.collection(collectionPath);
     await transColl.add(obj.toMap()).then((transRef) {
       obj.id = transRef.id;
@@ -36,9 +36,10 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
   String get collectionPath => AppValue.transactionCollectionPath;
 
   @override
-  Future<String> delete(String id) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<String> delete(String id) async {
+    final transRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(DataService.currentWallet.value.id).collection(collectionPath);
+    await transRef.doc(id).delete();
+    return id;
   }
 
   Future<String> deleteInWallet(String id, String walletId) async {
@@ -80,7 +81,7 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
       TransactionModel t = TransactionModel.fromMap(rawTransMap);
       t.category = await CategoryProvider().fetch(rawTransMap['category']);
       t.walletId = walletId;
-      
+
       transactions.add(t);
     }
     return transactions;

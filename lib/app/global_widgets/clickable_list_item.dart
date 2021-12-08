@@ -37,7 +37,7 @@ class ClickableListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 24, bottom: 8),
+                    padding: const EdgeInsets.only(top: 24, bottom: 8, left: 2),
                     child: Text(
                       isTextEmpty() ? hintText : text!,
                       style: isTextEmpty()
@@ -49,8 +49,8 @@ class ClickableListItem extends StatelessWidget {
                   DottedLine(
                     dashColor: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity),
                     dashGapLength: enabled ? 0 : 8,
-                    dashLength: 16,
-                  )
+                    dashLength: enabled ? 1 : 16,
+                  ),
                 ],
               ),
             ),

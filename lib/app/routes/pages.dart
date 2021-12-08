@@ -130,6 +130,12 @@ abstract class AppPages {
     ),
     GetPage(name: Routes.recurringTransaction, page: () => RecurringTransactionScreen(), binding: RecurringTransactionBinding()),
     GetPage(name: Routes.addRecurringTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
+    GetPage(
+        name: Routes.editRecurringTransaction,
+        page: () => AddTransactionScreen(
+              trans: Get.arguments,
+            ),
+        binding: AddTransactionBinding()),
     GetPage(name: Routes.appSetting, page: () => SettingScreen(), binding: SettingBinding()),
     GetPage(name: Routes.about, page: () => AboutPage()),
   ];
