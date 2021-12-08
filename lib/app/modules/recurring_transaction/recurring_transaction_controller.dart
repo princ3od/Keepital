@@ -3,6 +3,8 @@ import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
+import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class RecurringTransactionController extends GetxController {
@@ -19,8 +21,8 @@ class RecurringTransactionController extends GetxController {
     transList.forEach((element) {
       if (element.isMarkedFinished) {
         finisheds.add(element);
-      }
-      onGoings.add(element);
+      } else
+        onGoings.add(element);
     });
     isLoading.value = false;
   }
@@ -51,6 +53,12 @@ class RecurringTransactionController extends GetxController {
       isLoading.value = true;
       onGoings.add(result);
       transList.add(result);
+
+      if (result.options.startDate.isToday()) {
+        var trans = await TransactionProvider().add(result.toTransactionModel());
+        DataService.updateTotalAmount(trans.signedAmount);
+        DataService.instance.updateWalletAmount(trans.id!, trans.signedAmount);
+      }
       isLoading.value = false;
     }
   }
@@ -65,6 +73,11 @@ class RecurringTransactionController extends GetxController {
       } else {
         onGoings.remove(trans);
         onGoings.add(result);
+      }
+      if (result.options.startDate.isToday()) {
+        var trans = await TransactionProvider().add(result.toTransactionModel());
+        DataService.updateTotalAmount(trans.signedAmount);
+        DataService.instance.updateWalletAmount(trans.id!, trans.signedAmount);
       }
       isLoading.value = false;
     }

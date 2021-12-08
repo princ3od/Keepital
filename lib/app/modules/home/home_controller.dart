@@ -41,6 +41,7 @@ class HomeController extends GetxController {
   Future reloadTransList() async {
     isLoading.value = true;
     transList.value = await TransactionProvider().fetchAll();
+    DataService.currentWallet.update((val) {});
     isLoading.value = false;
   }
 

@@ -13,7 +13,7 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
   Future<TransactionModel> add(TransactionModel obj) async {
     final userPath = _getUserPath;
 
-    final walletPath = userPath.collection(AppValue.walletCollectionPath).doc(currentUser.currentWallet);
+    final walletPath = userPath.collection(AppValue.walletCollectionPath).doc(obj.walletId);
     final transColl = walletPath.collection(collectionPath);
     await transColl.add(obj.toMap()).then((transRef) {
       obj.id = transRef.id;

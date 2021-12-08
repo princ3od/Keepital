@@ -1,5 +1,6 @@
 import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/data/models/category.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 
 class TransactionModel extends BaseModel {
   num amount;
@@ -30,4 +31,6 @@ class TransactionModel extends BaseModel {
   Map<String, dynamic> toMap() {
     return {'amount': amount, 'category': category.id, 'contact': contact, 'currencyId': currencyId, 'date': date, 'eventId': eventId, 'extraAmountInfo': extraAmountInfo, 'note': note, 'excludeFromReport': excludeFromReport};
   }
+
+  num get signedAmount => category.type == CategoryType.income ? amount : -amount;
 }

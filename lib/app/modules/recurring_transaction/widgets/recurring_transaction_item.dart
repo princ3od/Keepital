@@ -58,7 +58,7 @@ class _RecurringTransactionItemState extends State<RecurringTransactionItem> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 42.0),
-            child: Text(nextOccurrence.fullDate, style: Theme.of(context).textTheme.bodyText1),
+            child: Text(widget.transaction.options.nextOcurrence().fullDate, style: Theme.of(context).textTheme.bodyText1),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,18 +88,4 @@ class _RecurringTransactionItemState extends State<RecurringTransactionItem> {
   }
 
   bool get isEmptyIconId => widget.transaction.category.iconId.isEmpty;
-  DateTime get nextOccurrence {
-    switch (widget.transaction.options.recurUnitId) {
-      case 0:
-        return widget.transaction.options.startDate.add(Duration(days: widget.transaction.options.cycleLength));
-      case 1:
-        return widget.transaction.options.startDate.add(Duration(days: widget.transaction.options.cycleLength * 7));
-      case 2:
-        return widget.transaction.options.startDate.add(Duration(days: widget.transaction.options.cycleLength * 30));
-      case 3:
-        return widget.transaction.options.startDate.add(Duration(days: widget.transaction.options.cycleLength * 365));
-      default:
-        throw Exception();
-    }
-  }
 }

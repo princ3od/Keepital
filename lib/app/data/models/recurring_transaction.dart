@@ -1,6 +1,8 @@
 import 'package:keepital/app/data/models/base_model.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/repeat_options.dart';
+import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 
 class RecurringTransaction extends BaseModel {
   num amount;
@@ -28,4 +30,10 @@ class RecurringTransaction extends BaseModel {
   Map<String, dynamic> toMap() {
     return {'amount': amount, 'category': category.id, 'currencyId': currencyId, 'note': note, 'excludeFromReport': excludeFromReport, 'isMarkedFinished': isMarkedFinished, 'options': options.toMap()};
   }
+
+  TransactionModel toTransactionModel() {
+    return TransactionModel('', amount: amount, category: category, currencyId: currencyId, date: options.startDate, note: note, excludeFromReport: excludeFromReport, walletId: walletId);
+  }
+
+  num get signedAmount => category.type == CategoryType.income ? amount : -amount;
 }

@@ -55,6 +55,26 @@ extension DateOnlyCompare on DateTime {
   bool isSameDate(DateTime other) {
     return year == other.year && month == other.month && day == other.day;
   }
+
+  bool isStrictlyBeforeDate(DateTime other) {
+    return year < other.year || year == other.year && month < other.month || year == other.year && month == other.month && day < other.day;
+  }
+
+  bool isBeforeDate(DateTime other) {
+    return isSameDate(other) || isStrictlyBeforeDate(other);
+  }
+
+  bool isAfterDate(DateTime other) {
+    return !isStrictlyBeforeDate(other);
+  }
+
+  bool isStrictlyAfterDate(DateTime other) {
+    return !isBeforeDate(other);
+  }
+
+  bool isToday() {
+    return isSameDate(DateTime.now());
+  }
 }
 
 List<String> stringToList(String? str) {
