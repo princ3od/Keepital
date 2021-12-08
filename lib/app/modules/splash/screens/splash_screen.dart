@@ -10,6 +10,7 @@ import 'package:keepital/app/modules/splash/splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {
   final _controller = Get.find<SplashController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

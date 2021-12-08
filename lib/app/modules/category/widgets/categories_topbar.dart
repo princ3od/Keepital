@@ -17,12 +17,15 @@ class CategoriesTopBar extends StatelessWidget implements PreferredSizeWidget {
           elevation: 2,
           leading: IconButton(
             icon: Icon(
-              Icons.close_sharp,
+              Icons.arrow_back,
               color: Theme.of(context).iconTheme.color,
             ),
             onPressed: () => Navigator.pop(context),
           ),
-          title: Text('Categories'.tr, style: Theme.of(context).textTheme.headline6,),
+          title: Text(
+            'Categories'.tr,
+            style: Theme.of(context).textTheme.headline6,
+          ),
           bottom: TabBar(tabs: _controller.tabs, isScrollable: true, physics: const BouncingScrollPhysics(), controller: _controller.tabController.value),
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
         ));

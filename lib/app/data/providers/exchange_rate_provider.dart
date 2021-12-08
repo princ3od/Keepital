@@ -20,6 +20,9 @@ class ExchangeRate {
   }
 
   static double getRate(String origin, String target) {
+    if (target == '0') {
+      target = 'usd';
+    }
     if (!hasExchangeRate) {
       return 1;
     }

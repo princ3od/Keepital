@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/modules/profile/profile_controller.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_avatar.dart';
 import 'package:keepital/app/modules/profile/widgets/profile_tile.dart';
@@ -14,13 +13,14 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppTheme.currentTheme.backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           title: Text('Profile'.tr),
           elevation: 0,
         ),
         body: Column(
           children: [
+            const SizedBox(height: 8),
             const ProfileAvatar(),
             const SizedBox(height: 4),
             const Divider(),
@@ -54,10 +54,12 @@ class ProfileScreen extends StatelessWidget {
                   ProfileTile(
                     title: 'Settings'.tr,
                     iconData: Icons.settings,
+                    action: () => Get.toNamed(Routes.appSetting),
                   ),
                   ProfileTile(
                     title: 'About'.tr,
                     iconData: Icons.info,
+                    action: () => Get.toNamed(Routes.about),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 32),
