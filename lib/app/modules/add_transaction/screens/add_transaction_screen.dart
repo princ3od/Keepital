@@ -6,6 +6,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/base_model.dart';
@@ -71,6 +72,7 @@ class AddTransactionScreen extends StatelessWidget {
                       leading: ImageView(
                         _controller.categoryIconId.value,
                         size: 24,
+                        color: categoryIconColor(context),
                       ),
                       hintText: 'hint_category'.tr,
                       text: _controller.strCategory.value,
@@ -211,7 +213,10 @@ class AddTransactionScreen extends StatelessWidget {
             children: [
               ClickableListItem(
                 onPressed: () {},
-                leading: Image.asset(AssetStringsPng.calendar),
+                leading: Image.asset(
+                  AssetStringsPng.calendar,
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 hintText: 'hint_event'.tr,
               ),
               Obx(() => ClickableChipsInput(
@@ -314,6 +319,8 @@ class AddTransactionScreen extends StatelessWidget {
         return 'add_transaction'.tr;
     }
   }
+
+  Color? categoryIconColor(BuildContext context) => _controller.categoryIconId.value == Assets.iconsUnknown.path ? Theme.of(context).iconTheme.color : null;
 
   bool isValidData() {
     if (_controller.amountTextController.text.isBlank!) {

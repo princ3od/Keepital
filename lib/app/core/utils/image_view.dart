@@ -9,28 +9,19 @@ class ImageView extends StatelessWidget {
     this.size,
     this.width = 100,
     this.height = 100,
-    this.backgroundColor = Colors.black,
+    this.color,
     this.fit = BoxFit.contain,
   }) : super(key: key);
 
   final double? size;
   final double? width, height;
-  final Color backgroundColor;
+  final Color? color;
   final String source;
   final BoxFit fit;
   @override
   Widget build(BuildContext context) {
-    if (source.isSvgPath)
-      return (AssetUtils.getAsset(source) as SvgGenImage).svg(
-        width: size ?? width,
-        height: size ?? height,
-        fit: fit,
-      );
-    return (AssetUtils.getAsset(source) as AssetGenImage).image(
-      width: size ?? width,
-      height: size ?? height,
-      fit: fit,
-    );
+    if (source.isSvgPath) return (AssetUtils.getAsset(source) as SvgGenImage).svg(width: size ?? width, height: size ?? height, fit: fit, color: color);
+    return (AssetUtils.getAsset(source) as AssetGenImage).image(width: size ?? width, height: size ?? height, fit: fit, color: color);
   }
 }
 
