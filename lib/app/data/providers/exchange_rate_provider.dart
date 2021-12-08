@@ -5,7 +5,7 @@ import 'package:keepital/app/core/values/app_value.dart';
 class ExchangeRate {
   static String baseCurrency = AppValue.baseCurrency.toLowerCase();
   static String? date;
-  static Map<String, double> rates = {};
+  static Map<String, dynamic> rates = {};
   static get hasExchangeRate => rates.isNotEmpty;
 
   static double exchange(String origin, String target, double amount) {
@@ -21,13 +21,16 @@ class ExchangeRate {
   }
 
   static double getRate(String origin, String target) {
+    if (target == '0') {
+      target = 'usd';
+    }
     if (!hasExchangeRate) {
       return 1;
     }
     origin = origin.toLowerCase();
     target = target.toLowerCase();
     if (origin == baseCurrency) {
-      return rates[target]!;
+      return rates[target]!.toDouble();
     }
     return rates[target]! / rates[origin]!;
   }
@@ -40,7 +43,7 @@ class ExchangeRate {
       Map<String, dynamic> data = response.data;
       if (response.statusCode == 200) {
         date = data['date'];
-        rates = data[baseCurrency].cast<String, double>();
+        rates = data[baseCurrency].cast<String, dynamic>();
         return true;
       }
     } on Exception catch (e) {

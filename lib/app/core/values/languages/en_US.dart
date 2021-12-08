@@ -104,5 +104,12 @@ const Map<String, String> enLanguagePackage = {
   'edit_transaction': 'Edit',
   'Add peoples': 'Add peoples',
   'Type in names separated by comma (,)': 'Type in names separated by comma (,)',
-  'You can type in peoples who pay with you in this transaction': 'You can type in peoples who pay with you in this transaction'
+  'You can type in peoples who pay with you in this transaction': 'You can type in peoples who pay with you in this transaction',
+  'View': 'View',
+  'Defaut Currency': 'Defaut Currency',
+  'Theme Mode': 'Theme Mode',
+  'Dislay Language': 'Dislay Language',
+  'Notifications': 'Notification',
+  'Show Notification': 'Show Notification',
+  'Allow Sound': 'Allow Sound',
 };

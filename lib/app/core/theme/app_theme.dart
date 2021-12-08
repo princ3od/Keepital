@@ -11,12 +11,14 @@ class AppTheme {
     ),
   );
 
-  static final TextButtonThemeData _secondaryButtonDarkThemeData = TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.white ,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
-  static final TextButtonThemeData _secondaryButtonLightThemeData = TextButtonThemeData(style: TextButton.styleFrom(primary: AppColors.primaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
+  static final TextButtonThemeData _secondaryButtonDarkThemeData = TextButtonThemeData(style: TextButton.styleFrom(primary: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
+  static final TextButtonThemeData _secondaryButtonLightThemeData = TextButtonThemeData(style: TextButton.styleFrom(primary: AppColors.primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))));
 
-  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonDarkThemeData =
+      OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: Colors.white, side: BorderSide(color: Colors.white, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
 
-  static final OutlinedButtonThemeData _outlinedButtonLightThemeData = OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
+  static final OutlinedButtonThemeData _outlinedButtonLightThemeData =
+      OutlinedButtonThemeData(style: OutlinedButton.styleFrom(primary: AppColors.primaryColor, side: BorderSide(color: AppColors.primaryColor, width: 2), shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))));
   static TextTheme _textTheme(Color textColor) => TextTheme(
         headline1: GoogleFonts.montserrat(
           color: textColor,
@@ -88,6 +90,7 @@ class AppTheme {
     ),
     appBarTheme: AppBarTheme(
       color: AppColors.lightBackgroundColor,
+      iconTheme: IconThemeData(color: AppColors.darkBackgroundColor),
       titleTextStyle: GoogleFonts.montserrat(
         color: AppColors.lightTextColor,
         fontSize: 18,
@@ -143,6 +146,7 @@ class AppTheme {
     ),
     appBarTheme: AppBarTheme(
       color: AppColors.darkBackgroundColor,
+      iconTheme: IconThemeData(color: AppColors.lightBackgroundColor),
       titleTextStyle: GoogleFonts.montserrat(
         color: AppColors.darkTextColor,
         fontSize: 18,
