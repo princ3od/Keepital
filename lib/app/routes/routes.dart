@@ -25,4 +25,7 @@ abstract class Routes {
   static const editRecurringTransaction = '/edit_recurring_transaction';
   static const appSetting = '/app_setting';
   static const about = '/about';
+  static const budget = '/budget';
+  static const addBudget = '/add_budget';
+  static const selectTimeRange = '/select_time_range';
 }

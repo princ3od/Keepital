@@ -54,7 +54,7 @@ class _RecurringTransactionItemState extends State<RecurringTransactionItem> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 42.0),
-            child: Text('Next occurrence:', style: Theme.of(context).textTheme.bodyText1),
+            child: Text('Next occurrence:'.tr, style: Theme.of(context).textTheme.bodyText1),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 42.0),
