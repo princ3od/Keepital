@@ -65,7 +65,10 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   } else if (value == 'change display') {
                     _controller.viewByDate.value = !_controller.viewByDate.value;
                   } else if (value == 'Adjust Balance') {
-                    await Get.toNamed(Routes.walletBalance)!.then((value) => _controller.onUpdateWalletBalance());
+                    var result = await Get.toNamed(Routes.walletBalance);
+                    if (result != null) {
+                      _controller.onUpdateWalletBalance();
+                    }
                   } else if (value == 'Select time range') {
                     handleSelectTimeRange(context);
                   }

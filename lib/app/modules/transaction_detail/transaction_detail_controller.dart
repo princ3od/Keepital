@@ -8,7 +8,6 @@ import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/routes/pages.dart';
-import 'package:tuple/tuple.dart';
 
 class TransactionDetailController extends GetxController {
   final HomeController _homeController = Get.find<HomeController>();
@@ -37,11 +36,9 @@ class TransactionDetailController extends GetxController {
   void navigateToEditTransactionScreen() async {
     var result = await Get.toNamed(Routes.editTransaction, arguments: trans.value);
     if (result != null) {
-      Tuple2<num, TransactionModel> val = result;
+      onTransUpdated(result);
 
-      onTransUpdated(val.item2);
-
-      await _homeController.reloadTransList();
+      await _homeController.onEditedTransaction(result);
     }
   }
 

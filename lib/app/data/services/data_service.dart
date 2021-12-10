@@ -59,10 +59,11 @@ class DataService {
     UserProvider().updateCurrentWallet(currentUser!.id!, id);
   }
 
-  static Future addTransaction(TransactionModel transaction) async {
-    await TransactionProvider().addToWallet(transaction, transaction.walletId!);
+  static Future<TransactionModel> addTransaction(TransactionModel transaction) async {
+    transaction = await TransactionProvider().addToWallet(transaction, transaction.walletId!);
     await updateTotalAmount(transaction.signedAmount);
     await updateWalletAmount(transaction.walletId!, transaction.signedAmount);
+    return transaction;
   }
 
   static Future modifyTransaction(TransactionModel modTransaction, num diff) async {

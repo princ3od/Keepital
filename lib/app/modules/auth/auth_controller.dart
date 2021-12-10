@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/providers/budget_provider.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
