@@ -62,7 +62,7 @@ class BudgetItem extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyText1,
                           )),
                           Text(
-                            '${(budget.amount - budget.spent).money('\$')}',
+                            '${(budget.amount - budget.spent).money(currencySymbol(budget.walletId))}',
                             style: Theme.of(context).textTheme.bodyText1,
                           )
                         ]),

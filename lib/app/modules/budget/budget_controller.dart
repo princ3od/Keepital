@@ -41,5 +41,21 @@ class BudgetController extends GetxController {
     }
   }
 
+  void onWalletChange(String walletId) async {
+    isLoading.value = true;
+    finishedBudgets.clear();
+    onGoingbudgets.clear();
+
+    budgets = await loadBudgets();
+    budgets.forEach((element) {
+      if (element.isFinished) {
+        finishedBudgets.add(element);
+      } else {
+        onGoingbudgets.add(element);
+      }
+    });
+    isLoading.value = false;
+  }
+
   String get walletId => DataService.currentUser!.currentWallet;
 }

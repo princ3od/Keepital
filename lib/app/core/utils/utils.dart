@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 
 class Utils {
@@ -144,6 +145,8 @@ extension SpecialDay on DateTime {
     return DateTime(this.year + 1, 12, 31);
   }
 }
+
+String currencySymbol(String walletId) => DataService.currentUser!.wallets[walletId]?.currencySymbol ?? 'None';
 
 List<String> stringToList(String? str) {
   if (str == null) return [];

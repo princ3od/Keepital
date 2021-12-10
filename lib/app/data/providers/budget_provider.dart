@@ -70,10 +70,13 @@ class BudgetProvider implements Firestoration<String, Budget> {
   }
 
   @override
-  Future<Budget> update(String id, Budget obj) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<Budget> update(String id, Budget obj) async {
+    var transRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(obj.walletId).collection(collectionPath).doc(id);
+    transRef.update(obj.toMap());
+    return obj;
   }
+
+
 
   DocumentReference<Object?> get _getUserPath => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);
   KeepitalUser get currentUser => DataService.currentUser!;

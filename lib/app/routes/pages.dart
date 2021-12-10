@@ -163,6 +163,11 @@ abstract class AppPages {
         name: Routes.budgetDetail,
         page: () => BudgetDetailScreen(
               budget: Get.arguments,
-            ))
+            )),
+    GetPage(
+        name: Routes.editBudget,
+        page: () => AddBudgetScreen(
+              budget: Get.arguments,
+            )),
   ];
 }

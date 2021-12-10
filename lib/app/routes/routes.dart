@@ -29,6 +29,7 @@ abstract class Routes {
   static const about = '/about';
   static const budget = '/budget';
   static const addBudget = '/add_budget';
+  static const editBudget = '/edit_budget';
   static const selectTimeRange = '/select_time_range';
   static const budgetDetail = '/budget_detail';
 }

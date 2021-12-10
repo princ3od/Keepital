@@ -4,6 +4,7 @@ import 'package:keepital/app/data/models/category.dart';
 class Budget extends BaseModel {
   Category? category;
   num amount;
+  String currencyId;
   num spent;
   late String walletId;
   bool isFinished;
@@ -11,11 +12,12 @@ class Budget extends BaseModel {
   DateTime endDate;
   bool isRepeat;
 
-  Budget(String? id, {this.category, required this.amount, required this.spent, required this.walletId, required this.isFinished, required this.beginDate, required this.endDate, required this.isRepeat}) : super(id);
+  Budget(String? id, {this.category, required this.amount, required this.currencyId, required this.spent, required this.walletId, required this.isFinished, required this.beginDate, required this.endDate, required this.isRepeat}) : super(id);
 
   Budget.fromMap(Map<String, dynamic> data)
       : amount = data['amount'],
         spent = data['spent'],
+        currencyId = data['currencyId'],
         isFinished = data['isFinished'],
         beginDate = data['beginDate'].toDate(),
         endDate = data['endDate'].toDate(),
@@ -24,6 +26,6 @@ class Budget extends BaseModel {
 
   @override
   Map<String, dynamic> toMap() {
-    return {'category': category?.id ?? '', 'amount': amount, 'spent': spent, 'walletId': walletId, 'isFinished': isFinished, 'beginDate': beginDate, 'endDate': endDate, 'isRepeat': isRepeat};
+    return {'category': category?.id ?? '', 'amount': amount, 'currencyId': currencyId, 'spent': spent, 'walletId': walletId, 'isFinished': isFinished, 'beginDate': beginDate, 'endDate': endDate, 'isRepeat': isRepeat};
   }
 }

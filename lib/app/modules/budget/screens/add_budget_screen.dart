@@ -5,6 +5,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/global_widgets/icon_textfield.dart';
@@ -15,15 +16,20 @@ import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AddBudgetScreen extends StatelessWidget {
-  AddBudgetScreen({Key? key}) : super(key: key);
+  AddBudgetScreen({Key? key, this.budget}) : super(key: key) {
+    if (isEditing) {
+      controller.loadData(budget!);
+    }
+  }
   final controller = Get.put(AddBudgetController());
+  final Budget? budget;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CommonAppBar(
           title: 'Add budget'.tr,
-          onSaveTap: controller.onAddBudget,
+          onSaveTap: () => controller.onSaveTap(budget),
         ),
         body: Column(
           children: [
@@ -35,11 +41,13 @@ class AddBudgetScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Obx(() => ClickableListItem(
-                        leading: ImageView(
-                          controller.categoryIconId.value,
-                          size: 24,
-                          color: categoryIconColor(context),
-                        ),
+                        leading: controller.categoryIconId.value.isEmpty
+                            ? Assets.iconsUnknown.image()
+                            : ImageView(
+                                controller.categoryIconId.value,
+                                size: 24,
+                                color: categoryIconColor(context),
+                              ),
                         hintText: 'hint_category'.tr,
                         text: controller.strCategory.value,
                         onPressed: () async {
@@ -60,7 +68,7 @@ class AddBudgetScreen extends StatelessWidget {
                         onPressed: () async => await controller.onTimeRangeTap(context),
                       )),
                   Obx(() => ClickableListItem(
-                        enabled: true,
+                        enabled: !isEditing,
                         leading: Icon(Icons.account_balance_wallet),
                         hintText: 'hint_wallet'.tr,
                         text: controller.walletName.value,
@@ -168,4 +176,5 @@ class AddBudgetScreen extends StatelessWidget {
   }
 
   Color? categoryIconColor(BuildContext context) => controller.categoryIconId.value == Assets.iconsUnknown.path ? Theme.of(context).iconTheme.color : null;
+  bool get isEditing => Get.currentRoute == Routes.editBudget;
 }

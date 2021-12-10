@@ -7,16 +7,29 @@ import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/global_widgets/detail_view_appbar.dart';
 import 'package:keepital/app/modules/budget/budget_detail_controller.dart';
 
-class BudgetDetailScreen extends StatelessWidget {
+class BudgetDetailScreen extends StatefulWidget {
   BudgetDetailScreen({Key? key, required this.budget}) : super(key: key);
-  final controller = Get.put(BudgetDetailController());
   final Budget budget;
+
+  @override
+  State<BudgetDetailScreen> createState() => _BudgetDetailScreenState();
+}
+
+class _BudgetDetailScreenState extends State<BudgetDetailScreen> {
+  final controller = Get.put(BudgetDetailController());
+
+  @override
+  void initState() {
+    super.initState();
+    controller.budget = widget.budget.obs;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DetailViewAppbar(
-        onDeletePressed: () => controller.onDeleteBudget(budget),
+        onDeletePressed: () => controller.onDeleteBudget(controller.budget.value),
+        onEditPressed: () => controller.onEditBudget(controller.budget.value),
       ),
       body: Column(
         children: [
@@ -36,20 +49,20 @@ class BudgetDetailScreen extends StatelessWidget {
                               child: icon,
                             ),
                           ),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                budget.category?.name ?? 'All category'.tr,
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                              Text(
-                                budget.amount.money('\$'),
-                                style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.blue),
-                              ),
-                            ],
-                          )),
+                          Obx(() => Expanded(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.budget.value.category?.name ?? 'All category'.tr,
+                                    style: Theme.of(context).textTheme.headline5,
+                                  ),
+                                  Text(
+                                    controller.budget.value.amount.money('\$'),
+                                    style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.blue),
+                                  ),
+                                ],
+                              ))),
                         ],
                       ),
                       SizedBox(
@@ -63,32 +76,32 @@ class BudgetDetailScreen extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                Row(children: [
-                                  Expanded(
-                                      child: Text(
-                                    'Remaining'.tr,
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  )),
-                                  Text(
-                                    '${(budget.amount - budget.spent).money('\$')}',
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  )
-                                ]),
-                                Row(children: [
-                                  Expanded(child: SizedBox()),
-                                  Text(
-                                    '${budget.endDate.difference(DateTime.now()).inDays} ' + 'days left'.tr,
-                                    style: Theme.of(context).textTheme.subtitle2,
-                                  )
-                                ]),
+                                Obx(() => Row(children: [
+                                      Expanded(
+                                          child: Text(
+                                        'Remaining'.tr,
+                                        style: Theme.of(context).textTheme.bodyText1,
+                                      )),
+                                      Text(
+                                        '${(controller.budget.value.amount - controller.budget.value.spent).money(currencySymbol(controller.budget.value.walletId))}',
+                                        style: Theme.of(context).textTheme.bodyText1,
+                                      )
+                                    ])),
+                                Obx(() => Row(children: [
+                                      Expanded(child: SizedBox()),
+                                      Text(
+                                        '${controller.budget.value.endDate.difference(DateTime.now()).inDays} ' + 'days left'.tr,
+                                        style: Theme.of(context).textTheme.subtitle2,
+                                      )
+                                    ])),
                                 SizedBox(
                                   height: 8,
                                 ),
-                                LinearProgressIndicator(
-                                  value: budget.spent / budget.amount,
-                                  color: progressColor(context, budget.spent / budget.amount),
-                                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                                )
+                                Obx(() => LinearProgressIndicator(
+                                      value: controller.budget.value.spent / controller.budget.value.amount,
+                                      color: progressColor(context, controller.budget.value.spent / controller.budget.value.amount),
+                                      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                    ))
                               ],
                             ),
                           )
@@ -113,19 +126,19 @@ class BudgetDetailScreen extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${budget.beginDate.numbericDate} - ${budget.endDate.numbericDate}',
-                                style: Theme.of(context).textTheme.headline5,
-                              ),
-                              Text(
-                                '${budget.endDate.difference(DateTime.now()).inDays} ' + 'days left'.tr,
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          )),
+                              child: Obx(() => Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${controller.budget.value.beginDate.numbericDate} - ${controller.budget.value.endDate.numbericDate}',
+                                        style: Theme.of(context).textTheme.headline5,
+                                      ),
+                                      Text(
+                                        '${controller.budget.value.endDate.difference(DateTime.now()).inDays} ' + 'days left'.tr,
+                                        style: Theme.of(context).textTheme.bodyText1,
+                                      ),
+                                    ],
+                                  ))),
                         ],
                       ),
                     ],
@@ -139,13 +152,13 @@ class BudgetDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget get icon => budget.category == null || budget.category!.iconId.isEmpty
+  Widget get icon => widget.budget.category == null || widget.budget.category!.iconId.isEmpty
       ? Image(
           image: AssetImage(AssetStringsPng.electricity_bill),
           width: 50,
         )
       : Image.asset(
-          "${budget.category!.iconId}",
+          "${widget.budget.category!.iconId}",
           width: 50,
         );
 }

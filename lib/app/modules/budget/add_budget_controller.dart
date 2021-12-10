@@ -52,11 +52,30 @@ class AddBudgetController extends GetxController {
     }
   }
 
-  void onAddBudget() async {
+  void onSaveTap(Budget? old) async {
+    switch (Get.currentRoute) {
+      case Routes.editBudget:
+        await onModifyBudget(old!);
+        break;
+      default:
+        await onAddBudget();
+    }
+  }
+
+  Future onAddBudget() async {
     Utils.showLoadingDialog();
     num spent = await getSpent();
-    var budget = Budget('', category: category, amount: num.parse(amountTextController.text), spent: spent, walletId: walletId.value, isFinished: false, beginDate: startDate, endDate: endDate, isRepeat: repeat.value);
+    var budget = Budget('', category: category, amount: num.parse(amountTextController.text), spent: spent, currencyId: wallets[walletId]!.currencyId, walletId: walletId.value, isFinished: false, beginDate: startDate, endDate: endDate, isRepeat: repeat.value);
     budget = await BudgetProvider().add(budget);
+    Utils.hideLoadingDialog();
+    Get.back(result: budget);
+  }
+
+  Future onModifyBudget(Budget old) async {
+    Utils.showLoadingDialog();
+    num spent = await getSpent();
+    var budget = Budget(old.id, category: category, amount: num.parse(amountTextController.text), spent: spent, currencyId: wallets[walletId]!.currencyId, walletId: walletId.value, isFinished: false, beginDate: startDate, endDate: endDate, isRepeat: repeat.value);
+    budget = await BudgetProvider().update(budget.id!, budget);
     Utils.hideLoadingDialog();
     Get.back(result: budget);
   }
@@ -93,6 +112,23 @@ class AddBudgetController extends GetxController {
       return 'Next year'.tr;
     }
     return '${start.numbericDate} - ${end.numbericDate}';
+  }
+
+  void loadData(Budget budget) {
+    category = budget.category;
+    strCategory.value = budget.category?.name ?? 'All category'.tr;
+    categoryIconId.value = budget.category?.iconId ?? Assets.iconsUnknown.path;
+
+    amountTextController.text = budget.amount.toString();
+
+    startDate = budget.beginDate;
+    endDate = budget.endDate;
+    strDate.value = getStringRange(startDate, endDate);
+
+    walletId.value = budget.walletId;
+    walletName.value = wallets[walletId.value]?.name ?? '';
+
+    repeat.value = budget.isRepeat;
   }
 
   String get currentWallet => DataService.currentUser!.currentWallet;

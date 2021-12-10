@@ -26,7 +26,11 @@ class BudgetScreen extends StatelessWidget {
               onPressed: () => Get.back(),
             ),
             title: Text("Budgets".tr),
-            actions: <Widget>[WalletButton()],
+            actions: <Widget>[
+              WalletButton(
+                onWalletChange: controller.onWalletChange,
+              )
+            ],
             bottom: TabBar(
               tabs: [
                 Text("on_going".tr),
