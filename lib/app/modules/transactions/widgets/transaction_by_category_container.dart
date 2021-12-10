@@ -66,7 +66,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
             ),
           ),
           Divider(
-            height: 2,
+            thickness: 0.8,
             color: Theme.of(context).dividerColor,
           ),
           ListView.builder(
