@@ -6,7 +6,6 @@ import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
 import 'package:keepital/app/data/providers/firestoration.dart';
-import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 
@@ -142,9 +141,7 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
     for (var iter = transaction.options.nextOcurrence(); iter.isBeforeDate(now); iter = transaction.options.nextOcurrence()) {
       transaction.options.startDate = iter;
 
-      await TransactionProvider().add(transaction.toTransactionModel());
-      await DataService.updateTotalAmount(transaction.signedAmount);
-      await DataService.instance.updateWalletAmount(transaction.walletId!, transaction.signedAmount);
+      await DataService.addTransaction(transaction.toTransactionModel());
     }
     await RecurringTransactionProvider().update(transaction.id!, transaction);
   }
@@ -154,9 +151,7 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
     for (var iter = transaction.options.nextOcurrence(); iter.isBeforeDate(now) && iter.isBeforeDate(transaction.options.endDate!); iter = transaction.options.nextOcurrence()) {
       transaction.options.startDate = iter;
 
-      await TransactionProvider().add(transaction.toTransactionModel());
-      await DataService.updateTotalAmount(transaction.signedAmount);
-      await DataService.instance.updateWalletAmount(transaction.walletId!, transaction.signedAmount);
+      await DataService.addTransaction(transaction.toTransactionModel());
     }
 
     if (transaction.options.nextOcurrence().isStrictlyAfterDate(transaction.options.endDate!)) {
@@ -171,9 +166,7 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
       transaction.options.startDate = iter;
       transaction.options.count++;
 
-      await TransactionProvider().add(transaction.toTransactionModel());
-      await DataService.updateTotalAmount(transaction.signedAmount);
-      await DataService.instance.updateWalletAmount(transaction.walletId!, transaction.signedAmount);
+      await DataService.addTransaction(transaction.toTransactionModel());
     }
 
     if (transaction.options.count >= transaction.options.numRepetition!) {

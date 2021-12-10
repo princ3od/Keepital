@@ -56,8 +56,6 @@ class AddTransactionController extends GetxController {
     amount = category!.type == CategoryType.income ? amount : -amount;
     num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
-    DataService.updateTotalAmount(diffInTotal);
-    DataService.instance.updateWalletAmount(walletId.value, amount);
     addTransaction(amount, note);
 
     onAddTransactionClosed(diffInTotal);
@@ -71,9 +69,7 @@ class AddTransactionController extends GetxController {
     num diff = amount - oldAmount;
     num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
-    DataService.updateTotalAmount(diffInTotal);
-    DataService.instance.updateWalletAmount(walletId.value, diff);
-    var modTrans = await updateTransaction(oldTrans, amount, note);
+    var modTrans = await updateTransaction(oldTrans, amount, note, diff);
 
     onEditTransactionClosed(diffInTotal, modTrans);
   }
@@ -101,19 +97,17 @@ class AddTransactionController extends GetxController {
     onRecurringTransClosed(trans);
   }
 
-  Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note) async {
+  Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note, num diff) async {
     var wallet = wallets[walletId]!;
-
     var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
-    await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
-
+    await DataService.modifyTransaction(modTrans, diff);
     return modTrans;
   }
 
   Future addTransaction(num amount, String note) async {
     var wallet = wallets[walletId]!;
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
-    await TransactionProvider().addToWallet(trans, walletId.value);
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, walletId: walletId.value);
+    await DataService.addTransaction(trans);
   }
 
   void onSelectCategory(Category? category) {

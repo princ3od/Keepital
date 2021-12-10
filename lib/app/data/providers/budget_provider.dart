@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
@@ -76,7 +77,26 @@ class BudgetProvider implements Firestoration<String, Budget> {
     return obj;
   }
 
+  Future closeOverDateBudgets() async {
+    for (var walletId in currentUser.wallets.keys) {
+      closeOverDateBudgetsInWallet(walletId);
+    }
+  }
 
+  Future closeOverDateBudgetsInWallet(String walletId) async {
+    var now = DateTime.now();
+    var budgets = await fetchAllInWallet(walletId);
+    budgets.forEach((element) async {
+      if (element.endDate.isStrictlyBeforeDate(now)) {
+        closeBudget(element);
+      }
+    });
+  }
+
+  Future closeBudget(Budget budget) async {
+    var budgetRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(budget.walletId).collection(collectionPath).doc(budget.id);
+    budgetRef.update({'isFinished': true});
+  }
 
   DocumentReference<Object?> get _getUserPath => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);
   KeepitalUser get currentUser => DataService.currentUser!;
