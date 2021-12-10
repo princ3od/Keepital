@@ -11,7 +11,7 @@ class AppValue {
   static const transactionCollectionPath = 'transactions';
   static const eventCollectionPath = 'events';
   static const recurringTransactionPath = 'recurringTransaction';
-
+  static const budgetCollectionPath = 'budgets';
   static const favoritedCurrencies = ['VND', 'USD'];
   static const baseCurrency = 'usd';
   static const delayTime = Duration(milliseconds: 500);

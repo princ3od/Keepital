@@ -13,6 +13,8 @@ abstract class Routes {
   static const addWallet = '/add_wallet';
   static const editWallet = '/edit_wallet';
   static const categories = '/category';
+  static const categorySelector = '/category_selector';
+  static const categorySelector4Budget = '/category_selector_for_budget';
   static const addEvent = '/add_event';
   static const editEvent = '/edit_event';
   static const event = '/event';

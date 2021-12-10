@@ -13,7 +13,6 @@ import 'package:keepital/app/modules/budget/add_budget_controller.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:tuple/tuple.dart';
 
 class AddBudgetScreen extends StatelessWidget {
   AddBudgetScreen({Key? key}) : super(key: key);
@@ -22,7 +21,10 @@ class AddBudgetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CommonAppBar(title: 'Add budget'.tr),
+        appBar: CommonAppBar(
+          title: 'Add budget'.tr,
+          onSaveTap: controller.onAddBudget,
+        ),
         body: Column(
           children: [
             SizedBox(
@@ -42,7 +44,7 @@ class AddBudgetScreen extends StatelessWidget {
                         text: controller.strCategory.value,
                         onPressed: () async {
                           FocusScope.of(context).requestFocus(new FocusNode());
-                          var category = await Get.toNamed(Routes.categories, arguments: true);
+                          var category = await Get.toNamed(Routes.categorySelector4Budget, arguments: true);
 
                           controller.onSelectCategory(category);
                         },

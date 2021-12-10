@@ -64,7 +64,7 @@ class _SelectTimeRangeScreenState extends State<SelectTimeRangeScreen> {
         onTap: mCustom
             ? () async {
                 print('true');
-                var result = await showCupertinoModalBottomSheet(isDismissible: true, context: context, builder: (context) => CustomTimeRange(beginDate: mTimeRange!.item1, endDate: mTimeRange!.item2));
+                var result = await showCupertinoModalBottomSheet(isDismissible: true, context: context, builder: (context) => CustomTimeRange(beginDate: mTimeRange!.item1, endDate: mTimeRange.item2));
                 if (result != null) {
                   Get.back(result: result);
                 }

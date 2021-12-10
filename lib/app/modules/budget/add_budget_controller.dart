@@ -2,9 +2,13 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/budget_provider.dart';
+import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:tuple/tuple.dart';
 
@@ -46,6 +50,27 @@ class AddBudgetController extends GetxController {
       endDate = range.item2!;
       strDate.value = getStringRange(startDate, endDate);
     }
+  }
+
+  void onAddBudget() async {
+    Utils.showLoadingDialog();
+    num spent = await getSpent();
+    var budget = Budget('', category: category, amount: num.parse(amountTextController.text), spent: spent, walletId: walletId.value, isFinished: false, beginDate: startDate, endDate: endDate, isRepeat: repeat.value);
+    budget = await BudgetProvider().add(budget);
+    Utils.hideLoadingDialog();
+    Get.back(result: budget);
+  }
+
+  Future<num> getSpent() async {
+    num spent = 0;
+
+    var trans = await TransactionProvider().fetchAllInWalletOfRange(walletId.value, startDate, endDate);
+    trans.forEach((element) {
+      if ((category == null || element.category.id == category!.id) && element.category.type == CategoryType.expense) {
+        spent += element.amount;
+      }
+    });
+    return spent;
   }
 
   String getStringRange(DateTime start, DateTime end) {

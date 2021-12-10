@@ -4,7 +4,6 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/budget.dart';
-import 'package:keepital/app/enums/app_enums.dart';
 
 class BudgetItem extends StatelessWidget {
   BudgetItem({Key? key, required this.budget}) : super(key: key);
@@ -22,15 +21,7 @@ class BudgetItem extends StatelessWidget {
                 Container(
                   width: 70,
                   child: Center(
-                    child: budget.category.iconId.isEmpty
-                        ? Image(
-                            image: AssetImage(AssetStringsPng.electricity_bill),
-                            width: 30,
-                          )
-                        : Image.asset(
-                            "${budget.category.iconId}",
-                            width: 30,
-                          ),
+                    child: icon,
                   ),
                 ),
                 Expanded(
@@ -38,7 +29,7 @@ class BudgetItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      budget.category.name,
+                      budget.category?.name ?? 'All category'.tr,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
@@ -99,6 +90,16 @@ class BudgetItem extends StatelessWidget {
       ),
     );
   }
+
+  Widget get icon => budget.category == null || budget.category!.iconId.isEmpty
+      ? Image(
+          image: AssetImage(AssetStringsPng.electricity_bill),
+          width: 30,
+        )
+      : Image.asset(
+          "${budget.category!.iconId}",
+          width: 30,
+        );
 }
 
 Color progressColor(BuildContext context, double percentage) => percentage > 1 ? Colors.red : Theme.of(context).textTheme.button!.color!;

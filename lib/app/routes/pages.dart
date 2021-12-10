@@ -116,6 +116,19 @@ abstract class AppPages {
       binding: CategoriesBinding(),
     ),
     GetPage(
+        name: Routes.categorySelector,
+        page: () => CategoriesScreen(
+              isCategorySelector: true,
+            ),
+        binding: CategoriesBinding()),
+    GetPage(
+        name: Routes.categorySelector4Budget,
+        page: () => CategoriesScreen(
+              hideIncome: true,
+              isCategorySelector: true,
+            ),
+        binding: CategoriesBinding()),
+    GetPage(
       name: Routes.selectIcon,
       page: () => IconSelectionScreen(),
     ),

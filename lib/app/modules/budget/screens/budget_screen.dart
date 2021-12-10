@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
-import 'package:keepital/app/data/models/budget.dart';
-import 'package:keepital/app/data/models/category.dart';
-import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/global_widgets/wallet_button.dart';
+import 'package:keepital/app/modules/budget/budget_controller.dart';
 import 'package:keepital/app/modules/budget/widgets/finished_budget_tab.dart';
 import 'package:keepital/app/modules/budget/widgets/on_going_budget_tab.dart';
-import 'package:keepital/app/routes/pages.dart';
 
 class BudgetScreen extends StatelessWidget {
   BudgetScreen({Key? key}) : super(key: key);
-
-  var list = [Budget('', category: Category('', iconId: '', name: 'Bill', type: CategoryType.expense, parent: '', isDebtNLoan: false), amount: 100, spent: 10, walletId: 'uk9VrxBEqD6w0McdyNcV', isFinished: false, beginDate: DateTime.now(), endDate: DateTime.now().add(Duration(days: 7)), isRepeat: false), Budget('', category: Category('', iconId: '', name: 'Bill', type: CategoryType.expense, parent: '', isDebtNLoan: false), amount: 100, spent: 10, walletId: 'uk9VrxBEqD6w0McdyNcV', isFinished: false, beginDate: DateTime.now(), endDate: DateTime.now().add(Duration(days: 7)), isRepeat: false)];
+  final controller = Get.find<BudgetController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +36,18 @@ class BudgetScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
-            onPressed: () => Get.toNamed(Routes.addBudget),
+            onPressed: () async => await controller.onAddBudget(),
           ),
-          body: TabBarView(
-            children: [
-              OnGoingBudgetTab(
-                budgets: list,
-              ),
-              FinishedBudgetTab()
-            ],
-          )),
+          body: Obx(() => controller.isLoading.value
+              ? DefaultLoading()
+              : TabBarView(
+                  children: [
+                    OnGoingBudgetTab(
+                      budgets: controller.budgets,
+                    ),
+                    FinishedBudgetTab()
+                  ],
+                ))),
     );
   }
 }

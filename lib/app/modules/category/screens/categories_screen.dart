@@ -11,7 +11,10 @@ import 'package:keepital/app/modules/category/widgets/category_container.dart';
 import 'package:keepital/app/routes/pages.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
+  const CategoriesScreen({Key? key, this.hideIncome = false, this.isCategorySelector = false}) : super(key: key);
+
+  final bool hideIncome;
+  final bool isCategorySelector;
 
   @override
   _CategoriesScreenState createState() => _CategoriesScreenState();
@@ -19,12 +22,12 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> with TickerProviderStateMixin {
   final CategoriesController _controller = Get.find<CategoriesController>();
-  bool isCategorySelector = Get.arguments;
 
   @override
   void initState() {
     super.initState();
-    _controller.tabController = TabController(length: 3, vsync: this, initialIndex: 1).obs;
+    _controller.initTabBar(hideIncome: widget.hideIncome);
+    _controller.tabController = TabController(length: tabCount, vsync: this, initialIndex: 1).obs;
   }
 
   @override
@@ -59,7 +62,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
         itemBuilder: (context, index) {
           if (index == 0)
             return Visibility(
-              visible: !isCategorySelector,
+              visible: !widget.isCategorySelector,
               child: AddCategoryButton(
                 text: buttonText,
                 onTap: () {
@@ -85,8 +88,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> with TickerProvider
         });
   }
 
+  int get tabCount => widget.hideIncome ? 2 : 3;
+
   void categoryOnTap(Category category) {
-    if (isCategorySelector) {
+    if (widget.isCategorySelector) {
       Get.back<Category>(result: category);
     } else {}
   }

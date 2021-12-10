@@ -78,7 +78,7 @@ class AddTransactionScreen extends StatelessWidget {
                       text: _controller.strCategory.value,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        var category = await Get.toNamed(Routes.categories, arguments: true);
+                        var category = await Get.toNamed(Routes.categorySelector);
 
                         _controller.onSelectCategory(category);
                       },

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
