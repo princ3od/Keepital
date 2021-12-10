@@ -15,6 +15,7 @@ import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
 import 'package:keepital/app/modules/budget/budget_binding.dart';
 import 'package:keepital/app/modules/budget/screens/add_budget_screen.dart';
+import 'package:keepital/app/modules/budget/screens/budget_detail_screen.dart';
 import 'package:keepital/app/modules/budget/screens/budget_screen.dart';
 import 'package:keepital/app/modules/budget/screens/select_time_range.dart';
 import 'package:keepital/app/modules/category/categories_binding.dart';
@@ -157,6 +158,11 @@ abstract class AppPages {
     GetPage(name: Routes.about, page: () => AboutPage()),
     GetPage(name: Routes.budget, page: () => BudgetScreen(), binding: BudgetBinding()),
     GetPage(name: Routes.addBudget, page: () => AddBudgetScreen()),
-    GetPage(name: Routes.selectTimeRange, page: () => SelectTimeRangeScreen())
+    GetPage(name: Routes.selectTimeRange, page: () => SelectTimeRangeScreen()),
+    GetPage(
+        name: Routes.budgetDetail,
+        page: () => BudgetDetailScreen(
+              budget: Get.arguments,
+            ))
   ];
 }

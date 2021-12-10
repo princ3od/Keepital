@@ -30,4 +30,5 @@ abstract class Routes {
   static const budget = '/budget';
   static const addBudget = '/add_budget';
   static const selectTimeRange = '/select_time_range';
+  static const budgetDetail = '/budget_detail';
 }

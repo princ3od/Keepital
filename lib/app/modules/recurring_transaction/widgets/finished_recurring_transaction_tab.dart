@@ -19,7 +19,7 @@ class FinishedRecurringTransactionTab extends StatelessWidget {
         itemBuilder: (context, index) {
           return RecurringTransactionItem(
             transaction: transactions[index],
-            onDelete: () => _controller.onDeleteEvent(transactions[index]),
+            onDelete: () => _controller.onDeleteTrans(transactions[index]),
             onMark: () => _controller.onMarkRecurringTrans(transactions[index]),
             onEdit: () => _controller.navigateToEditTransaction(transactions[index]),
           );

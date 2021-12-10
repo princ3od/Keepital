@@ -43,10 +43,10 @@ class BudgetScreen extends StatelessWidget {
               : TabBarView(
                   children: [
                     OnGoingBudgetTab(
-                      budgets: controller.budgets,
+                      budgets: controller.onGoingbudgets,
                     ),
                     FinishedBudgetTab(
-                      budgets: controller.budgets,
+                      budgets: controller.finishedBudgets,
                     )
                   ],
                 ))),

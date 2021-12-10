@@ -28,6 +28,12 @@ class BudgetProvider implements Firestoration<String, Budget> {
     throw UnimplementedError();
   }
 
+  Future<String> deleteInWallet(String id, String walletId) async {
+    final budgetsRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(walletId).collection(collectionPath);
+    await budgetsRef.doc(id).delete();
+    return id;
+  }
+
   @override
   Future<Budget> fetch(String id) {
     // TODO: implement fetch

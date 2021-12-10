@@ -26,6 +26,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DetailViewAppbar(
+        elevation: 0,
         onEditPressed: controller.navigateToEditTransactionScreen,
         onDeletePressed: controller.deleteTransaction,
       ),

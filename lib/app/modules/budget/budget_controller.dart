@@ -7,12 +7,21 @@ import 'package:keepital/app/routes/pages.dart';
 class BudgetController extends GetxController {
   RxBool isLoading = false.obs;
   late List<Budget> budgets;
+  late var onGoingbudgets = <Budget>[].obs;
+  late var finishedBudgets = <Budget>[].obs;
 
   @override
   void onInit() async {
     isLoading.value = true;
     super.onInit();
     budgets = await loadBudgets();
+    budgets.forEach((element) {
+      if (element.isFinished) {
+        finishedBudgets.add(element);
+      } else {
+        onGoingbudgets.add(element);
+      }
+    });
     isLoading.value = false;
   }
 
@@ -27,7 +36,7 @@ class BudgetController extends GetxController {
     var result = await Get.toNamed(Routes.addBudget);
     if (result is Budget) {
       isLoading.value = true;
-      budgets.add(result);
+      onGoingbudgets.add(result);
       isLoading.value = false;
     }
   }

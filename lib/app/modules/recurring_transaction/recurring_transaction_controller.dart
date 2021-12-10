@@ -83,7 +83,7 @@ class RecurringTransactionController extends GetxController {
     }
   }
 
-  Future onDeleteEvent(RecurringTransaction trans) async {
+  Future onDeleteTrans(RecurringTransaction trans) async {
     isLoading.value = true;
     await RecurringTransactionProvider().deleteInWallet(trans.id!, trans.walletId!);
     await Future.delayed(AppValue.delayTime);

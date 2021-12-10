@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailViewAppbar extends StatelessWidget implements PreferredSizeWidget {
-  DetailViewAppbar({Key? key, this.onEditPressed, this.onDeletePressed, this.elevation = 0})
+  DetailViewAppbar({Key? key, this.onEditPressed, this.onDeletePressed, this.elevation})
       : _preferedSize = Size.fromHeight(50.0),
         super(key: key);
 
