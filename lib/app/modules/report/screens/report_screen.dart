@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/modules/report/widgets/balance_section.dart';
+import 'package:keepital/app/modules/report/widgets/income_and_expense_section.dart';
 
 class ReportScreen extends StatelessWidget {
   ReportScreen({Key? key}) : super(key: key);
@@ -13,15 +14,20 @@ class ReportScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
         child: Obx(
-          () => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BalanceSection(
-                openingAmount: DataService.currentWallet.value.amount.toDouble() - _controller.getTotalTransactionAmount(),
-                closingAmount: DataService.currentWallet.value.amount.toDouble(),
-              ),
-              Divider(thickness: 1),
-            ],
+          () => SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BalanceSection(
+                  openingAmount: DataService.currentWallet.value.amount.toDouble() - _controller.getTotalTransactionAmount(),
+                  closingAmount: DataService.currentWallet.value.amount.toDouble(),
+                ),
+                Divider(thickness: 1),
+                IncomeAndExpenseSection(
+                  netIncome: _controller.getTotalTransactionAmount(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
