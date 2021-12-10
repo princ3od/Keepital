@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
@@ -9,18 +10,19 @@ import 'package:keepital/app/modules/home/home_controller.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:tuple/tuple.dart';
 
-class TransactionDetailController extends GetxController
-{
+class TransactionDetailController extends GetxController {
   final HomeController _homeController = Get.find<HomeController>();
   late Rx<TransactionModel> trans;
 
-  Future<bool> deleteTransaction() async {
+  Future deleteTransaction() async {
+    Utils.showLoadingDialog();
     await TransactionProvider().deleteInWallet(transId(), walletId());
     await updateWallet();
     await DataService.updateTotalAmount(-amount);
 
     await _homeController.reloadTransList();
-    return true;
+    Utils.hideLoadingDialog();
+    Get.back();
   }
 
   Future updateWallet() async {
@@ -35,7 +37,7 @@ class TransactionDetailController extends GetxController
   void navigateToEditTransactionScreen() async {
     var result = await Get.toNamed(Routes.editTransaction, arguments: trans.value);
     if (result != null) {
-      Tuple2<num, TransactionModel> val = result; 
+      Tuple2<num, TransactionModel> val = result;
 
       onTransUpdated(val.item2);
 
@@ -47,10 +49,12 @@ class TransactionDetailController extends GetxController
     if (trans.value.id == null) throw NullThrownError();
     return trans.value.id!;
   }
+
   String walletId() {
     if (trans.value.walletId == null) throw NullThrownError();
     return trans.value.walletId!;
   }
+
   Map<String, Wallet> get wallets => DataService.currentUser!.wallets;
   num get amount => trans.value.category.type == CategoryType.expense ? -trans.value.amount : trans.value.amount;
 }

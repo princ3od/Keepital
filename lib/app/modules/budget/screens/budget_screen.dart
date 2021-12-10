@@ -45,7 +45,9 @@ class BudgetScreen extends StatelessWidget {
                     OnGoingBudgetTab(
                       budgets: controller.budgets,
                     ),
-                    FinishedBudgetTab()
+                    FinishedBudgetTab(
+                      budgets: controller.budgets,
+                    )
                   ],
                 ))),
     );

@@ -10,7 +10,7 @@ class OnGoingBudgetTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       itemCount: budgets.length,
       itemBuilder: (context, index) {
         return BudgetItem(budget: budgets[index]);
