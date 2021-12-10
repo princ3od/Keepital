@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:keepital/app/data/providers/budget_provider.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
 import 'package:keepital/app/data/services/app_start_service.dart';
@@ -29,6 +30,7 @@ class SplashController extends GetxController {
     await DataService.instance.loadUserData();
     await DataService.instance.loadCategoryData();
     await RecurringTransactionProvider().executeAll();
+    await BudgetProvider().closeOverDateBudgets();
     await ExchangeRate.fetchExchangeRate();
     if (DataService.currentUser!.hasAnyWallet) {
       Get.offAllNamed(Routes.home);

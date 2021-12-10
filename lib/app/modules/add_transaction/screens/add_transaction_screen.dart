@@ -15,7 +15,7 @@ import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/add_transaction/add_transaction_controller.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
-import 'package:keepital/app/modules/add_transaction/widgets/icon_textfield.dart';
+import 'package:keepital/app/global_widgets/icon_textfield.dart';
 import 'package:keepital/app/modules/add_transaction/widgets/repeat_options_for%20_recurring_trans.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
@@ -78,7 +78,7 @@ class AddTransactionScreen extends StatelessWidget {
                       text: _controller.strCategory.value,
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        var category = await Get.toNamed(Routes.categories, arguments: true);
+                        var category = await Get.toNamed(Routes.categorySelector);
 
                         _controller.onSelectCategory(category);
                       },

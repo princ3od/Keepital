@@ -10,7 +10,6 @@ class CategoriesController extends GetxController {
   late Rx<TabController> tabController;
   late RxList<Category> parentCatList;
   RxBool isLoading = false.obs;
-  
 
   List<Category> debtNLoanList = [];
   List<Category> expenseList = [];
@@ -41,8 +40,7 @@ class CategoriesController extends GetxController {
   }
 
   Future loadSubcategories() async {
-    for (var item in parentCatList)
-    {
+    for (var item in parentCatList) {
       var catList = await CategoryProvider().conditionalFetch(item.id!);
       subcategories[item.id!] = catList;
     }
@@ -70,11 +68,7 @@ class CategoriesController extends GetxController {
 
   Future<List<Category>> get getParentCategories => CategoryProvider().conditionalFetch('');
 
-  CategoriesController() {
-    tabs = initTabBar().obs;
-  }
-
-  List<Text> initTabBar() {
-    return [Text('DEBT & LOAN'.tr), Text('EXPENSE'.tr), Text('INCOME'.tr)];
+  void initTabBar({bool hideIncome = false}) {
+    tabs = hideIncome ? [Text('DEBT & LOAN'.tr), Text('EXPENSE'.tr)].obs : [Text('DEBT & LOAN'.tr), Text('EXPENSE'.tr), Text('INCOME'.tr)].obs;
   }
 }

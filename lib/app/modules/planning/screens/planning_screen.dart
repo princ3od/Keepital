@@ -23,7 +23,7 @@ class PlanningScreen extends StatelessWidget {
               iconData: FontAwesomeIcons.suitcase,
               title: "Budgets".tr,
               subtitle: "A financial plan to balance your income and expense".tr,
-              action: () => {},
+              action: () => Get.toNamed(Routes.budget),
             ),
             PlanningTile(
               iconData: Icons.event,
@@ -37,7 +37,7 @@ class PlanningScreen extends StatelessWidget {
               iconData: Icons.autorenew,
               title: "Recurring Transactions".tr,
               subtitle: "Transactions that are automatically added in future".tr,
-              action: () => {Get.toNamed(Routes.recurringTransaction)},
+              action: () => Get.toNamed(Routes.recurringTransaction),
             ),
             PlanningTile(
               iconData: Icons.receipt,

@@ -6,16 +6,17 @@ class KeepitalUser extends BaseModel {
   String currencyId;
   String currencySymbol;
   num amount;
-  String currentWallet = '';
+  String currentWallet;
   Map<String, Wallet> wallets = {};
 
-  KeepitalUser(String id, {required this.name, required this.currencyId, required this.currencySymbol, this.amount = 0}) : super(id);
+  KeepitalUser(String id, {required this.name, required this.currencyId, required this.currencySymbol, this.amount = 0, this.currentWallet = ''}) : super(id);
 
   KeepitalUser.fromMap(Map<String, dynamic>? data)
       : name = data?['name'] ?? '',
         currencyId = data?['currencyId'] ?? '',
         currencySymbol = data?['currencySymbol'] ?? '',
         amount = data?['amount'] ?? 0,
+        currentWallet = data?['currentWallet'] ?? '',
         super(data?['id'] ?? '');
 
   @override

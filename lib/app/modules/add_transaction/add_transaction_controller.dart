@@ -8,13 +8,10 @@ import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/models/repeat_options.dart';
 import 'package:keepital/app/data/models/wallet.dart';
-import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
-import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
-import 'package:tuple/tuple.dart';
 
 class AddTransactionController extends GetxController {
   AddTransactionController() {
@@ -54,13 +51,10 @@ class AddTransactionController extends GetxController {
     String note = noteTextController.text;
 
     amount = category!.type == CategoryType.income ? amount : -amount;
-    num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, amount.toDouble());
 
-    DataService.updateTotalAmount(diffInTotal);
-    DataService.instance.updateWalletAmount(walletId.value, amount);
-    addTransaction(amount, note);
+    var trans = await addTransaction(amount, note);
 
-    onAddTransactionClosed(diffInTotal);
+    onAddTransactionClosed(trans);
   }
 
   Future modifyTrans(TransactionModel oldTrans) async {
@@ -69,13 +63,10 @@ class AddTransactionController extends GetxController {
 
     amount = category!.type == CategoryType.income ? amount : -amount;
     num diff = amount - oldAmount;
-    num diffInTotal = ExchangeRate.exchange(wallets[walletId]!.currencyId, totalCurrencyId, diff.toDouble());
 
-    DataService.updateTotalAmount(diffInTotal);
-    DataService.instance.updateWalletAmount(walletId.value, diff);
-    var modTrans = await updateTransaction(oldTrans, amount, note);
+    var modTrans = await updateTransaction(oldTrans, amount, note, diff);
 
-    onEditTransactionClosed(diffInTotal, modTrans);
+    onEditTransactionClosed(modTrans);
   }
 
   Future createNewRecurringTrans() async {
@@ -101,19 +92,18 @@ class AddTransactionController extends GetxController {
     onRecurringTransClosed(trans);
   }
 
-  Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note) async {
+  Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note, num diff) async {
     var wallet = wallets[walletId]!;
-
     var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
-    await TransactionProvider().updateInWallet(modTrans.id!, modTrans.walletId!, modTrans);
-
+    await DataService.modifyTransaction(modTrans, diff);
     return modTrans;
   }
 
-  Future addTransaction(num amount, String note) async {
+  Future<TransactionModel> addTransaction(num amount, String note) async {
     var wallet = wallets[walletId]!;
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
-    await TransactionProvider().addToWallet(trans, walletId.value);
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, walletId: walletId.value);
+    trans = await DataService.addTransaction(trans);
+    return trans;
   }
 
   void onSelectCategory(Category? category) {
@@ -179,12 +169,12 @@ class AddTransactionController extends GetxController {
     excludeFromReport.value = trans.excludeFromReport;
   }
 
-  void onAddTransactionClosed(num diffInTotal) {
-    Get.back(result: diffInTotal);
+  void onAddTransactionClosed(TransactionModel transaction) {
+    Get.back(result: transaction);
   }
 
-  void onEditTransactionClosed(num diffInTotal, TransactionModel modTrans) {
-    Get.back(result: Tuple2(diffInTotal, modTrans));
+  void onEditTransactionClosed(TransactionModel modTrans) {
+    Get.back(result: modTrans);
   }
 
   void onRecurringTransClosed(RecurringTransaction trans) {

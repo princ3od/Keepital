@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/routes/pages.dart';
+import 'package:tuple/tuple.dart';
 
 class HomeController extends GetxController {
   RxBool isLoading = false.obs;
@@ -181,6 +184,72 @@ class HomeController extends GetxController {
         return Text('ALL TRANSACTIONS'.tr);
       });
     }
+  }
+
+  Tuple3 getTabData(Text element) {
+    var transactionList = filterTransBasedOnTime(transList, element.data!);
+
+    List<DateTime> dateInChoosenTime = [];
+    List<String> categoryInChoosenTime = [];
+
+    double totalInCome = 0;
+    double totalOutCome = 0;
+
+    List<List<TransactionModel>> transactionListSorted = [];
+
+    transactionList.sort((a, b) => b.date.compareTo(a.date));
+
+    if (!viewByDate.value) {
+      transactionList.forEach((element) {
+        if (!categoryInChoosenTime.contains(element.category.name)) categoryInChoosenTime.add(element.category.name);
+
+        double rate = 1;
+        if (isTotalWallet) {
+          var fromCurrency = element.currencyId;
+          var toCurrency = DataService.total.currencyId;
+          rate = ExchangeRate.getRate(fromCurrency, toCurrency);
+        }
+
+        if (element.category.type == CategoryType.expense)
+          totalOutCome += element.amount * rate;
+        else
+          totalInCome += element.amount * rate;
+      });
+
+      categoryInChoosenTime.forEach((cate) {
+        final b = transactionList.where((element) => element.category.name.compareTo(cate) == 0);
+        transactionListSorted.add(b.toList());
+      });
+    } else {
+      transactionList.forEach((element) {
+        if (!dateInChoosenTime.contains(element.date)) dateInChoosenTime.add(element.date);
+
+        double rate = 1;
+        if (isTotalWallet) {
+          var fromCurrency = element.currencyId;
+          var toCurrency = DataService.total.currencyId;
+          rate = ExchangeRate.getRate(fromCurrency, toCurrency);
+        }
+
+        if (element.category.type == CategoryType.expense)
+          totalOutCome += element.amount * rate;
+        else
+          totalInCome += element.amount * rate;
+      });
+
+      Map<String, bool> selectedDates = {};
+
+      dateInChoosenTime.forEach((date) {
+        String strDate = DateFormat('dd MMM yyy').format(date);
+        if (selectedDates[strDate] ?? true) {
+          final b = transactionList.where((element) => element.date.isSameDate(date));
+          transactionListSorted.add(b.toList());
+          selectedDates[strDate] = false;
+        }
+      });
+    }
+
+    return Tuple3<List<List<TransactionModel>>, double, double>(transactionListSorted, totalInCome, totalOutCome);
   }
 
   List<TransactionModel> filterTransBasedOnTime(List<TransactionModel> transList, String choseTab) {
@@ -396,9 +465,18 @@ class HomeController extends GetxController {
 
   onAddTransaction() async {
     var result = await Get.toNamed(Routes.addTransaction);
-    if (result is num) {
-      await reloadTransList();
+    if (result is TransactionModel) {
+      isLoading.value = true;
+      transList.add(result);
+      isLoading.value = false;
     }
+  }
+
+  onEditedTransaction(TransactionModel trans) async {
+    isLoading.value = true;
+    transList.removeWhere((element) => element.id == trans.id);
+    transList.add(trans);
+    isLoading.value = false;
   }
 
   onUpdateWalletBalance() {

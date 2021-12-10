@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/theme/app_theme.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/app_setting/setting_controller.dart';
 import 'package:keepital/app/modules/app_setting/widget/button_languague.dart';

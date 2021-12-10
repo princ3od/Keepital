@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
+import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
+import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
 import 'package:keepital/app/data/providers/wallet_provider.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
@@ -30,7 +33,7 @@ class DataService {
     currentWallet = (currentUser!.wallets[currentUser!.currentWallet] ?? total).obs;
   }
 
-  Future<Wallet?> updateWalletAmount(String id, num diff) async {
+  static Future<Wallet?> updateWalletAmount(String id, num diff) async {
     if (currentUser == null || currentUser!.wallets[id] == null) return null;
 
     var wallet = currentUser!.wallets[id]!;
@@ -53,6 +56,21 @@ class DataService {
   static void onCurrentWalletChange(String id) {
     currentUser!.currentWallet = id;
     currentWallet.value = currentUser!.wallets[id] ?? DataService.total;
+    UserProvider().updateCurrentWallet(currentUser!.id!, id);
+  }
+
+  static Future<TransactionModel> addTransaction(TransactionModel transaction) async {
+    transaction = await TransactionProvider().addToWallet(transaction, transaction.walletId!);
+    await updateTotalAmount(transaction.signedAmount);
+    await updateWalletAmount(transaction.walletId!, transaction.signedAmount);
+    return transaction;
+  }
+
+  static Future modifyTransaction(TransactionModel modTransaction, num diff) async {
+    num diffInTotal = ExchangeRate.exchange(modTransaction.currencyId, currentUser!.currencyId, diff.toDouble());
+    await TransactionProvider().updateInWallet(modTransaction.id!, modTransaction.walletId!, modTransaction);
+    updateTotalAmount(diffInTotal);
+    updateWalletAmount(modTransaction.walletId!, diff);
   }
 
   static List<Wallet> get wallets => currentUser!.wallets.values.toList();

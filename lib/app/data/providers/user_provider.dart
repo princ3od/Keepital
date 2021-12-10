@@ -31,6 +31,10 @@ class UserProvider implements Firestoration<String, KeepitalUser> {
     return obj;
   }
 
+  Future updateCurrentWallet(String id, String currentWallet) async {
+    await FirebaseFirestore.instance.collection(collectionPath).doc(id).update({'currentWallet': currentWallet});
+  }
+
   Future<bool> isExists(String id) async {
     var doc = await FirebaseFirestore.instance.collection(collectionPath).doc(id).get();
     return doc.exists;

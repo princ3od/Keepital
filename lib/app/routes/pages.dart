@@ -13,6 +13,11 @@ import 'package:keepital/app/modules/app_setting/screen/setting_screen.dart';
 import 'package:keepital/app/modules/app_setting/setting_binding.dart';
 import 'package:keepital/app/modules/auth/auth_binding.dart';
 import 'package:keepital/app/modules/auth/screens/auth_screen.dart';
+import 'package:keepital/app/modules/budget/budget_binding.dart';
+import 'package:keepital/app/modules/budget/screens/add_budget_screen.dart';
+import 'package:keepital/app/modules/budget/screens/budget_detail_screen.dart';
+import 'package:keepital/app/modules/budget/screens/budget_screen.dart';
+import 'package:keepital/app/modules/budget/screens/select_time_range.dart';
 import 'package:keepital/app/modules/category/categories_binding.dart';
 import 'package:keepital/app/modules/category/screens/categories_screen.dart';
 import 'package:keepital/app/modules/event/event_binding.dart';
@@ -112,6 +117,19 @@ abstract class AppPages {
       binding: CategoriesBinding(),
     ),
     GetPage(
+        name: Routes.categorySelector,
+        page: () => CategoriesScreen(
+              isCategorySelector: true,
+            ),
+        binding: CategoriesBinding()),
+    GetPage(
+        name: Routes.categorySelector4Budget,
+        page: () => CategoriesScreen(
+              hideIncome: true,
+              isCategorySelector: true,
+            ),
+        binding: CategoriesBinding()),
+    GetPage(
       name: Routes.selectIcon,
       page: () => IconSelectionScreen(),
     ),
@@ -138,5 +156,18 @@ abstract class AppPages {
         binding: AddTransactionBinding()),
     GetPage(name: Routes.appSetting, page: () => SettingScreen(), binding: SettingBinding()),
     GetPage(name: Routes.about, page: () => AboutPage()),
+    GetPage(name: Routes.budget, page: () => BudgetScreen(), binding: BudgetBinding()),
+    GetPage(name: Routes.addBudget, page: () => AddBudgetScreen()),
+    GetPage(name: Routes.selectTimeRange, page: () => SelectTimeRangeScreen()),
+    GetPage(
+        name: Routes.budgetDetail,
+        page: () => BudgetDetailScreen(
+              budget: Get.arguments,
+            )),
+    GetPage(
+        name: Routes.editBudget,
+        page: () => AddBudgetScreen(
+              budget: Get.arguments,
+            )),
   ];
 }

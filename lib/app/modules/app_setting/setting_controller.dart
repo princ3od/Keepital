@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/services/localization_service.dart';
 import 'package:path_provider/path_provider.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/modules/transaction_detail/transaction_detail_controller.dart';
-import 'package:keepital/app/modules/transaction_detail/widgets/transaction_detail_appbar.dart';
+import 'package:keepital/app/global_widgets/detail_view_appbar.dart';
 import 'package:keepital/app/modules/transaction_detail/widgets/transaction_detail_body.dart';
 
 class TransactionDetailScreen extends StatefulWidget {
@@ -25,7 +25,11 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TransactionDetailAppbar(),
+      appBar: DetailViewAppbar(
+        elevation: 0,
+        onEditPressed: controller.navigateToEditTransactionScreen,
+        onDeletePressed: controller.deleteTransaction,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -3,7 +3,6 @@ import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
-import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/routes/pages.dart';
 
@@ -55,9 +54,7 @@ class RecurringTransactionController extends GetxController {
       transList.add(result);
 
       if (result.options.startDate.isToday()) {
-        var trans = await TransactionProvider().add(result.toTransactionModel());
-        DataService.updateTotalAmount(trans.signedAmount);
-        DataService.instance.updateWalletAmount(trans.id!, trans.signedAmount);
+        await DataService.addTransaction(result.toTransactionModel());
       }
       isLoading.value = false;
     }
@@ -75,15 +72,13 @@ class RecurringTransactionController extends GetxController {
         onGoings.add(result);
       }
       if (result.options.startDate.isToday()) {
-        var trans = await TransactionProvider().add(result.toTransactionModel());
-        DataService.updateTotalAmount(trans.signedAmount);
-        DataService.instance.updateWalletAmount(trans.id!, trans.signedAmount);
+        await DataService.addTransaction(result.toTransactionModel());
       }
       isLoading.value = false;
     }
   }
 
-  Future onDeleteEvent(RecurringTransaction trans) async {
+  Future onDeleteTrans(RecurringTransaction trans) async {
     isLoading.value = true;
     await RecurringTransactionProvider().deleteInWallet(trans.id!, trans.walletId!);
     await Future.delayed(AppValue.delayTime);

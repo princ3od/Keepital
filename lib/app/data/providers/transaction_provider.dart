@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:keepital/app/core/values/app_value.dart';
-import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
 import 'package:keepital/app/data/providers/firestoration.dart';
 import 'package:keepital/app/data/services/auth_service.dart';
@@ -52,6 +52,32 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
   Future<TransactionModel> fetch(String id) {
     // TODO: implement fetch
     throw UnimplementedError();
+  }
+
+  Future<List<TransactionModel>> fetchAllInRange(DateTime start, DateTime end) async {
+    List<TransactionModel> transactions = [];
+    for (var walletKey in currentUser.wallets.keys) {
+      var transList = await fetchAllInWalletOfRange(walletKey, start, end);
+      transactions.addAll(transList);
+    }
+    return transactions;
+  }
+
+  Future<List<TransactionModel>> fetchAllInWalletOfRange(String walletId, DateTime start, DateTime end) async {
+    List<TransactionModel> transactions = [];
+
+    final walletPath = _getUserPath.collection(AppValue.walletCollectionPath).doc(walletId);
+    final transColl = await walletPath.collection(collectionPath).where('date', isGreaterThanOrEqualTo: start).where('date', isLessThanOrEqualTo: end).get();
+    for (var rawTrans in transColl.docs) {
+      Map<String, dynamic> rawTransMap = rawTrans.data();
+      rawTransMap['id'] = rawTrans.id;
+      TransactionModel t = TransactionModel.fromMap(rawTransMap);
+      t.category = await CategoryProvider().fetch(rawTransMap['category']);
+      t.walletId = walletId;
+
+      transactions.add(t);
+    }
+    return transactions;
   }
 
   Future<List<TransactionModel>> fetchAll() async {

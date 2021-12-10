@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
 
 class Utils {
@@ -76,6 +77,76 @@ extension DateOnlyCompare on DateTime {
     return isSameDate(DateTime.now());
   }
 }
+
+extension SpecialDay on DateTime {
+  DateTime firstDateOfWeek() => this.subtract(Duration(days: this.weekday - 1));
+  DateTime lastDateOfWeek() => this.add(Duration(days: DateTime.daysPerWeek - this.weekday));
+  DateTime firstDateOfNextWeek() {
+    DateTime sameWeekDayOfNextWeek = this.add(const Duration(days: 7));
+    return sameWeekDayOfNextWeek.firstDateOfWeek();
+  }
+
+  DateTime lastDateOfNextWeek() {
+    DateTime sameWeekDayOfNextWeek = this.add(const Duration(days: 7));
+    return sameWeekDayOfNextWeek.lastDateOfWeek();
+  }
+
+  DateTime firstDateOfMonth() {
+    return DateTime(this.year, this.month, 1);
+  }
+
+  DateTime lastDateOfMonth() {
+    return DateTime(this.year, this.month + 1, 0);
+  }
+
+  DateTime firstDateOfNextMonth() {
+    return DateTime(this.year, this.month + 1, 1);
+  }
+
+  DateTime lastDateOfNextMonth() {
+    var date = this.firstDateOfNextMonth();
+    return date.lastDateOfMonth();
+  }
+
+  DateTime firstDateOfQuarter() {
+    int quarterNumber = ((this.month - 1) / 3 + 1).toInt();
+    return DateTime(this.year, (quarterNumber - 1) * 3 + 1, 1);
+  }
+
+  DateTime lastDateOfQuarter() {
+    var first = this.firstDateOfQuarter();
+    return DateTime(first.year, first.month + 3, 0);
+  }
+
+  DateTime firstDateOfNextQuarter() {
+    int quarterNumber = ((this.month - 1) / 3 + 1).toInt();
+    quarterNumber = quarterNumber % 4 + 1;
+    return DateTime(this.year, (quarterNumber - 1) * 3 + 1, 1);
+  }
+
+  DateTime lastDateOfNextQuarter() {
+    var first = this.firstDateOfNextQuarter();
+    return DateTime(first.year, first.month + 3, 0);
+  }
+
+  DateTime firstDateOfYear() {
+    return DateTime(this.year, 1, 1);
+  }
+
+  DateTime lastDateOfYear() {
+    return DateTime(this.year, 12, 31);
+  }
+
+  DateTime firstDateOfNextYear() {
+    return DateTime(this.year + 1, 1, 1);
+  }
+
+  DateTime lastDateOfNextYear() {
+    return DateTime(this.year + 1, 12, 31);
+  }
+}
+
+String currencySymbol(String walletId) => DataService.currentUser!.wallets[walletId]?.currencySymbol ?? 'None';
 
 List<String> stringToList(String? str) {
   if (str == null) return [];

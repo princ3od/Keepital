@@ -71,7 +71,7 @@ class RepeatOptionsForRecurringTrans extends StatelessWidget {
                               recurUnits.length,
                               (index) => DropdownMenuItem(
                                     child: Text(
-                                      recurUnits[index],
+                                      recurUnits[index].tr,
                                       style: Theme.of(context).textTheme.bodyText1,
                                     ),
                                     value: index,
@@ -85,7 +85,7 @@ class RepeatOptionsForRecurringTrans extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'From',
+                      'From'.tr,
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     SizedBox(
@@ -113,7 +113,7 @@ class RepeatOptionsForRecurringTrans extends StatelessWidget {
                           recurOpts.length,
                           (index) => DropdownMenuItem(
                                 child: Text(
-                                  recurOpts[index],
+                                  recurOpts[index].tr,
                                   style: Theme.of(context).textTheme.bodyText1,
                                 ),
                                 value: index,
@@ -165,6 +165,7 @@ class RepeatOptionsForRecurringTrans extends StatelessWidget {
       ),
     );
   }
+
   bool get isNeededToShowNumRepetitions => selectedOptsIndex == 2;
   bool get isNeededToShowEndDate => selectedOptsIndex == 1;
 }

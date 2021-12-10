@@ -30,10 +30,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: Theme.of(context).textTheme.headline6,
       ),
       actions: [
-        TextButton(
-          onPressed: onSaveTap,
-          child: Text('save'.tr),
-          style: Theme.of(context).textButtonTheme.style,
+        Visibility(
+          visible: onSaveTap != null,
+          child: TextButton(
+            onPressed: onSaveTap,
+            child: Text('save'.tr),
+            style: Theme.of(context).textButtonTheme.style,
+          ),
         )
       ],
     );
