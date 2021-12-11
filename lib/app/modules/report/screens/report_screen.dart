@@ -22,7 +22,7 @@ class ReportScreen extends StatelessWidget {
                   openingAmount: DataService.currentWallet.value.amount.toDouble() - _controller.getTotalTransactionAmount(),
                   closingAmount: DataService.currentWallet.value.amount.toDouble(),
                 ),
-                Divider(thickness: 1),
+                Divider(thickness: 0.8),
                 IncomeAndExpenseSection(
                   netIncome: _controller.getTotalTransactionAmount(),
                 ),

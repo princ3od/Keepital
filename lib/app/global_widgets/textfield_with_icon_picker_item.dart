@@ -43,7 +43,7 @@ class TextfieldWithIconPicker extends StatelessWidget {
                     child: DottedLine(
                       dashColor: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity),
                       dashGapLength: 0,
-                      lineLength: double.infinity,
+                      lineLength: 16,
                     ),
                   )
                 ],

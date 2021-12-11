@@ -16,7 +16,7 @@ class BalanceSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Balance'.tr, style: Theme.of(context).textTheme.headline3),
+        Text('Balance'.tr, style: Theme.of(context).textTheme.headline3!.copyWith(fontSize: 20)),
         const SizedBox(height: 8),
         Row(
           children: [
