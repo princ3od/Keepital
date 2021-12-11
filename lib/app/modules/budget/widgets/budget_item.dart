@@ -13,7 +13,8 @@ class BudgetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: () => Get.toNamed(Routes.budgetDetail, arguments: budget),
         child: Container(

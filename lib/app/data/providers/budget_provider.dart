@@ -77,6 +77,17 @@ class BudgetProvider implements Firestoration<String, Budget> {
     return obj;
   }
 
+  Future updateBudgetSpent(String walletId, String categoryId, DateTime date, num diff) async {
+    var walletRef = _getUserPath.collection(AppValue.walletCollectionPath).doc(walletId);
+    var budgets = await fetchAllInWallet(walletId);
+    budgets.forEach((element) async {
+      if ((element.category == null || element.category!.id == categoryId) && date.isBetweenDates(element.beginDate, element.endDate)) {
+        var budgetRef = walletRef.collection(collectionPath).doc(element.id);
+        budgetRef.update({'spent': element.spent + diff});
+      }
+    });
+  }
+
   Future closeOverDateBudgets() async {
     for (var walletId in currentUser.wallets.keys) {
       closeOverDateBudgetsInWallet(walletId);

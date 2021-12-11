@@ -22,4 +22,7 @@ class Category extends BaseModel {
   Map<String, dynamic> toMap() {
     return {'id': id, 'iconId': iconId, 'name': name, 'type': type.str(), 'isDebtNLoan': isDebtNLoan, 'parent': parent};
   }
+
+  bool get isExpense => type == CategoryType.expense;
+  bool get isIncome => type == CategoryType.income;
 }

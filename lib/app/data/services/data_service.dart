@@ -4,6 +4,7 @@ import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/providers/budget_provider.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
@@ -63,6 +64,10 @@ class DataService {
     transaction = await TransactionProvider().addToWallet(transaction, transaction.walletId!);
     await updateTotalAmount(transaction.signedAmount);
     await updateWalletAmount(transaction.walletId!, transaction.signedAmount);
+
+    if (transaction.category.isExpense) {
+      await BudgetProvider().updateBudgetSpent(transaction.walletId!, transaction.category.id!, transaction.date, transaction.amount);
+    }
     return transaction;
   }
 
@@ -71,6 +76,10 @@ class DataService {
     await TransactionProvider().updateInWallet(modTransaction.id!, modTransaction.walletId!, modTransaction);
     updateTotalAmount(diffInTotal);
     updateWalletAmount(modTransaction.walletId!, diff);
+
+    if (modTransaction.category.isExpense) {
+      await BudgetProvider().updateBudgetSpent(modTransaction.walletId!, modTransaction.category.id!, modTransaction.date, -diff);
+    }
   }
 
   static List<Wallet> get wallets => currentUser!.wallets.values.toList();

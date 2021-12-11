@@ -92,28 +92,6 @@ class AddBudgetController extends GetxController {
     return spent;
   }
 
-  String getStringRange(DateTime start, DateTime end) {
-    var now = DateTime.now();
-    if (start.isSameDate(now.firstDateOfWeek()) && end.isSameDate(now.lastDateOfWeek())) {
-      return 'This week'.tr;
-    } else if (start.isSameDate(now.firstDateOfNextWeek()) && end.isSameDate(now.lastDateOfNextWeek())) {
-      return 'Next week'.tr;
-    } else if (start == now.firstDateOfMonth() && end == now.lastDateOfMonth()) {
-      return 'This month'.tr;
-    } else if (start == now.firstDateOfNextMonth() && end == now.lastDateOfNextMonth()) {
-      return 'Next month'.tr;
-    } else if (start == now.firstDateOfQuarter() && end == now.lastDateOfQuarter()) {
-      return 'This quarter'.tr;
-    } else if (start == now.firstDateOfNextQuarter() && end == now.lastDateOfNextQuarter()) {
-      return 'Next quarter'.tr;
-    } else if (start == now.firstDateOfYear() && end == now.lastDateOfYear()) {
-      return 'This year'.tr;
-    } else if (start == now.firstDateOfNextYear() && end == now.lastDateOfNextYear()) {
-      return 'Next year'.tr;
-    }
-    return '${start.numbericDate} - ${end.numbericDate}';
-  }
-
   void loadData(Budget budget) {
     category = budget.category;
     strCategory.value = budget.category?.name ?? 'All category'.tr;
