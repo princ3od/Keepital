@@ -68,6 +68,7 @@ class DataService {
     if (transaction.category.isExpense) {
       await BudgetProvider().updateBudgetSpent(transaction.walletId!, transaction.category.id!, transaction.date, transaction.amount);
     }
+
     return transaction;
   }
 
@@ -80,6 +81,7 @@ class DataService {
     if (modTransaction.category.isExpense) {
       await BudgetProvider().updateBudgetSpent(modTransaction.walletId!, modTransaction.category.id!, modTransaction.date, -diff);
     }
+
   }
 
   static List<Wallet> get wallets => currentUser!.wallets.values.toList();
