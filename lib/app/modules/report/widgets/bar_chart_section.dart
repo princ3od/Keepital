@@ -44,10 +44,13 @@ class BarChartSection extends StatelessWidget {
     }
 
     showingBarGroups = rawBarGroups;
-    return AspectRatio(
-      aspectRatio: 1.4,
-      child: BarChart(
-        BarChartData(
+    return InkWell(
+      borderRadius: BorderRadius.circular(4),
+      onTap: data.isNotEmpty ? () {} : null,
+      child: AspectRatio(
+        aspectRatio: 1.4,
+        child: BarChart(
+          BarChartData(
             maxY: maxY,
             minY: minY,
             titlesData: FlTitlesData(
@@ -113,19 +116,22 @@ class BarChartSection extends StatelessWidget {
               ),
             ),
             barTouchData: BarTouchData(
-                touchTooltipData: BarTouchTooltipData(
-              tooltipBgColor: AppColors.textColor.withOpacity(0.8),
-              getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                return BarTooltipItem(
-                  values[groupIndex][1 - rodIndex].readable,
-                  GoogleFonts.montserrat(
-                    color: rodIndex == 0 ? Colors.blue : Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                );
-              },
-            ))),
+              touchTooltipData: BarTouchTooltipData(
+                tooltipBgColor: AppColors.textColor.withOpacity(0.8),
+                getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                  return BarTooltipItem(
+                    values[groupIndex][1 - rodIndex].readable,
+                    GoogleFonts.montserrat(
+                      color: rodIndex == 0 ? Colors.blue : Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

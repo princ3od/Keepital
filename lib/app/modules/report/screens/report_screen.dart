@@ -29,6 +29,7 @@ class ReportScreen extends StatelessWidget {
               double netIncome = incomeTotal - expenseTotal;
               return Container(
                 child: SmartRefresher(
+                  physics: BouncingScrollPhysics(),
                   controller: _refreshController,
                   onLoading: () async {
                     _refreshController.loadComplete();

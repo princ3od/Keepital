@@ -329,7 +329,7 @@ class ReportController {
       income[key]!.percent = (income[key]!.percent / totalIncome * 100).toPrecision(2);
     }
     for (var key in expense.keys) {
-      expense[key]!.percent = (expense[key]!.percent / totalExpense).toPrecision(2);
+      expense[key]!.percent = (expense[key]!.percent / totalExpense * 100).toPrecision(2);
     }
     return [income, expense];
   }

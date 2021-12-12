@@ -69,7 +69,7 @@ class AddWalletScreen extends StatelessWidget {
                     iconId: _controller.walletIconPath.value,
                   ),
                   ClickableListItem(
-                    enabled: (wallet == null) ? true : false,
+                    enabled: true,
                     hintText: 'currency'.tr,
                     leading: Icon(
                       FontAwesomeIcons.dollarSign,
