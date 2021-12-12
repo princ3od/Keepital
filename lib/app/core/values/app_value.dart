@@ -15,6 +15,8 @@ class AppValue {
   static const favoritedCurrencies = ['VND', 'USD'];
   static const baseCurrency = 'usd';
   static const delayTime = Duration(milliseconds: 500);
+  static DateTime minDateTime = DateTime.utc(-271821, 04, 20);
+  static DateTime maxDateTime = DateTime.utc(275760, 09, 13);
 }
 
 class FormatValue {

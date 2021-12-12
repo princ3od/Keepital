@@ -1,36 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/data/models/transaction.dart';
+import 'package:keepital/app/data/providers/transaction_provider.dart';
+import 'package:keepital/app/global_widgets/default_loading.dart';
 import 'package:keepital/app/modules/home/home_controller.dart';
-import 'package:keepital/app/modules/report/widgets/balance_section.dart';
-import 'package:keepital/app/modules/report/widgets/income_and_expense_section.dart';
+import 'package:keepital/app/modules/report/report_controller.dart';
+import 'package:keepital/app/modules/report/widgets/overall_section.dart';
+import 'package:keepital/app/modules/report/widgets/report_tab.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ReportScreen extends StatelessWidget {
   ReportScreen({Key? key}) : super(key: key);
   final _controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-        child: Obx(
-          () => SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BalanceSection(
-                  openingAmount: DataService.currentWallet.value.amount.toDouble() - _controller.getTotalTransactionAmount(),
-                  closingAmount: DataService.currentWallet.value.amount.toDouble(),
+    return Obx(() => _controller.isLoading.value
+        ? DefaultLoading()
+        : TabBarView(
+            controller: _controller.tabController.value,
+            children: _controller.tabs.map((element) {
+              RefreshController _refreshController = RefreshController(initialRefresh: false);
+              final _range = ReportController.getTimeRangeBaseOnTime(_controller.selectedTimeRange.value, element.data!);
+              double openingAmount = ReportController.openingBalance(_controller.transList, _range.start);
+              double closingAmount = ReportController.closingBalance(_controller.transList, _range.end);
+              double netIncome = closingAmount - openingAmount;
+              return Container(
+                child: SmartRefresher(
+                  controller: _refreshController,
+                  onLoading: () async {
+                    _refreshController.loadComplete();
+                  },
+                  onRefresh: () async {
+                    _controller.transList.value = await TransactionProvider().fetchAll();
+                    _refreshController.refreshCompleted();
+                  },
+                  child: ReportTab(
+                    openingAmount: openingAmount,
+                    closingAmount: closingAmount,
+                    netIncome: netIncome,
+                    transactions: ReportController.transactionsInRange(_controller.transList, _range),
+                    startDate: _range.start,
+                    endDate: _range.end,
+                    timeRange: _controller.selectedTimeRange.value,
+                  ),
                 ),
-                Divider(thickness: 0.8),
-                IncomeAndExpenseSection(
-                  netIncome: _controller.getTotalTransactionAmount(),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              );
+            }).toList()));
   }
 }
