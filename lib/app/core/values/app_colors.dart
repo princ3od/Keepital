@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppColors {
@@ -68,4 +69,16 @@ class AppColors {
 
   static const Color textFieldBackgroundDarkColor = Color(0xFF242526);
   static const Color textFieldBackgroundLightColor = Color(0xFF38305F);
+
+  static List<Color> pieChartCategoryColors = [
+    Color(0xFF678f8f).withOpacity(0.5),
+    Color(0xFF23cc9c),
+    Color(0xFF2981d9),
+    Color(0xFFe3b82b),
+    Color(0xFFe68429),
+    Color(0xFFcf3f1f),
+    Color(0xFFbf137a),
+    Color(0xFF621bbf),
+  ];
+  static Color pieChartExtendedCategoryColor = Colors.grey;
 }

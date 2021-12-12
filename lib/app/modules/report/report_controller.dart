@@ -40,6 +40,26 @@ class ReportController {
     return transactionsInRange;
   }
 
+  static double income(List<TransactionModel> transactions) {
+    double _income = 0;
+    for (var transaction in transactions) {
+      if (transaction.category.type == CategoryType.income) {
+        _income += transaction.amount;
+      }
+    }
+    return _income;
+  }
+
+  static double expense(List<TransactionModel> transactions) {
+    double _expense = 0;
+    for (var transaction in transactions) {
+      if (transaction.category.type == CategoryType.expense) {
+        _expense += transaction.amount;
+      }
+    }
+    return _expense;
+  }
+
   static List<double> getExpenseAndIncome(List<TransactionModel> transactions, DateTimeRange range) {
     List<double> _expenseAndIncome = [0, 0];
     for (var transaction in transactions) {

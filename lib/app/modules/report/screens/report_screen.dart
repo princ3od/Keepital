@@ -21,9 +21,12 @@ class ReportScreen extends StatelessWidget {
             children: _controller.tabs.map((element) {
               RefreshController _refreshController = RefreshController(initialRefresh: false);
               final _range = ReportController.getTimeRangeBaseOnTime(_controller.selectedTimeRange.value, element.data!);
+              final transactions = ReportController.transactionsInRange(_controller.transList, _range);
               double openingAmount = ReportController.openingBalance(_controller.transList, _range.start);
               double closingAmount = ReportController.closingBalance(_controller.transList, _range.end);
-              double netIncome = closingAmount - openingAmount;
+              double income = ReportController.income(_controller.transList);
+              double expense = ReportController.expense(_controller.transList);
+              double netIncome = expense - income;
               return Container(
                 child: SmartRefresher(
                   controller: _refreshController,
@@ -38,10 +41,12 @@ class ReportScreen extends StatelessWidget {
                     openingAmount: openingAmount,
                     closingAmount: closingAmount,
                     netIncome: netIncome,
-                    transactions: ReportController.transactionsInRange(_controller.transList, _range),
+                    transactions: transactions,
                     startDate: _range.start,
                     endDate: _range.end,
                     timeRange: _controller.selectedTimeRange.value,
+                    income: income,
+                    expense: expense,
                   ),
                 ),
               );

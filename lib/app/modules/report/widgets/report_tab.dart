@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/report/widgets/bar_chart_section.dart';
+import 'package:keepital/app/modules/report/widgets/income_and_expense_section.dart';
 import 'package:keepital/app/modules/report/widgets/overall_section.dart';
 
 class ReportTab extends StatelessWidget {
@@ -14,10 +15,14 @@ class ReportTab extends StatelessWidget {
     required this.endDate,
     required this.transactions,
     required this.timeRange,
+    required this.income,
+    required this.expense,
   }) : super(key: key);
   final double openingAmount;
   final double closingAmount;
   final double netIncome;
+  final double income;
+  final double expense;
   final DateTime startDate;
   final DateTime endDate;
   final List<TransactionModel> transactions;
@@ -26,11 +31,15 @@ class ReportTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-      child: Column(
-        children: [
-          OverallSection(openingAmount: openingAmount, closingAmount: closingAmount, netIncome: netIncome),
-          BarChartSection(startDate: startDate, endDate: endDate, transactions: transactions, timeRange: timeRange),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            OverallSection(openingAmount: openingAmount, closingAmount: closingAmount, netIncome: netIncome),
+            BarChartSection(startDate: startDate, endDate: endDate, transactions: transactions, timeRange: timeRange),
+            const SizedBox(height: 32),
+            IncomeAndExpenseSection(income: income, expense: expense),
+          ],
+        ),
       ),
     );
   }
