@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/global_widgets/section_panel.dart';
 
 class TransactionsOverview extends StatelessWidget {
   TransactionsOverview({Key? key, required this.inflow, required this.outflow}) : super(key: key);
@@ -12,8 +13,8 @@ class TransactionsOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
+    return SectionPanel(
+      padding: const EdgeInsets.all(0),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
         child: Column(
@@ -35,6 +36,7 @@ class TransactionsOverview extends StatelessWidget {
             ),
             Divider(
               color: Theme.of(context).dividerColor,
+              thickness: 1,
             ),
             Container(
               child: Text((inflow - outflow).money(DataService.currentUser!.currencySymbol), style: Theme.of(context).textTheme.headline4),

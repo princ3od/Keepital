@@ -49,7 +49,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                   },
                   child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     itemCount: transactionListSorted.length + 1,
                     itemBuilder: (context, index) {

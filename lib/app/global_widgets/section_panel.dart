@@ -14,7 +14,7 @@ class SectionPanel extends StatelessWidget {
         color: AppColors.backgroundColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.30),
             spreadRadius: 0.8,
             blurRadius: 0.8,
             offset: Offset(0, 0.8),
