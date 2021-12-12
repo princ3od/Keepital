@@ -149,6 +149,7 @@ class AddWalletController extends GetxController {
       transaction.amount = transaction.amount - oldWallet!.amount;
     }
     await TransactionProvider().addToWallet(transaction, walletId);
+    await DataService.updateTotalAmount(transaction.amount);
   }
 
   void onClosedAddWallet(Wallet result) {
