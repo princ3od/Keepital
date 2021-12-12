@@ -25,4 +25,5 @@ class Category extends BaseModel {
 
   bool get isExpense => type == CategoryType.expense;
   bool get isIncome => type == CategoryType.income;
+  bool get isSubCategory => parent.isNotEmpty;
 }

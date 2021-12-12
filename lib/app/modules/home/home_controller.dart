@@ -485,4 +485,12 @@ class HomeController extends GetxController {
       wallet?.amount = curUser.wallets[id]!.amount;
     });
   }
+
+  double getTotalTransactionAmount() {
+    double total = 0;
+    for (var i = 0; i < transList.length; i++) {
+      total += transList[i].amount;
+    }
+    return total;
+  }
 }

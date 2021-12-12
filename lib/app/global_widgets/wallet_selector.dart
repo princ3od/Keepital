@@ -31,9 +31,11 @@ void showWalletsModalBottomSheet(BuildContext context, {required String? selecte
                   onTap: () {
                     observableSelectedId.value = '';
                     onSelectWallet?.call('');
+                    Get.back();
                   })),
               Divider(
                 color: Theme.of(context).iconTheme.color,
+                thickness: 1,
               ),
               LimitedBox(
                 maxHeight: 160,
@@ -49,6 +51,7 @@ void showWalletsModalBottomSheet(BuildContext context, {required String? selecte
                             onTap: () {
                               observableSelectedId.value = key;
                               onSelectWallet?.call(key);
+                              Get.back();
                             },
                           ));
                     }),
@@ -56,7 +59,8 @@ void showWalletsModalBottomSheet(BuildContext context, {required String? selecte
               Padding(
                 padding: const EdgeInsets.only(top: 12.0),
                 child: OutlinedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    Get.back();
                     Get.toNamed(Routes.myWallets);
                   },
                   child: Text('Go to My Wallets'.tr),

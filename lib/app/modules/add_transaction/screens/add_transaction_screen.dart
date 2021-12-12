@@ -10,6 +10,7 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/base_model.dart';
+import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/global_widgets/clickable_chips_input.dart';
 import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
@@ -28,6 +29,9 @@ class AddTransactionScreen extends StatelessWidget {
   AddTransactionScreen({Key? key, this.trans}) {
     if (isEditing) {
       _controller.onLoadData(trans!);
+    } else if (DataService.currentWallet.value.id!.isNotEmpty) {
+      _controller.walletId.value = DataService.currentWallet.value.id!;
+      _controller.walletName.value = DataService.currentWallet.value.name;
     }
   }
 
@@ -63,9 +67,16 @@ class AddTransactionScreen extends StatelessWidget {
             SectionPanel(
               padding: EdgeInsets.only(bottom: 20),
               child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                IconTextField(
-                  textEditingController: _controller.amountTextController,
-                  keyboardType: TextInputType.number,
+                ClickableListItem(
+                  text: num.tryParse(_controller.amountTextController.text)?.readable ?? '',
+                  textSize: 20,
+                  onPressed: () async {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                    var result = await Get.toNamed(Routes.amountKeyboard, arguments: _controller.amountTextController.text);
+                    if (result != null) {
+                      _controller.amountTextController.text = result;
+                    }
+                  },
                   hintText: 'Amount'.tr,
                 ),
                 Obx(() => ClickableListItem(
@@ -95,7 +106,7 @@ class AddTransactionScreen extends StatelessWidget {
                         text: _controller.strDate.value,
                         onPressed: () async {
                           FocusScope.of(context).requestFocus(new FocusNode());
-                          _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100)) ?? DateTime.now();
+                          _controller.date = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime(2100), currentDate: DateTime.now()) ?? DateTime.now();
                           _controller.strDate.value = _controller.date.fullDate;
                         },
                       )),
