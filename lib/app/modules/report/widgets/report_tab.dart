@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/modules/report/report_controller.dart';
 import 'package:keepital/app/modules/report/widgets/bar_chart_section.dart';
 import 'package:keepital/app/modules/report/widgets/income_and_expense_section.dart';
 import 'package:keepital/app/modules/report/widgets/overall_section.dart';
+import 'package:keepital/app/modules/report/widgets/pie_chart_section.dart';
 
 class ReportTab extends StatelessWidget {
   const ReportTab({
@@ -17,6 +20,8 @@ class ReportTab extends StatelessWidget {
     required this.timeRange,
     required this.income,
     required this.expense,
+    required this.incomeData,
+    required this.expenseData,
   }) : super(key: key);
   final double openingAmount;
   final double closingAmount;
@@ -27,6 +32,8 @@ class ReportTab extends StatelessWidget {
   final DateTime endDate;
   final List<TransactionModel> transactions;
   final TimeRange timeRange;
+  final Map<String, CategoryPercent> incomeData;
+  final Map<String, CategoryPercent> expenseData;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,6 +45,7 @@ class ReportTab extends StatelessWidget {
             BarChartSection(startDate: startDate, endDate: endDate, transactions: transactions, timeRange: timeRange),
             const SizedBox(height: 32),
             IncomeAndExpenseSection(income: income, expense: expense),
+            PieChartSection(incomeData: incomeData, expenseData: expenseData),
           ],
         ),
       ),

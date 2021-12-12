@@ -71,14 +71,15 @@ class AppColors {
   static const Color textFieldBackgroundLightColor = Color(0xFF38305F);
 
   static List<Color> pieChartCategoryColors = [
-    Color(0xFF678f8f).withOpacity(0.5),
-    Color(0xFF23cc9c),
-    Color(0xFF2981d9),
-    Color(0xFFe3b82b),
-    Color(0xFFe68429),
-    Color(0xFFcf3f1f),
-    Color(0xFFbf137a),
-    Color(0xFF621bbf),
+    Color(0xFF001219).withOpacity(0.8),
+    Color(0xFF005F73),
+    Color(0xFF0A9396),
+    Color(0xFF94D2BD),
+    Color(0xFFE9D8A6),
+    Color(0xFFE9D8A6),
+    Color(0xFFEE9B00),
+    Color(0xFFCA6702),
+    Color(0xFF9B2226),
   ];
   static Color pieChartExtendedCategoryColor = Colors.grey;
 }

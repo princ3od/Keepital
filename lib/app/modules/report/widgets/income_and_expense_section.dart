@@ -38,7 +38,6 @@ class IncomeAndExpenseSection extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 240),
       ],
     );
   }

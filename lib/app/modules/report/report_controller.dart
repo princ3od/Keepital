@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_value.dart';
+import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -33,7 +34,7 @@ class ReportController {
   static List<TransactionModel> transactionsInRange(List<TransactionModel> transactions, DateTimeRange range) {
     List<TransactionModel> transactionsInRange = [];
     for (var transaction in transactions) {
-      if (transaction.date.isBetweenDates(range.start, range.end)) {
+      if (transaction.date.isBetweenDates(range.start, range.end) && transaction.excludeFromReport == false) {
         transactionsInRange.add(transaction);
       }
     }
@@ -302,4 +303,40 @@ class ReportController {
     DateTime endDate = DateTime(startDate.year, DateTime.december, 31);
     return DateTimeRange(start: startDate, end: endDate);
   }
+
+  static List<Map<String, CategoryPercent>> pieChartData(List<TransactionModel> transactions) {
+    Map<String, CategoryPercent> income = {}, expense = {};
+    double totalIncome = 0, totalExpense = 0;
+    for (var transaction in transactions) {
+      final caterogyKey = (transaction.category.isSubCategory) ? transaction.category.parent : transaction.category.id;
+      if (transaction.category.type == CategoryType.income) {
+        totalIncome += transaction.amount;
+        if (income.containsKey(caterogyKey)) {
+          income[caterogyKey]!.percent += transaction.amount.toDouble();
+        } else {
+          income[caterogyKey!] = CategoryPercent(transaction.category, transaction.amount.toDouble());
+        }
+      } else {
+        totalExpense += transaction.amount;
+        if (expense.containsKey(caterogyKey)) {
+          expense[caterogyKey]!.percent += transaction.amount.toDouble();
+        } else {
+          expense[caterogyKey!] = CategoryPercent(transaction.category, transaction.amount.toDouble());
+        }
+      }
+    }
+    for (var key in income.keys) {
+      income[key]!.percent = (income[key]!.percent / totalIncome * 100).toPrecision(2);
+    }
+    for (var key in expense.keys) {
+      expense[key]!.percent = (expense[key]!.percent / totalExpense).toPrecision(2);
+    }
+    return [income, expense];
+  }
+}
+
+class CategoryPercent {
+  Category category;
+  double percent;
+  CategoryPercent(this.category, this.percent);
 }
