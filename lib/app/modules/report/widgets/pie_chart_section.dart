@@ -53,7 +53,7 @@ class PieChartGroup extends StatelessWidget {
               centerSpaceRadius: 24,
               sections: [
                 PieChartSectionData(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withOpacity(0.24),
                   showTitle: false,
                   value: 100,
                   radius: 8,
@@ -88,7 +88,7 @@ class PieChartGroup extends StatelessWidget {
         radius: 24,
         badgeWidget: Bagde(
           borderColor: AppColors.textColor,
-          size: 20,
+          size: 24,
           source: data[data.keys.elementAt(i)]!.category.iconId,
         ),
         badgePositionPercentageOffset: 1,
