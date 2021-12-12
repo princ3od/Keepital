@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/data/models/transaction.dart';
@@ -44,74 +45,87 @@ class BarChartSection extends StatelessWidget {
 
     showingBarGroups = rawBarGroups;
     return AspectRatio(
-      aspectRatio: 1.2,
+      aspectRatio: 1.4,
       child: BarChart(
         BarChartData(
-          maxY: maxY,
-          minY: minY,
-          titlesData: FlTitlesData(
-            show: true,
-            rightTitles: SideTitles(showTitles: false),
-            topTitles: SideTitles(showTitles: false),
-            bottomTitles: SideTitles(
-              rotateAngle: 25,
-              showTitles: true,
-              margin: 20,
-              getTextStyles: (context, value) => Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 9),
-              getTitles: (double value) => bottomTiles[value.toInt()],
-            ),
-            leftTitles: SideTitles(
-              showTitles: true,
-              getTextStyles: (context, value) => Theme.of(context).textTheme.subtitle1,
-              reservedSize: 50,
-              margin: 10,
-              interval: 1,
-              getTitles: (value) {
-                if (value == 0) {
-                  return 0.money(DataService.currentWallet.value.currencySymbol);
-                } else if (value == maxY) {
-                  return max.compactCurrency(DataService.currentWallet.value.currencySymbol);
-                } else if (value == minY) {
-                  return (min * -1.0).compactCurrency(DataService.currentWallet.value.currencySymbol);
-                } else if (value % 200 == 0) {
-                  if (value > 0) {
-                    return (value / maxY * max).compactCurrency(DataService.currentWallet.value.currencySymbol);
-                  } else {
-                    return (value / minY * min * -1.0).compactCurrency(DataService.currentWallet.value.currencySymbol);
+            maxY: maxY,
+            minY: minY,
+            titlesData: FlTitlesData(
+              show: true,
+              rightTitles: SideTitles(showTitles: false),
+              topTitles: SideTitles(showTitles: false),
+              bottomTitles: SideTitles(
+                rotateAngle: 25,
+                showTitles: true,
+                margin: 20,
+                getTextStyles: (context, value) => Theme.of(context).textTheme.subtitle1!.copyWith(fontSize: 9),
+                getTitles: (double value) => bottomTiles[value.toInt()],
+              ),
+              leftTitles: SideTitles(
+                showTitles: true,
+                getTextStyles: (context, value) => Theme.of(context).textTheme.subtitle1,
+                reservedSize: 50,
+                margin: 10,
+                interval: 1,
+                getTitles: (value) {
+                  if (value == 0) {
+                    return 0.money(DataService.currentWallet.value.currencySymbol);
+                  } else if (value == maxY) {
+                    return max.compactCurrency(DataService.currentWallet.value.currencySymbol);
+                  } else if (value == minY) {
+                    return (min * -1.0).compactCurrency(DataService.currentWallet.value.currencySymbol);
+                  } else if (value % 250 == 0) {
+                    if (value > 0) {
+                      return (value / maxY * max).compactCurrency(DataService.currentWallet.value.currencySymbol);
+                    } else {
+                      return (value / minY * min * -1.0).compactCurrency(DataService.currentWallet.value.currencySymbol);
+                    }
                   }
-                }
-                return '';
+                  return '';
+                },
+              ),
+            ),
+            gridData: FlGridData(
+              show: true,
+              drawVerticalLine: false,
+              horizontalInterval: 250,
+              checkToShowHorizontalLine: (value) {
+                return value % 2 == 0;
               },
-            ),
-          ),
-          gridData: FlGridData(
-            show: true,
-            drawVerticalLine: false,
-            horizontalInterval: 200,
-            checkToShowHorizontalLine: (value) {
-              return value % 2 == 0;
-            },
-            getDrawingHorizontalLine: (value) => FlLine(
-              color: AppColors.textColor.withOpacity(0.25),
-              strokeWidth: 0.8,
-            ),
-            drawHorizontalLine: true,
-          ),
-          barGroups: showingBarGroups,
-          borderData: FlBorderData(
-            show: true,
-            border: Border(
-              top: BorderSide(
+              getDrawingHorizontalLine: (value) => FlLine(
                 color: AppColors.textColor.withOpacity(0.25),
-                width: 0.8,
+                strokeWidth: 0.8,
               ),
-              bottom: BorderSide(
-                color: AppColors.textColor.withOpacity(0.25),
-                width: 0.8,
+              drawHorizontalLine: true,
+            ),
+            barGroups: showingBarGroups,
+            borderData: FlBorderData(
+              show: true,
+              border: Border(
+                top: BorderSide(
+                  color: AppColors.textColor.withOpacity(0.25),
+                  width: 0.8,
+                ),
+                bottom: BorderSide(
+                  color: AppColors.textColor.withOpacity(0.25),
+                  width: 0.8,
+                ),
               ),
             ),
-          ),
-        ),
+            barTouchData: BarTouchData(
+                touchTooltipData: BarTouchTooltipData(
+              tooltipBgColor: AppColors.textColor.withOpacity(0.8),
+              getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                return BarTooltipItem(
+                  values[groupIndex][1 - rodIndex].readable,
+                  GoogleFonts.montserrat(
+                    color: rodIndex == 0 ? Colors.blue : Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                );
+              },
+            ))),
       ),
     );
   }
@@ -124,7 +138,7 @@ class BarChartSection extends StatelessWidget {
   }
 
   double getColumnWidth(int bottomeTileNumber) {
-    final result = 160 / bottomeTileNumber;
-    return (result < 16) ? 16 : result;
+    final result = 120 / bottomeTileNumber;
+    return (result < 20) ? 20 : result;
   }
 }

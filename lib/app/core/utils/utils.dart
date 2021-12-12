@@ -27,7 +27,7 @@ class Utils {
     }
     final negative = value < 0 ? -1.0 : 1.0;
     final ten = pow(10, (log(value.abs()) / ln10).floor());
-    return (value.abs() / ten).round() * ten * negative;
+    return (value.abs() / ten + 0.5).round() * ten * negative;
   }
 }
 

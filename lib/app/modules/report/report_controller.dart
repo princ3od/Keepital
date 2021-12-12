@@ -107,7 +107,7 @@ class ReportController {
             _endDate = range.end;
           }
           _timeRanges[_startDate.dayInMonth + ' - ' + _endDate.dayInMonth] = getExpenseAndIncome(transactions, DateTimeRange(start: _startDate, end: _endDate));
-          _startDate = _endDate;
+          _startDate = _endDate.add(Duration(days: 1));
         }
         break;
       case TimeRange.quarter:
