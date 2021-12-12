@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/global_widgets/default_loading.dart';
@@ -57,6 +58,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                         return TransactionsOverview(
                           inflow: totalInflow,
                           outflow: totalOutflow,
+                          onViewReport: () => _controller.pageController.jumpToPage(AppValue.reportTabIndex),
                         );
                       return _controller.viewByDate.value
                           ? TransactionByDateContainer(transList: transactionListSorted[index - 1])

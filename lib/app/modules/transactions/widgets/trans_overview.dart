@@ -6,10 +6,12 @@ import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 
 class TransactionsOverview extends StatelessWidget {
-  TransactionsOverview({Key? key, required this.inflow, required this.outflow}) : super(key: key);
+  TransactionsOverview({Key? key, required this.inflow, required this.outflow, this.onViewReport}) : super(key: key);
 
   final num inflow;
   final num outflow;
+
+  final Function()? onViewReport;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class TransactionsOverview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: TextButton(
-                onPressed: () {},
+                onPressed: onViewReport,
                 child: Text(
                   'View report for this period'.tr,
                   style: Theme.of(context).textTheme.button,
