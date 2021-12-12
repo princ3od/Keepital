@@ -21,7 +21,7 @@ class BarChartSection extends StatelessWidget {
   final TimeRange timeRange;
   @override
   Widget build(BuildContext context) {
-    final data = ReportController.chartTimeRanges(transactions, DateTimeRange(start: startDate, end: endDate), timeRange);
+    final data = ReportController.chartTimeData(transactions, DateTimeRange(start: startDate, end: endDate), timeRange);
     final bottomTiles = data.keys.toList();
     final values = data.values.toList();
     List<BarChartGroupData> rawBarGroups = [];

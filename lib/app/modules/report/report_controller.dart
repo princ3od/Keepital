@@ -84,7 +84,7 @@ class ReportController {
     return _minAndMax;
   }
 
-  static Map<String, List<double>> chartTimeRanges(List<TransactionModel> transactions, DateTimeRange range, TimeRange timeRangeType) {
+  static Map<String, List<double>> chartTimeData(List<TransactionModel> transactions, DateTimeRange range, TimeRange timeRangeType) {
     Map<String, List<double>> _timeRanges = {};
     switch (timeRangeType) {
       case TimeRange.day:
