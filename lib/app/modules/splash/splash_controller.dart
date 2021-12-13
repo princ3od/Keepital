@@ -13,7 +13,6 @@ class SplashController extends GetxController {
   Future<void> onInit() async {
     await SettingController().userAppSetting();
     await AppStartService.instance.initFirebase();
-    await Future<void>.delayed(Duration(seconds: 3));
     _navigateNextScreen();
     super.onInit();
   }
@@ -31,6 +30,7 @@ class SplashController extends GetxController {
     await DataService.instance.loadCategoryData();
     await RecurringTransactionProvider().executeAll();
     await BudgetProvider().closeOverDateBudgets();
+    await DataService.instance.reCalculateTotal();
     await ExchangeRate.fetchExchangeRate();
     if (DataService.currentUser!.hasAnyWallet) {
       Get.offAllNamed(Routes.home);

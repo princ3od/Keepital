@@ -8,6 +8,7 @@ import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
+import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/transactions/widgets/transaction_date_item.dart';
 import 'package:tuple/tuple.dart';
 
@@ -20,8 +21,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String nTrans = transList.length == 1 ? '${transList.length} ' + 'transaction'.tr : '${transList.length} ' + 'transactions'.tr;
-    return Container(
-      color: Theme.of(context).backgroundColor,
+    return SectionPanel(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
         children: [
@@ -66,7 +66,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
             ),
           ),
           Divider(
-            height: 2,
+            thickness: 0.8,
             color: Theme.of(context).dividerColor,
           ),
           ListView.builder(

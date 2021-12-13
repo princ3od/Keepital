@@ -54,6 +54,19 @@ class DataService {
     currentWallet.update((val) {});
   }
 
+  Future reCalculateTotal() async {
+    if (currentUser == null) return;
+
+    var user = currentUser!;
+    user.amount = 0;
+    for (var wallet in user.wallets.values) {
+      user.amount += wallet.amount;
+    }
+    currentUser = await UserProvider().update(user.id!, user);
+    total.amount = user.amount;
+    currentWallet.update((val) {});
+  }
+
   static void onCurrentWalletChange(String id) {
     currentUser!.currentWallet = id;
     currentWallet.value = currentUser!.wallets[id] ?? DataService.total;

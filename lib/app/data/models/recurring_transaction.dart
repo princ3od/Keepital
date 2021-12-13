@@ -32,7 +32,7 @@ class RecurringTransaction extends BaseModel {
   }
 
   TransactionModel toTransactionModel() {
-    return TransactionModel('', amount: amount, category: category, currencyId: currencyId, date: options.startDate, note: note, excludeFromReport: excludeFromReport, walletId: walletId);
+    return TransactionModel('', amount: amount, category: category, currencyId: currencyId, date: options.startDate, note: note, excludeFromReport: excludeFromReport, walletId: walletId, isFuture: true);
   }
 
   num get signedAmount => category.type == CategoryType.income ? amount : -amount;

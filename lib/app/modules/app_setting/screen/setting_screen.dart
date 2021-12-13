@@ -23,6 +23,7 @@ class SettingScreen extends StatelessWidget {
       ),
       body: Center(
         child: Container(
+          color: Theme.of(context).backgroundColor,
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.fromLTRB(57, 5, 25, 0),
           child: Column(

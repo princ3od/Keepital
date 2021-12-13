@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +20,15 @@ class Utils {
   static void hideLoadingDialog() {
     Get.back();
   }
+
+  static double nearestPowerOfTen(double value) {
+    if (value == 0) {
+      return 0;
+    }
+    final negative = value < 0 ? -1.0 : 1.0;
+    final ten = pow(10, (log(value.abs()) / ln10).floor());
+    return (value.abs() / ten + 0.5).round() * ten * negative;
+  }
 }
 
 extension DateToString on DateTime {
@@ -37,6 +48,7 @@ extension DoubleToMoney on double {
   String money(String symbol) => NumberFormat.currency(locale: Get.locale.toString(), symbol: symbol).format(this);
   String exchange(String origin, String target, String symbol) => ExchangeRate.exchange(origin, target, this).money(symbol);
   String get readable => NumberFormat.decimalPattern().format(this);
+  String compactCurrency(String symbol) => NumberFormat.compactCurrency(locale: Get.locale.toString(), symbol: symbol, decimalDigits: 1).format(this);
 }
 
 extension NumToMoney on num {

@@ -78,11 +78,12 @@ abstract class AppPages {
       binding: AddTransactionBinding(),
     ),
     GetPage(
-        name: Routes.editTransaction,
-        page: () => AddTransactionScreen(
-              trans: Get.arguments,
-            ),
-        binding: AddTransactionBinding()),
+      name: Routes.editTransaction,
+      page: () => AddTransactionScreen(
+        trans: Get.arguments,
+      ),
+      binding: AddTransactionBinding(),
+    ),
     GetPage(
       name: Routes.event,
       page: () => EventScreen(),
@@ -117,18 +118,20 @@ abstract class AppPages {
       binding: CategoriesBinding(),
     ),
     GetPage(
-        name: Routes.categorySelector,
-        page: () => CategoriesScreen(
-              isCategorySelector: true,
-            ),
-        binding: CategoriesBinding()),
+      name: Routes.categorySelector,
+      page: () => CategoriesScreen(
+        isCategorySelector: true,
+      ),
+      binding: CategoriesBinding(),
+    ),
     GetPage(
-        name: Routes.categorySelector4Budget,
-        page: () => CategoriesScreen(
-              hideIncome: true,
-              isCategorySelector: true,
-            ),
-        binding: CategoriesBinding()),
+      name: Routes.categorySelector4Budget,
+      page: () => CategoriesScreen(
+        hideIncome: true,
+        isCategorySelector: true,
+      ),
+      binding: CategoriesBinding(),
+    ),
     GetPage(
       name: Routes.selectIcon,
       page: () => IconSelectionScreen(),
@@ -146,28 +149,56 @@ abstract class AppPages {
       name: Routes.addChipsScreen,
       page: () => AddPeoplesScreen(),
     ),
-    GetPage(name: Routes.recurringTransaction, page: () => RecurringTransactionScreen(), binding: RecurringTransactionBinding()),
-    GetPage(name: Routes.addRecurringTransaction, page: () => AddTransactionScreen(), binding: AddTransactionBinding()),
     GetPage(
-        name: Routes.editRecurringTransaction,
-        page: () => AddTransactionScreen(
-              trans: Get.arguments,
-            ),
-        binding: AddTransactionBinding()),
-    GetPage(name: Routes.appSetting, page: () => SettingScreen(), binding: SettingBinding()),
-    GetPage(name: Routes.about, page: () => AboutPage()),
-    GetPage(name: Routes.budget, page: () => BudgetScreen(), binding: BudgetBinding()),
-    GetPage(name: Routes.addBudget, page: () => AddBudgetScreen()),
-    GetPage(name: Routes.selectTimeRange, page: () => SelectTimeRangeScreen()),
+      name: Routes.recurringTransaction,
+      page: () => RecurringTransactionScreen(),
+      binding: RecurringTransactionBinding(),
+    ),
     GetPage(
-        name: Routes.budgetDetail,
-        page: () => BudgetDetailScreen(
-              budget: Get.arguments,
-            )),
+      name: Routes.addRecurringTransaction,
+      page: () => AddTransactionScreen(),
+      binding: AddTransactionBinding(),
+    ),
     GetPage(
-        name: Routes.editBudget,
-        page: () => AddBudgetScreen(
-              budget: Get.arguments,
-            )),
+      name: Routes.editRecurringTransaction,
+      page: () => AddTransactionScreen(
+        trans: Get.arguments,
+      ),
+      binding: AddTransactionBinding(),
+    ),
+    GetPage(
+      name: Routes.appSetting,
+      page: () => SettingScreen(),
+      binding: SettingBinding(),
+    ),
+    GetPage(
+      name: Routes.about,
+      page: () => AboutPage(),
+    ),
+    GetPage(
+      name: Routes.budget,
+      page: () => BudgetScreen(),
+      binding: BudgetBinding(),
+    ),
+    GetPage(
+      name: Routes.addBudget,
+      page: () => AddBudgetScreen(),
+    ),
+    GetPage(
+      name: Routes.selectTimeRange,
+      page: () => SelectTimeRangeScreen(),
+    ),
+    GetPage(
+      name: Routes.budgetDetail,
+      page: () => BudgetDetailScreen(
+        budget: Get.arguments,
+      ),
+    ),
+    GetPage(
+      name: Routes.editBudget,
+      page: () => AddBudgetScreen(
+        budget: Get.arguments,
+      ),
+    ),
   ];
 }
