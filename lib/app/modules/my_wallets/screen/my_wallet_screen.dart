@@ -35,12 +35,12 @@ class MyWalletsScreen extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   itemCount: _controller.wallets.length,
                   itemBuilder: (BuildContext context, int index) => WalletCard(
-                    wallet: _controller.wallets.value[index],
+                    wallet: _controller.wallets[index],
                     onTap: () {
                       _controller.editWallet(index);
                     },
                     onDelete: () {
-                      _controller.deleteWallet(_controller.wallets.value[index]);
+                      _controller.deleteWallet(_controller.wallets[index]);
                     },
                   ),
                 ),

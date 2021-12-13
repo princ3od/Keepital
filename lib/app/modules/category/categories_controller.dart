@@ -27,6 +27,7 @@ class CategoriesController extends GetxController {
   Future loadData() async {
     parentCatList = (await getParentCategories).obs;
     parentCatList.forEach((element) {
+      print(element.iconId);
       if (element.isDebtNLoan) {
         debtNLoanList.add(element);
       } else if (element.type == CategoryType.income) {

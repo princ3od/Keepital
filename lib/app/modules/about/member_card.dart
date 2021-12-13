@@ -39,6 +39,7 @@ class MemberCard extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.normal,
                     fontStyle: FontStyle.italic,
+                    color: AppColors.lightTextColor,
                   ),
                 ),
                 SizedBox(height: 5),
@@ -47,6 +48,7 @@ class MemberCard extends StatelessWidget {
                   style: GoogleFonts.nunitoSans(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
+                    color: AppColors.primaryColor,
                   ),
                 ),
               ],
@@ -105,6 +107,7 @@ class MemberCard extends StatelessWidget {
                       style: GoogleFonts.nunitoSans(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
+                        color: AppColors.lightTextColor,
                       ),
                     ),
                   ),
@@ -113,7 +116,7 @@ class MemberCard extends StatelessWidget {
                     child: Text(
                       shortBio,
                       style: GoogleFonts.nunitoSans(
-                        color: Colors.black.withOpacity(0.4),
+                        color: AppColors.lightTextColor.withOpacity(0.4),
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                       ),

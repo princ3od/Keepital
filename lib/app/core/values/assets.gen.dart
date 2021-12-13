@@ -39,14 +39,32 @@ class Assets {
   /// File path: assets\images\electricity_bill.png
   static const AssetGenImage imagesElectricityBill = AssetGenImage('assets/images/electricity_bill.png');
 
+  /// File path: assets\images\en.png
+  static const AssetGenImage imagesEn = AssetGenImage('assets/images/en.png');
+
   /// File path: assets\images\facebook_logo.png
   static const AssetGenImage imagesFacebookLogo = AssetGenImage('assets/images/facebook_logo.png');
+
+  /// File path: assets\images\fb_logo.png
+  static const AssetGenImage imagesFbLogo = AssetGenImage('assets/images/fb_logo.png');
 
   /// File path: assets\images\financial_goal.svg
   static const SvgGenImage imagesFinancialGoal = SvgGenImage('assets/images/financial_goal.svg');
 
+  /// File path: assets\images\github.png
+  static const AssetGenImage imagesGithub = AssetGenImage('assets/images/github.png');
+
   /// File path: assets\images\google_logo.png
   static const AssetGenImage imagesGoogleLogo = AssetGenImage('assets/images/google_logo.png');
+
+  /// File path: assets\images\hoang.jpg
+  static const AssetGenImage imagesHoang = AssetGenImage('assets/images/hoang.jpg');
+
+  /// File path: assets\images\hoang_anh.jpg
+  static const AssetGenImage imagesHoangAnh = AssetGenImage('assets/images/hoang_anh.jpg');
+
+  /// File path: assets\images\huan.jpg
+  static const AssetGenImage imagesHuan = AssetGenImage('assets/images/huan.jpg');
 
   /// File path: assets\images\keepital_logo.png
   static const AssetGenImage imagesKeepitalLogoPng = AssetGenImage('assets/images/keepital_logo.png');
@@ -54,8 +72,23 @@ class Assets {
   /// File path: assets\images\keepital_logo.svg
   static const SvgGenImage imagesKeepitalLogoSvg = SvgGenImage('assets/images/keepital_logo.svg');
 
+  /// File path: assets\images\license.png
+  static const AssetGenImage imagesLicense = AssetGenImage('assets/images/license.png');
+
+  /// File path: assets\images\trong.jpg
+  static const AssetGenImage imagesTrong = AssetGenImage('assets/images/trong.jpg');
+
+  /// File path: assets\images\vi.png
+  static const AssetGenImage imagesVi = AssetGenImage('assets/images/vi.png');
+
   /// File path: assets\images\wallet_list_icon.png
   static const AssetGenImage imagesWalletListIcon = AssetGenImage('assets/images/wallet_list_icon.png');
+
+  /// File path: assets\in_app_icon\collect_interest.png
+  static const AssetGenImage inAppIconCollectInterest = AssetGenImage('assets/in_app_icon/collect_interest.png');
+
+  /// File path: assets\in_app_icon\debt_fee.png
+  static const AssetGenImage inAppIconDebtFee = AssetGenImage('assets/in_app_icon/debt_fee.png');
 
   /// File path: assets\in_app_icon\education.png
   static const AssetGenImage inAppIconEducation = AssetGenImage('assets/in_app_icon/education.png');
@@ -63,11 +96,83 @@ class Assets {
   /// File path: assets\in_app_icon\electricity_bill.png
   static const AssetGenImage inAppIconElectricityBill = AssetGenImage('assets/in_app_icon/electricity_bill.png');
 
+  /// File path: assets\in_app_icon\entertainment_cost.png
+  static const AssetGenImage inAppIconEntertainmentCost = AssetGenImage('assets/in_app_icon/entertainment_cost.png');
+
+  /// File path: assets\in_app_icon\food_and_beverage.png
+  static const AssetGenImage inAppIconFoodAndBeverage = AssetGenImage('assets/in_app_icon/food_and_beverage.png');
+
   /// File path: assets\in_app_icon\gas_bill.png
   static const AssetGenImage inAppIconGasBill = AssetGenImage('assets/in_app_icon/gas_bill.png');
 
+  /// File path: assets\in_app_icon\gift.png
+  static const AssetGenImage inAppIconGift = AssetGenImage('assets/in_app_icon/gift.png');
+
+  /// File path: assets\in_app_icon\home_maintenance.png
+  static const AssetGenImage inAppIconHomeMaintenance = AssetGenImage('assets/in_app_icon/home_maintenance.png');
+
+  /// File path: assets\in_app_icon\incoming_transfer.png
+  static const AssetGenImage inAppIconIncomingTransfer = AssetGenImage('assets/in_app_icon/incoming_transfer.png');
+
+  /// File path: assets\in_app_icon\insurance.png
+  static const AssetGenImage inAppIconInsurance = AssetGenImage('assets/in_app_icon/insurance.png');
+
+  /// File path: assets\in_app_icon\internet_bill.png
+  static const AssetGenImage inAppIconInternetBill = AssetGenImage('assets/in_app_icon/internet_bill.png');
+
+  /// File path: assets\in_app_icon\investment.png
+  static const AssetGenImage inAppIconInvestment = AssetGenImage('assets/in_app_icon/investment.png');
+
+  /// File path: assets\in_app_icon\lift.png
+  static const AssetGenImage inAppIconLift = AssetGenImage('assets/in_app_icon/lift.png');
+
+  /// File path: assets\in_app_icon\loan.png
+  static const AssetGenImage inAppIconLoan = AssetGenImage('assets/in_app_icon/loan.png');
+
+  /// File path: assets\in_app_icon\makeup.png
+  static const AssetGenImage inAppIconMakeup = AssetGenImage('assets/in_app_icon/makeup.png');
+
+  /// File path: assets\in_app_icon\outgoing_transfer.png
+  static const AssetGenImage inAppIconOutgoingTransfer = AssetGenImage('assets/in_app_icon/outgoing_transfer.png');
+
+  /// File path: assets\in_app_icon\pay_interest.png
+  static const AssetGenImage inAppIconPayInterest = AssetGenImage('assets/in_app_icon/pay_interest.png');
+
+  /// File path: assets\in_app_icon\personal_items.png
+  static const AssetGenImage inAppIconPersonalItems = AssetGenImage('assets/in_app_icon/personal_items.png');
+
+  /// File path: assets\in_app_icon\pets.png
+  static const AssetGenImage inAppIconPets = AssetGenImage('assets/in_app_icon/pets.png');
+
+  /// File path: assets\in_app_icon\phone_bill.png
+  static const AssetGenImage inAppIconPhoneBill = AssetGenImage('assets/in_app_icon/phone_bill.png');
+
+  /// File path: assets\in_app_icon\rental.png
+  static const AssetGenImage inAppIconRental = AssetGenImage('assets/in_app_icon/rental.png');
+
+  /// File path: assets\in_app_icon\reply.png
+  static const AssetGenImage inAppIconReply = AssetGenImage('assets/in_app_icon/reply.png');
+
+  /// File path: assets\in_app_icon\salary.png
+  static const AssetGenImage inAppIconSalary = AssetGenImage('assets/in_app_icon/salary.png');
+
+  /// File path: assets\in_app_icon\sport.png
+  static const AssetGenImage inAppIconSport = AssetGenImage('assets/in_app_icon/sport.png');
+
+  /// File path: assets\in_app_icon\streaming.png
+  static const AssetGenImage inAppIconStreaming = AssetGenImage('assets/in_app_icon/streaming.png');
+
+  /// File path: assets\in_app_icon\television_bill.png
+  static const AssetGenImage inAppIconTelevisionBill = AssetGenImage('assets/in_app_icon/television_bill.png');
+
+  /// File path: assets\in_app_icon\transportation.png
+  static const AssetGenImage inAppIconTransportation = AssetGenImage('assets/in_app_icon/transportation.png');
+
   /// File path: assets\in_app_icon\wallet_default.png
   static const AssetGenImage inAppIconWalletDefault = AssetGenImage('assets/in_app_icon/wallet_default.png');
+
+  /// File path: assets\in_app_icon\water_bill.png
+  static const AssetGenImage inAppIconWaterBill = AssetGenImage('assets/in_app_icon/water_bill.png');
 }
 
 class AssetGenImage extends AssetImage {

@@ -39,7 +39,7 @@ class _RecurringTransactionItemState extends State<RecurringTransactionItem> {
                     child: isEmptyIconId ? Container(width: 32, child: Assets.inAppIconElectricityBill.image()) : ImageView(widget.transaction.category.iconId, size: 32),
                   ),
                   Text(
-                    widget.transaction.category.name,
+                    widget.transaction.category.name.tr,
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],

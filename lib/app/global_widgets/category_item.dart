@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/category.dart';
 
@@ -25,7 +26,7 @@ class CategoryItem extends StatelessWidget {
               width: 30,
             ),
       title: Text(
-        category.name,
+        category.name.tr,
         style: Theme.of(context).textTheme.headline6,
         overflow: TextOverflow.ellipsis,
       ),

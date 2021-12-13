@@ -38,8 +38,8 @@ class EventScreen extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Obx(() => _controller.isLoading.value ? DefaultLoading() : OnGoingTab(events: _controller.onGoingEvents.value)),
-              Obx(() => _controller.isLoading.value ? DefaultLoading() : FinishedTab(events: _controller.finishedEvents.value)),
+              Obx(() => _controller.isLoading.value ? DefaultLoading() : OnGoingTab(events: _controller.onGoingEvents)),
+              Obx(() => _controller.isLoading.value ? DefaultLoading() : FinishedTab(events: _controller.finishedEvents)),
             ],
           )),
     );

@@ -47,7 +47,7 @@ class TransactionByCategoryContainer extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 3),
                           child: Text(
-                            transList[0].category.name,
+                            transList[0].category.name.tr,
                             style: Theme.of(context).textTheme.headline5,
                             overflow: TextOverflow.ellipsis,
                           ),

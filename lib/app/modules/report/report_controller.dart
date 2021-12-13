@@ -312,25 +312,34 @@ class ReportController {
       if (transaction.category.type == CategoryType.income) {
         totalIncome += transaction.amount;
         if (income.containsKey(caterogyKey)) {
-          income[caterogyKey]!.percent += transaction.amount.toDouble();
+          income[caterogyKey]!.realAmount += transaction.amount.toDouble();
         } else {
-          income[caterogyKey!] = CategoryPercent(transaction.category, transaction.amount.toDouble());
+          income[caterogyKey!] = CategoryPercent(category: transaction.category, realAmount: transaction.amount.toDouble());
         }
       } else {
         totalExpense += transaction.amount;
         if (expense.containsKey(caterogyKey)) {
-          expense[caterogyKey]!.percent += transaction.amount.toDouble();
+          expense[caterogyKey]!.realAmount += transaction.amount.toDouble();
         } else {
-          expense[caterogyKey!] = CategoryPercent(transaction.category, transaction.amount.toDouble());
+          expense[caterogyKey!] = CategoryPercent(category: transaction.category, realAmount: transaction.amount.toDouble());
         }
       }
     }
     for (var key in income.keys) {
-      income[key]!.percent = (income[key]!.percent / totalIncome * 100).toPrecision(2);
+      income[key]!.percent = (income[key]!.realAmount / totalIncome * 100).toPrecision(2);
     }
     for (var key in expense.keys) {
-      expense[key]!.percent = (expense[key]!.percent / totalExpense * 100).toPrecision(2);
+      expense[key]!.percent = (expense[key]!.realAmount / totalExpense * 100).toPrecision(2);
     }
+    var sortedMap = income.entries.toList()..sort((a, b) => (a.value.realAmount < b.value.realAmount) ? 1 : 0);
+    income
+      ..clear()
+      ..addEntries(sortedMap);
+
+    sortedMap = expense.entries.toList()..sort((a, b) => (a.value.realAmount < b.value.realAmount) ? 1 : 0);
+    expense
+      ..clear()
+      ..addEntries(sortedMap);
     return [income, expense];
   }
 }
@@ -338,5 +347,6 @@ class ReportController {
 class CategoryPercent {
   Category category;
   double percent;
-  CategoryPercent(this.category, this.percent);
+  double realAmount;
+  CategoryPercent({required this.category, this.percent = 0, required this.realAmount});
 }

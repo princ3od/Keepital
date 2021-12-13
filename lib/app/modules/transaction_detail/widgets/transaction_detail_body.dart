@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/transaction.dart';
@@ -33,7 +34,7 @@ class TransactionDetailBody extends StatelessWidget {
                       trans.category.iconId,
                       height: 30,
                     ),
-              title: Text(trans.category.name, style: Theme.of(context).textTheme.headline6),
+              title: Text(trans.category.name.tr, style: Theme.of(context).textTheme.headline6),
             ),
             Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(left: 72.0), child: Text(trans.amount.money(currencySymbol(walletId)), style: Theme.of(context).textTheme.headline3!.copyWith(color: amountColor))),
             Visibility(

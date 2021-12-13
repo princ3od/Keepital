@@ -78,7 +78,8 @@ class AddTransactionController extends GetxController {
     String note = noteTextController.text;
 
     var wallet = wallets[walletId]!;
-    var repeatOpts = RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
+    var repeatOpts =
+        RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
     var trans = RecurringTransaction('', category: category!, currencyId: wallet.currencyId, isMarkedFinished: false, amount: amount, options: repeatOpts, note: note, walletId: wallet.id, excludeFromReport: excludeFromReport.value);
     trans = await RecurringTransactionProvider().addToWallet(trans, walletId.value);
 
@@ -89,8 +90,10 @@ class AddTransactionController extends GetxController {
     num amount = num.tryParse(amountTextController.text)!;
     String note = noteTextController.text;
 
-    var repeatOpts = RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
-    var trans = RecurringTransaction(old.id, category: category!, currencyId: old.currencyId, isMarkedFinished: old.isMarkedFinished, amount: amount, options: repeatOpts, note: note, walletId: old.walletId, excludeFromReport: excludeFromReport.value);
+    var repeatOpts =
+        RepeatOptions(id: selectedOptsIndex.value, startDate: startDate, cycleLength: int.parse(cycleLengthTextController.text), recurUnitId: selectedUnitIndex.value, numRepetition: int.parse(numRepetitionsTextController.text), endDate: endDate);
+    var trans =
+        RecurringTransaction(old.id, category: category!, currencyId: old.currencyId, isMarkedFinished: old.isMarkedFinished, amount: amount, options: repeatOpts, note: note, walletId: old.walletId, excludeFromReport: excludeFromReport.value);
     trans = await RecurringTransactionProvider().update(trans.id!, trans);
 
     onRecurringTransClosed(trans);
@@ -98,14 +101,16 @@ class AddTransactionController extends GetxController {
 
   Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note, num diff) async {
     var wallet = wallets[walletId]!;
-    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, eventId: event?.id);
+    var modTrans = TransactionModel(oldTrans.id,
+        walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, eventId: event?.id);
     await DataService.modifyTransaction(modTrans, diff);
     return modTrans;
   }
 
   Future<TransactionModel> addTransaction(num amount, String note) async {
     var wallet = wallets[walletId]!;
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, walletId: walletId.value, eventId: event?.id);
+    var trans = TransactionModel(null,
+        amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, walletId: walletId.value, eventId: event?.id);
     trans = await DataService.addTransaction(trans);
     return trans;
   }
