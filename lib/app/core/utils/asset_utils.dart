@@ -32,6 +32,7 @@ class AssetUtils {
     Assets.inAppIconTelevisionBill.path: Assets.inAppIconTelevisionBill,
     Assets.inAppIconTransportation.path: Assets.inAppIconTransportation,
     Assets.inAppIconWaterBill.path: Assets.inAppIconWaterBill,
+    Assets.inAppIconOutgoingTransfer.path: Assets.inAppIconOutgoingTransfer,
   };
 
   static dynamic getAsset(String source) => assets[source];

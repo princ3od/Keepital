@@ -25,16 +25,16 @@ class PieChartDetailScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Hero(
-            tag: totalAmount.hashCode.toString(),
-            child: Material(
-              color: Colors.transparent,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Hero(
+              tag: totalAmount.hashCode.toString(),
+              child: Material(
+                color: Colors.transparent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -93,8 +93,8 @@ class PieChartDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

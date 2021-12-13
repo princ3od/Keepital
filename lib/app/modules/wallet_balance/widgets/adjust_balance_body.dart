@@ -28,10 +28,6 @@ class AdjustBalanceBody extends StatelessWidget {
               showWalletsModalBottomSheet(context);
             },
           ),
-          IconTextField(
-            textEditingController: controller.currentBalanceController,
-            hintText: 'Balance'.tr,
-          ),
           ClickableListItem(
             text: num.tryParse(controller.currentBalanceController.text)?.readable ?? '',
             textSize: 20,
