@@ -28,6 +28,7 @@ class ReportScreen extends StatelessWidget {
               final incomeData = pieChartData[0], expenseData = pieChartData[1];
               double netIncome = incomeTotal - expenseTotal;
               return Container(
+                color: Theme.of(context).backgroundColor,
                 child: SmartRefresher(
                   physics: BouncingScrollPhysics(),
                   controller: _refreshController,

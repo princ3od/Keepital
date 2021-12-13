@@ -59,7 +59,7 @@ class _BudgetDetailScreenState extends State<BudgetDetailScreen> {
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
                                 Text(
-                                  controller.budget.value.amount.money('\$'),
+                                  controller.budget.value.amount.money(currencySymbol(controller.budget.value.walletId)),
                                   style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.blue),
                                 ),
                               ],
@@ -149,6 +149,7 @@ class _BudgetDetailScreenState extends State<BudgetDetailScreen> {
           ),
         ],
       ),
+      backgroundColor: Theme.of(context).backgroundColor,
     );
   }
 

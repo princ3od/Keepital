@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:keepital/app/global_widgets/common_app_bar.dart';
 import 'package:keepital/app/modules/wallet_balance/wallet_balance_controller.dart';
 import 'package:keepital/app/modules/wallet_balance/widgets/adjust_balance_body.dart';
 import 'package:get/get.dart';
@@ -16,63 +15,23 @@ class WalletBalanceScreen extends StatefulWidget {
 class _WalletBalanceScreenState extends State<WalletBalanceScreen> {
   final WalletBalanceController _controller = Get.find<WalletBalanceController>();
   @override
+  void initState() {
+    super.initState();
+    _controller.initBalance();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        bottom: PreferredSize(
-            child: Container(
-              color: AppColors.appbarColouredBorder,
-              height: 4.0,
-            ),
-            preferredSize: Size.fromHeight(3.0)),
-        leading: IconButton(
-          color: Colors.black,
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(Icons.close),
-          iconSize: 24,
-        ),
-        title: Text(
-          "Adjust Balance".tr,
-          style: GoogleFonts.montserrat(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              _controller.onSavePressed();
-            },
-            child: Text(
-              "SAVE".tr,
-              style: GoogleFonts.montserrat(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            style: ButtonStyle(
-              overlayColor: MaterialStateColor.resolveWith((states) => AppColors.appbarColouredBorder.withOpacity(0.3)),
-            ),
-          ),
-        ],
+      appBar: CommonAppBar(
+        title: "Adjust Balance".tr,
+        onSaveTap: _controller.onSavePressed,
       ),
       body: Container(
         child: Center(
           child: Column(
             children: [
-              Obx(
-                () => AdjustBalanceBody(
-                  enterCurrentBalance: 'Enter curent balance'.tr,
-                  iconImgData: _controller.iconImgData.value,
-                  selectWalletTitle: 'Select Wallet'.tr,
-                  onPressed: () => _controller.showModalBottomShee(),
-                  selectedWalletController: _controller.selectedWalletController,
-                  currentBalanceController: _controller.currentBalanceController,
-                ),
-              ),
+              AdjustBalanceBody(),
               SizedBox(
                 height: 12,
               ),

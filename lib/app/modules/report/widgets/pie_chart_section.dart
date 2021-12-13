@@ -4,6 +4,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
+import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/modules/report/report_controller.dart';
 
 class PieChartSection extends StatelessWidget {
@@ -233,11 +234,13 @@ class Bagde extends StatelessWidget {
           ),
         ],
       ),
-      child: ImageView(
-        source,
-        size: size,
-        fit: BoxFit.contain,
-      ),
+      child: source.isEmpty
+          ? Assets.inAppIconElectricityBill.image()
+          : ImageView(
+              source,
+              size: size,
+              fit: BoxFit.contain,
+            ),
     );
   }
 }

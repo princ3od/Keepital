@@ -1,85 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:keepital/app/data/models/wallet.dart';
+import 'package:keepital/app/data/services/data_service.dart';
+import 'package:keepital/app/global_widgets/clickable_list_item.dart';
+import 'package:keepital/app/global_widgets/icon_textfield.dart';
+import 'package:keepital/app/global_widgets/section_panel.dart';
+import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
+import 'package:keepital/app/modules/wallet_balance/wallet_balance_controller.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class AdjustBalanceBody extends StatelessWidget {
-  final String iconImgData;
-  final String selectWalletTitle;
-  final String enterCurrentBalance;
-  final void Function() onPressed;
-  final TextEditingController selectedWalletController;
-  final TextEditingController currentBalanceController;
-  AdjustBalanceBody({
-    required this.iconImgData,
-    required this.selectWalletTitle,
-    required this.enterCurrentBalance,
-    required this.onPressed,
-    required this.selectedWalletController,
-    required this.currentBalanceController,
-  });
+  final controller = Get.find<WalletBalanceController>();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.theme.backgroundColor,
-      width: double.infinity,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return SectionPanel(
+      child: Column(
         children: [
-          SizedBox(
-            width: 8,
+          ClickableListItem(
+            leading: Icon(Icons.account_balance_wallet),
+            hintText: 'hint_wallet'.tr,
+            text: controller.walletName.value,
+            onPressed: () {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              showWalletsModalBottomSheet(context);
+            },
           ),
-          (iconImgData == "")
-              ? IconButton(
-                  icon: Icon(Icons.help),
-                  onPressed: onPressed,
-                  iconSize: 40,
-                )
-              : Container(
-                  padding: EdgeInsets.all(8),
-                  child: InkWell(
-                    child: Image.asset(iconImgData, width: 40),
-                    onTap: onPressed,
-                  ),
-                ),
-          SizedBox(
-            width: 8,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  controller: selectedWalletController,
-                  decoration: InputDecoration(
-                    labelText: selectWalletTitle,
-                    labelStyle: GoogleFonts.montserrat(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 200,
-                  child: TextField(
-                    controller: currentBalanceController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: enterCurrentBalance,
-                      labelStyle: GoogleFonts.montserrat(
-                        fontSize: 10,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-              ],
-            ),
+          IconTextField(
+            textEditingController: controller.currentBalanceController,
+            hintText: 'Balance'.tr,
           ),
         ],
       ),
     );
   }
+
+  void showWalletsModalBottomSheet(BuildContext context) {
+    showMaterialModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+      ),
+      builder: (context) => Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Wrap(children: [
+            Column(
+              children: [
+                Text(
+                  'Select wallet'.tr,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                LimitedBox(
+                  maxHeight: 160,
+                  child: ListView.builder(
+                      itemExtent: 50.0,
+                      shrinkWrap: true,
+                      itemCount: wallets.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        String key = wallets.keys.elementAt(index);
+                        return Obx(() => WalletItem(
+                              wallet: wallets[key]!,
+                              selectedId: controller.walletId.value,
+                              onTap: () {
+                                controller.walletId.value = key;
+                                controller.walletName.value = wallets[controller.walletId]?.name ?? '';
+                              },
+                            ));
+                      }),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+
+  Map<String, Wallet> get wallets => DataService.currentUser!.wallets;
 }
