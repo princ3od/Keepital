@@ -98,6 +98,11 @@ abstract class AppPages {
       page: () => AddEventScreen(editEvent: Get.arguments),
     ),
     GetPage(
+      name: Routes.selectEvent,
+      page: () => EventScreen(),
+      binding: EventBinding(),
+    ),
+    GetPage(
       name: Routes.myWallets,
       page: () => MyWalletsScreen(),
       binding: MyWalletsBinding(),

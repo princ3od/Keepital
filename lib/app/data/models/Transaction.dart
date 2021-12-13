@@ -13,8 +13,9 @@ class TransactionModel extends BaseModel {
   String? note;
   bool excludeFromReport;
   String? walletId;
+  bool isFuture = false;
 
-  TransactionModel(String? id, {required this.amount, required this.category, this.contact, required this.currencyId, required this.date, this.eventId, this.extraAmountInfo, this.note, this.excludeFromReport = false, this.walletId}) : super(id);
+  TransactionModel(String? id, {required this.amount, required this.category, this.contact, required this.currencyId, required this.date, this.eventId, this.extraAmountInfo, this.note, this.excludeFromReport = false, this.walletId, this.isFuture = false}) : super(id);
 
   TransactionModel.fromMap(Map<String, dynamic> data)
       : amount = data['amount'],
@@ -33,4 +34,5 @@ class TransactionModel extends BaseModel {
   }
 
   num get signedAmount => category.type == CategoryType.income ? amount : -amount;
+  bool get haveEvent => eventId != null;
 }

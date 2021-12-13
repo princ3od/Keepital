@@ -25,7 +25,6 @@ class BudgetProvider implements Firestoration<String, Budget> {
 
   @override
   Future<String> delete(String id) {
-    // TODO: implement delete
     throw UnimplementedError();
   }
 
@@ -37,7 +36,6 @@ class BudgetProvider implements Firestoration<String, Budget> {
 
   @override
   Future<Budget> fetch(String id) {
-    // TODO: implement fetch
     throw UnimplementedError();
   }
 

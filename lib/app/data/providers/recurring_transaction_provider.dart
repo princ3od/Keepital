@@ -49,7 +49,6 @@ class RecurringTransactionProvider implements Firestoration<String, RecurringTra
 
   @override
   Future<RecurringTransaction> fetch(String id) {
-    // TODO: implement fetch
     throw UnimplementedError();
   }
 

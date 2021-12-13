@@ -43,12 +43,13 @@ class AuthController extends GetxController {
     if (isExist) {
       await DataService.instance.loadUserData();
       await DataService.instance.loadCategoryData();
+      await DataService.instance.reCalculateTotal();
+      await RecurringTransactionProvider().executeAll();
+      await BudgetProvider().closeOverDateBudgets();
     } else {
       await _createUser(result.user);
       await _copyCategories();
     }
-    await RecurringTransactionProvider().executeAll();
-    await BudgetProvider().closeOverDateBudgets();
     _navigateToSuitableScreen();
   }
 
@@ -61,7 +62,7 @@ class AuthController extends GetxController {
   }
 
   _createUser(User? user) async {
-    KeepitalUser keepitalUser = KeepitalUser(user!.uid, amount: 0, currencyId: '0', currencySymbol: '', name: user.displayName ?? '');
+    KeepitalUser keepitalUser = KeepitalUser(user!.uid, amount: 0, currencyId: 'VND', currencySymbol: 'đ', name: user.displayName ?? '');
     DataService.currentUser = await _userProvider.add(keepitalUser);
   }
 

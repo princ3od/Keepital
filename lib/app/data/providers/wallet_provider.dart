@@ -50,7 +50,11 @@ class WalletProvider implements Firestoration<String, Wallet> {
 
   Future<void> updateCurrentWallet(Wallet wallet) async {
     final userPath = _getUserPath();
-    await userPath.update({'currentWallet': wallet.id});
+    await userPath.update({
+      'currentWallet': wallet.id,
+      'currencySymbol': wallet.currencySymbol,
+      'currencyId': wallet.currencyId,
+    });
   }
 
   DocumentReference<Object?> _getUserPath() => FirebaseFirestore.instance.collection(AppValue.userCollectionPath).doc(AuthService.instance.currentUser!.uid);

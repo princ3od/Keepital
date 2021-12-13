@@ -46,7 +46,7 @@ class TransactionItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    trans.category.name,
+                    trans.category.name.tr,
                     style: Theme.of(context).textTheme.headline5,
                     overflow: TextOverflow.ellipsis,
                   ),

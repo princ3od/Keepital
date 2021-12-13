@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
+import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/global_widgets/wallet_button.dart';
@@ -66,8 +67,8 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                     _controller.viewByDate.value = !_controller.viewByDate.value;
                   } else if (value == 'Adjust Balance') {
                     var result = await Get.toNamed(Routes.walletBalance);
-                    if (result != null) {
-                      _controller.onUpdateWalletBalance();
+                    if (result is TransactionModel) {
+                      _controller.transList.add(result);
                     }
                   } else if (value == 'Select time range') {
                     handleSelectTimeRange(context);

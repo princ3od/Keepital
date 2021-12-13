@@ -24,55 +24,57 @@ class ProfileScreen extends StatelessWidget {
             const ProfileAvatar(),
             const SizedBox(height: 4),
             const Divider(),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 4),
-                  ProfileTile(
-                    title: 'My wallets'.tr,
-                    action: () => Get.toNamed(Routes.myWallets),
-                    iconData: Icons.account_balance_wallet,
-                  ),
-                  ProfileTile(
-                    title: 'Categories'.tr,
-                    action: () => Get.toNamed(Routes.categories, arguments: false),
-                    iconData: Icons.category,
-                  ),
-                  ProfileTile(
-                    title: 'Debts'.tr,
-                    iconData: Icons.payment,
-                  ),
-                  ProfileTile(
-                    title: 'Travel mode'.tr,
-                    action: () {},
-                    iconData: Icons.directions_car,
-                  ),
-                  ProfileTile(
-                    title: 'Help & Support'.tr,
-                    iconData: Icons.help,
-                  ),
-                  ProfileTile(
-                    title: 'Settings'.tr,
-                    iconData: Icons.settings,
-                    action: () => Get.toNamed(Routes.appSetting),
-                  ),
-                  ProfileTile(
-                    title: 'About'.tr,
-                    iconData: Icons.info,
-                    action: () => Get.toNamed(Routes.about),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 32),
-                    child: Divider(),
-                  ),
-                  ProfileTile(
-                    title: 'Sign out'.tr,
-                    textColor: Colors.red,
-                    isShownTrailingIcon: false,
-                    iconData: Icons.exit_to_app,
-                    action: () => _controller.signOut(),
-                  ),
-                ],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 4),
+                    ProfileTile(
+                      title: 'My wallets'.tr,
+                      action: () => Get.toNamed(Routes.myWallets),
+                      iconData: Icons.account_balance_wallet,
+                    ),
+                    ProfileTile(
+                      title: 'Categories'.tr,
+                      action: () => Get.toNamed(Routes.categories, arguments: false),
+                      iconData: Icons.category,
+                    ),
+                    ProfileTile(
+                      title: 'Debts'.tr,
+                      iconData: Icons.payment,
+                    ),
+                    ProfileTile(
+                      title: 'Travel mode'.tr,
+                      action: () {},
+                      iconData: Icons.directions_car,
+                    ),
+                    ProfileTile(
+                      title: 'Help & Support'.tr,
+                      iconData: Icons.help,
+                    ),
+                    ProfileTile(
+                      title: 'Settings'.tr,
+                      iconData: Icons.settings,
+                      action: () => Get.toNamed(Routes.appSetting),
+                    ),
+                    ProfileTile(
+                      title: 'About'.tr,
+                      iconData: Icons.info,
+                      action: () => Get.toNamed(Routes.about),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 32),
+                      child: Divider(),
+                    ),
+                    ProfileTile(
+                      title: 'Sign out'.tr,
+                      textColor: Colors.red,
+                      isShownTrailingIcon: false,
+                      iconData: Icons.exit_to_app,
+                      action: () => _controller.signOut(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

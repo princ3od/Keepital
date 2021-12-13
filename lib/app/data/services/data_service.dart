@@ -6,6 +6,7 @@ import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/wallet.dart';
 import 'package:keepital/app/data/providers/budget_provider.dart';
 import 'package:keepital/app/data/providers/category_provider.dart';
+import 'package:keepital/app/data/providers/event_provider.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/providers/user_provider.dart';
@@ -60,7 +61,7 @@ class DataService {
     var user = currentUser!;
     user.amount = 0;
     for (var wallet in user.wallets.values) {
-      user.amount += wallet.amount;
+      user.amount += wallet.amount * ExchangeRate.getRate(wallet.currencyId, user.currencyId);
     }
     currentUser = await UserProvider().update(user.id!, user);
     total.amount = user.amount;
@@ -74,12 +75,17 @@ class DataService {
   }
 
   static Future<TransactionModel> addTransaction(TransactionModel transaction) async {
+    num diffInTotal = ExchangeRate.exchange(transaction.currencyId, currentUser!.currencyId, transaction.signedAmount.toDouble());
     transaction = await TransactionProvider().addToWallet(transaction, transaction.walletId!);
-    await updateTotalAmount(transaction.signedAmount);
+    await updateTotalAmount(diffInTotal);
     await updateWalletAmount(transaction.walletId!, transaction.signedAmount);
 
     if (transaction.category.isExpense) {
       await BudgetProvider().updateBudgetSpent(transaction.walletId!, transaction.category.id!, transaction.date, transaction.amount);
+    }
+
+    if (transaction.haveEvent) {
+      await EventProvider().updateSpent(transaction.eventId!, -transaction.signedAmount, transaction.currencyId);
     }
 
     return transaction;
@@ -93,6 +99,10 @@ class DataService {
 
     if (modTransaction.category.isExpense) {
       await BudgetProvider().updateBudgetSpent(modTransaction.walletId!, modTransaction.category.id!, modTransaction.date, -diff);
+    }
+
+    if (modTransaction.haveEvent) {
+      await EventProvider().updateSpent(modTransaction.eventId!, -diff, modTransaction.currencyId);
     }
   }
 

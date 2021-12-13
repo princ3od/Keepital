@@ -27,30 +27,28 @@ class ReportScreen extends StatelessWidget {
               final pieChartData = ReportController.pieChartData(transactions);
               final incomeData = pieChartData[0], expenseData = pieChartData[1];
               double netIncome = incomeTotal - expenseTotal;
-              return Container(
-                child: SmartRefresher(
-                  physics: BouncingScrollPhysics(),
-                  controller: _refreshController,
-                  onLoading: () async {
-                    _refreshController.loadComplete();
-                  },
-                  onRefresh: () async {
-                    _controller.transList.value = await TransactionProvider().fetchAll();
-                    _refreshController.refreshCompleted();
-                  },
-                  child: ReportTab(
-                    openingAmount: openingAmount,
-                    closingAmount: closingAmount,
-                    netIncome: netIncome,
-                    transactions: transactions,
-                    startDate: _range.start,
-                    endDate: _range.end,
-                    timeRange: _controller.selectedTimeRange.value,
-                    income: incomeTotal,
-                    expense: expenseTotal,
-                    incomeData: incomeData,
-                    expenseData: expenseData,
-                  ),
+              return SmartRefresher(
+                physics: BouncingScrollPhysics(),
+                controller: _refreshController,
+                onLoading: () async {
+                  _refreshController.loadComplete();
+                },
+                onRefresh: () async {
+                  _controller.transList.value = await TransactionProvider().fetchAll();
+                  _refreshController.refreshCompleted();
+                },
+                child: ReportTab(
+                  openingAmount: openingAmount,
+                  closingAmount: closingAmount,
+                  netIncome: netIncome,
+                  transactions: transactions,
+                  startDate: _range.start,
+                  endDate: _range.end,
+                  timeRange: _controller.selectedTimeRange.value,
+                  income: incomeTotal,
+                  expense: expenseTotal,
+                  incomeData: incomeData,
+                  expenseData: expenseData,
                 ),
               );
             }).toList()));

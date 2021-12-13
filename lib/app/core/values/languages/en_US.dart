@@ -142,5 +142,11 @@ const Map<String, String> enLanguagePackage = {
   'Next quarter': 'Next quarter',
   'This year': 'This year',
   'Next year': 'Next year',
-  'Custom time range': 'Custom time range'
+  'Custom time range': 'Custom time range',
+  'Balance': 'Balance',
+  'Please fill out the balance field': 'Please fill out the balance field',
+  'Opening balance': 'Opening balance',
+  'Closing balance': 'Closing balance',
+  'Net Income': 'Net Income',
+  'Income & Expense': 'Income & Expense',
 };

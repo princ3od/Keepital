@@ -150,5 +150,11 @@ const Map<String, String> viLanguagePackage = {
   'Next quarter': 'Quý tiếp theo',
   'This year': 'Năm này',
   'Next year': 'Năm sau',
-  'Custom time range': 'Tùy chọn'
+  'Custom time range': 'Tùy chọn',
+  'Balance': 'Số dư',
+  'Please fill out the balance field': 'Vui lòng nhập số dư',
+  'Opening balance': 'Số dư đầu kỳ',
+  'Closing balance': 'Số dư cuối kỳ',
+  'Net Income': 'Thu nhập ròng',
+  'Income & Expense': 'Thu & Chi',
 };
