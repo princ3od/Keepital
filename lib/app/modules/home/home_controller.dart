@@ -7,6 +7,7 @@ import 'package:keepital/app/core/values/app_value.dart';
 import 'package:keepital/app/data/models/keepital_user.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/providers/exchange_rate_provider.dart';
+import 'package:keepital/app/data/providers/recurring_transaction_provider.dart';
 import 'package:keepital/app/data/providers/transaction_provider.dart';
 import 'package:keepital/app/data/services/data_service.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -36,6 +37,7 @@ class HomeController extends GetxController {
     isLoading.value = true;
     super.onInit();
     transList = (await TransactionProvider().fetchAll()).obs;
+    await getRecurringTransaction();
     isLoading.value = false;
   }
 
@@ -44,8 +46,30 @@ class HomeController extends GetxController {
   Future reloadTransList() async {
     isLoading.value = true;
     transList.value = await TransactionProvider().fetchAll();
+    await getRecurringTransaction();
     DataService.currentWallet.update((val) {});
     isLoading.value = false;
+  }
+
+  Future getRecurringTransaction() async {
+    var endDate = DateTime.now().add(Duration(days: 90));
+    if (isTotalWallet) {
+      var recurringTransList = await RecurringTransactionProvider().fetchAllUnfinished();
+      recurringTransList.forEach((element) {
+        for (var iter = element.options.nextOcurrence(); iter.isBeforeDate(endDate); iter = element.options.nextOcurrence()) {
+          element.options.startDate = iter;
+          transList.add(element.toTransactionModel());
+        }
+      });
+    } else {
+      var recurringTransList = await RecurringTransactionProvider().fetchAllInWallet(DataService.currentWallet.value.id!);
+      recurringTransList.forEach((element) {
+        for (var iter = element.options.nextOcurrence(); iter.isBeforeDate(endDate); iter = element.options.nextOcurrence()) {
+          element.options.startDate = iter;
+          transList.add(element.toTransactionModel());
+        }
+      });
+    }
   }
 
   onTabChanged(int _tabIndex) {
