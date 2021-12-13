@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/modules/about/member_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,14 +49,11 @@ class AboutPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
             icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
+              Icons.arrow_back,
             ),
             onPressed: () => Get.back()),
       ),
@@ -116,10 +114,14 @@ class AboutPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                      onPressed: () {
-                        launch("https://github.com/princ3od/Ajent");
-                      },
-                      icon: Image.asset('assets/images/github.png')),
+                    onPressed: () {
+                      launch("https://github.com/princ3od/Ajent");
+                    },
+                    icon: Image.asset(
+                      'assets/images/github.png',
+                      color: Theme.of(context).brightness == Brightness.light ? AppColors.darkBackgroundColor : AppColors.lightBackgroundColor,
+                    ),
+                  ),
                   SizedBox(width: 10),
                   IconButton(
                       onPressed: () {
@@ -138,7 +140,10 @@ class AboutPage extends StatelessWidget {
                           ],
                         );
                       },
-                      icon: Image.asset('assets/images/license.png')),
+                      icon: Image.asset(
+                        'assets/images/license.png',
+                        color: Theme.of(context).brightness == Brightness.light ? AppColors.darkBackgroundColor : AppColors.lightBackgroundColor,
+                      )),
                 ],
               ),
               SizedBox(height: 20),
