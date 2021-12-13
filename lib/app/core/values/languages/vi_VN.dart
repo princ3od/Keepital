@@ -157,4 +157,5 @@ const Map<String, String> viLanguagePackage = {
   'Closing balance': 'Số dư cuối kỳ',
   'Net Income': 'Thu nhập ròng',
   'Income & Expense': 'Thu & Chi',
+  'Collect interest': 'Thu lãi'
 };
