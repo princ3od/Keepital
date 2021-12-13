@@ -45,7 +45,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> with TickerProv
                     _refreshController.loadComplete();
                   },
                   onRefresh: () async {
-                    _controller.transList.value = await TransactionProvider().fetchAll();
+                    await _controller.reloadTransList();
                     _refreshController.refreshCompleted();
                   },
                   child: ListView.separated(
