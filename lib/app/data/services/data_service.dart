@@ -60,7 +60,7 @@ class DataService {
     var user = currentUser!;
     user.amount = 0;
     for (var wallet in user.wallets.values) {
-      user.amount += wallet.amount;
+      user.amount += wallet.amount * ExchangeRate.getRate(wallet.currencyId, user.currencyId);
     }
     currentUser = await UserProvider().update(user.id!, user);
     total.amount = user.amount;
@@ -81,7 +81,6 @@ class DataService {
     if (transaction.category.isExpense) {
       await BudgetProvider().updateBudgetSpent(transaction.walletId!, transaction.category.id!, transaction.date, transaction.amount);
     }
-
     return transaction;
   }
 

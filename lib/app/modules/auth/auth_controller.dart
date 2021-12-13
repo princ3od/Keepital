@@ -49,6 +49,7 @@ class AuthController extends GetxController {
     }
     await RecurringTransactionProvider().executeAll();
     await BudgetProvider().closeOverDateBudgets();
+    await DataService.instance.reCalculateTotal();
     _navigateToSuitableScreen();
   }
 

@@ -30,8 +30,8 @@ class SplashController extends GetxController {
     await DataService.instance.loadCategoryData();
     await RecurringTransactionProvider().executeAll();
     await BudgetProvider().closeOverDateBudgets();
-    await DataService.instance.reCalculateTotal();
     await ExchangeRate.fetchExchangeRate();
+    await DataService.instance.reCalculateTotal();
     if (DataService.currentUser!.hasAnyWallet) {
       Get.offAllNamed(Routes.home);
     } else {

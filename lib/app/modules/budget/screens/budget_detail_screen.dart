@@ -6,7 +6,6 @@ import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/global_widgets/detail_view_appbar.dart';
-import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/budget/budget_detail_controller.dart';
 
 class BudgetDetailScreen extends StatefulWidget {
@@ -59,7 +58,7 @@ class _BudgetDetailScreenState extends State<BudgetDetailScreen> {
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
                                 Text(
-                                  controller.budget.value.amount.money('\$'),
+                                  controller.budget.value.amount.money(currencySymbol(controller.budget.value.walletId)),
                                   style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.blue),
                                 ),
                               ],
@@ -149,6 +148,7 @@ class _BudgetDetailScreenState extends State<BudgetDetailScreen> {
           ),
         ],
       ),
+      backgroundColor: Theme.of(context).backgroundColor,
     );
   }
 
