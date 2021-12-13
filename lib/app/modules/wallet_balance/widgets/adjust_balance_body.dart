@@ -65,6 +65,8 @@ class AdjustBalanceBody extends StatelessWidget {
                               onTap: () {
                                 controller.walletId.value = key;
                                 controller.walletName.value = wallets[controller.walletId]?.name ?? '';
+                                controller.oldBalance = wallets[controller.walletId]?.amount ?? 0;
+                                controller.currentBalanceController.text = controller.oldBalance.toString();
                               },
                             ));
                       }),

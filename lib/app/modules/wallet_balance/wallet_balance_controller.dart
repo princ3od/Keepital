@@ -33,11 +33,11 @@ class WalletBalanceController extends GetxController {
     num diff = balance - oldBalance;
     if (isValidData()) {
       if (diff > 0) {
-        var trans = TransactionModel('', amount: diff, note: 'Adjust balance', category: income, walletId: walletId.value, currencyId: currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
+        var trans = TransactionModel('', amount: diff, note: 'Adjust balance'.tr, category: income, walletId: walletId.value, currencyId: currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
         trans = await DataService.addTransaction(trans);
         Get.back(result: trans);
       } else if (diff < 0) {
-        var trans = TransactionModel('', amount: diff.abs(), note: 'Adjust balance', category: expense, walletId: walletId.value, currencyId: currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
+        var trans = TransactionModel('', amount: diff.abs(), note: 'Adjust balance'.tr, category: expense, walletId: walletId.value, currencyId: currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
         trans = await DataService.addTransaction(trans);
         Get.back(result: trans);
       }
@@ -59,8 +59,8 @@ class WalletBalanceController extends GetxController {
     return true;
   }
 
-  Category get income => Category('hy0YLUVk5iRNu9PWCPXj', iconId: '', name: 'Others', type: CategoryType.income, parent: '', isDebtNLoan: false);
-  Category get expense => Category('NQxUfWUgq4hz12WkZsS9', iconId: '', name: 'Bill', type: CategoryType.expense, parent: '', isDebtNLoan: false);
+  Category get income => Category('bCELAshx0vl1vhD52IQk', iconId: '', name: 'Others', type: CategoryType.income, parent: '', isDebtNLoan: false);
+  Category get expense => Category('LRJhaM4TzOx6WmTwczOh', iconId: '', name: 'Other', type: CategoryType.expense, parent: '', isDebtNLoan: false);
 
   String get currentWallet => DataService.currentUser!.currentWallet;
   Map<String, Wallet> get wallets => DataService.currentUser!.wallets;

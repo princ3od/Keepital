@@ -149,4 +149,5 @@ const Map<String, String> enLanguagePackage = {
   'Closing balance': 'Closing balance',
   'Net Income': 'Net Income',
   'Income & Expense': 'Income & Expense',
+  'Adjust balance': 'Adjust balance'
 };
