@@ -31,8 +31,12 @@ class DataService {
     currentUser = await UserProvider().fetch(AuthService.instance.currentUser!.uid);
     currentUser!.wallets = await WalletProvider().fetchAll();
 
-    total = Wallet('', name: 'Total'.tr, amount: currentUser!.amount, currencyId: currentUser!.currencyId, iconId: '', currencySymbol: currentUser!.currencySymbol);
+    createTotalWallet();
     currentWallet = (currentUser!.wallets[currentUser!.currentWallet] ?? total).obs;
+  }
+
+  static void createTotalWallet() {
+    total = Wallet('', name: 'Total'.tr, amount: currentUser!.amount, currencyId: currentUser!.currencyId, iconId: '', currencySymbol: currentUser!.currencySymbol);
   }
 
   static Future<Wallet?> updateWalletAmount(String id, num diff) async {
