@@ -33,11 +33,11 @@ class WalletBalanceController extends GetxController {
     num diff = balance - oldBalance;
     if (isValidData()) {
       if (diff > 0) {
-        var trans = TransactionModel('', amount: diff, note: 'Adjust balance'.tr, category: income, walletId: walletId.value, currencyId: currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
+        var trans = TransactionModel('', amount: diff, note: 'Adjust balance'.tr, category: income, walletId: walletId.value, currencyId: wallets[walletId]!.currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
         trans = await DataService.addTransaction(trans);
         Get.back(result: trans);
       } else if (diff < 0) {
-        var trans = TransactionModel('', amount: diff.abs(), note: 'Adjust balance'.tr, category: expense, walletId: walletId.value, currencyId: currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
+        var trans = TransactionModel('', amount: diff.abs(), note: 'Adjust balance'.tr, category: expense, walletId: walletId.value, currencyId: wallets[walletId]!.currencyId, date: DateTime.now(), excludeFromReport: isExcludedReport.value);
         trans = await DataService.addTransaction(trans);
         Get.back(result: trans);
       }
