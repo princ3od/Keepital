@@ -138,7 +138,7 @@ class AddWalletController extends GetxController {
   }
 
   Future createNewTrans(String walletId) async {
-    final Category category = DataService.categories.where((element) => element.name == "Others".tr).first;
+    final Category category = DataService.categories.where((element) => element.name == "Others").first;
     var transaction = TransactionModel(
       null,
       note: 'Adjut balance'.tr,
