@@ -125,6 +125,7 @@ class AddWalletController extends GetxController {
   onClosedAddFirstWallet(Wallet wallet) async {
     await WalletProvider().updateCurrentWallet(wallet);
     await updateCurrencyUser(wallet);
+    DataService.currentWallet.value = wallet;
     Get.offAllNamed(Routes.home);
   }
 
