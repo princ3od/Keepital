@@ -331,6 +331,15 @@ class ReportController {
     for (var key in expense.keys) {
       expense[key]!.percent = (expense[key]!.realAmount / totalExpense * 100).toPrecision(2);
     }
+    var sortedMap = income.entries.toList()..sort((a, b) => (a.value.realAmount < b.value.realAmount) ? 1 : 0);
+    income
+      ..clear()
+      ..addEntries(sortedMap);
+
+    sortedMap = expense.entries.toList()..sort((a, b) => (a.value.realAmount < b.value.realAmount) ? 1 : 0);
+    expense
+      ..clear()
+      ..addEntries(sortedMap);
     return [income, expense];
   }
 }
