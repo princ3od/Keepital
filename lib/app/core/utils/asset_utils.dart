@@ -2,6 +2,7 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 
 class AssetUtils {
   static Map<String, dynamic> assets = {
+    Assets.iconsUnknown.path: Assets.iconsUnknown,
     Assets.inAppIconWalletDefault.path: Assets.inAppIconWalletDefault,
     Assets.inAppIconEducation.path: Assets.inAppIconEducation,
     Assets.inAppIconElectricityBill.path: Assets.inAppIconElectricityBill,
