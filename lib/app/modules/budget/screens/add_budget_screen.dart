@@ -8,12 +8,12 @@ import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/budget.dart';
 import 'package:keepital/app/global_widgets/clickable_list_item.dart';
 import 'package:keepital/app/global_widgets/common_app_bar.dart';
-import 'package:keepital/app/global_widgets/icon_textfield.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/budget/add_budget_controller.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 
 class AddBudgetScreen extends StatelessWidget {
   AddBudgetScreen({Key? key, this.budget}) : super(key: key) {
@@ -57,9 +57,16 @@ class AddBudgetScreen extends StatelessWidget {
                           controller.onSelectCategory(category);
                         },
                       )),
-                  IconTextField(
-                    textEditingController: controller.amountTextController,
-                    keyboardType: TextInputType.number,
+                  ClickableListItem(
+                    text: num.tryParse(controller.amountTextController.text)?.readable ?? '',
+                    textSize: 20,
+                    onPressed: () async {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      var result = await Get.toNamed(Routes.amountKeyboard, arguments: controller.amountTextController.text);
+                      if (result != null) {
+                        controller.amountTextController.text = result;
+                      }
+                    },
                     hintText: 'Goal'.tr,
                   ),
                   Obx(() => ClickableListItem(

@@ -7,7 +7,9 @@ import 'package:keepital/app/global_widgets/icon_textfield.dart';
 import 'package:keepital/app/global_widgets/section_panel.dart';
 import 'package:keepital/app/modules/home/widgets/wallet_item.dart';
 import 'package:keepital/app/modules/wallet_balance/wallet_balance_controller.dart';
+import 'package:keepital/app/routes/pages.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:keepital/app/core/utils/utils.dart';
 
 class AdjustBalanceBody extends StatelessWidget {
   final controller = Get.find<WalletBalanceController>();
@@ -29,6 +31,18 @@ class AdjustBalanceBody extends StatelessWidget {
           IconTextField(
             textEditingController: controller.currentBalanceController,
             hintText: 'Balance'.tr,
+          ),
+          ClickableListItem(
+            text: num.tryParse(controller.currentBalanceController.text)?.readable ?? '',
+            textSize: 20,
+            onPressed: () async {
+              FocusScope.of(context).requestFocus(new FocusNode());
+              var result = await Get.toNamed(Routes.amountKeyboard, arguments: controller.currentBalanceController.text);
+              if (result != null) {
+                controller.currentBalanceController.text = result;
+              }
+            },
+            hintText: 'Amount'.tr,
           ),
         ],
       ),

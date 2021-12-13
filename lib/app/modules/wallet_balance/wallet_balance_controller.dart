@@ -60,7 +60,7 @@ class WalletBalanceController extends GetxController {
   }
 
   Category get income => Category('bCELAshx0vl1vhD52IQk', iconId: '', name: 'Others', type: CategoryType.income, parent: '', isDebtNLoan: false);
-  Category get expense => Category('LRJhaM4TzOx6WmTwczOh', iconId: '', name: 'Other', type: CategoryType.expense, parent: '', isDebtNLoan: false);
+  Category get expense => Category('LRJhaM4TzOx6WmTwczOh', iconId: '', name: 'Others', type: CategoryType.expense, parent: '', isDebtNLoan: false);
 
   String get currentWallet => DataService.currentUser!.currentWallet;
   Map<String, Wallet> get wallets => DataService.currentUser!.wallets;
