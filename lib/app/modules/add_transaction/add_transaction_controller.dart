@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
 import 'package:keepital/app/data/models/base_model.dart';
+import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
@@ -35,6 +36,9 @@ class AddTransactionController extends GetxController {
   late RxString walletName;
 
   Rx<List<String>?> peoples = Rx<List<String>?>([]);
+
+  Event? event;
+  var strEvent = ''.tr.obs;
 
   DateTime startDate = DateTime.now();
   late var strStartDate = startDate.fullDate.obs;
@@ -94,14 +98,14 @@ class AddTransactionController extends GetxController {
 
   Future<TransactionModel> updateTransaction(TransactionModel oldTrans, num amount, String note, num diff) async {
     var wallet = wallets[walletId]!;
-    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value);
+    var modTrans = TransactionModel(oldTrans.id, walletId: oldTrans.walletId, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, eventId: event?.id);
     await DataService.modifyTransaction(modTrans, diff);
     return modTrans;
   }
 
   Future<TransactionModel> addTransaction(num amount, String note) async {
     var wallet = wallets[walletId]!;
-    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, walletId: walletId.value);
+    var trans = TransactionModel(null, amount: amount.abs(), category: category!, currencyId: wallet.currencyId, date: date, note: note, contact: listToString(peoples.value), excludeFromReport: excludeFromReport.value, walletId: walletId.value, eventId: event?.id);
     trans = await DataService.addTransaction(trans);
     return trans;
   }
