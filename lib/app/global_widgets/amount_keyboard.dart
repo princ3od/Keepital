@@ -57,7 +57,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
                 Container(
                   child: Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       alignment: Alignment.centerRight,
                       child: Text(
                         userInput.length.toString() + '/12',
@@ -105,6 +105,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
                       children: [
                         Expanded(
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Column(
                                 children: [
@@ -306,9 +307,8 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
             ],
           ),
           alignment: Alignment.center,
-          // width: MediaQuery.of(context).size.width * 0.18,
-          width: 70,
-          margin: EdgeInsets.all(7),
+          width: MediaQuery.of(context).size.width * 0.17,
+          margin: EdgeInsets.all(8),
           child: Text(
             buttons[index],
             style: AppTheme.currentTheme.textTheme.bodyText1!.copyWith(

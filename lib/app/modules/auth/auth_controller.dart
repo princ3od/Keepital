@@ -43,13 +43,13 @@ class AuthController extends GetxController {
     if (isExist) {
       await DataService.instance.loadUserData();
       await DataService.instance.loadCategoryData();
+      await DataService.instance.reCalculateTotal();
     } else {
       await _createUser(result.user);
       await _copyCategories();
     }
     await RecurringTransactionProvider().executeAll();
     await BudgetProvider().closeOverDateBudgets();
-    await DataService.instance.reCalculateTotal();
     _navigateToSuitableScreen();
   }
 

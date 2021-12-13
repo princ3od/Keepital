@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/enums/app_enums.dart';
@@ -25,7 +26,7 @@ class CategorySpending extends StatelessWidget {
                 ),
         ],
       ),
-      title: Text("${categoryPercent.category.name}", style: Theme.of(context).textTheme.headline5),
+      title: Text("${categoryPercent.category.name.tr}", style: Theme.of(context).textTheme.headline5),
       trailing: Text("${categoryPercent.realAmount.readable}",
           style: Theme.of(context).textTheme.headline5!.copyWith(
                 fontWeight: FontWeight.w600,

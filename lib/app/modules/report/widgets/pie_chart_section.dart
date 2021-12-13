@@ -220,7 +220,7 @@ class PieChartDescription extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5 - 60,
                   child: Text(
-                    value!.category.name,
+                    value!.category.name.tr,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyText1,
