@@ -136,7 +136,7 @@ class AppTheme {
     ),
     textTheme: _textTheme(AppColors.lightTextColor),
     iconTheme: IconThemeData(color: AppColors.lightTextColor),
-    scaffoldBackgroundColor: AppColors.lightBackgroundColor,
+    scaffoldBackgroundColor: AppColors.lightDeepBackgroundColor,
     dividerColor: AppColors.lightTextColor.withOpacity(AppColors.disabledTextOpacity),
   );
 

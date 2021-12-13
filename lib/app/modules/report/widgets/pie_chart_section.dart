@@ -1,11 +1,15 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/models/category.dart';
+import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/report/report_controller.dart';
+import 'package:keepital/app/modules/report/screens/pie_chart_detail_screen.dart';
 
 class PieChartSection extends StatelessWidget {
   const PieChartSection({
@@ -29,18 +33,28 @@ class PieChartSection extends StatelessWidget {
             children: [
               InkWell(
                 borderRadius: BorderRadius.circular(4),
-                onTap: incomeData.isNotEmpty ? () {} : null,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Income'.tr,
-                      style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity + 0.2)),
+                onTap: incomeData.isNotEmpty
+                    ? () {
+                        Get.to(() => PieChartDetailScreen(totalAmount: income, type: CategoryType.income, data: incomeData));
+                      }
+                    : null,
+                child: Hero(
+                  tag: income.hashCode.toString(),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Income'.tr,
+                          style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity + 0.2)),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(income.readable, style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16.5, fontWeight: FontWeight.w600, color: Colors.blue)),
+                        PieChartGroup(data: incomeData),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(income.readable, style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16.5, fontWeight: FontWeight.w600, color: Colors.blue)),
-                    PieChartGroup(data: incomeData),
-                  ],
+                  ),
                 ),
               ),
               PieChartDescription(data: incomeData),
@@ -53,22 +67,32 @@ class PieChartSection extends StatelessWidget {
             children: [
               InkWell(
                 borderRadius: BorderRadius.circular(4),
-                onTap: expenseData.isNotEmpty ? () {} : null,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Expense'.tr,
-                      style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity + 0.2)),
+                onTap: expenseData.isNotEmpty
+                    ? () {
+                        Get.to(() => PieChartDetailScreen(totalAmount: expense, type: CategoryType.expense, data: expenseData));
+                      }
+                    : null,
+                child: Hero(
+                  tag: expense.hashCode.toString(),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Expense'.tr,
+                          style: Theme.of(context).textTheme.headline6!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity + 0.2)),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(expense.readable, style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16.5, fontWeight: FontWeight.w600, color: Colors.red)),
+                        PieChartGroup(data: expenseData),
+                      ],
                     ),
-                    const SizedBox(height: 4),
-                    Text(expense.readable, style: Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16.5, fontWeight: FontWeight.w600, color: Colors.red)),
-                    PieChartGroup(data: expenseData),
-                  ],
+                  ),
                 ),
               ),
               PieChartDescription(data: expenseData),
-              const SizedBox(height: 38)
+              const SizedBox(height: 48)
             ],
           ),
         ),
@@ -78,9 +102,11 @@ class PieChartSection extends StatelessWidget {
 }
 
 class PieChartGroup extends StatelessWidget {
-  const PieChartGroup({Key? key, required this.data}) : super(key: key);
+  const PieChartGroup({Key? key, required this.data, this.centerRadius, this.radius, this.badgeSize}) : super(key: key);
   final Map<String, CategoryPercent> data;
-
+  final double? centerRadius;
+  final double? radius;
+  final double? badgeSize;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +122,7 @@ class PieChartGroup extends StatelessWidget {
                   ),
                   startDegreeOffset: 270,
                   sectionsSpace: 0,
-                  centerSpaceRadius: 24,
+                  centerSpaceRadius: centerRadius ?? 24,
                   sections: convertData(),
                 ),
               ),
@@ -110,13 +136,13 @@ class PieChartGroup extends StatelessWidget {
                   ),
                   startDegreeOffset: 270,
                   sectionsSpace: 0,
-                  centerSpaceRadius: 24,
+                  centerSpaceRadius: centerRadius ?? 24,
                   sections: [
                     PieChartSectionData(
                       color: Colors.black.withOpacity(0.24),
                       showTitle: false,
                       value: 100,
-                      radius: 8,
+                      radius: (radius == null) ? 8 : radius! / 4,
                     ),
                   ],
                 ),
@@ -135,7 +161,7 @@ class PieChartGroup extends StatelessWidget {
           color: AppColors.textColor.withOpacity(.3),
           showTitle: false,
           value: 100,
-          radius: 24,
+          radius: radius ?? 24,
         )
       ];
     }
@@ -147,10 +173,10 @@ class PieChartGroup extends StatelessWidget {
         color: AppColors.pieChartCategoryColors[i % colorNumber],
         showTitle: false,
         value: data[data.keys.elementAt(i)]!.percent,
-        radius: 24,
+        radius: radius ?? 24,
         badgeWidget: Bagde(
           borderColor: AppColors.textColor,
-          size: 24,
+          size: badgeSize ?? 24,
           source: data[data.keys.elementAt(i)]!.category.iconId,
         ),
         badgePositionPercentageOffset: 1,
