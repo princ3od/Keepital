@@ -145,4 +145,8 @@ const Map<String, String> enLanguagePackage = {
   'Custom time range': 'Custom time range',
   'Balance': 'Balance',
   'Please fill out the balance field': 'Please fill out the balance field',
+  'Opening balance': 'Opening balance',
+  'Closing balance': 'Closing balance',
+  'Net Income': 'Net Income',
+  'Income & Expense': 'Income & Expense',
 };
