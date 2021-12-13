@@ -34,4 +34,5 @@ class TransactionModel extends BaseModel {
   }
 
   num get signedAmount => category.type == CategoryType.income ? amount : -amount;
+  bool get haveEvent => eventId != null;
 }

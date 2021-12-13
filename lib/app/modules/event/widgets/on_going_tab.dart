@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/modules/event/event_controller.dart';
 import 'package:keepital/app/modules/event/widgets/event_item.dart';
+import 'package:keepital/app/routes/pages.dart';
 
 class OnGoingTab extends StatelessWidget {
   final List<Event> events;
@@ -21,6 +22,7 @@ class OnGoingTab extends StatelessWidget {
             event: events[index],
             onEdit: () => _controller.onEditEvent(events[index]),
             onDelete: () => _controller.onDeleteEvent(events[index]),
+            onPress: () => {if (Get.currentRoute == Routes.selectEvent) Get.back(result: events[index])},
           );
         },
       ),

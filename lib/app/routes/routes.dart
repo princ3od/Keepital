@@ -18,6 +18,7 @@ abstract class Routes {
   static const addEvent = '/add_event';
   static const editEvent = '/edit_event';
   static const event = '/event';
+  static const selectEvent = '/select_event';
   static const selectIcon = '/select_icon';
   static const addCategory = '/add_category';
   static const amountKeyboard = '/amount_keyboard';

@@ -298,6 +298,7 @@ class HomeController extends GetxController {
   List<TransactionModel> filterTransBasedOnMonth(List<TransactionModel> transList, String choseTab) {
     var chooseTime = choseTab.split('/');
     bool isFutureTab = false;
+    bool isThisMonthTab = false;
 
     if (chooseTime.length == 1) {
       chooseTime.clear();
@@ -310,18 +311,19 @@ class HomeController extends GetxController {
       } else if (choseTab == 'THIS MONTH'.tr) {
         chooseTime.add((nowMonth).toString());
         chooseTime.add(nowYear.toString());
+        isThisMonthTab = true;
       } else {
-        chooseTime.add((nowMonth + 1).toString());
-        chooseTime.add(nowYear.toString());
         isFutureTab = true;
       }
     }
 
+    if (isThisMonthTab) {
+      var now = DateTime.now();
+      transList = transList.where((element) => element.date.month == int.parse(chooseTime[0]) && element.date.year == int.parse(chooseTime[1]) && element.date.isBeforeDate(now)).toList();
+    }
     if (isFutureTab) {
-      DateTime time = DateTime(int.parse(chooseTime[1]), int.parse(chooseTime[0]));
-
-      transList = transList.where((element) => element.date.compareTo(time) > 0).toList();
-      isFutureTab = false;
+      var now = DateTime.now();
+      transList = transList.where((element) => element.date.isStrictlyAfterDate(now)).toList();
     } else {
       transList = transList.where((element) => element.date.month == int.parse(chooseTime[0]) && element.date.year == int.parse(chooseTime[1])).toList();
     }
@@ -363,24 +365,17 @@ class HomeController extends GetxController {
     DateTime tailTime = DateTime.now();
 
     if (chooseTime.length == 1) {
-      chooseTime.clear();
-
-      var firstDatePresent = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day).subtract(Duration(days: DateTime.now().weekday - 1));
-      var lastDatePresent = firstDatePresent.add(Duration(days: 7));
-
-      var firstDateInPast = firstDatePresent.subtract(Duration(days: 7));
-      var lastDateInPast = firstDateInPast.add(Duration(days: 6));
-
-      var firstDateInFutre = firstDatePresent.add(Duration(days: 7));
+      var now = DateTime.now();
 
       if (choseTab == 'LAST WEEK'.tr) {
-        headTime = firstDateInPast;
-        tailTime = lastDateInPast;
+        now = now.subtract(Duration(days: 7));
+        headTime = now.firstDateOfWeek();
+        tailTime = now.lastDateOfNextWeek();
       } else if (choseTab == 'THIS WEEK'.tr) {
-        headTime = firstDatePresent;
-        tailTime = lastDatePresent;
+        headTime = now.firstDateOfWeek();
+        tailTime = now;
       } else {
-        headTime = firstDateInFutre;
+        headTime = now;
         isFutureTab = true;
       }
     } else {
@@ -390,10 +385,10 @@ class HomeController extends GetxController {
     }
 
     if (isFutureTab) {
-      transList = transList.where((element) => element.date.compareTo(headTime) >= 0).toList();
+      transList = transList.where((element) => element.date.isStrictlyAfterDate(headTime)).toList();
       isFutureTab = false;
     } else {
-      transList = transList.where((element) => element.date.compareTo(headTime) >= 0 && element.date.compareTo(tailTime) <= 0).toList();
+      transList = transList.where((element) => element.date.isAfterDate(headTime) && element.date.isBeforeDate(tailTime)).toList();
     }
 
     return transList;
@@ -409,23 +404,6 @@ class HomeController extends GetxController {
 
     if (chooseTime.length == 1) {
       isFutureTab = true;
-      var x = tabs[18].data!.split(' ');
-
-      switch (x[0]) {
-        case 'Q1':
-          headTime = DateTime(now.year, DateTime.april);
-          break;
-        case 'Q2':
-          headTime = DateTime(now.year, DateTime.july);
-          break;
-        case 'Q3':
-          headTime = DateTime(now.year, DateTime.october);
-          break;
-        case 'Q4':
-          headTime = DateTime(now.year + 1, DateTime.january);
-          break;
-        default:
-      }
     } else {
       switch (chooseTime[0]) {
         case 'Q1':
@@ -442,15 +420,18 @@ class HomeController extends GetxController {
           break;
         case 'Q4':
           headTime = DateTime(now.year, DateTime.october, 1);
-          tailTime = DateTime(now.year, DateTime.december, 31);
+          if (headTime.isSameDate(now.firstDateOfMonth())) {
+            tailTime = now;
+          } else {
+            tailTime = DateTime(now.year, DateTime.december, 31);
+          }
           break;
         default:
       }
     }
 
     if (isFutureTab) {
-      isFutureTab = false;
-      transList = transList.where((element) => element.date.compareTo(headTime) >= 0).toList();
+      transList = transList.where((element) => element.date.isStrictlyAfterDate(now)).toList();
     } else {
       transList = transList.where((element) => element.date.compareTo(headTime) >= 0 && element.date.compareTo(tailTime) <= 0).toList();
     }
@@ -461,21 +442,25 @@ class HomeController extends GetxController {
   List<TransactionModel> filterTransBasedOnYear(List<TransactionModel> transList, String choseTab) {
     var chooseTime = choseTab;
     bool isFutureTab = false;
+    bool isThisYearTab = false;
+    var now = DateTime.now();
 
     var tempt = int.tryParse(chooseTime);
     if (tempt == null) {
       if (chooseTime == 'LAST YEAR'.tr) {
         chooseTime = (DateTime.now().year - 1).toString();
       } else if (chooseTime == 'THIS YEAR'.tr) {
-        chooseTime = (DateTime.now().year).toString();
+        isThisYearTab = true;
       } else {
-        chooseTime = (DateTime.now().year + 1).toString();
         isFutureTab = true;
       }
     }
 
-    if (isFutureTab) {
-      transList = transList.where((element) => element.date.year >= int.parse(chooseTime)).toList();
+    if (isThisYearTab) {
+      var headTime = now.firstDateOfYear();
+      transList = transList.where((element) => element.date.isAfter(headTime) && element.date.isBefore(now)).toList();
+    } else if (isFutureTab) {
+      transList = transList.where((element) => element.date.isStrictlyAfterDate(now)).toList();
       isFutureTab = false;
     } else {
       transList = transList.where((element) => element.date.year == int.parse(chooseTime)).toList();
