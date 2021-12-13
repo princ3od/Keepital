@@ -1,16 +1,62 @@
-# keepital
 
-A new Flutter project.
+# Ajent 
 
-## Getting Started
+A money management app. /
 
-This project is a starting point for a Flutter application.
+![INTRO](https://imgur.com/jaeL1q9.png)
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Multiple sign-in providers (Google, Facebook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Wallet management
+
+- Transaction/Recurring Transaction management
+
+- Budget management
+
+- Spending report
+
+- Spending Event management
+
+- Category management
+
+- Dark theme support
+
+- Multiple languages (en, vi)
+ 
+## Tech Stack
+
+**Client:** Flutter (Dart)
+
+**Server:** Firebase  
+
+**State Management:** GetX *(MVC model)*
+
+  
+## Installation 
+
+- Clone the project
+
+- Setup Firebase for project
+
+- Go to the project directory and run these commands:
+```bash
+  flutter pub get
+  
+  flutter run
+```
+- Enjoy!  
+
+---
+- Or get the **[APK](https://apkfab.com/keepital/com.glacial.keepital/apk)**
+## Authors
+
+- [Dương Bình Trọng](https://www.github.com/princ3od)
+- [Phạm Đức Hoàng](https://www.github.com/Duc-Hoang-UIT)  
+- [Trần Đặng Hoàng Anh](https://github.com/TranDangHoangAnh)
+- [Nguyễn Văn Huấn](https://github.com/Yud-Bet)
+
+  
+## Screenshots
+// coming soon
