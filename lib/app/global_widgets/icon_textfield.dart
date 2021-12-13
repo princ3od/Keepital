@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 
 class IconTextField extends StatelessWidget {
-  IconTextField({
-    Key? key,
-    required this.textEditingController,
-    this.hintText = '',
-    this.textSize = 12,
-    this.icon,
-    this.keyboardType
-  }) : super(key: key);
+  IconTextField({Key? key, required this.textEditingController, this.hintText = '', this.textSize = 12, this.icon, this.keyboardType}) : super(key: key);
 
   final TextEditingController textEditingController;
   final String hintText;
@@ -30,14 +23,23 @@ class IconTextField extends StatelessWidget {
         SizedBox(width: 8),
         Expanded(
           flex: 7,
-          child: TextField(
-            keyboardType: keyboardType,
-            controller: textEditingController,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: textSize),
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity - 0.1), fontSize: textSize),
-            ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  keyboardType: keyboardType,
+                  controller: textEditingController,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: textSize),
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                    hintStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: AppColors.textColor.withOpacity(AppColors.disabledTextOpacity - 0.1), fontSize: textSize),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              )
+            ],
           ),
         )
       ],

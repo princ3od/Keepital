@@ -503,13 +503,6 @@ class HomeController extends GetxController {
     isLoading.value = false;
   }
 
-  onUpdateWalletBalance() {
-    String id = DataService.currentUser!.currentWallet;
-    DataService.currentWallet.update((wallet) {
-      wallet?.amount = curUser.wallets[id]!.amount;
-    });
-  }
-
   double getTotalTransactionAmount() {
     double total = 0;
     for (var i = 0; i < transList.length; i++) {
