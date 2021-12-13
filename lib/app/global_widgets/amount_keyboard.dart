@@ -306,6 +306,7 @@ class _EnterAmountScreenState extends State<EnterAmountScreen> {
             ],
           ),
           alignment: Alignment.center,
+          // width: MediaQuery.of(context).size.width * 0.18,
           width: 70,
           margin: EdgeInsets.all(7),
           child: Text(
