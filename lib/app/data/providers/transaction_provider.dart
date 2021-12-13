@@ -50,7 +50,6 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
 
   @override
   Future<TransactionModel> fetch(String id) {
-    // TODO: implement fetch
     throw UnimplementedError();
   }
 
@@ -115,7 +114,6 @@ class TransactionProvider implements Firestoration<String, TransactionModel> {
 
   @override
   Future<TransactionModel> update(String id, TransactionModel obj) {
-    // TODO: implement update
     throw UnimplementedError();
   }
 

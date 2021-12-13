@@ -6,7 +6,6 @@ import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/app_colors.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
-import 'package:keepital/app/data/models/category.dart';
 import 'package:keepital/app/enums/app_enums.dart';
 import 'package:keepital/app/modules/report/report_controller.dart';
 import 'package:keepital/app/modules/report/screens/pie_chart_detail_screen.dart';
