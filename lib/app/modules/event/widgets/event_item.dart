@@ -9,11 +9,12 @@ import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/modules/event/event_controller.dart';
 
 class EventItem extends StatefulWidget {
-  const EventItem({required this.event, this.onMark, this.onEdit, this.onDelete});
+  const EventItem({required this.event, this.onMark, this.onEdit, this.onDelete, this.onPress});
   final Event event;
   final Function()? onMark;
   final Function()? onEdit;
   final Function()? onDelete;
+  final Function()? onPress;
 
   @override
   State<EventItem> createState() => _EventItemState();
@@ -24,7 +25,8 @@ class _EventItemState extends State<EventItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Container(
+        child: InkWell(
+      onTap: widget.onPress,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(

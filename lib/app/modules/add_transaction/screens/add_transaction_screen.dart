@@ -7,6 +7,7 @@ import 'package:keepital/app/core/utils/image_view.dart';
 import 'package:keepital/app/core/utils/utils.dart';
 import 'package:keepital/app/core/values/asset_strings.dart';
 import 'package:keepital/app/core/values/assets.gen.dart';
+import 'package:keepital/app/data/models/event.dart';
 import 'package:keepital/app/data/models/recurring_transaction.dart';
 import 'package:keepital/app/data/models/transaction.dart';
 import 'package:keepital/app/data/models/base_model.dart';
@@ -223,12 +224,22 @@ class AddTransactionScreen extends StatelessWidget {
           child: Column(
             children: [
               ClickableListItem(
-                onPressed: () {},
+                onPressed: () async {
+                  var result = await Get.toNamed(Routes.selectEvent);
+                  if (result is Event) {
+                    _controller.event = result;
+                    _controller.strEvent.value = result.name;
+                  } else {
+                    _controller.event = result;
+                    _controller.strEvent.value = '';
+                  }
+                },
                 leading: Image.asset(
                   AssetStringsPng.calendar,
                   color: Theme.of(context).iconTheme.color,
                 ),
                 hintText: 'hint_event'.tr,
+                text: _controller.strEvent.value,
               ),
               Obx(() => ClickableChipsInput(
                     onPressed: () async {
