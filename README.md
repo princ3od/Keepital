@@ -53,7 +53,7 @@ A money management app. /
 ## Authors
 
 - [Dương Bình Trọng](https://www.github.com/princ3od)
-- [Phạm Đức Hoàng](https://www.github.com/Duc-Hoang-UIT)  
+- [Phạm Đức Hoàng](https://github.com/PRID021)  
 - [Trần Đặng Hoàng Anh](https://github.com/TranDangHoangAnh)
 - [Nguyễn Văn Huấn](https://github.com/Yud-Bet)
 
